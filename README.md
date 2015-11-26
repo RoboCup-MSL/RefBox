@@ -1,5 +1,6 @@
 # RefBox2015
-Repository for the Referee-Box v2015 and related tools
+Repository for the Referee-Box v2015 and related tools.
+
 Requires [Processing 2.2.1](https://processing.org/download/?processing) for development.
 
 ## Directory Structure
