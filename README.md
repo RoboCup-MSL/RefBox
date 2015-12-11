@@ -9,3 +9,6 @@ Requires [Processing 2.2.1](https://processing.org/download/?processing) for dev
 
 ## How to report issues
 Please report any issues here: https://github.com/RoboCup-MSL/RefBox2015/issues
+
+## How to contribute
+Please refer to this guide: https://guides.github.com/activities/contributing-to-open-source/
