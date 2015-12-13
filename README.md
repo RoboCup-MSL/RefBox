@@ -4,6 +4,7 @@ Repository for the Referee-Box v2015 and related tools.
 Requires [Processing 2.2.1](https://processing.org/download/?processing) for development.
 
 ## Directory Structure
+* AudienceClient - Client application for Audience
 * mslrb2015 - the ref-box application
 * tools - directory to include any sort of tools and code-snippets related to the Referee-Box
 
