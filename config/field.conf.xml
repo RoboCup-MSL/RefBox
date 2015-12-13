@@ -1,0 +1,29 @@
+<FieldConfig version="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="field.conf.xsd">
+
+
+	<Field name="ball_diameter" value="220"/>
+	<Field name="border_line_thickness" value="125"/>
+	<Field name="center_circle_radius" value="1875"/>
+	<Field name="corner_arc_radius" value="625"/>
+	<Field name="field_length" value="17875"/>
+	<Field name="field_width" value="11375"/>
+	<Field name="goal_area_length" value="625"/>
+	<Field name="goal_area_width" value="3375"/>
+	<Field name="goal_band_width" value="1005"/>
+	<Field name="goal_height" value="1000"/>
+	<Field name="goal_length" value="500"/>
+	<Field name="goal_width" value="2000"/>
+	<Field name="line_thickness" value="125"/>
+	<Field name="lineset_type" value="0"/>
+	<Field name="penalty_area_length" value="2125"/>
+	<Field name="penalty_area_width" value="6375"/>
+	<Field name="penalty_marker_distance" value="3000"/>
+	<Field name="robot_radius" value="240"/>
+	<Field name="side_band_width" value="850"/>
+	<Field name="theNorth" value="-80"/>
+	<Field name="zone_slider" value="-2000"/>
+
+
+	<Parameter name="TestParameter" value="1.000000" comment=""/>
+
+</FieldConfig>
