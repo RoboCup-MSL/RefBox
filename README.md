@@ -13,3 +13,7 @@ Please report any issues here: https://github.com/RoboCup-MSL/RefBox2015/issues
 
 ## How to contribute
 Please refer to this guide: https://guides.github.com/activities/contributing-to-open-source/
+
+## How to run
+Running the Referee-box can be done with command: 
+"processing-java --sketch=path_to_mslrb2015_folder --output=path_to_output_folder --force --run"
