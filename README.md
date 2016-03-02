@@ -17,3 +17,13 @@ Please refer to this guide: https://guides.github.com/activities/contributing-to
 ## How to run
 Running the Referee-box can be done with command: 
 "processing-java --sketch=path_to_mslrb2015_folder --output=path_to_output_folder --force --run"
+
+## How to connect
+
+### Connecting as a team basestation
+
+Use the basestation port (default is 28097, can be configured in config.txt)
+
+### Connecting as a client
+
+Connect to the score server port (default is 12345, can be configured in config.txt)
