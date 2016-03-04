@@ -237,7 +237,7 @@ static class StateMachine
         gsCurrent = nextGS;
         gsPrev = saveGS;
         
-        println("gs: " + gsPrev.getValue() + " -> " + nextGS.getValue());
+        //println("gs: " + gsPrev.getValue() + " -> " + nextGS.getValue());
         
         if(gsCurrent.getValue() != gsPrev.getValue())
         {
