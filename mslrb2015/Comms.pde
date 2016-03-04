@@ -157,15 +157,115 @@ public static void checkBasestationsMessages()
               whatClientSaid = whatClientSaid.substring(1);
           }
           
-          try
+          // JSON Validation
+          boolean ok = true;
+          int ageMs = 0;
+          String dummyFieldString;
+          org.json.JSONArray dummyFieldJsonArray;
+          try // Check for malformed JSON
           {
             t.worldstate_json = new org.json.JSONObject(t.wsBuffer);
-            int ageMs = t.worldstate_json.getInt("ageMs");
-            t.logWorldstate(t.wsBuffer,ageMs);
-            
+          } catch(JSONException e) {
+            String errorMsg = "ERROR malformed JSON (team=" + t.shortName + ") : " + t.wsBuffer;
+            println(errorMsg);
+            ok = false;
+          }
+          
+          if(ok)
+          {
+            try // Check for "type" key
+            {
+              String type = t.worldstate_json.getString("type");
+              
+              // type must be "worldstate"
+              if(!type.equals("worldstate"))
+              {
+                String errorMsg = "ERROR key \"type\" is not \"worldstate\" (team=" + t.shortName + ") : " + t.wsBuffer;
+                println(errorMsg);
+                ok = false;
+              }
             } catch(JSONException e) {
-              if(t == teamA) println("ERROR from teamA : " + t.wsBuffer);
-              else if(t == teamB) println("ERROR from teamB : " + t.wsBuffer);
+              String errorMsg = "ERROR missing key \"type\" (team=" + t.shortName + ") : " + t.wsBuffer;
+              println(errorMsg);
+              ok = false;
+            }
+          }
+          
+          if(ok)
+          {
+            try // Check for "ageMs" key
+            {
+              ageMs = t.worldstate_json.getInt("ageMs");
+            } catch(JSONException e) {
+              String errorMsg = "WS-ERROR missing key \"ageMs\" (team=" + t.shortName + ") : " + t.wsBuffer;
+              println(errorMsg);
+              ok = false;
+            }
+          }
+          
+          if(ok)
+          {
+            try // Check for "teamName" key
+            {
+              dummyFieldString = t.worldstate_json.getString("teamName");
+            } catch(JSONException e) {
+              String errorMsg = "WS-ERROR missing key \"teamName\" (team=" + t.shortName + ") : " + t.wsBuffer;
+              println(errorMsg);
+              ok = false;
+            }
+          }
+          
+          if(ok)
+          {
+            try // Check for "intention" key
+            {
+              dummyFieldString = t.worldstate_json.getString("intention");
+            } catch(JSONException e) {
+              String errorMsg = "WS-ERROR missing key \"intention\" (team=" + t.shortName + ") : " + t.wsBuffer;
+              println(errorMsg);
+              ok = false;
+            }
+          }
+          
+          if(ok)
+          {
+            try // Check for "robots" key
+            {
+              dummyFieldJsonArray = t.worldstate_json.getJSONArray("robots");
+            } catch(JSONException e) {
+              String errorMsg = "WS-ERROR key \"robots\" is missing or is not array (team=" + t.shortName + ") : " + t.wsBuffer;
+              println(errorMsg);
+              ok = false;
+            }
+          }
+          
+          if(ok)
+          {
+            try // Check for "balls" key
+            {
+              dummyFieldJsonArray = t.worldstate_json.getJSONArray("balls");
+            } catch(JSONException e) {
+              String errorMsg = "WS-ERROR key \"balls\" is missing or is not array (team=" + t.shortName + ") : " + t.wsBuffer;
+              println(errorMsg);
+              ok = false;
+            }
+          }
+          
+          if(ok)
+          {
+            try // Check for "obstacles" key
+            {
+              dummyFieldJsonArray = t.worldstate_json.getJSONArray("obstacles");
+            } catch(JSONException e) {
+              String errorMsg = "WS-ERROR key \"obstacles\" is missing or is not array (team=" + t.shortName + ") : " + t.wsBuffer;
+              println(errorMsg);
+              ok = false;
+            }
+          }
+          
+          if(ok)
+          {
+            t.logWorldstate(t.wsBuffer,ageMs);
           }
           t.wsBuffer="";      
           //println("NEW message");
@@ -176,8 +276,11 @@ public static void checkBasestationsMessages()
         //println("MESSAGE from " + thisClient.ip() + ": " + whatClientSaid);
         
         // Avoid filling RAM with buffering (for example team is not sending the '\0' character)
-        if(t.wsBuffer.length() > 100000)
+        if(t.wsBuffer.length() > 100000) {
           t.wsBuffer = "";
+          String errorMsg = "ERROR JSON not terminated with '\\0' (team=" + t.shortName + ")";
+          println(errorMsg);
+        }
       }
       
       
