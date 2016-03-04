@@ -58,7 +58,7 @@ void setbackground() {
 
   //top cyan
   strokeWeight(2);
-  fill(Config.CyanTeamColor); 
+  fill(Config.defaultCyanTeamColor); 
   stroke(0);
   beginShape();
   vertex(0, 0);
@@ -69,7 +69,7 @@ void setbackground() {
   
   //top magenta
   strokeWeight(2);
-  fill(Config.MagentaTeamColor); 
+  fill(Config.defaultMagentaTeamColor); 
   stroke(0);
   beginShape();
   vertex(width, 0);
@@ -125,5 +125,20 @@ void setbackground() {
     line(0,i,i,0);
    
   backgroundImage=get();
+}
+
+public static color string2color(String hex_string)
+{
+  color col = 0;
+  if (trim(hex_string).charAt(0)=='#')  col=unhex("FF"+trim(hex_string).substring(1));
+  return col;
+}
+
+public static String color2string(color col)
+{
+  String ret;
+  ret = "" + hex(col);
+  ret = "#" + ret.substring(2);
+  return ret;
 }
 

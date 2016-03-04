@@ -7,9 +7,9 @@
 import processing.net.*;
 import org.json.*;
 
-public static final String MSG_VERSION="Beta 0.9.1";
+public static final String MSG_VERSION="Beta 0.9.2";
 public static final String MSG_VERSION_MSG="";
-public static final String MSG_WINDOWTITLE="MSL RefBox 2015 _ "+MSG_VERSION+" "+MSG_VERSION_MSG;
+public static final String MSG_WINDOWTITLE="MSL RefBox 2015 - "+MSG_VERSION+" ("+MSG_VERSION_MSG+")";
 public static final String MSG_HALFTIME="End Current Part ?";
 public static final String MSG_RESET="Reset Game ?";
 public static final int appFrameRate = 15;
@@ -53,7 +53,7 @@ public static Table teamstable;
 public static TableRow teamselect;
 public static long updateScoreClientslasttime=0;
 public static long tstartTime=0, tsplitTime=0, tprevsplitTime=0;
-public static boolean TESTMODE=false, stopsplittimer=true, BACKGROUNDon=true, REMOTECONTROLENABLE=false, VOICECOACH=false, ENABLEREMOTE=true;
+public static boolean TESTMODE=false, stopsplittimer=true, BACKGROUNDon=true, VOICECOACH=false, REMOTECONTROLENABLE=false;
 public static char LastKickOff='.';
 public static String[] Last5cmds= { ".", ".", ".", ".", "." };
 public static String LogFileName;
@@ -87,19 +87,19 @@ void setup() {
   
   //==============================================
   //=== Modules Initialization
-  Config.Load(this, "config.txt");                                      // Load config file
+  Config.Load(this, "config.json");                                     // Load config file
   Log.init(this);                                                       // Init Log module
   comms_initDescriptionDictionary();                                    // Initializes the dictionary for communications with the basestations 
   
   setbackground();                                                      // Load background
 
-  scoreClients = new ScoreClients(this, Config.SCORESERVERPORT);        // Load score clients server
-  BaseStationServer = new Server(this, Config.BASESTATIONSERVERPORT);   // Load basestations server
-  mslRemote = new MSLRemote(this, Config.REMOTECONTROLPORT);            // Load module for MSL remote control
+  scoreClients = new ScoreClients(this, Config.scoreServerPort);        // Load score clients server
+  BaseStationServer = new Server(this, Config.basestationServerPort);   // Load basestations server
+  mslRemote = new MSLRemote(this, Config.remoteServerPort);             // Load module for MSL remote control
   
   println("This IP: "+Server.ip());
-  teamA = new Team(Config.CyanTeamColor,true);                          // Initialize Cyan team (Team A)
-  teamB = new Team(Config.MagentaTeamColor,false);                      // Initialize Magenta team (Team B)
+  teamA = new Team(Config.defaultCyanTeamColor,true);                   // Initialize Cyan team (Team A)
+  teamB = new Team(Config.defaultMagentaTeamColor,false);               // Initialize Magenta team (Team B)
   teamstable = loadTable("msl_teams.csv", "header");                    // Load teams table
   
   //==============================================
@@ -107,6 +107,8 @@ void setup() {
   initGui();
   RefreshButonStatus1();
   resetStartTime();
+  
+  frameRate(appFrameRate);
 }
 
 void draw() {
@@ -120,7 +122,7 @@ void draw() {
 
   //update basestations data   
   long t=System.currentTimeMillis();
-  if ( (t-updateScoreClientslasttime) >= Config.ScoreClientsUpdate_frequency_ms ) scoreClients.update_tTeams(gametime,gameruntime);
+  if ( (t-updateScoreClientslasttime) >= Config.scoreClientsUpdatePeriod_ms ) scoreClients.update_tTeams(gametime,gameruntime);
   //verifyremotecontrol();
   mslRemote.checkMessages();
   checkBasestationsMessages();
@@ -177,8 +179,7 @@ void draw() {
     Popup.draw();
   }
 
-  //==========================================
-  frameRate(appFrameRate);    
+  //==========================================   
 }
 
 void exit() {
@@ -205,22 +206,22 @@ void initGui()
   bCommoncmds[1].setcolor(#FC0303, -1, -1, #FC0303);  //Stop  /red 
 
   for (int i=0; i<6; i++) {
-    bTeamAcmds[i] = new Button(offsetLeft.x, offsetLeft.y+64*i, Teamcmds[i], 255, -1, 255, Config.CyanTeamColor);
+    bTeamAcmds[i] = new Button(offsetLeft.x, offsetLeft.y+64*i, Teamcmds[i], 255, -1, 255, Config.defaultCyanTeamColor);
     bTeamAcmds[i].cmd = "" + cCTeamcmds[i];
     bTeamAcmds[i].msg = Teamcmds[i];
     
-    bTeamBcmds[i] = new Button(offsetRight.x, offsetRight.y+64*i, Teamcmds[i], 255, -1, 255, Config.MagentaTeamColor);
+    bTeamBcmds[i] = new Button(offsetRight.x, offsetRight.y+64*i, Teamcmds[i], 255, -1, 255, Config.defaultMagentaTeamColor);
     bTeamBcmds[i].cmd = "" + cMTeamcmds[i];
     bTeamBcmds[i].msg = Teamcmds[i];
   }
 
-  bTeamAcmds[6] = new Button(offsetLeft.x-108, offsetLeft.y, Teamcmds[6], Config.CyanTeamColor, -1, 255, Config.CyanTeamColor);   // Goal A
-  bTeamAcmds[7] = new Button(offsetLeft.x-108, offsetLeft.y+64*4, Teamcmds[7], Config.CyanTeamColor, -1, 255, Config.CyanTeamColor); // Repair A
+  bTeamAcmds[6] = new Button(offsetLeft.x-108, offsetLeft.y, Teamcmds[6], Config.defaultCyanTeamColor, -1, 255, Config.defaultCyanTeamColor);   // Goal A
+  bTeamAcmds[7] = new Button(offsetLeft.x-108, offsetLeft.y+64*4, Teamcmds[7], Config.defaultCyanTeamColor, -1, 255, Config.defaultCyanTeamColor); // Repair A
   bTeamAcmds[8] = new Button(offsetLeft.x-130, offsetLeft.y+64*5, "", #FC0303, #810303, 255, #FC0303);  //red card A
   bTeamAcmds[9] = new Button(offsetLeft.x-84, offsetLeft.y+64*5, "", #FEFF00, #808100, 255, #FEFF00);  //yellow card A
   
-  bTeamBcmds[6] = new Button(offsetRight.x+108, offsetRight.y, Teamcmds[6], Config.MagentaTeamColor, -1, 255, Config.MagentaTeamColor);  //Goal B
-  bTeamBcmds[7] = new Button(offsetRight.x+108, offsetRight.y+64*4, Teamcmds[7], Config.MagentaTeamColor, -1, 255, Config.MagentaTeamColor);//Repair B
+  bTeamBcmds[6] = new Button(offsetRight.x+108, offsetRight.y, Teamcmds[6], Config.defaultMagentaTeamColor, -1, 255, Config.defaultMagentaTeamColor);  //Goal B
+  bTeamBcmds[7] = new Button(offsetRight.x+108, offsetRight.y+64*4, Teamcmds[7], Config.defaultMagentaTeamColor, -1, 255, Config.defaultMagentaTeamColor);//Repair B
   bTeamBcmds[8] = new Button(offsetRight.x+130, offsetRight.y+64*5, "", #FC0303, #810303, 255, #FC0303);  //red card B
   bTeamBcmds[9] = new Button(offsetRight.x+84, offsetRight.y+64*5, "", #FEFF00, #808100, 255, #FEFF00);  //yellow card B
   
@@ -243,12 +244,12 @@ void initGui()
   bTeamBcmds[8].setdim(32, 48);  //red C resize
   bTeamBcmds[9].setdim(32, 48);  //yellow C resize
 
-  bPopup[0] = new Button(0, 0, "y", 255, Config.CyanTeamColor, 0, Config.CyanTeamColor);
-  bPopup[1] = new Button(0, 0, "n", 255, Config.MagentaTeamColor, 0, Config.MagentaTeamColor);
+  bPopup[0] = new Button(0, 0, "y", 255, Config.defaultCyanTeamColor, 0, Config.defaultCyanTeamColor);
+  bPopup[1] = new Button(0, 0, "n", 255, Config.defaultMagentaTeamColor, 0, Config.defaultMagentaTeamColor);
 
   bSlider[0]=new BSliders("Testmode",310,424,true, TESTMODE);
   bSlider[1]=new BSliders("Log",310+132,424,true, Log.enable);
-  bSlider[2]=new BSliders("Remote",310,424+32,ENABLEREMOTE, REMOTECONTROLENABLE);
+  bSlider[2]=new BSliders("Remote",310,424+32,Config.remoteControlEnable, REMOTECONTROLENABLE);
   bSlider[3]=new BSliders("Coach",310+132,424+32,false, VOICECOACH);
   
   buttonCSTOPactivate();

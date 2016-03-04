@@ -21,7 +21,7 @@ static class Log
     LogFileName=getTimedName()+".msl";  
     screenlog("Logfile "+LogFileName);
     screenlog("Logging is "+(Log.enable ? "enabled":"disabled"));
-    println("LOG_FILENAME "+LogFileName);
+    //println("LOG_FILENAME "+LogFileName);
   }
   
   public static void appendTextToFile(String filename, String text) {

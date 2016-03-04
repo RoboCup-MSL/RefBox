@@ -341,7 +341,7 @@ static class StateMachine
       send_to_basestation("" + COMM_RESET);
       
       BaseStationServer.stop();
-      BaseStationServer = new Server(mainApplet, Config.BASESTATIONSERVERPORT);
+      BaseStationServer = new Server(mainApplet, Config.basestationServerPort);
   }
   
   public static boolean is1stHalf()

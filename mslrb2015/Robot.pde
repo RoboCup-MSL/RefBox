@@ -34,11 +34,11 @@ class Robot {
     stroke(c); 
     strokeWeight(2);
     color rcolor=255;
-    if (this.state.equals("repair")) rcolor=Config.RobotRepairColor;
-    if (this.state.equals("yellow")) rcolor=Config.RobotYellowCardColor;  //yellow  
-    if (this.state.equals("doubleyellow")) rcolor=Config.RobotDoubleYellowCardColor;  //doubleyellow  
-    if (this.state.equals("play")) rcolor=Config.RobotPlayColor;  //white (very light-green)
-    if (this.state.equals("red")) rcolor=Config.RobotRedCardColor;  //red
+    if (this.state.equals("repair")) rcolor=Config.robotRepairColor;
+    if (this.state.equals("yellow")) rcolor=Config.robotYellowCardColor;  //yellow  
+    if (this.state.equals("doubleyellow")) rcolor=Config.robotDoubleYellowCardColor;  //doubleyellow  
+    if (this.state.equals("play")) rcolor=Config.robotPlayColor;  //white (very light-green)
+    if (this.state.equals("red")) rcolor=Config.robotRedCardColor;  //red
     fill(rcolor);
     float tx=offsetRight.x+88+this.guix;
     float ty=offsetLeft.y+this.guiy;

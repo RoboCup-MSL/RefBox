@@ -47,12 +47,12 @@ class Team {
  
   void resetname(){
     if (this.isCyan) {
-      this.shortName=Config.CyanTeamShortName;
-      this.longName=Config.CyanTeamLongName;
+      this.shortName=Config.defaultCyanTeamShortName;
+      this.longName=Config.defaultCyanTeamLongName;
     }
     else {
-      this.shortName=Config.MagentaTeamShortName;
-      this.longName=Config.MagentaTeamLongName;
+      this.shortName=Config.defaultMagentaTeamShortName;
+      this.longName=Config.defaultMagentaTeamLongName;
     }
   }
   
@@ -103,7 +103,7 @@ class Team {
 //*******************************************************************
 //*******************************************************************
   void repair_timer_start() { 
-    this.RepairOut=getSplitTime()+Config.REPAIRPENALTYms;
+    this.RepairOut=getSplitTime()+Config.repairPenalty_ms;
   }
   
   void repair_timer_check() {
@@ -120,7 +120,7 @@ class Team {
   }
   
   void double_yellow_timer_start() {
-    r[5-DoubleYellowCardCount].DoubleYellowOut=getGameTime()+Config.DOUBLEYELLOWPENALTYms;  
+    r[5-DoubleYellowCardCount].DoubleYellowOut=getGameTime()+Config.doubleYellowPenalty_ms;  
   }
   
   void double_yellow_timer_check() {
@@ -224,8 +224,8 @@ class Team {
     //team names
     String sn=shortName;
     String ln=longName;
-    if (sn.length()>Config.MAXSHORTNAME) sn=shortName.substring(0, Config.MAXSHORTNAME);     
-    if (ln.length()>Config.MAXLONGNAME) ln=longName.substring(0, Config.MAXLONGNAME);     
+    if (sn.length()>Config.maxShortName) sn=shortName.substring(0, Config.maxShortName);
+    if (ln.length()>Config.maxLongName) ln=longName.substring(0, Config.maxLongName);     
     rectMode(CENTER);
     fill(255);
     textFont(teamFont);

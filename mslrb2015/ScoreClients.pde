@@ -33,12 +33,12 @@ class ScoreClients
     
     String snA=teamA.shortName;
     String lnA=teamA.longName;
-    if (snA.length()>Config.MAXSHORTNAME) snA=teamA.shortName.substring(0, Config.MAXSHORTNAME);
-    if (lnA.length()>Config.MAXLONGNAME) lnA=teamA.longName.substring(0, Config.MAXLONGNAME);     
+    if (snA.length()>Config.maxShortName) snA=teamA.shortName.substring(0, Config.maxShortName);
+    if (lnA.length()>Config.maxLongName) lnA=teamA.longName.substring(0, Config.maxLongName);     
     String snB=teamB.shortName;
     String lnB=teamB.longName;
-    if (snB.length()>Config.MAXSHORTNAME) snB=teamB.shortName.substring(0, Config.MAXSHORTNAME);     
-    if (lnB.length()>Config.MAXLONGNAME) lnB=teamB.longName.substring(0, Config.MAXLONGNAME);     
+    if (snB.length()>Config.maxShortName) snB=teamB.shortName.substring(0, Config.maxShortName);     
+    if (lnB.length()>Config.maxLongName) lnB=teamB.longName.substring(0, Config.maxLongName);     
 
     String gamestateText = StateMachine.GetCurrentGameStateString();
     
