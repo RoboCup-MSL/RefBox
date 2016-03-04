@@ -1,0 +1,157 @@
+{
+	"name": "MSLWMD",
+	"description": "MSL World Model data",
+	"type": "object",
+	"properties": {
+		"type": {
+			"type": "string",
+			"description": "must be worldstate"
+		},
+		"teamName": {
+			"type": "string",
+			"description": "name of the team"
+		},
+		"intention": {
+			"type": "string",
+			"description": "team intention in English e.g. [attack]"
+		},
+		"robots": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "number",
+						"description": "robot number"
+					},
+					"pose": {
+						"type": "array",
+						"items": {
+							"type": ["number", "null"],
+							"description": "robot x position",
+							"type": ["number", "null"],
+							"description": "robot y position",
+							"type": ["number", "null"],
+							"description": "robot heading "
+						}
+					},
+					"targetPose": {
+						"type": "array",
+						"items": {
+							"type": ["number", "null"],
+							"description": "robot target x position",
+							"type": ["number", "null"],
+							"description": "robot target y position",
+							"type": ["number", "null"],
+							"description": "robot target heading (teta)"
+						}
+					},
+					"velocity": {
+						"type": "array",
+						"items": {
+							"type": ["number", "null"],
+							"description": "robot x velocity component in m/s",
+							"type": ["number", "null"],
+							"description": "robot y velocity component in m/s",
+							"type": ["number", "null"],
+							"description": "robot angular velocity in rad / s "
+						}
+					},
+					"intention": {
+						"type": "string",
+						"description": "robot intention, in English, e.g.(pass the ball)"
+					},
+					"batteryLevel": {
+						"type": "number",
+						"description": "battery level in percentage, e.g. 95.5"
+					},
+					"ballEngaged": {
+						"type": "number",
+						"description": "ball engaged status, either 0 or 1"
+					}
+				}
+			}
+		},
+		"balls": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"position": {
+						"type": "array",
+						"items": {
+							"type": ["number", "null"],
+							"description": "Ball x position",
+							"type": ["number", "null"],
+							"description": "Ball y position",
+							"type": ["number", "null"],
+							"description": "Ball z position"
+						}
+					},
+					"velocity": {
+						"type": "array",
+						"items": {
+							"type": ["number", "null"],
+							"description": "Ball x velocity component in m/s",
+							"type": ["number", "null"],
+							"description": "Ball y velocity component in m/s",
+							"type": ["number", "null"],
+							"description": "Ball z velocity component in m/s"
+						}
+					},
+					"confidence": {
+						"type": "number",
+						"description": "confidence level [0, 1]"
+					}
+				}
+			}
+		},
+		"obstacles": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"position": {
+						"type": "array",
+						"items": {
+							"type": ["number", "null"],
+							"description": "Obstacle x position",
+							"type": ["number", "null"],
+							"description": "Obstacle y position"
+						}
+					},
+					"velocity": {
+						"type": "array",
+						"items": {
+							"type": ["number", "null"],
+							"description": "obstacle x velocity component in m/s",
+							"type": ["number", "null"],
+							"description": "obstacle y velocity component in m/s"
+						}
+					},
+					"radius": {
+						"type": "number",
+						"description": "obstacle radius in meters"
+					},
+					"confidence": {
+						"type": "number",
+						"description": "confidence level [0, 1]"
+					}
+				}
+			}
+		},
+		"ageMs": {
+			"type": "number",
+			"description": "age of information in ms"
+		}
+	},
+	"required": [
+		"type",
+		"teamName",
+		"intention",
+		"robots",
+		"balls",
+		"obstacles",
+		"ageMs"
+	]
+}
