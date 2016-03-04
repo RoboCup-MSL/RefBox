@@ -25,8 +25,6 @@ public static void event_message_v2(ButtonsEnum btn, boolean on)
   if(btn.isCyan()) t = teamA;
   if(btn.isMagenta()) t = teamB;
   
-  String teamName = (t != null) ? t.longName : "";
-  
   if(cmd != null && msg != null)
   {
     send_event_v2(cmd, msg, t);

@@ -184,11 +184,17 @@ void bevent(char group, int pos) {
     
     StateMachine.Update(clickedButton, btnOn);
     
-    if(clickedButton.isCommon())
+    // Special cases, that send onlt event message on game change (flags)
+    if( clickedButton.isYellow() || clickedButton.isRed() || clickedButton.isRepair() )
     {
-      event_message_v2(clickedButton, true);
+      // Do literally nothing...
     }else{
-      event_message_v2(clickedButton, buttonFromEnum(clickedButton).isActive());
+      if(clickedButton.isCommon())
+      {
+        event_message_v2(clickedButton, true);
+      }else{
+        event_message_v2(clickedButton, buttonFromEnum(clickedButton).isActive());
+      }
     }
   }
 }

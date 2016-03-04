@@ -6,13 +6,16 @@ class Team {
   String unicastIP, multicastIP;
   color c=(#000000);
   boolean isCyan;  //default: cyan@left
-  boolean newYellowCard, newRedCard, newRepair, newDoubleYellow,newPenaltyKick ; 
+  boolean newYellowCard, newRedCard, newRepair, newDoubleYellow, newPenaltyKick, newGoal; // Pending commands, effective only on gamestate change
   int Score, RepairCount, RedCardCount, YellowCardCount, DoubleYellowCardCount, PenaltyCount;
   long RepairOut;
   int tableindex=0;
   org.json.JSONObject worldstate_json;
   String wsBuffer;
   Robot[] r=new Robot[5];
+
+
+  boolean pendingGoal;
   
   File logFile;
   PrintWriter logFileOut;
@@ -170,26 +173,41 @@ class Team {
       this.RepairCount++; 
       this.repair_timer_start();
       this.newRepair=false;
+
+      // Hack: send command only on game change
+      if(this.isCyan) event_message_v2(ButtonsEnum.BTN_C_REPAIR, true);
+      else event_message_v2(ButtonsEnum.BTN_M_REPAIR, true);
     }
     if (this.newYellowCard) {
       this.YellowCardCount=1;
       this.newYellowCard=false;
+
+      // Hack: send command only on game change
+      if(this.isCyan) event_message_v2(ButtonsEnum.BTN_C_YELLOW, true);
+      else event_message_v2(ButtonsEnum.BTN_M_YELLOW, true);
     }
     if (this.newRedCard) {
       this.RedCardCount++;
       this.newRedCard=false;
+
+      // Hack: send command only on game change
+      if(this.isCyan) event_message_v2(ButtonsEnum.BTN_C_RED, true);
+      else event_message_v2(ButtonsEnum.BTN_M_RED, true);
     }
     if (this.newDoubleYellow) {
       this.DoubleYellowCardCount++;
       this.YellowCardCount=0;
       this.double_yellow_timer_start();
       this.newDoubleYellow=false;
+
+      if(this.isCyan) send_event_v2(""+COMM_DOUBLE_YELLOW_IN_CYAN, "Double Yellow", this);
+      else send_event_v2(""+COMM_DOUBLE_YELLOW_IN_MAGENTA, "Double Yellow", this);
     }
     if (this.newPenaltyKick) {
       this.PenaltyCount++;
       this.newPenaltyKick=false;
     }
-   
+  
   }
   
 //*******************************************************************

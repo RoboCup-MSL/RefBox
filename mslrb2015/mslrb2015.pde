@@ -7,8 +7,8 @@
 import processing.net.*;
 import org.json.*;
 
-public static final String MSG_VERSION="Beta 0.9";   
-public static final String MSG_VERSION_MSG="";    
+public static final String MSG_VERSION="Beta 0.9.1";
+public static final String MSG_VERSION_MSG="";
 public static final String MSG_WINDOWTITLE="MSL RefBox 2015 _ "+MSG_VERSION+" "+MSG_VERSION_MSG;
 public static final String MSG_HALFTIME="End Current Part ?";
 public static final String MSG_RESET="Reset Game ?";
@@ -213,8 +213,9 @@ void initGui()
     bTeamBcmds[i].cmd = "" + cMTeamcmds[i];
     bTeamBcmds[i].msg = Teamcmds[i];
   }
-  bTeamAcmds[6] = new Button(offsetLeft.x-108, offsetLeft.y, Teamcmds[6], Config.CyanTeamColor, -1, 255, Config.CyanTeamColor);  
-  bTeamAcmds[7] = new Button(offsetLeft.x-108, offsetLeft.y+64*4, Teamcmds[7], Config.CyanTeamColor, -1, 255, Config.CyanTeamColor);
+
+  bTeamAcmds[6] = new Button(offsetLeft.x-108, offsetLeft.y, Teamcmds[6], Config.CyanTeamColor, -1, 255, Config.CyanTeamColor);   // Goal A
+  bTeamAcmds[7] = new Button(offsetLeft.x-108, offsetLeft.y+64*4, Teamcmds[7], Config.CyanTeamColor, -1, 255, Config.CyanTeamColor); // Repair A
   bTeamAcmds[8] = new Button(offsetLeft.x-130, offsetLeft.y+64*5, "", #FC0303, #810303, 255, #FC0303);  //red card A
   bTeamAcmds[9] = new Button(offsetLeft.x-84, offsetLeft.y+64*5, "", #FEFF00, #808100, 255, #FEFF00);  //yellow card A
   
@@ -229,6 +230,13 @@ void initGui()
     bTeamBcmds[i].cmd = "" + cMTeamcmds[i];
     bTeamBcmds[i].msg = Teamcmds[i];
   }
+
+  // OFF-state goal button (subtract goal)
+  bTeamAcmds[6].msg_off = "Goal-";
+  bTeamAcmds[6].cmd_off = "" + COMM_SUBGOAL_CYAN;
+  bTeamBcmds[6].msg_off = "Goal-";
+  bTeamBcmds[6].cmd_off = "" + COMM_SUBGOAL_MAGENTA;
+  
 
   bTeamAcmds[8].setdim(32, 48); 
   bTeamAcmds[9].setdim(32, 48); 

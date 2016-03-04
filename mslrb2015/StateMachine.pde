@@ -217,6 +217,13 @@ static class StateMachine
           if(btnCurrent.isStop())
             nextGS = SwitchRunningStopped();
           break;
+          
+        case GS_ENDGAME:
+          if(btnCurrent.isEndPart()){
+            println("RESETING");
+            reset();
+          }
+          break;
       }
       
       if(nextGS != null)
@@ -309,7 +316,10 @@ static class StateMachine
   
   public static String GetCurrentGameStateString()
   {
-    return gsCurrent.getName();
+    if(gsCurrent != null)
+      return gsCurrent.getName();
+    else
+      return "";
   }
   
   public static void reset()
@@ -356,69 +366,8 @@ static class StateMachine
 }
 
 
-
-
-
-
-
-
-
-
 void StateMachineCheck() {
-  //println("state machine check..."+CurrentGameState);
-  //if (Popup.isEnabled()) Popup.check();
-  
   StateMachine.StateMachineRefresh();
-  
-/*
-  if (CurrentGameState==0) {  //"Pre-Game"
-    bSlider[0].enable();
-    if (bTeamAcmds[0].isActive() || bTeamBcmds[0].isActive()) {  //kickoff
-      CurrentGameState=1;
-      bSlider[0].disable();
-      teamA.reset();
-      teamB.reset();
-      LastKickOff=(bTeamAcmds[0].isActive()?'a':'b');
-      resetStartTime();
-      send_to_basestation(COMM_FIRST_HALF);
-    }
-  } else if (CurrentGameState==1) {  //"Game - 1st Half"
-      checkflags();
-  } else if (CurrentGameState==2) {  //"Game - Halftime"
-    if (bTeamAcmds[0].isActive() || bTeamBcmds[0].isActive()) { //kickoff
-      CurrentGameState=3;
-      LastKickOff=(bTeamAcmds[0].isActive()?'a':'b');
-      resetStartTime();
-      doubleyellowtimercheckresume();
-      send_to_basestation(COMM_SECOND_HALF);
-    }
-  } else if (CurrentGameState==3) {  //"Game - 2nd Half"
-      checkflags();
-  } else if (CurrentGameState==4) {  //"EndGame"
-    if (bTeamAcmds[0].isActive() || bTeamBcmds[0].isActive()) {  //kickoff
-      CurrentGameState=5;
-      LastKickOff=(bTeamAcmds[0].isActive()?'a':'b');
-      resetStartTime();
-      doubleyellowtimercheckresume();
-      send_to_basestation(COMM_FIRST_HALF_OVERTIME);
-    }
-  } else if (CurrentGameState==5) {  //"Overtime - 1st"
-      checkflags();
-  } else if (CurrentGameState==6) {  //"Overtime - Switch"
-    if (bTeamAcmds[0].isActive() || bTeamBcmds[0].isActive()) { //kickoff
-      CurrentGameState=7;
-      resetStartTime();
-      doubleyellowtimercheckresume();
-      send_to_basestation(COMM_SECOND_HALF_OVERTIME);
-    }
-  } else if (CurrentGameState==7) {  //"Overtime - 2nd"
-      checkflags();
-  } else if (CurrentGameState==8) {  //"Penalty"
-  } else if (CurrentGameState==9) {  //"GameOver"
-    send_to_basestation(COMM_GAMEOVER);
-    //resetgame();
-  }
-*/
 }
 
 //==============
