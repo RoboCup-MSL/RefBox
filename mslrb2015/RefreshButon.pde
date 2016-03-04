@@ -61,6 +61,7 @@ void RefreshButonStatus1() {
       buttonBdisableAll();  //team B commands
       buttonCdisable();     //common commands
       
+      // Alternate Kick-Offs
       boolean enableCyan = StateMachine.firstKickoffCyan;
       if(StateMachine.GetCurrentGameState() == GameStateEnum.GS_HALFTIME || StateMachine.GetCurrentGameState() == GameStateEnum.GS_HALFTIME_OVERTIME)
         enableCyan = !enableCyan;
@@ -68,7 +69,6 @@ void RefreshButonStatus1() {
       if(StateMachine.setpiece)
       {
         buttonFromEnum(StateMachine.setpiece_button).activate();
-        
         buttonFromEnum(ButtonsEnum.BTN_START).enable();
         buttonFromEnum(ButtonsEnum.BTN_STOP).enable();
       }else{
@@ -84,9 +84,6 @@ void RefreshButonStatus1() {
         buttonFromEnum(ButtonsEnum.BTN_START).disable();
         buttonFromEnum(ButtonsEnum.BTN_STOP).activate();
       }
-      
-      if(StateMachine.GetCurrentGameState() == GameStateEnum.GS_OVERTIME)
-        buttonFromEnum(ButtonsEnum.BTN_RESET).enable();
       
       bCommoncmds[CMDID_COMMON_PARKING].enable();
       
@@ -121,6 +118,7 @@ void RefreshButonStatus1() {
       buttonCenable();     //common commands
       
       bCommoncmds[CMDID_COMMON_DROP_BALL].disable();
+      bCommoncmds[CMDID_COMMON_HALFTIME].disable();
       buttonCSTARTdisable();
       buttonCSTOPactivate();
       break;
