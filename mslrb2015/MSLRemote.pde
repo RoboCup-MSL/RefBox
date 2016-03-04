@@ -210,7 +210,7 @@ class MSLRemote
     msg += "}";
     msg += (char)0x00;
     
-    println(msg);
+    //println(msg);
     
     writeMsg(msg);
   }
