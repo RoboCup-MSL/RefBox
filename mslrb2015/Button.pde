@@ -103,12 +103,19 @@ class Button {
     this.HOVER=false;
   }
 
-  void toggle() {
+  public void toggle() {
     if (this.isEnabled()) {
-      if ( this.isActive() ) this.bStatus="normal";
+      if ( this.isActive() ){
+        this.bStatus="normal";
+        if(StateMachine.setpiece && this.Label == Teamcmds[6]) {
+          StateMachine.ResetSetpiece();
+          send_to_basestation(cCommcmds[1]);
+        }
+      }
       else this.bStatus="active";
     }
   }
+
 
   void setcolor(color c1, color c2, color c3, color c4) {
     this.cstroke=c1;
@@ -184,7 +191,7 @@ void bevent(char group, int pos) {
     
     StateMachine.Update(clickedButton, btnOn);
     
-    // Special cases, that send onlt event message on game change (flags)
+    // Special cases, that send only event message on game change (flags)
     if( clickedButton.isYellow() || clickedButton.isRed() || clickedButton.isRepair() )
     {
       // Do literally nothing...

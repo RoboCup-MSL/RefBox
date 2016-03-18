@@ -156,24 +156,46 @@ void refreshbutton_game_on()
 
 void refreshbutton_game_stopped()
 {
-  buttonA_setpieces_en();  //team A commands
-  buttonB_setpieces_en();  //team B commands
-  
-  for(int i = CMDID_TEAM_GOAL; i <= CMDID_TEAM_YELLOWCARD; i++)
-  {
-    if(!bTeamAcmds[i].isActive())
-      bTeamAcmds[i].enable();
-      
-    if(!bTeamBcmds[i].isActive())
-      bTeamBcmds[i].enable();
+
+ if(bTeamAcmds[CMDID_TEAM_GOAL].isActive()) {
+//    println("Goal Cyan is ON");
+    buttonAdisable();
+    buttonBdisable();
+    buttonCdisable();    
+    bTeamBcmds[CMDID_TEAM_KICKOFF].enable();
+    bTeamBcmds[CMDID_TEAM_KICKOFF].enable();
+    bTeamBcmds[CMDID_TEAM_GOAL].disable();  
+    bCommoncmds[CMDID_COMMON_HALFTIME].enable(); 
   }
+  else if(bTeamBcmds[CMDID_TEAM_GOAL].isActive()) {
+//    println("Goal Magenta is ON");
+    buttonAdisable();
+    buttonBdisable();
+    buttonCdisable();    
+    bTeamAcmds[CMDID_TEAM_KICKOFF].enable();    
+    bTeamAcmds[CMDID_TEAM_GOAL].disable();    
+    bCommoncmds[CMDID_COMMON_HALFTIME].enable();
+  }
+  else {
+    buttonA_setpieces_en();  //team A commands
+    buttonB_setpieces_en();  //team B commands
+
+    bCommoncmds[CMDID_COMMON_DROP_BALL].enable();
+    bCommoncmds[CMDID_COMMON_HALFTIME].enable(); 
+    bCommoncmds[CMDID_COMMON_PARKING].disable();
+    bCommoncmds[CMDID_COMMON_RESET].disable();  
+
+    for(int i = CMDID_TEAM_GOAL; i <= CMDID_TEAM_YELLOWCARD; i++)
+    {
+      if(!bTeamAcmds[i].isActive())
+        bTeamAcmds[i].enable();
   
-  bCommoncmds[CMDID_COMMON_DROP_BALL].enable();
-  bCommoncmds[CMDID_COMMON_HALFTIME].enable(); 
-  bCommoncmds[CMDID_COMMON_PARKING].disable();
-  bCommoncmds[CMDID_COMMON_RESET].disable();
+      if(!bTeamBcmds[i].isActive())
+        bTeamBcmds[i].enable();
+    }  
+  }
   buttonCSTOPactivate();
-  buttonCSTARTdisable();
+  buttonCSTARTdisable();  
 }
 
 
@@ -194,7 +216,7 @@ void buttonB_setpieces_en()
 
 void buttonAenable() {
   for (int i=0; i<bTeamAcmds.length; i++) {
-    if (i>6 && bTeamAcmds[i].isActive()) ; //maintains repair+cards
+    if (i>6 && bTeamAcmds[i].isActive()) ; //maintains goals+repair+cards
     else bTeamAcmds[i].enable();
   }
 }
@@ -209,14 +231,12 @@ void buttonCenable() {
     bCommoncmds[i].enable();
 }
 void buttonAdisable() {
-  for (int i=0; i<bTeamAcmds.length; i++)
-    if (i>6 && bTeamAcmds[i].isActive()) ; //maintains repair+cards
-    else bTeamAcmds[i].disable();
+  for (int i=0; i <= CMDID_TEAM_PENALTY; i++)
+    bTeamAcmds[i].disable();
 }
 void buttonBdisable() {
-  for (int i=0; i<bTeamBcmds.length; i++)
-    if (i>6 && bTeamBcmds[i].isActive()) ; //maintains repair+cards
-    else bTeamBcmds[i].disable();
+  for (int i=0; i <= CMDID_TEAM_PENALTY; i++)
+    bTeamBcmds[i].disable();
 }
 void buttonAdisableAll() {
   for (int i=0; i<bTeamAcmds.length; i++)

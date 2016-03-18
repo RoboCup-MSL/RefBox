@@ -66,7 +66,8 @@ static class Log
   }
   
   // Log message to both screen and logfile
-  public static void LogMessage(String s)
+  // This function is never used
+  public static void logMessage(String s)
   {
     screenlog(s);  
     if (Log.enable) Log.appendTextToFile(LogFileName,s);

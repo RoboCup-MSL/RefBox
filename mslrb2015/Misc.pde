@@ -6,20 +6,20 @@ public static void resetStartTime() {
   updateScoreClientslasttime = 0;
 }
 
-public static long getGameTime() {
+public static long getGameTime() {                    // Used in mslrb2005, Team 
   return (System.currentTimeMillis()-tstartTime);
 }
 
-public static long getAbsoluteTime() {
+public static long getAbsoluteTime() {                // Used in Comms, 
   return (System.currentTimeMillis());
 }
 
-public static long getSplitTime() {
+public static long getSplitTime() {                   // Used in mslrb2005, Team
   if (stopsplittimer) return (tprevsplitTime);
   else return ( tprevsplitTime + (System.currentTimeMillis()-tsplitTime) );
 }
 
-public static void stopSplitTimer() {
+public static void stopSplitTimer() {                // Used in StateMachine
   if(!stopsplittimer)
   {
     tprevsplitTime+=(System.currentTimeMillis()-tsplitTime);
@@ -27,7 +27,7 @@ public static void stopSplitTimer() {
   }
 }
 
-public static void resumeSplitTimer() {
+public static void resumeSplitTimer() {              // Used in StateMachine
   if(stopsplittimer)
   {
     tsplitTime = System.currentTimeMillis();
