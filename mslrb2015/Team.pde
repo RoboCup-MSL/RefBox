@@ -24,14 +24,7 @@ class Team {
     this.c=c;
     this.isCyan=uileftside;
     this.resetname();
-    this.worldstate_json = null;
-    this.wsBuffer = "";
-    logFile = new File((isCyan?"fA_":"fB_") + Log.getTimedName() + ".txt");
-    try{
-      logFileOut = new PrintWriter(new BufferedWriter(new FileWriter(logFile, true)));
-    }catch(IOException e){
-      
-    }
+    
     //robots
     float x=0, y=60; 
     r[0]=new Robot(x, y);
@@ -58,7 +51,7 @@ class Team {
   
   void logWorldstate(String teamWorldstate, int ageMs)
   {
-    if(logFileOut != null)
+    if(logFileOut == null)
       return;
     
     logFileOut.print("{");
@@ -69,14 +62,19 @@ class Team {
   }
   
   void reset() {
+    if(logFileOut != null)
+      logFileOut.close();
+    
+    if(logFile != null)
+      logFile.close();
+    
     this.worldstate_json = null;
     this.wsBuffer = "";
     logFile = new File((isCyan?"fA_":"fB_") + Log.getTimedName() + ".txt");
     try{
       logFileOut = new PrintWriter(new BufferedWriter(new FileWriter(logFile, true)));
-    }catch(IOException e){
-      
-    }
+    }catch(IOException e){ }
+    
     this.Score=0; 
     this.RepairCount=0;
     this.RedCardCount=0;
