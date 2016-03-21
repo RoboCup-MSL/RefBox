@@ -13,17 +13,14 @@ class Team {
   org.json.JSONObject worldstate_json;
   String wsBuffer;
   Robot[] r=new Robot[5];
- 
-
-  boolean pendingGoal;
   
   File logFile;
   PrintWriter logFileOut;
+  Client connectedClient;
       
   Team(color c, boolean uileftside) {
     this.c=c;
     this.isCyan=uileftside;
-    this.resetname();
     
     //robots
     float x=0, y=60; 
@@ -65,15 +62,13 @@ class Team {
     if(logFileOut != null)
       logFileOut.close();
     
-    if(logFile != null)
-      logFile.close();
+    logFileOut = null;
+    logFile = null;
+
+    this.resetname();
     
     this.worldstate_json = null;
     this.wsBuffer = "";
-    logFile = new File((isCyan?"fA_":"fB_") + Log.getTimedName() + ".txt");
-    try{
-      logFileOut = new PrintWriter(new BufferedWriter(new FileWriter(logFile, true)));
-    }catch(IOException e){ }
     
     this.Score=0; 
     this.RepairCount=0;
@@ -89,13 +84,32 @@ class Team {
     this.newPenaltyKick=false;
     for (int i=0; i<5; i++)
       r[i].reset();
+    this.connectedClient = null;
   }
 
-  void setinfofromtable(Table tab, int id) {
-    this.shortName=tab.getString(id, "shortname8");
-    this.longName=tab.getString(id, "longame24");
-    this.unicastIP=tab.getString(id, "UnicastAddr");
-    this.multicastIP=tab.getString(id, "MulticastAddr");
+  // Function called when team connects and is accepted
+  void teamConnected(TableRow teamselect)
+  {
+    shortName=teamselect.getString("shortname8");
+    longName=teamselect.getString("longame24");
+    unicastIP = teamselect.getString("UnicastAddr");
+    multicastIP = teamselect.getString("MulticastAddr");
+    
+    
+    if(connectedClient != null)
+      BaseStationServer.disconnect(connectedClient);
+    
+    connectedClient = connectingClient;
+    connectingClient.write(COMM_WELCOME);
+    connectingClient = null;
+    
+    if(this.logFile == null || this.logFileOut == null)
+    {
+      this.logFile = new File(mainApplet.dataPath(Log.getTimedName() + "." + (isCyan?"A":"B") + ".msl"));
+      try{
+        this.logFileOut = new PrintWriter(new BufferedWriter(new FileWriter(logFile, true)));
+      }catch(IOException e){ }
+    }
   }
     
 //*******************************************************************
@@ -224,6 +238,16 @@ class Team {
 //*******************************************************************
   
   void updateUI() {
+    if(connectedClient != null && !connectedClient.active())
+    {
+      println("Connection to team \"" + longName + "\" dropped.");
+      Log.logMessage("Team " + shortName + " dropped");
+      BaseStationServer.disconnect(connectedClient);
+      resetname();
+      connectedClient = null;
+    }
+    
+    
     //side border
     rectMode(TOP);
     noStroke();

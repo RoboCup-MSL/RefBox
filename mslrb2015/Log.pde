@@ -5,6 +5,7 @@ static class Log
 {
   public static boolean enable = true;
   private static PApplet parent = null;
+  private static String currentTimedName = "";
   
   public static void init(PApplet p)
   {
@@ -12,13 +13,19 @@ static class Log
     createLog();
   }
   
-  public static String getTimedName()
+  private static String getTimedName()
+  {
+    return currentTimedName;
+  }
+  
+  private static String createTimedName()
   {
     return nf(year(),4)+nf(month(),2)+nf(day(),2)+"_"+nf(hour(),2)+nf(minute(),2)+nf(second(),2);
   }
   
   public static void createLog() {
-    LogFileName=getTimedName()+".msl";  
+    currentTimedName = createTimedName();
+    LogFileName=currentTimedName + ".msl";  
     screenlog("Logfile "+LogFileName);
     screenlog("Logging is "+(Log.enable ? "enabled":"disabled"));
     //println("LOG_FILENAME "+LogFileName);

@@ -223,9 +223,16 @@ void draw() {
 /**************************************************************************************************************************/
 void exit() {
   println("Program is stopped !!!");
+  
+  // Reset teams to close log files
+  if(teamA != null) teamA.reset();
+  if(teamB != null) teamB.reset();
+  
+  // Stop all servers
   scoreClients.stopServer();
   BaseStationServer.stop();
   mslRemote.stopServer();
+  
   super.exit();
 }
 

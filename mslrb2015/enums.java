@@ -162,7 +162,7 @@ enum GameStateEnum
     "Halftime",
     "2nd Half - STOP",
     "2nd Half",
-    "Overtime",
+    "Pre-Overtime",
     "Overtime - 1st Half - STOP",
     "Overtime - 1st Half", 
     "Overtime - Halftime",

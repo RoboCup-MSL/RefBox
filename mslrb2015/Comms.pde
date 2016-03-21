@@ -82,6 +82,7 @@ public static void serverEvent(Server whichServer, Client whichClient) {
     } else {
       whichClient.write(COMM_RESET);
       BaseStationServer.disconnect(whichClient);
+      Log.logMessage("ERR Another team connecting");
     }
   }
   if (whichServer.equals(scoreClients.scoreServer))
@@ -107,13 +108,22 @@ public static boolean setteamfromip(String s) {
       println("Team " + row.getString("Team") + " connected (" + row.getString("shortname8") + "/" + row.getString("longame24") + ")");
       teamselect=row;
       
-      if (!TESTMODE && StateMachine.GetCurrentGameState() == GameStateEnum.GS_PREGAME)
-        Popup.show(PopupTypeEnum.POPUP_TEAMSELECTION, "Team: "+row.getString("Team")+"\nSelect color","cyan","magenta");
+      boolean noTeamA = teamA.connectedClient == null || !teamA.connectedClient.active();
+      boolean noTeamB = teamB.connectedClient == null || !teamB.connectedClient.active();
       
-      return true;
+      if(StateMachine.GetCurrentGameState() == GameStateEnum.GS_PREGAME || (noTeamA || noTeamB)) // In pre-game or if lost all connections, ask for the color
+      {
+        Popup.show(PopupTypeEnum.POPUP_TEAMSELECTION, "Team: "+row.getString("Team")+"\nSelect color or press ESC to cancel","cyan","magenta");
+        return true;
+      }
+      else
+      {
+        Log.logMessage("ERR No more connections allowed (Attempt from " + s + ")");
+        return false;
+      }
     }
   }
-  
+  Log.logMessage("ERR Unknown team (Attempt from " + s + ")");
   return false;
 }
 
@@ -128,12 +138,13 @@ public static void checkBasestationsMessages()
       
     Team t = null;
     int team = -1; // 0=A, 1=B
-      if(teamA != null && teamA.IPBelongs(thisClient.ip()))
+      if(teamA != null && teamA.connectedClient == thisClient)
         t=teamA;
-      else if(teamB != null && teamB.IPBelongs(thisClient.ip()))
+      else if(teamB != null && teamB.connectedClient == thisClient)
         t=teamB;
       else{
-        println("NON TEAM MESSAGE RECEIVED!!");
+        if(thisClient != connectingClient)
+          println("NON TEAM MESSAGE RECEIVED FROM " + thisClient.ip());
         return;
       }
     String whatClientSaid = new String(thisClient.readBytes());

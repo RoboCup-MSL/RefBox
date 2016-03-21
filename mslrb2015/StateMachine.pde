@@ -66,22 +66,18 @@ static class StateMachine
           Team t = null;
           if(Popup.getResponse().equals("cyan"))
           {
-            println("cyan - " + teamselect.getString("shortname8"));
+            //println("cyan - " + teamselect.getString("shortname8"));
+            Log.logMessage("Connection from " + connectingClient.ip() + " accepted - Cyan");
             t = teamA;
           }else{
-            println("magenta - " + teamselect.getString("shortname8"));
+            //println("magenta - " + teamselect.getString("shortname8"));
+            Log.logMessage("Connection from " + connectingClient.ip() + " accepted - Magenta");
             t = teamB;
           }
           
           if(t != null)
-          {
-            t.shortName=teamselect.getString("shortname8");
-            t.longName=teamselect.getString("longame24");
-            t.unicastIP = teamselect.getString("UnicastAddr");
-            t.multicastIP = teamselect.getString("MulticastAddr");
-            connectingClient.write(COMM_WELCOME);
-            connectingClient = null;
-          }
+            t.teamConnected(teamselect);
+          
           break;
         }
       }
@@ -94,8 +90,6 @@ static class StateMachine
     if(needUpdate)
     {
       //println("Updating state machine: btn " + btnCurrent.getValue());
-      
-      
       // Goal buttons
       int add = (btnOn ? +1 : -1);
       if(btnCurrent.isGoal())
@@ -372,7 +366,6 @@ static class StateMachine
   }
 
 }
-
 
 void StateMachineCheck() {
   StateMachine.StateMachineRefresh();

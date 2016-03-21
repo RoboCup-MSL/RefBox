@@ -83,38 +83,6 @@ void keyPressed() {
     if(Popup.isEnabled()) 
       Popup.close();
   }
-  
-  /*
-  if (CurrentGameState==0 && key=='t') {
-    TESTMODE=!TESTMODE;
-    bSlider[0].on=TESTMODE;
-    if (TESTMODE) send_to_basestation(COMM_TESTMODE_ON);
-    else send_to_basestation(COMM_TESTMODE_OFF);
-    RefreshButonStatus();
-  }
-  if (key=='a') {
-    teamA.tableindex--;
-    if (teamA.tableindex<0) teamA.tableindex=0;
-    teamA.setinfofromtable(teamstable,teamA.tableindex);
-  }
-  if (key=='s') {
-    teamA.tableindex++;
-    if (teamA.tableindex>=teamstable.getRowCount()) teamA.tableindex=teamstable.getRowCount()-1;
-    teamA.setinfofromtable(teamstable,teamA.tableindex);
-  }
-  if (key=='d') {
-    teamB.tableindex--;
-    if (teamB.tableindex<0) teamB.tableindex=0;
-    teamB.setinfofromtable(teamstable,teamB.tableindex);
-  }
-  if (key=='f') {
-    teamB.tableindex++;
-    if (teamB.tableindex>=teamstable.getRowCount()) teamB.tableindex=teamstable.getRowCount()-1;
-    teamB.setinfofromtable(teamstable,teamB.tableindex);
-  }
-  if (key=='j')  saveFrame(); 
-*/
-  //frameRate(appFrameRate);
-  //redraw();
+
 }
 

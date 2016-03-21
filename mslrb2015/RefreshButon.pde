@@ -83,6 +83,11 @@ void RefreshButonStatus1() {
         
         buttonFromEnum(ButtonsEnum.BTN_START).disable();
         buttonFromEnum(ButtonsEnum.BTN_STOP).activate();
+        
+        if(StateMachine.GetCurrentGameState() == GameStateEnum.GS_OVERTIME)
+        {
+          bCommoncmds[CMDID_COMMON_RESET].enable();
+        }
       }
       
       bCommoncmds[CMDID_COMMON_PARKING].enable();
@@ -141,6 +146,19 @@ void RefreshButonStatus1() {
     for(int i = 0; i < bSlider.length; i++)
       bSlider[i].enable();
   }
+  
+  // Update End Part / End Game button
+  String endPartOrEndGame = "End Part";
+  switch(StateMachine.GetCurrentGameState())
+  {
+  case GS_HALFTIME:
+  case GS_GAMEON_H2: 
+  case GS_GAMEON_H4:
+  case GS_GAMESTOP_H2:
+  case GS_GAMESTOP_H4:
+    endPartOrEndGame = "End Game";
+  }
+  bCommoncmds[CMDID_COMMON_HALFTIME].Label = endPartOrEndGame;
   
 }
 
