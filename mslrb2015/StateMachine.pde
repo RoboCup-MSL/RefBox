@@ -79,6 +79,7 @@ static class StateMachine
             t.longName=teamselect.getString("longame24");
             t.unicastIP = teamselect.getString("UnicastAddr");
             t.multicastIP = teamselect.getString("MulticastAddr");
+            t.connectedClient = connectingClient;
             connectingClient.write(COMM_WELCOME);
             connectingClient = null;
           }

@@ -82,6 +82,7 @@ public static void serverEvent(Server whichServer, Client whichClient) {
     } else {
       whichClient.write(COMM_RESET);
       BaseStationServer.disconnect(whichClient);
+      Log.logMessage("ERR Another team connecting");
     }
   }
   if (whichServer.equals(scoreClients.scoreServer))
@@ -107,13 +108,19 @@ public static boolean setteamfromip(String s) {
       println("Team " + row.getString("Team") + " connected (" + row.getString("shortname8") + "/" + row.getString("longame24") + ")");
       teamselect=row;
       
-      if (!TESTMODE && StateMachine.GetCurrentGameState() == GameStateEnum.GS_PREGAME)
-        Popup.show(PopupTypeEnum.POPUP_TEAMSELECTION, "Team: "+row.getString("Team")+"\nSelect color","cyan","magenta");
+      boolean noTeamA = teamA.connectedClient == null || !teamA.connectedClient.active();
+      boolean noTeamB = teamB.connectedClient == null || !teamB.connectedClient.active();
       
-      return true;
+      if (StateMachine.GetCurrentGameState() == GameStateEnum.GS_PREGAME || noTeamA || noTeamB) {
+        Popup.show(PopupTypeEnum.POPUP_TEAMSELECTION, "Team: "+row.getString("Team")+"\nSelect color","cyan","magenta");
+        return true;
+      }else{
+        Log.logMessage("ERR No more connections allowed");
+        return false;
+      }
     }
   }
-  
+  Log.logMessage("ERR Unknown team");
   return false;
 }
 
@@ -133,7 +140,8 @@ public static void checkBasestationsMessages()
       else if(teamB != null && teamB.IPBelongs(thisClient.ip()))
         t=teamB;
       else{
-        println("NON TEAM MESSAGE RECEIVED!!");
+        if(thisClient != connectingClient)
+          println("NON TEAM MESSAGE RECEIVED!!");
         return;
       }
     String whatClientSaid = new String(thisClient.readBytes());

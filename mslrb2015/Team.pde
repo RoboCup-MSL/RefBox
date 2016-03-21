@@ -13,25 +13,15 @@ class Team {
   org.json.JSONObject worldstate_json;
   String wsBuffer;
   Robot[] r=new Robot[5];
- 
-
-  boolean pendingGoal;
   
   File logFile;
   PrintWriter logFileOut;
+  Client connectedClient;
       
   Team(color c, boolean uileftside) {
     this.c=c;
     this.isCyan=uileftside;
-    this.resetname();
-    this.worldstate_json = null;
-    this.wsBuffer = "";
-    logFile = new File((isCyan?"fA_":"fB_") + Log.getTimedName() + ".txt");
-    try{
-      logFileOut = new PrintWriter(new BufferedWriter(new FileWriter(logFile, true)));
-    }catch(IOException e){
-      
-    }
+    
     //robots
     float x=0, y=60; 
     r[0]=new Robot(x, y);
@@ -69,6 +59,8 @@ class Team {
   }
   
   void reset() {
+    this.resetname();
+    
     this.worldstate_json = null;
     this.wsBuffer = "";
     logFile = new File((isCyan?"fA_":"fB_") + Log.getTimedName() + ".txt");
@@ -91,6 +83,7 @@ class Team {
     this.newPenaltyKick=false;
     for (int i=0; i<5; i++)
       r[i].reset();
+    this.connectedClient = null;
   }
 
   void setinfofromtable(Table tab, int id) {
@@ -226,6 +219,14 @@ class Team {
 //*******************************************************************
   
   void updateUI() {
+    if(connectedClient != null && !connectedClient.active())
+    {
+      println("Connection to team \"" + longName + "\" dropped.");
+      BaseStationServer.disconnect(connectedClient);
+      reset();
+    }
+    
+    
     //side border
     rectMode(TOP);
     noStroke();
