@@ -13,7 +13,7 @@ class Team {
   org.json.JSONObject worldstate_json;
   String wsBuffer;
   Robot[] r=new Robot[5];
-
+ 
 
   boolean pendingGoal;
   
@@ -106,21 +106,29 @@ class Team {
     this.RepairOut=getSplitTime()+Config.repairPenalty_ms;
   }
   
+//*******************************************************************
   void repair_timer_check() {
     long remain=RepairOut-getSplitTime();
+    if (StateMachine.isInterval()) {
+        remain = -1;
+        println("Repair reseted!");
+    }
     if (remain>=0)
       for(int i=0; i<RepairCount; i++) r[i].waittime=int(remain/1000);
     else {
       for(int i=0; i<RepairCount; i++) r[i].waittime=-1;
       RepairCount=0;
       println("Repair OUT: "+shortName+" @"+(isCyan?"left":"right"));
-      if (this.isCyan) send_to_basestation("" + COMM_REPAIR_IN_CYAN);
-      else send_to_basestation("" + COMM_REPAIR_IN_MAGENTA);
+//      if (!StateMachine.isInterval()) {
+//          if (this.isCyan) send_to_basestation("" + COMM_REPAIR_IN_CYAN);
+//          else send_to_basestation("" + COMM_REPAIR_IN_MAGENTA);
+//      }
     }
   }
   
+//*******************************************************************
   void double_yellow_timer_start() {
-    r[5-DoubleYellowCardCount].DoubleYellowOut=getGameTime()+Config.doubleYellowPenalty_ms;  
+    r[5-DoubleYellowCardCount].DoubleYellowOut=getGameTime()+Config.doubleYellowPenalty_ms;
   }
   
   void double_yellow_timer_check() {
@@ -138,13 +146,14 @@ class Team {
         }
         DoubleYellowCardCount--;
         println("Double Yellow end: "+shortName+" @"+(isCyan?"left":"right"));
-        if (isCyan) send_to_basestation("" + COMM_DOUBLE_YELLOW_IN_CYAN);
-        else send_to_basestation("" + COMM_DOUBLE_YELLOW_IN_MAGENTA);
+//        if (isCyan) send_to_basestation("" + COMM_DOUBLE_YELLOW_IN_CYAN);
+//        else send_to_basestation("" + COMM_DOUBLE_YELLOW_IN_MAGENTA);
       }
                 
     }
   }
   
+//*******************************************************************
   void setDoubleYellowOutRemain() {
     println("setDoubleYellowOutRemain");
     for (int j=0; j<5; j++) {
@@ -153,6 +162,7 @@ class Team {
     }
   }
 
+//*******************************************************************
   void resumeDoubleYellowOutRemain() {
     println("resumeDoubleYellowOutRemain");
     for (int j=0; j<5; j++) {
@@ -161,6 +171,7 @@ class Team {
     }
   }
   
+//*******************************************************************
   void repairclear() {
     this.RepairCount=0;
     this.RepairOut=0;
@@ -168,6 +179,7 @@ class Team {
       if (r[i].state.equals("repair"))  r[i].reset_to_play();
   }
   
+//*******************************************************************
   void checkflags() {
     if (this.newRepair) {
       this.RepairCount++; 
@@ -200,8 +212,8 @@ class Team {
       this.double_yellow_timer_start();
       this.newDoubleYellow=false;
 
-      if(this.isCyan) send_event_v2(""+COMM_DOUBLE_YELLOW_IN_CYAN, "Double Yellow", this);
-      else send_event_v2(""+COMM_DOUBLE_YELLOW_IN_MAGENTA, "Double Yellow", this);
+      if(this.isCyan) send_event_v2(""+COMM_DOUBLE_YELLOW_CYAN, "Double Yellow", this);
+      else send_event_v2(""+COMM_DOUBLE_YELLOW_MAGENTA, "Double Yellow", this);
     }
     if (this.newPenaltyKick) {
       this.PenaltyCount++;
@@ -244,8 +256,8 @@ class Team {
     for (int i=(RepairCount+YellowCardCount); i<min(RepairCount+YellowCardCount+RedCardCount, 5); i++)  r[i].state="red";//red
     for (int i=(5-DoubleYellowCardCount); i<5; i++)  r[i].state="doubleyellow";//doubleyellow
 
+    if (RepairCount>0)  repair_timer_check();    //repair #
     if (StateMachine.is1stHalf() || StateMachine.is2ndHalf() || StateMachine.is3rdHalf() || StateMachine.is4thHalf()) {
-      if (RepairCount>0)  repair_timer_check();    //repair #
       if (DoubleYellowCardCount>0) double_yellow_timer_check();    //double yellow #
     }
     
@@ -260,6 +272,7 @@ class Team {
     else text(ts, width-160, height-16);
   }
   
+//*******************************************************************
   boolean IPBelongs(String clientipstr)
   {
     if(this.unicastIP == null)

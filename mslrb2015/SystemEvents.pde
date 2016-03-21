@@ -1,3 +1,4 @@
+// Processing mouse'event
 void mousePressed() {
   if (!Popup.isEnabled()) {
     //sliders
@@ -55,7 +56,7 @@ void mousePressed() {
   //redraw();
 }
 
-
+// Processing mouse'event
 void mouseMoved() {
   if (!Popup.isEnabled()) {
     for (int i=0; i<bTeamAcmds.length; i++) {
@@ -73,7 +74,7 @@ void mouseMoved() {
   //redraw();
 }
 
-
+// Processing key'event
 void keyPressed() {
   if (key == ESC){
     key = 0; //disable quit on ESC
@@ -116,3 +117,4 @@ void keyPressed() {
   //frameRate(appFrameRate);
   //redraw();
 }
+

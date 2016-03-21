@@ -1,14 +1,14 @@
 
 
 public static void send_to_basestation(String c){
-  //println("Command "+c+" :"+Description.get(c+""));
+  println("Command "+c+" :"+Description.get(c+""));
   BaseStationServer.write(c);
   
-  if(!c.equals("" + COMM_WORLD_STATE))
-  {
+//  if(!c.equals("" + COMM_WORLD_STATE))
+//  {
     Log.logactions(c);
     mslRemote.setLastCommand(c);      // Update MSL remote module with last command sent to basestations
-  }
+//  }
 }
 
 public static void event_message_v2(ButtonsEnum btn, boolean on)
@@ -297,7 +297,7 @@ public static void checkBasestationsMessages()
 public static final char COMM_STOP = 'S';
 public static final char COMM_START = 's';
 public static final char COMM_WELCOME = 'W';  //NEW 2015CAMBADA: welcome message
-public static final char COMM_WORLD_STATE = 'w';  //NEW 2015CAMBADA: request world state
+//public static final char COMM_WORLD_STATE = 'w';  //NEW 2015CAMBADA: request world state
 public static final char COMM_RESET = 'Z';  //NEW 2015CAMBADA: Reset Game
 public static final char COMM_TESTMODE_ON = 'U';  //NEW 2015CAMBADA: TestMode On
 public static final char COMM_TESTMODE_OFF = 'u';  //NEW 2015CAMBADA: TestMode Off
@@ -307,10 +307,10 @@ public static final char COMM_YELLOW_CARD_MAGENTA = 'y';  //NEW 2015CAMBADA: @re
 public static final char COMM_YELLOW_CARD_CYAN = 'Y';//NEW 2015CAMBADA: @remote
 public static final char COMM_RED_CARD_MAGENTA = 'r';//NEW 2015CAMBADA: @remote
 public static final char COMM_RED_CARD_CYAN = 'R';//NEW 2015CAMBADA: @remote
-//public static final char COMM_DOUBLE_YELLOW_OUT_MAGENTA = 'b'; //NEW 2015CAMBADA: exits field
-//public static final char COMM_DOUBLE_YELLOW_OUT_CYAN = 'B'; //NEW 2015CAMBADA:
-public static final char COMM_DOUBLE_YELLOW_IN_MAGENTA = 'j'; //NEW 2015CAMBADA: 
-public static final char COMM_DOUBLE_YELLOW_IN_CYAN = 'J'; //NEW 2015CAMBADA: 
+public static final char COMM_DOUBLE_YELLOW_MAGENTA = 'b'; //NEW 2015CAMBADA: exits field
+public static final char COMM_DOUBLE_YELLOW_CYAN = 'B'; //NEW 2015CAMBADA:
+//public static final char COMM_DOUBLE_YELLOW_IN_MAGENTA = 'j'; //NEW 2015CAMBADA: 
+//public static final char COMM_DOUBLE_YELLOW_IN_CYAN = 'J'; //NEW 2015CAMBADA: 
 
 
 // game flow commands
@@ -347,8 +347,8 @@ public static final char COMM_DROPPED_BALL = 'N';
 // repair Commands
 public static final char COMM_REPAIR_OUT_MAGENTA = 'o';  //exits field
 public static final char COMM_REPAIR_OUT_CYAN = 'O';
-public static final char COMM_REPAIR_IN_MAGENTA = 'i';
-public static final char COMM_REPAIR_IN_CYAN = 'I';
+//public static final char COMM_REPAIR_IN_MAGENTA = 'i';
+//public static final char COMM_REPAIR_IN_CYAN = 'I';
 
 //  public static final char COMM_CANCEL = 'x'; //not used
 //  public static final String COMM_RECONNECT_STRING = "Reconnect"; //not used
@@ -385,11 +385,11 @@ void comms_initDescriptionDictionary() {
   Description.set("A", "CYAN Goal+");
   Description.set("D", "CYAN Goal-");  
   Description.set("O", "CYAN Repair Out");
-  Description.set("I", "CYAN Repair In");
+//  Description.set("I", "CYAN Repair In");
   Description.set("R", "CYAN Red Card");  //NEW 2015CAMBADA
   Description.set("Y", "CYAN Yellow Card");  //NEW 2015CAMBADA
-  Description.set("J", "CYAN Double Yellow in");  //NEW 2015CAMBADA
-  //Description.set("B","CYAN Double Yellow out");  //NEW 2015CAMBADA
+//  Description.set("J", "CYAN Double Yellow in");  //NEW 2015CAMBADA
+  Description.set("B","CYAN Double Yellow");  //NEW 2015CAMBADA
 
   Description.set("k", "MAGENTA Kickoff");
   Description.set("f", "MAGENTA Freekick");
@@ -400,9 +400,9 @@ void comms_initDescriptionDictionary() {
   Description.set("a", "MAGENTA Goal+");
   Description.set("d", "MAGENTA Goal-");
   Description.set("o", "MAGENTA Repair Out");
-  Description.set("i", "MAGENTA Repair In");
+//  Description.set("i", "MAGENTA Repair In");
   Description.set("r", "MAGENTA Red Card");  //NEW 2015CAMBADA
   Description.set("y", "MAGENTA Yellow Card");  //NEW 2015CAMBADA
-  Description.set("j", "MAGENTA Double Yellow in");  //NEW 2015CAMBADA
-  //Description.set("b","MAGENTA Double Yellow out");  //NEW 2015CAMBADA
+//  Description.set("j", "MAGENTA Double Yellow in");  //NEW 2015CAMBADA
+  Description.set("b","MAGENTA Double Yellow");  //NEW 2015CAMBADA
 }

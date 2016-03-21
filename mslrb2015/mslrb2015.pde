@@ -3,6 +3,7 @@
        LMFerreira
        RDias
        FAmaral 
+       BCunha
    ================================== */
 import processing.net.*;
 import org.json.*;
@@ -15,7 +16,7 @@ public static final String MSG_RESET="Reset Game ?";
 public static final int appFrameRate = 15;
 
 public static String[] Teamcmds= { "KickOff", "FreeKick", "GoalKick", "Throw In", "Corner", "Penalty", "Goal", "Repair", "Red", "Yellow" };
-public static String[] Commcmds= { "START", "STOP", "DropBall", "Park", "End Part",  "RESET" };
+public static String[] Commcmds= { "START", "STOP", "DropBall", "Park", "End Part",  "RESET", "EndGame" };
 
 public static final String[] cCTeamcmds= { "K", "F", "G", "T", "C", "P", "A", "O", "R", "Y" };
 public static final String[] cMTeamcmds= { "k", "f", "g", "t", "c", "p", "a", "o", "r", "y" };
@@ -37,6 +38,7 @@ public static final int CMDID_COMMON_DROP_BALL = 2;
 public static final int CMDID_COMMON_PARKING = 3;
 public static final int CMDID_COMMON_HALFTIME = 4;
 public static final int CMDID_COMMON_RESET = 5;
+public static final int CMDID_COMMON_ENDGAME = 6;
 
 public static ScoreClients scoreClients = null;
 public static MSLRemote mslRemote = null;
@@ -68,7 +70,16 @@ public static PFont buttonFont, clockFont, panelFont, scoreFont, debugFont, team
 public static PImage backgroundImage;
 
 public static PApplet mainApplet = null;
+//static long ctr = 0;
 
+/**************************************************************************************************************************
+ * This the Processing setup() function
+ * The setup() function is called once when the program starts.
+ * It's used to define initial enviroment properties such as screen size and background color and to load media
+  such as images and fonts as the program starts.
+ * There can only be one setup() function for each program and it shouldn't be called again after its initial execution.
+ * Note: Variables declared within setup() are not accessible within other functions, including draw().
+**************************************************************************************************************************/
 void setup() {
   mainApplet = this;
   
@@ -77,8 +88,10 @@ void setup() {
   /*  Crystal font — Created in 1993 by Allen R. Walden
       http://www.fontspace.com/allen-r-walden/crystal
   */
-  clockFont = createFont("fonts/Crysta.ttf", 64, false);
-  scoreFont = createFont("fonts/Crysta.ttf", 32, false);
+//  clockFont = createFont("fonts/Crysta.ttf", 64, false);
+//  scoreFont = createFont("fonts/Crysta.ttf", 32, false);
+  clockFont = createFont("fonts/LCDM.TTF", 58, false);
+  scoreFont = createFont("fonts/LED.ttf", 36, false);
   buttonFont=loadFont("fonts/Futura-CondensedExtraBold-24.vlw");
   teamFont=loadFont("fonts/Futura-CondensedExtraBold-52.vlw");
   panelFont=loadFont("fonts/Futura-CondensedExtraBold-16.vlw");
@@ -111,7 +124,22 @@ void setup() {
   frameRate(appFrameRate);
 }
 
+/**************************************************************************************************************************
+  This the Processing draw() function 
+  Called directly after setup(), the draw() function continuously executes the lines of code contained inside its block
+  until the program is stopped or noLoop() is called. draw() is called automatically and should never be called explicitly.
+  It should always be controlled with noLoop(), redraw() and loop(). If noLoop() is used to stop the code in draw() from executing, 
+  then redraw() will cause the code inside draw() to be executed a single time, and loop() will cause the code inside draw() 
+  to resume executing continuously.
+  The number of times draw() executes in each second may be controlled with the frameRate() function
+  It is common to call background() near the beginning of the draw() loop to clear the contents of the window, as shown in the first 
+  example above. Since pixels drawn to the window are cumulative, omitting background() may result in unintended results, especially 
+  when drawing anti-aliased shapes or text.
+  There can only be one draw() function for each sketch, and draw() must exist if you want the code to run continuously, or to process 
+  events such as mousePressed(). Sometimes, you might have an empty call to draw() in your program, as shown in the second example above.  
+ **************************************************************************************************************************/
 void draw() {
+  
   if (BACKGROUNDon) background(backgroundImage);
   else background(48);
 
@@ -135,6 +163,8 @@ void draw() {
     bTeamBcmds[i].update();
   }
 
+//    ctr ++;
+//    println ("Update : ", ctr);
   teamA.updateUI();
   teamB.updateUI();
   
@@ -182,6 +212,15 @@ void draw() {
   //==========================================   
 }
 
+/**************************************************************************************************************************
+ *   This the Processing exit() function 
+ * Quits/stops/exits the program. Programs without a draw() function exit automatically after the last line has run, but programs 
+ * with draw() run continuously until the program is manually stopped or exit() is run.
+ * Rather than terminating immediately, exit() will cause the sketch to exit after draw() has completed (or after setup() 
+ * completes if called during the setup() function).
+ * For Java programmers, this is not the same as System.exit(). Further, System.exit() should not be used because closing 
+ * out an application while draw() is running may cause a crash (particularly with P3D). 
+/**************************************************************************************************************************/
 void exit() {
   println("Program is stopped !!!");
   scoreClients.stopServer();

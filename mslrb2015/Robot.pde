@@ -12,11 +12,13 @@ class Robot {
     guiy=zy;
   }
 
-  //-------------------------------
+//-------------------------------
   void reset_to_play() {
     state="play";
     waittime=-1;
   }
+  
+//-------------------------------
   void reset() {
     state="play";
     waittime=-1;
@@ -24,12 +26,14 @@ class Robot {
     this.DoubleYellowOutRemain=0; 
   }
   
+//-------------------------------
   void setRstate(Robot r) {
     this.state=r.state;
     this.waittime=r.waittime;
     this.DoubleYellowOut=r.DoubleYellowOut;
   }
   
+//-------------------------------
   void updateUI(color c, boolean UIleft) {
     stroke(c); 
     strokeWeight(2);

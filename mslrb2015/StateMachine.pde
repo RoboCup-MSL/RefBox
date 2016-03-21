@@ -5,8 +5,7 @@ static class StateMachine
   private static boolean btnOn = false;
   private static ButtonsEnum btnCurrent = ButtonsEnum.BTN_ILLEGAL;
   private static ButtonsEnum btnPrev = ButtonsEnum.BTN_ILLEGAL;
-  
-  private static GameStateEnum gsCurrent = GameStateEnum.GS_PREGAME;
+  public static GameStateEnum gsCurrent = GameStateEnum.GS_PREGAME;
   private static GameStateEnum gsPrev = GameStateEnum.GS_ILLEGAL;
   
   public static boolean setpiece = false;
@@ -14,6 +13,7 @@ static class StateMachine
   public static ButtonsEnum setpiece_button = null;
   
   public static boolean firstKickoffCyan = true;
+
   
   
   public static void Update(ButtonsEnum click_btn, boolean on)
@@ -26,12 +26,15 @@ static class StateMachine
     StateMachineRefresh();
   }
   
+  //
+  // Basic state machine main refresh
+  //
   private static void StateMachineRefresh()
   {
     GameStateEnum nextGS = GameStateEnum.newInstance(gsCurrent);
     GameStateEnum saveGS = GameStateEnum.newInstance(gsCurrent);
     
-    // Check popup response
+    // Check popup response when popup is ON
     if(Popup.hasNewResponse())
     {
       switch(Popup.getType())
@@ -97,16 +100,16 @@ static class StateMachine
       int add = (btnOn ? +1 : -1);
       if(btnCurrent.isGoal())
       {
-        if(btnCurrent.isCyan())
-          teamA.Score+=add;
-        else
-          teamB.Score+=add;
-      }else if(btnCurrent.isReset())
+        if(btnCurrent.isCyan()) teamA.Score+=add;
+        else teamB.Score+=add;
+      }
+      else if(btnCurrent.isReset())
       {
         Popup.show(PopupTypeEnum.POPUP_RESET, MSG_RESET, "yes", "no");
         needUpdate = false;
         return;
-      }else if(btnCurrent.isEndPart())
+      }
+      else if(btnCurrent.isEndPart())
       {
         Popup.show(PopupTypeEnum.POPUP_ENDPART, MSG_HALFTIME, "yes", "no");
         needUpdate = false;
@@ -200,7 +203,7 @@ static class StateMachine
           break;
           
         case GS_PENALTIES:
-          if(btnCurrent.isSetPiece())
+          if(btnCurrent.isSetPiece())                        // Kick Off either, Penalty either, DropBall
             SetSetpiece(btnCurrent.isCyan(), btnCurrent);
           else if(btnCurrent.isStop())
             ResetSetpiece();
@@ -363,6 +366,11 @@ static class StateMachine
   {
     return gsCurrent == GameStateEnum.GS_GAMESTOP_H4 || gsCurrent == GameStateEnum.GS_GAMEON_H4;
   }
+
+  public static boolean isInterval() {
+    return gsCurrent == GameStateEnum.GS_HALFTIME || gsCurrent == GameStateEnum.GS_OVERTIME || gsCurrent == GameStateEnum.GS_HALFTIME_OVERTIME || gsCurrent == GameStateEnum.GS_GAMESTOP_H4 || gsCurrent == GameStateEnum.GS_PENALTIES;
+  }
+
 }
 
 

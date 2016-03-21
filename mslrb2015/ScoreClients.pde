@@ -95,7 +95,7 @@ class ScoreClients
     writeMsg(msg);
     updateScoreClientslasttime=System.currentTimeMillis();
     
-    //LogMessage("Send to score clients " + (updateScoreClientslasttime-startTime) + " ms");
+    //logMessage("Send to score clients " + (updateScoreClientslasttime-startTime) + " ms");
   }
   
   public int clientCount()

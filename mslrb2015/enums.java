@@ -107,29 +107,29 @@ enum ButtonsEnum
 
 enum GameStateEnum
 {
-  GS_PREGAME(0),
+  GS_PREGAME(0),            // Period from start until first Kickoff Start 
   
-  GS_GAMESTOP_H1(1),
-  GS_GAMEON_H1(2),
+  GS_GAMESTOP_H1(1),        // Game stopped during first half
+  GS_GAMEON_H1(2),          // Game on during first half
   
-  GS_HALFTIME(3),
+  GS_HALFTIME(3),            // First half time
   
-  GS_GAMESTOP_H2(4),
-  GS_GAMEON_H2(5),
+  GS_GAMESTOP_H2(4),        // Game stopped during second half
+  GS_GAMEON_H2(5),          // Game on during second half
   
-  GS_OVERTIME(6),
+  GS_OVERTIME(6),            // Game end (ready for overtime)
   
-  GS_GAMESTOP_H3(7),
-  GS_GAMEON_H3(8),
+  GS_GAMESTOP_H3(7),        // Game stopped during first half of overtime
+  GS_GAMEON_H3(8),          // Game on during first half of overtime
   
-  GS_HALFTIME_OVERTIME(9),
+  GS_HALFTIME_OVERTIME(9),  // First half time of oertime
   
-  GS_GAMESTOP_H4(10),
-  GS_GAMEON_H4(11),
+  GS_GAMESTOP_H4(10),        // Game stopped during second half of overtime
+  GS_GAMEON_H4(11),          // Game on during second half of overtime
   
-  GS_PENALTIES(12),
-  GS_PENALTIES_ON(13),
-  GS_ENDGAME(14),
+  GS_PENALTIES(12),          // Penalties period on mbc????
+  GS_PENALTIES_ON(13),       // Penalties period on mbc????
+  GS_ENDGAME(14),            // Game over
   
   GS_ILLEGAL(99);
   
@@ -149,7 +149,7 @@ enum GameStateEnum
   public boolean isStopped() {
     return value == GS_GAMESTOP_H1.value || value == GS_GAMESTOP_H2.value || value == GS_GAMESTOP_H3.value || value == GS_GAMESTOP_H4.value;
   }
-  
+ 
   public static GameStateEnum newInstance(GameStateEnum symbol) {
     return GameStateEnum.values()[symbol.ordinal()];
   }
