@@ -144,40 +144,41 @@ class Team {
       for(int i=0; i<RepairCount; i++) r[i].waittime=-1;
       RepairCount=0;
       println("Repair OUT: "+shortName+" @"+(isCyan?"left":"right"));
-//      if (!StateMachine.isInterval()) {
-//          if (this.isCyan) send_to_basestation("" + COMM_REPAIR_IN_CYAN);
-//          else send_to_basestation("" + COMM_REPAIR_IN_MAGENTA);
-//      }
     }
   }
   
 //*******************************************************************
-  void double_yellow_timer_start() {
-    r[5-DoubleYellowCardCount].DoubleYellowOut=getGameTime()+Config.doubleYellowPenalty_ms;
+  public void double_yellow_timer_start() {
+    r[5-DoubleYellowCardCount].DoubleYellowOut=getAbsoluteTime()+Config.doubleYellowPenalty_ms;
   }
-  
-  void double_yellow_timer_check() {
+
+  public void double_yellow_timer_check() {
     for (int i=(5-DoubleYellowCardCount); i<5; i++) {
-      long remain=r[i].DoubleYellowOut-getGameTime();
-      if (remain>=0) 
-        r[i].waittime=int(remain/1000);
-      else {  //shift right & reset
-        r[i].reset();
-        for (int j=4; j>0; j--) {
-          if (!r[j].state.equals("doubleyellow") && r[j-1].state.equals("doubleyellow")){
-            r[j].setRstate(r[j-1]);
-            r[j-1].reset();
+    long remain;
+    if (StateMachine.isHalf()) {
+      remain=r[i].DoubleYellowOut-getAbsoluteTime();
+    }
+    else {
+      remain = r[i].waittime * 1000;
+      r[i].DoubleYellowOut = remain + getAbsoluteTime();
+    }
+        
+        if (remain>=0)
+         r[i].waittime=PApplet.parseInt(remain/1000);
+        else {  //shift right & reset
+          r[i].reset();
+          for (int j=4; j>0; j--) {
+            if (!r[j].state.equals("doubleyellow") && r[j-1].state.equals("doubleyellow")){
+              r[j].setRstate(r[j-1]);
+              r[j-1].reset();
+            }
           }
-        }
         DoubleYellowCardCount--;
         println("Double Yellow end: "+shortName+" @"+(isCyan?"left":"right"));
-//        if (isCyan) send_to_basestation("" + COMM_DOUBLE_YELLOW_IN_CYAN);
-//        else send_to_basestation("" + COMM_DOUBLE_YELLOW_IN_MAGENTA);
       }
                 
     }
   }
-  
 //*******************************************************************
   void setDoubleYellowOutRemain() {
     println("setDoubleYellowOutRemain");
@@ -291,10 +292,10 @@ class Team {
     for (int i=(RepairCount+YellowCardCount); i<min(RepairCount+YellowCardCount+RedCardCount, 5); i++)  r[i].state="red";//red
     for (int i=(5-DoubleYellowCardCount); i<5; i++)  r[i].state="doubleyellow";//doubleyellow
 
-    if (RepairCount>0)  repair_timer_check();    //repair #
-    if (StateMachine.is1stHalf() || StateMachine.is2ndHalf() || StateMachine.is3rdHalf() || StateMachine.is4thHalf()) {
-      if (DoubleYellowCardCount>0) double_yellow_timer_check();    //double yellow #
-    }
+    if (RepairCount > 0)            //repair #
+      repair_timer_check();
+    if (DoubleYellowCardCount > 0)  //double yellow #
+      double_yellow_timer_check();
     
     for (int i=0; i<5; i++)
       r[i].updateUI(c,isCyan);

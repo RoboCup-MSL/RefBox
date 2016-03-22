@@ -345,6 +345,16 @@ static class StateMachine
       BaseStationServer = new Server(mainApplet, Config.basestationServerPort);
   }
   
+  public static boolean isHalf()
+  {
+    return is1stHalf() || is2ndHalf() || is3rdHalf() || is4thHalf();
+  }
+
+  public static boolean isPreGame()
+  {
+    return gsCurrent == GameStateEnum.GS_PREGAME;
+  }
+  
   public static boolean is1stHalf()
   {
     return gsCurrent == GameStateEnum.GS_GAMESTOP_H1 || gsCurrent == GameStateEnum.GS_GAMEON_H1;
@@ -352,7 +362,7 @@ static class StateMachine
   
   public static boolean is2ndHalf()
   {
-    return gsCurrent == GameStateEnum.GS_GAMESTOP_H2 || gsCurrent == GameStateEnum.GS_GAMEON_H1;
+    return gsCurrent == GameStateEnum.GS_GAMESTOP_H2 || gsCurrent == GameStateEnum.GS_GAMEON_H2;
   }
   
   public static boolean is3rdHalf()
