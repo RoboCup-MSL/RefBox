@@ -1,6 +1,8 @@
 # RefBox2015
 Repository for the Referee-Box v2015 and related tools.
 
+Downloads available on [Releases](https://github.com/RoboCup-MSL/RefBox2015/releases) page.
+
 Requires [Processing 2.2.1](https://processing.org/download/?processing) for development.
 
 ## Directory Structure
