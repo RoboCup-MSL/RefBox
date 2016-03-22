@@ -54,22 +54,25 @@ class Team {
     
     if(firstWorldState) {
       logFileOut.println("[");    // Start of JSON array
+      firstWorldState = false;
     }else{
       logFileOut.println(",");    // Separator for the new JSON object
     }
     
     logFileOut.print("{");
+    logFileOut.print("\"teamName\": " + shortName + ",");
     logFileOut.print("\"timestamp\": " + (System.currentTimeMillis() - ageMs) + ",");
     logFileOut.print("\"gametimeMs\": " + getGameTime() + ",");
     logFileOut.print("\"worldstate\": " + teamWorldstate);
     logFileOut.print("}");
     
-    firstWorldState = false;
   }
   
   void reset() {
-    if(logFileOut != null)
+    if(logFileOut != null) {
+      logFileOut.println("]");    // End JSON array
       logFileOut.close();
+    }
     
     logFileOut = null;
     logFile = null;
@@ -115,8 +118,7 @@ class Team {
     
     if(this.logFile == null || this.logFileOut == null)
     {
-      logFileOut.println("]");    // End JSON array
-      this.logFile = new File(mainApplet.dataPath(Log.getTimedName() + "." + (isCyan?"A":"B") + ".msl"));
+      this.logFile = new File(mainApplet.dataPath("tmp/" + Log.getTimedName() + "." + (isCyan?"A":"B") + ".msl"));
       try{
         this.logFileOut = new PrintWriter(new BufferedWriter(new FileWriter(logFile, true)));
       }catch(IOException e){ }

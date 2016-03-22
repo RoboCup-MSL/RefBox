@@ -12,7 +12,7 @@ import java.util.zip.*;
   * on the "data" directory.
   */
 
-class LogMerger
+static class LogMerger
 {
   
 // ---
@@ -33,8 +33,8 @@ class LogMerger
   {
     this.timedName = timedName;
     
-    File tAFile = new File(mainApplet.dataPath(timedName + ".A.msl"));
-    File tBFile = new File(mainApplet.dataPath(timedName + ".B.msl"));
+    File tAFile = new File(mainApplet.dataPath("tmp/" + timedName + ".A.msl"));
+    File tBFile = new File(mainApplet.dataPath("tmp/" + timedName + ".B.msl"));
     
     tA = parseFile(tAFile);
     tB = parseFile(tBFile);
@@ -130,7 +130,7 @@ class LogMerger
     try
     {
       println("Writing merge to file...");
-      FileWriter writer = new FileWriter(new File(mainApplet.dataPath(timedName + ".merged.msl")));
+      FileWriter writer = new FileWriter(new File(mainApplet.dataPath("tmp/" + timedName + ".merged.msl")));
       writer.write(merged.toString());
       writer.close();
       println("DONE!");
@@ -147,12 +147,12 @@ class LogMerger
 // ---
 // Zip all
   private boolean zipAllFiles()
-  {
+  {    
     try
     {
       println("Zipping game log files...");
       BufferedInputStream origin = null;
-      FileOutputStream dest = new FileOutputStream(mainApplet.dataPath(timedName + "." + teamAName + "-" + teamBName + ".zip"));
+      FileOutputStream dest = new FileOutputStream(mainApplet.dataPath("logs/" + timedName + "." + teamAName + "-" + teamBName + ".zip"));
       ZipOutputStream out = new ZipOutputStream(new BufferedOutputStream(dest));
       out.setMethod(ZipOutputStream.DEFLATED);
       byte data[] = new byte[BUFFER];
@@ -160,7 +160,7 @@ class LogMerger
       String[] files = {".msl", ".A.msl", ".B.msl", ".merged.msl"};
       for(int i = 0; i < files.length; i++)
       {
-        String fileName = mainApplet.dataPath(timedName + files[i]);
+        String fileName = mainApplet.dataPath("tmp/" + timedName + files[i]);
         File f = new File(fileName);
         if(!f.exists() || !f.isFile())
           continue;
@@ -178,6 +178,7 @@ class LogMerger
       }
       out.close();
       println("DONE! \"" + timedName + "." + teamAName + "-" + teamBName + ".zip\" created");
+      
     } catch(Exception e) {
       println("ERROR Zipping log files");
       e.printStackTrace();

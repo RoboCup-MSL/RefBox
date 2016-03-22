@@ -85,11 +85,6 @@ void setup() {
   
   size(800, 600);
   frame.setTitle(MSG_WINDOWTITLE); 
-  /*  Crystal font — Created in 1993 by Allen R. Walden
-      http://www.fontspace.com/allen-r-walden/crystal
-  */
-//  clockFont = createFont("fonts/Crysta.ttf", 64, false);
-//  scoreFont = createFont("fonts/Crysta.ttf", 32, false);
   clockFont = createFont("fonts/LCDM.TTF", 58, false);
   scoreFont = createFont("fonts/LED.ttf", 36, false);
   buttonFont=loadFont("fonts/Futura-CondensedExtraBold-24.vlw");
@@ -97,6 +92,9 @@ void setup() {
   panelFont=loadFont("fonts/Futura-CondensedExtraBold-16.vlw");
   debugFont=loadFont("fonts/Monaco-12.vlw");
   watermark=createFont("Arial", 112, false);
+  
+  createDir(mainApplet.dataPath("tmp/"));
+  createDir(mainApplet.dataPath("logs/"));
   
   //==============================================
   //=== Modules Initialization
@@ -302,5 +300,19 @@ void initGui()
   bSlider[3]=new BSliders("Coach",310+132,424+32,false, VOICECOACH);
   
   buttonCSTOPactivate();
+}
+
+boolean createDir(String dirPath)
+{
+    // Create logs directory if necessary
+    File logsDir = new File(dirPath);
+    if(!logsDir.exists() || !logsDir.isDirectory())
+    {
+      if(!logsDir.mkdir()){
+        println("ERROR - Could not create logs directory.");
+        return false;
+      }
+    }
+    return true;
 }
 

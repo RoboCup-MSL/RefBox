@@ -35,7 +35,7 @@ static class Log
     if(parent == null)
       return;
     
-    File f = new File(parent.dataPath(filename));
+    File f = new File(parent.dataPath("tmp/" + filename));
     if (!f.exists()) {
       createFile(f);
     }
