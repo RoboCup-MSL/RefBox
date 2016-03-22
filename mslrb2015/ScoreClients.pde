@@ -84,7 +84,7 @@ class ScoreClients
     msg += "\"longName\": \"" + lnB + "\",";
     msg += "\"score\": \"" + teamB.Score + "\",";
     msg += "\"robotState\": [" + teamB_robotState + "],";
-    msg += "\"robotWaitTime\": \"" + teamB_robotWaitTime + "\",";
+    msg += "\"robotWaitTime\": [" + teamB_robotWaitTime + "],";
     msg += "\"worldState\": " + teamB_world_json;
     msg += "}"; // END Team B
     
