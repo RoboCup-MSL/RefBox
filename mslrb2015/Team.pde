@@ -17,6 +17,7 @@ class Team {
   File logFile;
   PrintWriter logFileOut;
   Client connectedClient;
+  boolean firstWorldState;
       
   Team(color c, boolean uileftside) {
     this.c=c;
@@ -51,11 +52,19 @@ class Team {
     if(logFileOut == null)
       return;
     
+    if(firstWorldState) {
+      logFileOut.println("[");    // Start of JSON array
+    }else{
+      logFileOut.println(",");    // Separator for the new JSON object
+    }
+    
     logFileOut.print("{");
     logFileOut.print("\"timestamp\": " + (System.currentTimeMillis() - ageMs) + ",");
     logFileOut.print("\"gametimeMs\": " + getGameTime() + ",");
     logFileOut.print("\"worldstate\": " + teamWorldstate);
-    logFileOut.println("},");
+    logFileOut.print("}");
+    
+    firstWorldState = false;
   }
   
   void reset() {
@@ -85,6 +94,7 @@ class Team {
     for (int i=0; i<5; i++)
       r[i].reset();
     this.connectedClient = null;
+    this.firstWorldState = true;
   }
 
   // Function called when team connects and is accepted
@@ -105,6 +115,7 @@ class Team {
     
     if(this.logFile == null || this.logFileOut == null)
     {
+      logFileOut.println("]");    // End JSON array
       this.logFile = new File(mainApplet.dataPath(Log.getTimedName() + "." + (isCyan?"A":"B") + ".msl"));
       try{
         this.logFileOut = new PrintWriter(new BufferedWriter(new FileWriter(logFile, true)));

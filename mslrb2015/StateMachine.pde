@@ -333,6 +333,10 @@ static class StateMachine
       teamA.resetname();
       teamB.resetname();        
       resetStartTime();
+      
+      LogMerger merger = new LogMerger(Log.getTimedName());
+      merger.merge();
+      
       Log.createLog();
       
       send_to_basestation("" + COMM_RESET);

@@ -228,6 +228,9 @@ void exit() {
   if(teamA != null) teamA.reset();
   if(teamB != null) teamB.reset();
   
+  LogMerger merger = new LogMerger(Log.getTimedName());
+  merger.merge();
+  
   // Stop all servers
   scoreClients.stopServer();
   BaseStationServer.stop();
