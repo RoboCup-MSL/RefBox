@@ -308,7 +308,6 @@ public static void checkBasestationsMessages()
 public static final char COMM_STOP = 'S';
 public static final char COMM_START = 's';
 public static final char COMM_WELCOME = 'W';  //NEW 2015CAMBADA: welcome message
-//public static final char COMM_WORLD_STATE = 'w';  //NEW 2015CAMBADA: request world state
 public static final char COMM_RESET = 'Z';  //NEW 2015CAMBADA: Reset Game
 public static final char COMM_TESTMODE_ON = 'U';  //NEW 2015CAMBADA: TestMode On
 public static final char COMM_TESTMODE_OFF = 'u';  //NEW 2015CAMBADA: TestMode Off
