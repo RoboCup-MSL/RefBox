@@ -1,3 +1,52 @@
+// New accepted connections
+public static void serverEvent(MyServer whichServer, Client whichClient) {
+  try {
+  if (whichServer.equals(BaseStationServer)) {
+    Log.logMessage("New BaseStationClient @ "+whichClient.ip());
+  }
+  else if (whichServer.equals(scoreClients.scoreServer)) {
+    Log.logMessage("New ScoreClient @ " + whichClient.ip());
+  }
+  else if (mslRemote != null && mslRemote.server != null && whichServer != null && whichServer.equals(mslRemote.server)) {
+    Log.logMessage("New RemoteControl @ " + whichClient.ip());
+  }
+  }catch(Exception e){}
+}
+
+// Client authentication
+public static void clientValidation(MyServer whichServer, Client whichClient) {
+  try{
+    // BASESTATION CLIENTS AUTH
+    if (whichServer.equals(BaseStationServer)) {
+      if (!Popup.isEnabled()) {
+        if(setteamfromip(whichClient.ip()))
+          connectingClient = whichClient; // Accept client!
+        else
+        {
+          // Invalid team
+          Log.logMessage("Invalid team " + whichClient.ip());
+          whichClient.write(COMM_RESET);
+          whichClient.stop();
+        }
+      } else {
+        Log.logMessage("ERR Another team connecting");
+        whichClient.write(COMM_RESET);
+        whichClient.stop();
+      }
+    }
+    // SCORE CLIENTS AUTH
+    else if (whichServer.equals(scoreClients.scoreServer)) {
+      if(!Config.scoreServerClients.hasValue(whichClient.ip())) {
+        Log.logMessage("Reject ScoreClient " + whichClient.ip());
+        whichClient.stop();
+      }
+    }
+    // REMOTE CLIENTS AUTH
+    else if (mslRemote != null && mslRemote.server != null && whichServer.equals(mslRemote.server)) {
+      
+    }
+  }catch(Exception e){}
+}
 
 
 public static void send_to_basestation(String c){
@@ -65,38 +114,6 @@ public static void test_send_direct(char team, int pos) {
   if (team=='C') BaseStationServer.write(cCommcmds[pos]);
   if (team=='A') BaseStationServer.write(cCTeamcmds[pos]);
   if (team=='B') BaseStationServer.write(cMTeamcmds[pos]);
-}
-
-public static void serverEvent(Server whichServer, Client whichClient) {
-  try {
-  if (whichServer.equals(BaseStationServer)) {
-    println(getAbsoluteTime()+": New BaseStationClient @ "+whichClient.ip());
-    if (!Popup.isEnabled()) {
-      if(setteamfromip(whichClient.ip()))
-        connectingClient = whichClient; 
-      else
-      {
-        // Invalid team
-        whichClient.write(COMM_RESET);
-        whichClient.stop();
-      }
-    } else {
-      Log.logMessage("ERR Another team connecting");
-      whichClient.write(COMM_RESET);
-      whichClient.stop();
-    }
-  }
-  else if (whichServer.equals(scoreClients.scoreServer)) {
-    if(!Config.scoreServerClients.hasValue(whichClient.ip())) {
-      println("Rejected ScoreClient " + whichClient.ip());
-      whichClient.stop();
-    } else
-      println(getAbsoluteTime()+": New ScoreClient @ " + whichClient.ip());
-  }
-  else if (mslRemote != null && mslRemote.server != null && whichServer != null && whichServer.equals(mslRemote.server)) {
-    println(getAbsoluteTime()+": New RemoteControl @ " + whichClient.ip());
-  }
-  }catch(Exception e){}
 }
 
 public static boolean setteamfromip(String s) {

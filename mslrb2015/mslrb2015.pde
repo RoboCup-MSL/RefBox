@@ -42,7 +42,7 @@ public static final int CMDID_COMMON_ENDGAME = 6;
 
 public static ScoreClients scoreClients = null;
 public static MSLRemote mslRemote = null;
-public static Server BaseStationServer;
+public static MyServer BaseStationServer;
 public static Client connectingClient = null;
 
 public static Team teamA,teamB;
@@ -105,7 +105,7 @@ void setup() {
   setbackground();                                                      // Load background
 
   scoreClients = new ScoreClients(this, Config.scoreServerPort);        // Load score clients server
-  BaseStationServer = new Server(this, Config.basestationServerPort);   // Load basestations server
+  BaseStationServer = new MyServer(this, Config.basestationServerPort); // Load basestations server
   mslRemote = new MSLRemote(this, Config.remoteServerPort);             // Load module for MSL remote control
   
   println("This IP: "+Server.ip());
