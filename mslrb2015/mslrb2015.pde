@@ -8,7 +8,7 @@
 import processing.net.*;
 import org.json.*;
 
-public static final String MSG_VERSION="1.0.0";
+public static final String MSG_VERSION="1.1.0";
 public static final String MSG_VERSION_MSG="(European Open 2016)";
 public static final String MSG_WINDOWTITLE="RoboCup MSL RefBox 2015 - "+MSG_VERSION+" "+MSG_VERSION_MSG;
 public static final String MSG_HALFTIME="End Current Part ?";
