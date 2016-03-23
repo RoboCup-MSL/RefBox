@@ -4,9 +4,10 @@ static class Config
 {
   // Networking
   public static int scoreServerPort = 12345;
+  public static int scoreClientsUpdatePeriod_ms = 1000;
+  public static StringList scoreServerClients = new StringList();
   public static int remoteServerPort = 54321;
   public static int basestationServerPort = 28097;
-  public static int scoreClientsUpdatePeriod_ms = 1000;
   public static boolean remoteControlEnable = false;
   
   // Rules
@@ -82,7 +83,16 @@ static class Config
           // Networking
           if(networking.has("scoreServerPort"))
             scoreServerPort = networking.getInt("scoreServerPort");
-            
+          
+          if(networking.has("scoreServerClients"))
+          {
+            org.json.JSONArray listOfClients = networking.getJSONArray("scoreServerClients");
+            for(int i = 0; i < listOfClients.length(); i++)
+            {
+              scoreServerClients.append(listOfClients.getString(i));
+            }
+          }
+          
           if(networking.has("remoteServerPort"))
             remoteServerPort = networking.getInt("remoteServerPort");
             
