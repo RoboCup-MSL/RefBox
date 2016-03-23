@@ -1,17 +1,10 @@
 {
-	"type": "MSLRBCONF",
-	"description": "MSL RefBox configuration file",
+	"type": "MSLREFCLIENTCONF",
+	"description": "MSL RefBox Referee Client configuration file",
 	"networking":
 	{
-		"scoreServerPort": 12345,
-		"basestationServerPort": 28097,
-		"scoreClientsUpdatePeriod_ms": 50,
-		"enableRemote": false
-	},
-	"rules":
-	{
-		"repairPenalty_ms": 30000,
-		"doubleYellowPenalty_ms": 120000
+		"scoreServerHost": "127.0.0.1",
+		"scoreServerPort": 12345
 	},
 	"appearance":
 	{

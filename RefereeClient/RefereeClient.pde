@@ -48,6 +48,8 @@ public static String gametime = "", gameruntime = "";
 public static String currentGameStateString = "Stop";
 public static String lastCommandCode = "";
 public static String lastCommandDescription = "";
+public static int lastConnectionAttempt = 0;
+public static int nConnAttempts = 0;
 
 //GUI
 public static PVector offsetLeft= new PVector(200, 160);
@@ -89,8 +91,10 @@ void setup() {
   println("This IP: "+Server.ip());
   teamA = new Team(Config.defaultCyanTeamColor,true);                   // Initialize Cyan team (Team A)
   teamB = new Team(Config.defaultMagentaTeamColor,false);               // Initialize Magenta team (Team B)
-  myClient = new Client(this, "127.0.0.1", Config.scoreServerPort);
-    
+  //myClient = new Client(this, Config.scoreServerHost, Config.scoreServerPort);
+  lastConnectionAttempt = millis();
+  nConnAttempts = 0;
+  
   frameRate(appFrameRate);
 }
 
@@ -99,110 +103,121 @@ void setup() {
  **************************************************************************************************************************/
 void draw() {
   
-  if (myClient.available() > 0) { 
-    String whatClientSaid = new String(myClient.readBytes());
-    if(whatClientSaid != null)
-      while(whatClientSaid.length() != 0)
-      {
-        int idx = whatClientSaid.indexOf('\0');
-        if(idx == -1) { // Terminator not found
-          msgBuffer += whatClientSaid;
-          break;
-        }else{ // Terminator found
-          if(idx != 0)
-          {
-            msgBuffer += whatClientSaid.substring(0,idx);
-            if(idx < whatClientSaid.length())
-              whatClientSaid = whatClientSaid.substring(idx+1);
-            else
-              whatClientSaid = "";
-          }else{
-            if(whatClientSaid.length() == 1)
-              whatClientSaid = "";
-            else
-              whatClientSaid = whatClientSaid.substring(1);
-          }
+  if(myClient == null || !myClient.active()) {
+    if(myClient == null || millis() - lastConnectionAttempt > 1000)
+    {
+      myClient = new Client(this, Config.scoreServerHost, Config.scoreServerPort);
+      lastConnectionAttempt = millis();
+      nConnAttempts++;
+    }
+  }else{
+    if (myClient.available() > 0) { 
+      String whatClientSaid = new String(myClient.readBytes());
+      if(whatClientSaid != null)
+        while(whatClientSaid.length() != 0)
+        {
+          nConnAttempts = 0;
           
-          // Validate message
-          boolean ok = true;
-          org.json.JSONObject root = null;
-          org.json.JSONObject jsonA = null;
-          org.json.JSONObject jsonB = null;
-          
-          try // Check for malformed JSON
-          {
-            root = new org.json.JSONObject(msgBuffer);
-          } catch(JSONException e) {
-            String errorMsg = "ERROR malformed JSON : " + msgBuffer;
-            println(errorMsg);
-            ok = false;
-          }
-          
-          if(ok && root.has("type") && root.optString("type","").equals("event")) // event type messages
-          {
-            String eventCode = root.optString("eventCode","");
-            if(Description.hasKey(eventCode))
+          int idx = whatClientSaid.indexOf('\0');
+          if(idx == -1) { // Terminator not found
+            msgBuffer += whatClientSaid;
+            break;
+          }else{ // Terminator found
+            if(idx != 0)
             {
-              String desc = Description.get(eventCode);
-              Log.logactions(eventCode);
-              lastCommandCode = eventCode;
-              lastCommandDescription = desc;
-            }
-          }else if(ok && root.has("type") && root.optString("type","").equals("teams")){
-          
-          
-            if(ok)
-            {
-              try // Check for worldstate
-              {
-                jsonA = root.getJSONObject("teamA");
-                jsonB = root.getJSONObject("teamB");
-              } catch(JSONException e) {
-                String errorMsg = "ERROR No worldstate from teams : " + msgBuffer;
-                println(errorMsg);
-                ok = false;
-              }
+              msgBuffer += whatClientSaid.substring(0,idx);
+              if(idx < whatClientSaid.length())
+                whatClientSaid = whatClientSaid.substring(idx+1);
+              else
+                whatClientSaid = "";
+            }else{
+              if(whatClientSaid.length() == 1)
+                whatClientSaid = "";
+              else
+                whatClientSaid = whatClientSaid.substring(1);
             }
             
-            if(ok && root != null && jsonA != null && jsonB != null)
+            // Validate message
+            boolean ok = true;
+            org.json.JSONObject root = null;
+            org.json.JSONObject jsonA = null;
+            org.json.JSONObject jsonB = null;
+            
+            try // Check for malformed JSON
             {
-              // Global
-              currentGameStateString = root.optString("gameStateString");
-              gametime = root.optString("gameTime", gametime);
-              gameruntime = root.optString("gameRunTime", gameruntime);
-              
-              // Team A
-              teamA.shortName = jsonA.optString("shortName", teamA.shortName);
-              teamA.longName = jsonA.optString("longName", teamA.longName);
-              teamA.Score = jsonA.optInt("score", teamA.Score);
-              if(jsonA.has("robotState")) {
-                for(int i = 0; i < 5; i++) {
-                  org.json.JSONArray state = jsonA.getJSONArray("robotState");
-                  teamA.r[i].state = state.optString(i, teamA.r[i].state);
-                  
-                  org.json.JSONArray waitTime = jsonA.getJSONArray("robotWaitTime");
-                  teamA.r[i].waittime = waitTime.optInt(i, teamA.r[i].waittime);
-                }
-              }
-              
-              // Team B
-              teamB.shortName = jsonB.optString("shortName", teamB.shortName);
-              teamB.longName = jsonB.optString("longName", teamB.longName);
-              teamB.Score = jsonB.optInt("score", teamB.Score);
-              if(jsonB.has("robotState")) {
-                for(int i = 0; i < 5; i++) {
-                  org.json.JSONArray state = jsonB.getJSONArray("robotState");
-                  teamB.r[i].state = state.optString(i, teamB.r[i].state);
-                  org.json.JSONArray waitTime = jsonB.getJSONArray("robotWaitTime");
-                  teamB.r[i].waittime = waitTime.optInt(i, teamB.r[i].waittime);
-                }
-              }
+              root = new org.json.JSONObject(msgBuffer);
+            } catch(JSONException e) {
+              String errorMsg = "ERROR malformed JSON : " + msgBuffer;
+              println(errorMsg);
+              ok = false;
             }
-          
-          } // end "teams" type
-          msgBuffer = ""; // Clean buffer
+            
+            if(ok && root.has("type") && root.optString("type","").equals("event")) // event type messages
+            {
+              String eventCode = root.optString("eventCode","");
+              if(Description.hasKey(eventCode))
+              {
+                String desc = Description.get(eventCode);
+                Log.logactions(eventCode);
+                lastCommandCode = eventCode;
+                lastCommandDescription = desc;
+              }
+            }else if(ok && root.has("type") && root.optString("type","").equals("teams")){
+            
+            
+              if(ok)
+              {
+                try // Check for worldstate
+                {
+                  jsonA = root.getJSONObject("teamA");
+                  jsonB = root.getJSONObject("teamB");
+                } catch(JSONException e) {
+                  String errorMsg = "ERROR No worldstate from teams : " + msgBuffer;
+                  println(errorMsg);
+                  ok = false;
+                }
+              }
+              
+              if(ok && root != null && jsonA != null && jsonB != null)
+              {
+                // Global
+                currentGameStateString = root.optString("gameStateString");
+                gametime = root.optString("gameTime", gametime);
+                gameruntime = root.optString("gameRunTime", gameruntime);
+                
+                // Team A
+                teamA.shortName = jsonA.optString("shortName", teamA.shortName);
+                teamA.longName = jsonA.optString("longName", teamA.longName);
+                teamA.Score = jsonA.optInt("score", teamA.Score);
+                if(jsonA.has("robotState")) {
+                  for(int i = 0; i < 5; i++) {
+                    org.json.JSONArray state = jsonA.getJSONArray("robotState");
+                    teamA.r[i].state = state.optString(i, teamA.r[i].state);
+                    
+                    org.json.JSONArray waitTime = jsonA.getJSONArray("robotWaitTime");
+                    teamA.r[i].waittime = waitTime.optInt(i, teamA.r[i].waittime);
+                  }
+                }
+                
+                // Team B
+                teamB.shortName = jsonB.optString("shortName", teamB.shortName);
+                teamB.longName = jsonB.optString("longName", teamB.longName);
+                teamB.Score = jsonB.optInt("score", teamB.Score);
+                if(jsonB.has("robotState")) {
+                  for(int i = 0; i < 5; i++) {
+                    org.json.JSONArray state = jsonB.getJSONArray("robotState");
+                    teamB.r[i].state = state.optString(i, teamB.r[i].state);
+                    org.json.JSONArray waitTime = jsonB.getJSONArray("robotWaitTime");
+                    teamB.r[i].waittime = waitTime.optInt(i, teamB.r[i].waittime);
+                  }
+                }
+              }
+            
+            } // end "teams" type
+            msgBuffer = ""; // Clean buffer
+          }
         }
-      }
+    }
   }
   
   
@@ -213,53 +228,63 @@ void draw() {
   teamA.updateUI();
   teamB.updateUI();
   
-  fill(255);
-  textAlign(CENTER, CENTER);
-  //score
-  textFont(scoreFont);
-  text("[  "+teamA.Score+"  -  "+teamB.Score+"  ]", 400, 20);
-  //main clock
-  textFont(clockFont);
-  fill(255);
-  text( gametime, 400, 72);
-  //run clock  
-  textFont(panelFont);
-  text("["+gameruntime+"]", 400, 123);
-  //debug msgs  
-  textFont(debugFont);
-  textAlign(LEFT, BOTTOM);
-  fill(#00ff00);
-  for (int i=0; i<5; i++)
-    text( Last5cmds[i], 250, height-2-i*16);
-  fill(255);
-  //server info
-  textAlign(CENTER, BOTTOM);
-  String time=nf(hour(),2)+":"+nf(minute(),2)+":"+nf(second(),2);
-  //text("[ "+time+" ]     "+Server.ip()+" ["+scoreClients.clientCount()+"/"+BaseStationServer.clientCount+"]", width/2, 512);   
-  
+  if(myClient != null && myClient.active())
+  {
+    fill(255);
+    textAlign(CENTER, CENTER);
+    //score
+    textFont(scoreFont);
+    text("[  "+teamA.Score+"  -  "+teamB.Score+"  ]", 400, 20);
+    //main clock
+    textFont(clockFont);
+    fill(255);
+    text( gametime, 400, 72);
+    //run clock  
+    textFont(panelFont);
+    text("["+gameruntime+"]", 400, 123);
+    //debug msgs  
+    textFont(debugFont);
+    textAlign(LEFT, BOTTOM);
+    fill(#00ff00);
+    for (int i=0; i<5; i++)
+      text( Last5cmds[i], 250, height-2-i*16);
+    fill(255);
+    //server info
+    textAlign(CENTER, BOTTOM);
+    String time=nf(hour(),2)+":"+nf(minute(),2)+":"+nf(second(),2);
+    //text("[ "+time+" ]     "+Server.ip()+" ["+scoreClients.clientCount()+"/"+BaseStationServer.clientCount+"]", width/2, 512);   
+  }
   
   // Show current situation in the middle
-  PImage img = null;
-  if(new File(dataPath("img/"+lastCommandCode+".png")).exists() && (img = loadImage("img/"+lastCommandCode+".png")) != null)
-  {
-    imageMode(CENTER);
-    image(img, width/2, height/2 + 30, 230, 230);
-  }else{
+  if(myClient == null || !myClient.active()) {
     fill(255);
-    String description = lastCommandDescription;
-    if(description.contains("START"))
-      fill(#28C700);
-    else if(description.contains("MAGENTA"))
-    {
-      fill(teamB.c);
-      description = description.replace("MAGENTA ","MAGENTA\n");
-    }else if(description.contains("CYAN"))
-    {
-      fill(teamA.c);
-      description = description.replace("CYAN ","CYAN\n");
-    }
     textFont(teamFont);
-    text(description, width/2, height/2 + 30);
+    textSize(36);
+    textAlign(CENTER, CENTER);
+    text("Connecting to\n"+Config.scoreServerHost+"\n(" + nConnAttempts + ")", width/2, height/2 + 30);
+  }else{
+    PImage img = null;
+    if(new File(dataPath("img/"+lastCommandCode+".png")).exists() && (img = loadImage("img/"+lastCommandCode+".png")) != null)
+    {
+      imageMode(CENTER);
+      image(img, width/2, height/2 + 30, 230, 230);
+    }else{
+      fill(255);
+      String description = lastCommandDescription;
+      if(description.contains("START"))
+        fill(#28C700);
+      else if(description.contains("MAGENTA"))
+      {
+        fill(teamB.c);
+        description = description.replace("MAGENTA ","MAGENTA\n");
+      }else if(description.contains("CYAN"))
+      {
+        fill(teamA.c);
+        description = description.replace("CYAN ","CYAN\n");
+      }
+      textFont(teamFont);
+      text(description, width/2, height/2 + 30);
+    }
   }
 }
 
