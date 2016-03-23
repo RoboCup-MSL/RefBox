@@ -109,6 +109,12 @@ void draw() {
       myClient = new Client(this, Config.scoreServerHost, Config.scoreServerPort);
       lastConnectionAttempt = millis();
       nConnAttempts++;
+      for(int i = 0; i < 5; i++)
+        Last5cmds[i] = ".";
+      teamA.reset();
+      teamB.reset();
+      lastCommandCode = ".";
+      lastCommandDescription = "";
     }
   }else{
     if (myClient.available() > 0) { 
@@ -283,6 +289,7 @@ void draw() {
         description = description.replace("CYAN ","CYAN\n");
       }
       textFont(teamFont);
+      textAlign(CENTER, CENTER);
       text(description, width/2, height/2 + 30);
     }
   }
