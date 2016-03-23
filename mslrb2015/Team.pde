@@ -24,12 +24,12 @@ class Team {
     this.isCyan=uileftside;
     
     //robots
-    float x=0, y=60; 
+    float x=0, y=64; 
     r[0]=new Robot(x, y);
-    r[1]=new Robot(x+40, y);
-    r[2]=new Robot(x, y+40);
-    r[3]=new Robot(x+40, y+40);
-    r[4]=new Robot(x+20, y+80);
+    r[1]=new Robot(x+56, y);
+    r[2]=new Robot(x, y + 56);
+    r[3]=new Robot(x+56, y + 56);
+    r[4]=new Robot(x+28, y + 112);
     
     this.reset();
   }
@@ -263,12 +263,12 @@ class Team {
     
     
     //side border
-    rectMode(TOP);
+/*    rectMode(TOP);
     noStroke();
     fill(c);
     if (isCyan) rect(0, 0, 4, height);
     else rect(width-4, 0, width, height);
-
+*/
     //team names
     String sn=shortName;
     String ln=longName;
@@ -278,11 +278,11 @@ class Team {
     fill(255);
     textFont(teamFont);
     textAlign(CENTER, CENTER);    
-    if (isCyan) text(sn, 126, 32);
-    else text(sn, 674, 32);
+    if (isCyan) text(sn, 163, 50);
+    else text(sn, 837, 50);
     textFont(panelFont);
-    if (isCyan) text(ln, 126, 80);
-    else text(ln, 674, 80);
+    if (isCyan) text(ln, 163, 80);
+    else text(ln, 837, 80);
 
 
     // robot state 
@@ -303,9 +303,10 @@ class Team {
     textAlign(LEFT, BOTTOM);
     textFont(debugFont);
     fill(#ffff00);
+    textLeading(20);
     String ts="Goals."+this.Score+" Penalty:"+this.PenaltyCount+"\nYellow:"+this.YellowCardCount+" Red:"+this.RedCardCount+"\nRepair:"+this.RepairCount+" 2xYellow:"+this.DoubleYellowCardCount;
-    if (isCyan) text(ts, 20, height-16);
-    else text(ts, width-160, height-16);
+    if (isCyan) text(ts, 40, height-18);
+    else text(ts, width - 190, height-18);
   }
   
 //*******************************************************************

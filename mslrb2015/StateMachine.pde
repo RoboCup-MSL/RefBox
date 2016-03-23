@@ -55,7 +55,7 @@ static class StateMachine
           {
             gsCurrent = SwitchGamePart();
             gsPrev = saveGS;
-            
+            resetStartTime();
             send_event_v2(cCommcmds[CMDID_COMMON_HALFTIME], Commcmds[CMDID_COMMON_HALFTIME], null);
           }
           break;

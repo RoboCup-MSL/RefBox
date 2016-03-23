@@ -4,7 +4,7 @@ class Button {
   String bStatus;  // normal, active, disabled
   Boolean HOVER;
   String Label;
-  int bwidth=100; 
+  int bwidth=116; 
   int bheight=48;
   int hbwidth=bwidth/2; 
   int hbheight=bheight/2;
