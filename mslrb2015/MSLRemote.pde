@@ -1,6 +1,6 @@
 class MSLRemote
 {
-  public Server server;
+  public MyServer server;
   private String lastCommand = " ";
   
   private static final String GAMESTATUS_PRE_GAME = "Va";
@@ -47,7 +47,7 @@ class MSLRemote
   
   public MSLRemote(PApplet parent, int port)
   {
-    server = new Server(parent, port);
+    server = new MyServer(parent, port);
   }
   
   public void setLastCommand(String cmd)

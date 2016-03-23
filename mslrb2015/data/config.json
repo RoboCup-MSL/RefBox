@@ -4,8 +4,11 @@
 	"networking":
 	{
 		"scoreServerPort": 12345,
-		"basestationServerPort": 28097,
 		"scoreClientsUpdatePeriod_ms": 50,
+		"scoreServerClients": [
+			"127.0.0.1"
+		],
+		"basestationServerPort": 28097,
 		"enableRemote": false
 	},
 	"rules":

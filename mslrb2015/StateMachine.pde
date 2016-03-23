@@ -342,7 +342,7 @@ static class StateMachine
       send_to_basestation("" + COMM_RESET);
       
       BaseStationServer.stop();
-      BaseStationServer = new Server(mainApplet, Config.basestationServerPort);
+      BaseStationServer = new MyServer(mainApplet, Config.basestationServerPort);
   }
   
   public static boolean isHalf()

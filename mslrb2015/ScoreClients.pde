@@ -1,11 +1,11 @@
 class ScoreClients
 {
-  public Server scoreServer;
+  public MyServer scoreServer;
   private static final boolean debug = false;
   
   public ScoreClients(PApplet parent, int port)
   {
-    scoreServer = new Server(parent, port);
+    scoreServer = new MyServer(parent, port);
   }
   
   // Sends an "event" type update message to the clients

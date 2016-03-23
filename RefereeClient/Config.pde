@@ -4,6 +4,7 @@ static class Config
 {
   // Networking
   public static int scoreServerPort = 12345;
+  public static String scoreServerHost = "127.0.0.1";
   
   // Appearance
   public static int maxShortName = 8;
@@ -67,13 +68,15 @@ static class Config
         try // Get settings
         {
           org.json.JSONObject networking = json_root.getJSONObject("networking");
-          org.json.JSONObject rules = json_root.getJSONObject("rules");
           org.json.JSONObject appearance = json_root.getJSONObject("appearance");
           
           // ----
           // Networking
           if(networking.has("scoreServerPort"))
             scoreServerPort = networking.getInt("scoreServerPort");
+            
+          if(networking.has("scoreServerHost"))
+            scoreServerHost = networking.getString("scoreServerHost");
             
           // ----
           // Appearance

@@ -8,7 +8,7 @@
 import processing.net.*;
 import org.json.*;
 
-public static final String MSG_VERSION="1.0.0";
+public static final String MSG_VERSION="1.1.0";
 public static final String MSG_VERSION_MSG="(European Open 2016)";
 public static final String MSG_WINDOWTITLE="RoboCup MSL RefBox 2015 - "+MSG_VERSION+" "+MSG_VERSION_MSG;
 public static final String MSG_HALFTIME="End Current Part ?";
@@ -42,7 +42,7 @@ public static final int CMDID_COMMON_ENDGAME = 6;
 
 public static ScoreClients scoreClients = null;
 public static MSLRemote mslRemote = null;
-public static Server BaseStationServer;
+public static MyServer BaseStationServer;
 public static Client connectingClient = null;
 
 public static Team teamA,teamB;
@@ -110,7 +110,7 @@ void setup() {
   //backgroundImage=get();
 
   scoreClients = new ScoreClients(this, Config.scoreServerPort);        // Load score clients server
-  BaseStationServer = new Server(this, Config.basestationServerPort);   // Load basestations server
+  BaseStationServer = new MyServer(this, Config.basestationServerPort); // Load basestations server
   mslRemote = new MSLRemote(this, Config.remoteServerPort);             // Load module for MSL remote control
   
   println("This IP: "+Server.ip());
