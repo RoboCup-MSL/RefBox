@@ -108,33 +108,33 @@ void comms_initDescriptionDictionary() {
   Description.set("4", "Overtime 2nd half");  //NEW 2015CAMBADA
   Description.set("L", "Park");
   
-  Description.set("K", "CYAN Kick Off");
-  Description.set("F", "CYAN Free Kick");
-  Description.set("G", "CYAN Goal Kick");
-  Description.set("T", "CYAN Throw In");
-  Description.set("C", "CYAN Corner");
-  Description.set("P", "CYAN Penalty");
-  Description.set("A", "CYAN Goal+");
-  Description.set("D", "CYAN Goal-");  
-  Description.set("O", "CYAN Repair Out");
-//  Description.set("I", "CYAN Repair In");
-  Description.set("R", "CYAN Red Card");  //NEW 2015CAMBADA
-  Description.set("Y", "CYAN Yellow Card");  //NEW 2015CAMBADA
+  Description.set("K", "Kick Off CYAN");
+  Description.set("F", "Free Kick CYAN");
+  Description.set("G", "Goal Kick CYAN");
+  Description.set("T", "Throw In CYAN");
+  Description.set("C", "Corner CYAN");
+  Description.set("P", "Penalty CYAN");
+  Description.set("A", "Goal+ CYAN");
+  Description.set("D", "Goal- CYAN");  
+  Description.set("O", "Repair Out CYAN");
+//  Description.set("I", "Repair In");
+  Description.set("R", "Red Card CYAN");  //NEW 2015CAMBADA
+  Description.set("Y", "Yellow Card CYAN");  //NEW 2015CAMBADA
 //  Description.set("J", "CYAN Double Yellow in");  //NEW 2015CAMBADA
-  Description.set("B","CYAN Double Yellow");  //NEW 2015CAMBADA
+  Description.set("B","Double Yellow CYAN");  //NEW 2015CAMBADA
 
-  Description.set("k", "MAGENTA Kick Off");
-  Description.set("f", "MAGENTA Free Kick");
-  Description.set("g", "MAGENTA Goal Kick");
-  Description.set("t", "MAGENTA Throw In");
-  Description.set("c", "MAGENTA Corner");
-  Description.set("p", "MAGENTA Penalty");
-  Description.set("a", "MAGENTA Goal+");
-  Description.set("d", "MAGENTA Goal-");
-  Description.set("o", "MAGENTA Repair Out");
+  Description.set("k", "Kick Off MAGENTA");
+  Description.set("f", "Free Kick MAGENTA");
+  Description.set("g", "Goal Kick MAGENTA");
+  Description.set("t", "Throw In MAGENTA");
+  Description.set("c", "Corner MAGENTA");
+  Description.set("p", "Penalty MAGENTA");
+  Description.set("a", "Goal+ MAGENTA");
+  Description.set("d", "Goal- MAGENTA");
+  Description.set("o", "Repair Out MAGENTA");
 //  Description.set("i", "MAGENTA Repair In");
-  Description.set("r", "MAGENTA Red Card");  //NEW 2015CAMBADA
-  Description.set("y", "MAGENTA Yellow Card");  //NEW 2015CAMBADA
+  Description.set("r", "Red Card MAGENTA");  //NEW 2015CAMBADA
+  Description.set("y", "Yellow Card MAGENTA");  //NEW 2015CAMBADA
 //  Description.set("j", "MAGENTA Double Yellow in");  //NEW 2015CAMBADA
-  Description.set("b","MAGENTA Double Yellow");  //NEW 2015CAMBADA
+  Description.set("b","Double Yellow MAGENTA");  //NEW 2015CAMBADA
 }

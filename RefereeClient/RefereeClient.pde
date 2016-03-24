@@ -50,6 +50,7 @@ public static String lastCommandCode = "";
 public static String lastCommandDescription = "";
 public static int lastConnectionAttempt = 0;
 public static int nConnAttempts = 0;
+public static int gameState = 0;
 
 //GUI
 public static PVector offsetLeft= new PVector(200, 160);
@@ -170,7 +171,6 @@ void draw() {
               }
             }else if(ok && root.has("type") && root.optString("type","").equals("teams")){
             
-            
               if(ok)
               {
                 try // Check for worldstate
@@ -190,6 +190,7 @@ void draw() {
                 currentGameStateString = root.optString("gameStateString");
                 gametime = root.optString("gameTime", gametime);
                 gameruntime = root.optString("gameRunTime", gameruntime);
+                gameState = root.optInt("gameState", gameState);
                 
                 // Team A
                 teamA.shortName = jsonA.optString("shortName", teamA.shortName);
@@ -270,7 +271,9 @@ void draw() {
     text("Connecting to\n"+Config.scoreServerHost+"\n(" + nConnAttempts + ")", width/2, height/2 + 30);
   }else{
     PImage img = null;
-    if(new File(dataPath("img/"+lastCommandCode+".png")).exists() && (img = loadImage("img/"+lastCommandCode+".png")) != null)
+    String imageName = "";
+    if(lastCommandCode.equals("S")) imageName = "stop";
+    if(imageName.length() > 0 && new File(dataPath("img/"+imageName+".png")).exists() && (img = loadImage("img/"+imageName+".png")) != null)
     {
       imageMode(CENTER);
       image(img, width/2, height/2 + 30, 230, 230);
@@ -282,11 +285,11 @@ void draw() {
       else if(description.contains("MAGENTA"))
       {
         fill(teamB.c);
-        description = description.replace("MAGENTA ","MAGENTA\n");
+        description = description.replace(" MAGENTA","\nMAGENTA");
       }else if(description.contains("CYAN"))
       {
         fill(teamA.c);
-        description = description.replace("CYAN ","CYAN\n");
+        description = description.replace(" CYAN","\nCYAN");
       }
       textFont(teamFont);
       textAlign(CENTER, CENTER);
@@ -307,4 +310,3 @@ void exit() {
   
   super.exit();
 }
-
