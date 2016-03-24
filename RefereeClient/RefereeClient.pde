@@ -52,8 +52,8 @@ public static int lastConnectionAttempt = 0;
 public static int nConnAttempts = 0;
 
 //GUI
-public static PVector offsetLeft= new PVector(200, 160);
-public static PVector offsetRight= new PVector(510, 160);
+public static PVector offsetLeft= new PVector(250, 160);
+public static PVector offsetRight= new PVector(610, 160);
 public static PFont buttonFont, clockFont, panelFont, scoreFont, debugFont, teamFont, watermark;
 public static PImage backgroundImage;
 
@@ -70,14 +70,17 @@ public static PApplet mainApplet = null;
 void setup() {
   mainApplet = this;
   
-  size(800, 600);
+  size(1000, 680);
+  
+ backgroundImage = loadImage("img/V6_23_03WLT.png");
+
   frame.setTitle(MSG_WINDOWTITLE); 
-  clockFont = createFont("fonts/LCDM.TTF", 58, false);
-  scoreFont = createFont("fonts/LED.ttf", 36, false);
+  clockFont = createFont("fonts/LCDM.TTF", 64, false);
+  scoreFont = createFont("fonts/LED.ttf", 40, false);
   buttonFont=loadFont("fonts/Futura-CondensedExtraBold-24.vlw");
   teamFont=loadFont("fonts/Futura-CondensedExtraBold-52.vlw");
-  panelFont=loadFont("fonts/Futura-CondensedExtraBold-16.vlw");
-  debugFont=loadFont("fonts/Monaco-12.vlw");
+  panelFont=loadFont("fonts/Futura-CondensedExtraBold-20.vlw");
+  debugFont=loadFont("fonts/Monaco-14.vlw");
   watermark=createFont("Arial", 112, false);
   
   //==============================================
@@ -86,7 +89,7 @@ void setup() {
   Log.init(this);                                                       // Init Log module
   comms_initDescriptionDictionary();                                    // Initializes the dictionary for communications with the basestations 
   
-  setbackground();                                                      // Load background
+//  setbackground();                                                      // Load background
 
   println("This IP: "+Server.ip());
   teamA = new Team(Config.defaultCyanTeamColor,true);                   // Initialize Cyan team (Team A)
@@ -240,25 +243,25 @@ void draw() {
     textAlign(CENTER, CENTER);
     //score
     textFont(scoreFont);
-    text("[  "+teamA.Score+"  -  "+teamB.Score+"  ]", 400, 20);
+    text("[  "+teamA.Score+"  -  "+teamB.Score+"  ]", 500, 25);
     //main clock
     textFont(clockFont);
     fill(255);
-    text( gametime, 400, 72);
+    text( gametime, 500, 85);
     //run clock  
     textFont(panelFont);
-    text("["+gameruntime+"]", 400, 123);
+    text("["+gameruntime+"]", 500, 140);
     //debug msgs  
     textFont(debugFont);
     textAlign(LEFT, BOTTOM);
     fill(#00ff00);
     for (int i=0; i<5; i++)
-      text( Last5cmds[i], 250, height-2-i*16);
+      text( Last5cmds[i], 340, height-4-i*18);
     fill(255);
     //server info
     textAlign(CENTER, BOTTOM);
     String time=nf(hour(),2)+":"+nf(minute(),2)+":"+nf(second(),2);
-    //text("[ "+time+" ]     "+Server.ip()+" ["+scoreClients.clientCount()+"/"+BaseStationServer.clientCount+"]", width/2, 512);   
+    //text("[ "+time+" ]     "+Server.ip()+" ["+scoreClients.clientCount()+"/"+BaseStationServer.clientCount+"]", width/2, 578);   
   }
   
   // Show current situation in the middle
@@ -273,7 +276,7 @@ void draw() {
     if(new File(dataPath("img/"+lastCommandCode+".png")).exists() && (img = loadImage("img/"+lastCommandCode+".png")) != null)
     {
       imageMode(CENTER);
-      image(img, width/2, height/2 + 30, 230, 230);
+      image(img, width/2, height/2 + 45, 230, 230);
     }else{
       fill(255);
       String description = lastCommandDescription;
@@ -290,7 +293,7 @@ void draw() {
       }
       textFont(teamFont);
       textAlign(CENTER, CENTER);
-      text(description, width/2, height/2 + 30);
+      text(description, width/2, height/2 + 45);
     }
   }
 }

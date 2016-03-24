@@ -24,12 +24,12 @@ class Team {
     this.isCyan=uileftside;
     
     //robots
-    float x=0, y=20; 
+    float x=0, y=64; 
     r[0]=new Robot(x, y);
-    r[1]=new Robot(x+128, y);
-    r[2]=new Robot(x, y+128);
-    r[3]=new Robot(x+128, y+128);
-    r[4]=new Robot(x+64, y+256);
+    r[1]=new Robot(x+138, y);
+    r[2]=new Robot(x, y+138);
+    r[3]=new Robot(x+138, y+138);
+    r[4]=new Robot(x+69, y+276);
     
     this.reset();
   }
@@ -96,8 +96,8 @@ class Team {
     fill(255);
     textFont(teamFont);
     textAlign(CENTER, CENTER);    
-    if (isCyan) text(sn, 126, 48);
-    else text(sn, 674, 48);
+    if (isCyan) text(sn, 163, 70);
+    else text(sn, 837, 70);
     textFont(panelFont);
 
     for (int i=0; i<5; i++)

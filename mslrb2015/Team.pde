@@ -270,8 +270,10 @@ class Team {
     else rect(width-4, 0, width, height);
 */
     //team names
-    String sn=shortName;
-    String ln=longName;
+//    String sn=shortName;
+//    String ln=longName
+    String sn="***";
+    String ln="***";
     if (sn.length()>Config.maxShortName) sn=shortName.substring(0, Config.maxShortName);
     if (ln.length()>Config.maxLongName) ln=longName.substring(0, Config.maxLongName);     
     rectMode(CENTER);
@@ -281,8 +283,8 @@ class Team {
     if (isCyan) text(sn, 163, 50);
     else text(sn, 837, 50);
     textFont(panelFont);
-    if (isCyan) text(ln, 163, 80);
-    else text(ln, 837, 80);
+    if (isCyan) text(ln, 163, 90);
+    else text(ln, 837, 90);
 
 
     // robot state 

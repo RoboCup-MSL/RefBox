@@ -21,7 +21,7 @@ static class Config
   public static color robotRepairColor = #24287B;  //blue
   public static color robotYellowCardColor = #FEFF0F;  //yellow  
   public static color robotDoubleYellowCardColor = #707000;  //doubleyellow
-  public static color robotRedCardColor = #FF0000;  //red
+  public static color robotRedCardColor = #E03030;  //red
   public static String defaultCyanTeamShortName = "Team";
   public static String defaultCyanTeamLongName = "Cyan";
   public static color defaultCyanTeamColor = #00ffff;

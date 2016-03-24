@@ -31,7 +31,7 @@ public static final int CMDID_TEAM_REPAIR_OUT = 7;
 public static final int CMDID_TEAM_REDCARD = 8;
 public static final int CMDID_TEAM_YELLOWCARD = 9;
 
-public static final String[] cCommcmds= { "s", "S", "N", "L", "h", "Z" };  
+public static final String[] cCommcmds= { "s", "S", "N", "L", "h", "Z", "e" };  
 public static final int CMDID_COMMON_START = 0;
 public static final int CMDID_COMMON_STOP = 1;
 public static final int CMDID_COMMON_DROP_BALL = 2;
@@ -69,6 +69,7 @@ public static PVector offsetRight= new PVector(760, 180);
 public static PFont buttonFont, clockFont, panelFont, scoreFont, debugFont, teamFont, watermark;
 // public static PImage backgroundImage;
 public PImage backgroundImage;
+public PImage rcfLogo;
 
 public static PApplet mainApplet = null;
 //static long ctr = 0;
@@ -84,8 +85,7 @@ public static PApplet mainApplet = null;
 void setup() {
   mainApplet = this;
   
-  backgroundImage = loadImage("Images/Background_size1.png");
-  
+  backgroundImage = loadImage("img/V4_23_03WLT.png");
   size(1000, 680);
   frame.setTitle(MSG_WINDOWTITLE); 
   clockFont = createFont("fonts/LCDM.TTF", 64, false);
@@ -122,7 +122,7 @@ void setup() {
   //=== GUI Initialization
   initGui();
   RefreshButonStatus1();
-  resetStartTime();
+  resetStartTime(true);
   
   frameRate(appFrameRate);
 }
@@ -145,7 +145,6 @@ void draw() {
   
   if (BACKGROUNDon) background(backgroundImage);
   else background(48);
-  
 
   long t1=getGameTime();
   long t2=getSplitTime();
@@ -249,7 +248,7 @@ void initGui()
 {
   //common commands
   for (int i=0; i < bCommoncmds.length; i++){
-    bCommoncmds[i] = new Button(435+130*(i%2), 250+i*35-35*(i%2), Commcmds[i], #FEFF00, -1, 255, #FEFF00);
+    bCommoncmds[i] = new Button(435+130*(i%2), 275+i*35-35*(i%2), Commcmds[i], #FEFF00, -1, 255, #FEFF00);
     
     // End part and reset need confirmation popup (don't send message right away)
     if(i <= CMDID_COMMON_PARKING) {
@@ -258,7 +257,7 @@ void initGui()
     }
   }
   bCommoncmds[0].setcolor(#12FF03, -1, -1, #12FF03);  //Start  / green
-  bCommoncmds[1].setcolor(#FC0303, -1, -1, #FC0303);  //Stop  /red 
+  bCommoncmds[1].setcolor(#E03020, -1, -1, #E03030);  //Stop  /red  #FC0303 
 
   for (int i=0; i<6; i++) {
     bTeamAcmds[i] = new Button(offsetLeft.x, offsetLeft.y+70*i, Teamcmds[i], 255, -1, 255, Config.defaultCyanTeamColor);
@@ -302,10 +301,10 @@ void initGui()
   bPopup[0] = new Button(0, 0, "y", 255, Config.defaultCyanTeamColor, 0, Config.defaultCyanTeamColor);
   bPopup[1] = new Button(0, 0, "n", 255, Config.defaultMagentaTeamColor, 0, Config.defaultMagentaTeamColor);
 
-  bSlider[0]=new BSliders("Testmode",420,460,true, TESTMODE);
-  bSlider[1]=new BSliders("Log",420+132,460,true, Log.enable);
-  bSlider[2]=new BSliders("Remote",420,460+32,Config.remoteControlEnable, REMOTECONTROLENABLE);
-  bSlider[3]=new BSliders("Coach",420+132,460+32,false, VOICECOACH);
+  bSlider[0]=new BSliders("Testmode",420,480,true, TESTMODE);
+  bSlider[1]=new BSliders("Log",420+132,480,true, Log.enable);
+  bSlider[2]=new BSliders("Remote",420,480+32,Config.remoteControlEnable, REMOTECONTROLENABLE);
+  bSlider[3]=new BSliders("Coach",420+132,480+32,false, VOICECOACH);
   
   buttonCSTOPactivate();
 }
