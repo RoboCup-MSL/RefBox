@@ -341,8 +341,18 @@ static class StateMachine
       
       send_to_basestation("" + COMM_RESET, ButtonsEnum.items[ButtonsEnum.BTN_RESET.getValue()]);
       
-      BaseStationServer.stop();
-      BaseStationServer = new MyServer(mainApplet, Config.basestationServerPort);
+       
+      connectingClient = null;
+      ProtocolSelectionEnum connectingClientProtocol = ProtocolSelectionEnum.PROTO_ILLEGAL;
+    
+      baseStationWorldState.stop();
+      baseStationServerCharacter.stop();
+      baseStationServerJSON.stop();
+    
+      // Create all server for each protocols
+      baseStationWorldState = new MyServer(mainApplet, Config.basestationWorldStatePort);
+      baseStationServerCharacter = new MyServer(mainApplet, Config.basestationCharacterPort);
+      baseStationServerJSON = new MyServer(mainApplet, Config.basestationJSONPort);
   }
   
   public static boolean isHalf()

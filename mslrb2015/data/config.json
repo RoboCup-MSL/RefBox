@@ -8,7 +8,9 @@
 		"scoreServerClients": [
 			"127.0.0.1"
 		],
-		"basestationServerPort": 28097,
+		"basestationWorldStatePort": 28096,
+		"basestationCharacterPort": 28097,
+		"basestationJSONPort": 28098,
 		"enableRemote": false
 	},
 	"rules":

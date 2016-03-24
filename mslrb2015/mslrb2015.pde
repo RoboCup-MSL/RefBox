@@ -42,8 +42,11 @@ public static final int CMDID_COMMON_ENDGAME = 6;
 
 public static ScoreClients scoreClients = null;
 public static MSLRemote mslRemote = null;
-public static MyServer BaseStationServer;
+public static MyServer baseStationWorldState;
+public static MyServer baseStationServerCharacter;
+public static MyServer baseStationServerJSON;
 public static Client connectingClient = null;
+public static ProtocolSelectionEnum connectingClientProtocol = ProtocolSelectionEnum.PROTO_ILLEGAL;
 
 public static Team teamA,teamB;
 public static Button[] bTeamAcmds = new Button[CMDID_TEAM_YELLOWCARD + 1];
@@ -105,8 +108,12 @@ void setup() {
   setbackground();                                                      // Load background
 
   scoreClients = new ScoreClients(this, Config.scoreServerPort);        // Load score clients server
-  BaseStationServer = new MyServer(this, Config.basestationServerPort); // Load basestations server
   mslRemote = new MSLRemote(this, Config.remoteServerPort);             // Load module for MSL remote control
+  
+  // Create all server for each protocols
+  baseStationWorldState = new MyServer(this, Config.basestationWorldStatePort);
+  baseStationServerCharacter = new MyServer(this, Config.basestationCharacterPort);
+  baseStationServerJSON = new MyServer(this, Config.basestationJSONPort);
   
   println("This IP: "+Server.ip());
   teamA = new Team(Config.defaultCyanTeamColor,true);                   // Initialize Cyan team (Team A)
@@ -197,7 +204,12 @@ void draw() {
   //server info
   textAlign(CENTER, BOTTOM);
   String time=nf(hour(),2)+":"+nf(minute(),2)+":"+nf(second(),2);
-  text("[ "+time+" ]     "+Server.ip()+" ["+scoreClients.clientCount()+"/"+BaseStationServer.clientCount+"]", width/2, 512);  
+  
+  int basestationClientCount = 0;
+  if(teamA.connectedClient != null) basestationClientCount++;
+  if(teamB.connectedClient != null) basestationClientCount++;
+  
+  text("[ "+time+" ]     "+Server.ip()+" ["+scoreClients.clientCount()+"/"+basestationClientCount+"]", width/2, 512);  
   
   //println(StateMachine.GetCurrentGameState().getValue());
 
@@ -231,8 +243,12 @@ void exit() {
   
   // Stop all servers
   scoreClients.stopServer();
-  BaseStationServer.stop();
+  
   mslRemote.stopServer();
+  
+  baseStationWorldState.stop();
+  baseStationServerCharacter.stop();
+  baseStationServerJSON.stop();
   
   super.exit();
 }

@@ -7,7 +7,9 @@ static class Config
   public static int scoreClientsUpdatePeriod_ms = 1000;
   public static StringList scoreServerClients = new StringList();
   public static int remoteServerPort = 54321;
-  public static int basestationServerPort = 28097;
+  public static int basestationWorldStatePort = 28096;
+  public static int basestationCharacterPort = 28097;
+  public static int basestationJSONPort = 28098;
   public static boolean remoteControlEnable = false;
   
   // Rules
@@ -95,10 +97,16 @@ static class Config
           
           if(networking.has("remoteServerPort"))
             remoteServerPort = networking.getInt("remoteServerPort");
+          
+          if(networking.has("basestationWorldStatePort"))
+            basestationWorldStatePort = networking.getInt("basestationWorldStatePort");
+          
+          if(networking.has("basestationCharacterPort"))
+            basestationCharacterPort = networking.getInt("basestationCharacterPort");
             
-          if(networking.has("basestationServerPort"))
-            basestationServerPort = networking.getInt("basestationServerPort");
-            
+          if(networking.has("basestationJSONPort"))
+            basestationJSONPort = networking.getInt("basestationJSONPort");
+          
           if(networking.has("scoreClientsUpdatePeriod_ms"))
             scoreClientsUpdatePeriod_ms = networking.getInt("scoreClientsUpdatePeriod_ms");
             
@@ -174,7 +182,9 @@ static class Config
     println( "### Networking ###" );
     println( "scoreServerPort              : " + scoreServerPort);
     println( "remoteServerPort             : " + remoteServerPort);
-    println( "basestationServerPort        : " + basestationServerPort);
+    println( "basestationWorldStatePort    : " + basestationWorldStatePort);
+    println( "basestationServerPort        : " + basestationCharacterPort);
+    println( "basestationJSONPort          : " + basestationJSONPort);
     println( "scoreClientsUpdatePeriod_ms  : " + scoreClientsUpdatePeriod_ms);
     println( "remoteControlEnable          : " + remoteControlEnable);
     println();

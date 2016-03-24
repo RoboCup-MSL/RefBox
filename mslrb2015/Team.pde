@@ -16,6 +16,7 @@ class Team {
   
   File logFile;
   PrintWriter logFileOut;
+  Client clientWorldstate;
   Client connectedClient;
   ProtocolSelectionEnum selectedProtocol;
   boolean firstWorldState;
@@ -113,7 +114,7 @@ class Team {
     
     
     if(connectedClient != null)
-      BaseStationServer.disconnect(connectedClient);
+      connectedClient.stop();
     
     connectedClient = connectingClient;
     connectingClient.write(COMM_WELCOME);
@@ -126,6 +127,14 @@ class Team {
         this.logFileOut = new PrintWriter(new BufferedWriter(new FileWriter(logFile, true)));
       }catch(IOException e){ }
     }
+    
+    if(connectingClientProtocol != ProtocolSelectionEnum.PROTO_ILLEGAL)
+      setProtocol(connectingClientProtocol);
+    
+    Log.logMessage("Team " + shortName + " connected using " + connectingClientProtocol.getName());  
+    connectingClientProtocol = ProtocolSelectionEnum.PROTO_ILLEGAL;
+    
+    
   }
   
   void write(String s)
@@ -265,7 +274,7 @@ class Team {
     {
       println("Connection to team \"" + longName + "\" dropped.");
       Log.logMessage("Team " + shortName + " dropped");
-      BaseStationServer.disconnect(connectedClient);
+      connectedClient.stop();
       resetname();
       connectedClient = null;
     }
@@ -332,5 +341,11 @@ class Team {
     
     return this.unicastIP.equals(clientipstr);
   }
+  
+  void setProtocol(ProtocolSelectionEnum protocol)
+  {
+    selectedProtocol = protocol;
+  }
 }
+
 

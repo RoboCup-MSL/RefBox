@@ -248,9 +248,9 @@ enum PopupTypeEnum
 
 enum ProtocolSelectionEnum
 {
-  PROTO_CHARACTER(0),      // Period from start until first Kickoff Start 
-  PROTO_XML(1),          // Game stopped during first half
-  PROTO_JSON(2),          // Game on during first half
+  PROTO_CHARACTER(0),    // single-character protocol 
+  PROTO_JSON(1),         // JSON
+  PROTO_XML(2),          // XML
   
   PROTO_ILLEGAL(99);
   

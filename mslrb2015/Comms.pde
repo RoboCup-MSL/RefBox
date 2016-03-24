@@ -1,36 +1,57 @@
 // New accepted connections
 public static void serverEvent(MyServer whichServer, Client whichClient) {
   try {
-  if (whichServer.equals(BaseStationServer)) {
-    Log.logMessage("New BaseStationClient @ "+whichClient.ip());
-  }
-  else if (whichServer.equals(scoreClients.scoreServer)) {
-    Log.logMessage("New ScoreClient @ " + whichClient.ip());
-  }
-  else if (mslRemote != null && mslRemote.server != null && whichServer != null && whichServer.equals(mslRemote.server)) {
-    Log.logMessage("New RemoteControl @ " + whichClient.ip());
-  }
+    if (whichServer.equals(baseStationWorldState)) {
+      Log.logMessage("New BaseStation (WS) @ "+whichClient.ip());
+    }
+    else if (whichServer.equals(baseStationServerCharacter)) {
+      Log.logMessage("New BaseStation (ASCII) @ "+whichClient.ip());
+    }
+    else if (whichServer.equals(baseStationServerJSON)) {
+      Log.logMessage("New BaseStation (JSON) @ "+whichClient.ip());
+    }
+    else if (whichServer.equals(scoreClients.scoreServer)) {
+      Log.logMessage("New ScoreClient @ " + whichClient.ip());
+    }
+    else if (mslRemote != null && mslRemote.server != null && whichServer != null && whichServer.equals(mslRemote.server)) {
+      Log.logMessage("New RemoteControl @ " + whichClient.ip());
+    }
   }catch(Exception e){}
 }
 
 // Client authentication
 public static void clientValidation(MyServer whichServer, Client whichClient) {
   try{
+    // WORLDSTATE CLIENTS AUTH
+    if (whichServer.equals(baseStationWorldState)) {
+      if(teamA.connectedClient != null && teamA.connectedClient.ip().equals(whichClient.ip())) teamA.clientWorldstate = whichClient;
+      else if(teamB.connectedClient != null && teamB.connectedClient.ip().equals(whichClient.ip())) teamB.clientWorldstate = whichClient;
+      else {
+        Log.logMessage("Join worldstate server after being accepted in a protocol port " + whichClient.ip());
+        whichClient.stop();
+      }
+    }
     // BASESTATION CLIENTS AUTH
-    if (whichServer.equals(BaseStationServer)) {
+    else if (whichServer.equals(baseStationServerCharacter) || whichServer.equals(baseStationServerJSON)) {
       if (!Popup.isEnabled()) {
-        if(setteamfromip(whichClient.ip()))
+        if(setteamfromip(whichClient.ip())) {
           connectingClient = whichClient; // Accept client!
-        else
+          
+          if(whichServer.equals(baseStationServerCharacter))
+            connectingClientProtocol = ProtocolSelectionEnum.PROTO_CHARACTER;
+          else if(whichServer.equals(baseStationServerJSON))
+            connectingClientProtocol = ProtocolSelectionEnum.PROTO_JSON;
+          else
+            connectingClientProtocol = ProtocolSelectionEnum.PROTO_ILLEGAL;
+          
+        } else
         {
           // Invalid team
           Log.logMessage("Invalid team " + whichClient.ip());
-          whichClient.write(COMM_RESET);
           whichClient.stop();
         }
       } else {
         Log.logMessage("ERR Another team connecting");
-        whichClient.write(COMM_RESET);
         whichClient.stop();
       }
     }
@@ -197,7 +218,7 @@ public static void checkBasestationsMessages()
   try
   {
     // Get the next available client
-    Client thisClient = BaseStationServer.available();
+    Client thisClient = baseStationWorldState.available();
     // If the client is not null, and says something, display what it said
     if (thisClient !=null) {
       
