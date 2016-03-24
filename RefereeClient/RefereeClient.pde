@@ -1,11 +1,12 @@
 /* ==================================
-   MSL RefereeClient (Processing 2.2.1)
+   MSL RefereeClient (Processing 3)
        Ricardo Dias <ricardodias@ua.pt>
+       Bernardo Cunha <mbc@det.ua.pt>
    ================================== */
 import processing.net.*;
 import org.json.*;
 
-public static final String MSG_VERSION="1.0.0";
+public static final String MSG_VERSION="1.1.0";
 public static final String MSG_VERSION_MSG="";
 public static final String MSG_WINDOWTITLE="RoboCup MSL Referee Client - "+MSG_VERSION+" "+MSG_VERSION_MSG;
 
