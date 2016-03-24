@@ -47,6 +47,30 @@ enum ButtonsEnum
     return (value >= BTN_C_KICKOFF.value && value <= BTN_C_PENALTY.value) || (value >= BTN_M_KICKOFF.value && value <= BTN_M_PENALTY.value) || value == BTN_DROPBALL.value;
   }
   
+  public boolean isKickOff() {
+    return (value == BTN_C_KICKOFF.value || value == BTN_M_KICKOFF.value);
+  }
+  
+  public boolean isFreeKick() {
+    return (value == BTN_C_FREEKICK.value || value == BTN_M_FREEKICK.value);
+  } 
+  
+  public boolean isGoalKick() {
+    return (value == BTN_C_GOALKICK.value || value == BTN_M_GOALKICK.value);
+  } 
+  
+  public boolean isThrowIn() {
+    return (value == BTN_C_THROWIN.value || value == BTN_M_THROWIN.value);
+  } 
+  
+  public boolean isCorner() {
+    return (value == BTN_C_CORNER.value || value == BTN_M_CORNER.value);
+  } 
+  
+  public boolean isPenalty() {
+    return (value == BTN_C_PENALTY.value || value == BTN_M_PENALTY.value);
+  } 
+  
   public boolean isCommon()
   {
     return value >= BTN_START.value && value <= BTN_RESET.value;
@@ -142,6 +166,10 @@ enum GameStateEnum
       return value;
   }
   
+  public boolean isPreGame() {
+    return value == GS_PREGAME.value;
+  }
+  
   public boolean isRunning() {
     return value == GS_GAMEON_H1.value || value == GS_GAMEON_H2.value || value == GS_GAMEON_H3.value || value == GS_GAMEON_H4.value;
   }
@@ -149,6 +177,12 @@ enum GameStateEnum
   public boolean isStopped() {
     return value == GS_GAMESTOP_H1.value || value == GS_GAMESTOP_H2.value || value == GS_GAMESTOP_H3.value || value == GS_GAMESTOP_H4.value;
   }
+  
+  public boolean isPart1() { return value == GS_GAMEON_H1.value || value == GS_GAMESTOP_H1.value; }
+  public boolean isPart2() { return value == GS_GAMEON_H2.value || value == GS_GAMESTOP_H2.value; }
+  public boolean isPart3() { return value == GS_GAMEON_H3.value || value == GS_GAMESTOP_H3.value; }
+  public boolean isPart4() { return value == GS_GAMEON_H4.value || value == GS_GAMESTOP_H4.value; }
+  public boolean isPenalties() { return value == GS_PENALTIES.value || value == GS_PENALTIES_ON.value; }
  
   public static GameStateEnum newInstance(GameStateEnum symbol) {
     return GameStateEnum.values()[symbol.ordinal()];
@@ -180,6 +214,16 @@ enum GameStateEnum
       return "--";
     }
   }
+  
+  public String getXMLStageName() {
+    if(isPreGame()) return "preGame";
+    else if(isPart1() || isPart3()) return "firstHalf";
+    else if(isPart2() || isPart4()) return "secondHalf";
+    else if(isPenalties()) return "shootOut";
+    else if(value == GS_HALFTIME.value || value == GS_HALFTIME_OVERTIME.value) return "halfTime";
+    else if(value == GS_OVERTIME.value || value == GS_ENDGAME.value) return "endGame";
+    else return "";
+  }
 };
 
 
@@ -200,4 +244,38 @@ enum PopupTypeEnum
       return value;
   }
 };
+
+
+enum ProtocolSelectionEnum
+{
+  PROTO_CHARACTER(0),      // Period from start until first Kickoff Start 
+  PROTO_XML(1),          // Game stopped during first half
+  PROTO_JSON(2),          // Game on during first half
+  
+  PROTO_ILLEGAL(99);
+  
+  private final int value;
+  
+  private ProtocolSelectionEnum(int value) {
+      this.value = value;
+  }
+
+  public int getValue() { return value; }
+  
+  public boolean isCharacter() { return value == PROTO_CHARACTER.value; }
+  public boolean isXML() { return value == PROTO_XML.value; }
+  public boolean isJSON() { return value == PROTO_JSON.value; }
+  
+  private static String[] ProtocolNames = { "Character-based", "XML", "JSON" };
+  
+  public String getName() {
+    if(value < ProtocolNames.length)
+    {
+      return ProtocolNames[value];
+    }else{
+      return "--";
+    }
+  }
+};
+
 

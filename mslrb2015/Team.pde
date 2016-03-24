@@ -17,7 +17,9 @@ class Team {
   File logFile;
   PrintWriter logFileOut;
   Client connectedClient;
+  ProtocolSelectionEnum selectedProtocol;
   boolean firstWorldState;
+  int xmlId = 1;
       
   Team(color c, boolean uileftside) {
     this.c=c;
@@ -97,6 +99,7 @@ class Team {
     for (int i=0; i<5; i++)
       r[i].reset();
     this.connectedClient = null;
+    this.selectedProtocol = ProtocolSelectionEnum.PROTO_CHARACTER;
     this.firstWorldState = true;
   }
 
@@ -123,6 +126,12 @@ class Team {
         this.logFileOut = new PrintWriter(new BufferedWriter(new FileWriter(logFile, true)));
       }catch(IOException e){ }
     }
+  }
+  
+  void write(String s)
+  {
+    if(connectedClient != null && s != null && !s.isEmpty())
+      connectedClient.write(s);
   }
     
 //*******************************************************************
@@ -238,8 +247,8 @@ class Team {
       this.double_yellow_timer_start();
       this.newDoubleYellow=false;
 
-      if(this.isCyan) send_event_v2(""+COMM_DOUBLE_YELLOW_CYAN, "Double Yellow", this);
-      else send_event_v2(""+COMM_DOUBLE_YELLOW_MAGENTA, "Double Yellow", this);
+      if(this.isCyan) send_event_v2(""+COMM_DOUBLE_YELLOW_CYAN, "Double Yellow", this, ButtonsEnum.items[ButtonsEnum.BTN_C_YELLOW.getValue()]);
+      else send_event_v2(""+COMM_DOUBLE_YELLOW_MAGENTA, "Double Yellow", this, ButtonsEnum.items[ButtonsEnum.BTN_M_YELLOW.getValue()]);
     }
     if (this.newPenaltyKick) {
       this.PenaltyCount++;

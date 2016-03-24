@@ -107,9 +107,9 @@ class Button {
     if (this.isEnabled()) {
       if ( this.isActive() ){
         this.bStatus="normal";
-        if(StateMachine.setpiece && this.Label == Teamcmds[6]) {
+        if(StateMachine.setpiece && this.Label == Teamcmds[CMDID_TEAM_GOAL]) {
           StateMachine.ResetSetpiece();
-          send_to_basestation(cCommcmds[1]);
+          send_to_basestation(cCommcmds[CMDID_COMMON_STOP], ButtonsEnum.items[ButtonsEnum.BTN_STOP.getValue()]);
         }
       }
       else this.bStatus="active";

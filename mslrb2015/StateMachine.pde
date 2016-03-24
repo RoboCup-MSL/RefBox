@@ -43,7 +43,7 @@ static class StateMachine
         {
           if(Popup.getResponse().equals("yes"))
           {
-            send_event_v2(cCommcmds[CMDID_COMMON_RESET], Commcmds[CMDID_COMMON_RESET], null);
+            send_event_v2(cCommcmds[CMDID_COMMON_RESET], Commcmds[CMDID_COMMON_RESET], null, ButtonsEnum.items[ButtonsEnum.BTN_RESET.getValue()]);
             reset();
           }
           break;
@@ -56,7 +56,7 @@ static class StateMachine
             gsCurrent = SwitchGamePart();
             gsPrev = saveGS;
             
-            send_event_v2(cCommcmds[CMDID_COMMON_HALFTIME], Commcmds[CMDID_COMMON_HALFTIME], null);
+            send_event_v2(cCommcmds[CMDID_COMMON_HALFTIME], Commcmds[CMDID_COMMON_HALFTIME], null, ButtonsEnum.items[ButtonsEnum.BTN_ENDPART.getValue()]);
           }
           break;
         }
@@ -339,7 +339,7 @@ static class StateMachine
       
       Log.createLog();
       
-      send_to_basestation("" + COMM_RESET);
+      send_to_basestation("" + COMM_RESET, ButtonsEnum.items[ButtonsEnum.BTN_RESET.getValue()]);
       
       BaseStationServer.stop();
       BaseStationServer = new MyServer(mainApplet, Config.basestationServerPort);
