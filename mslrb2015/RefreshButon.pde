@@ -158,8 +158,7 @@ void RefreshButonStatus1() {
   case GS_GAMESTOP_H4:
     endPartOrEndGame = "End Game";
   }
-  bCommoncmds[CMDID_COMMON_HALFTIME].Label = endPartOrEndGame;
-  
+  bCommoncmds[CMDID_COMMON_HALFTIME].Label = endPartOrEndGame; 
 }
 
 

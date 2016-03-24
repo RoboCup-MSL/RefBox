@@ -55,8 +55,11 @@ static class StateMachine
           {
             gsCurrent = SwitchGamePart();
             gsPrev = saveGS;
-            
-            send_event_v2(cCommcmds[CMDID_COMMON_HALFTIME], Commcmds[CMDID_COMMON_HALFTIME], null);
+            resetStartTime(false);
+            if (bCommoncmds[CMDID_COMMON_HALFTIME].Label.equals("End Game"))
+              send_event_v2(cCommcmds[CMDID_COMMON_ENDGAME], Commcmds[CMDID_COMMON_ENDGAME], null);
+            else
+              send_event_v2(cCommcmds[CMDID_COMMON_HALFTIME], Commcmds[CMDID_COMMON_HALFTIME], null);            
           }
           break;
         }
@@ -144,7 +147,7 @@ static class StateMachine
         case GS_HALFTIME_OVERTIME:
           if(btnCurrent == ButtonsEnum.BTN_START)
           {
-            resetStartTime();
+            resetStartTime(true);
             nextGS = SwitchRunningStopped();
           }
           else if(btnCurrent == ButtonsEnum.BTN_STOP)
@@ -326,13 +329,12 @@ static class StateMachine
       btnPrev = ButtonsEnum.BTN_ILLEGAL;
       gsCurrent = GameStateEnum.GS_PREGAME;
       gsPrev = GameStateEnum.GS_ILLEGAL;
-      resetStartTime();
       
       teamA.reset();
       teamB.reset();        
       teamA.resetname();
       teamB.resetname();        
-      resetStartTime();
+      resetStartTime(true);
       
       LogMerger merger = new LogMerger(Log.getTimedName());
       merger.merge();

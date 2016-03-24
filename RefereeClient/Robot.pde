@@ -36,7 +36,7 @@ class Robot {
 //-------------------------------
   void updateUI(color c, boolean UIleft) {
     stroke(c); 
-    strokeWeight(2);
+    strokeWeight(3);
     color rcolor=255;
     if (this.state.equals("repair")) rcolor=Config.robotRepairColor;
     if (this.state.equals("yellow")) rcolor=Config.robotYellowCardColor;  //yellow  
@@ -46,11 +46,11 @@ class Robot {
     fill(rcolor);
     float ty=offsetLeft.y+this.guiy;
     
-    float tx=offsetRight.x+88+  this.guix;
+    float tx=offsetRight.x + 150 + this.guix;
     
-    if (UIleft) tx=offsetLeft.x-128+this.guix;       
+    if (UIleft) tx=offsetLeft.x - 150 + this.guix;       
     
-    ellipse(tx, ty, 100, 100);  
+    ellipse(tx, ty, 106, 106);  
     fill(255);
     textFont(teamFont);
     if (waittime>=0)  text(nf(waittime+1, 2), tx, ty);

@@ -1,8 +1,8 @@
 
-public static void resetStartTime() {
+public static void resetStartTime(boolean resetSplitTime) {
   tstartTime = System.currentTimeMillis();
   tsplitTime = tstartTime;
-  tprevsplitTime = 0;
+  if (resetSplitTime) tprevsplitTime = 0;
   updateScoreClientslasttime = 0;
 }
 

@@ -32,7 +32,7 @@ public static final int CMDID_TEAM_REPAIR_OUT = 7;
 public static final int CMDID_TEAM_REDCARD = 8;
 public static final int CMDID_TEAM_YELLOWCARD = 9;
 
-public static final String[] cCommcmds= { "s", "S", "N", "L", "h", "Z" };  
+public static final String[] cCommcmds= { "s", "S", "N", "L", "h", "Z", "e" };  
 public static final int CMDID_COMMON_START = 0;
 public static final int CMDID_COMMON_STOP = 1;
 public static final int CMDID_COMMON_DROP_BALL = 2;
@@ -65,10 +65,12 @@ public static String gametime = "", gameruntime = "";
 
 //GUI
 public static Button[] bPopup = new Button[2];
-public static PVector offsetLeft= new PVector(180, 160);
-public static PVector offsetRight= new PVector(620, 160);
+public static PVector offsetLeft= new PVector(230, 180);
+public static PVector offsetRight= new PVector(760, 180);
 public static PFont buttonFont, clockFont, panelFont, scoreFont, debugFont, teamFont, watermark;
-public static PImage backgroundImage;
+// public static PImage backgroundImage;
+public PImage backgroundImage;
+public PImage rcfLogo;
 
 // Sounds
 AudioChannel soundMaxTime;
@@ -87,15 +89,15 @@ public static PApplet mainApplet = null;
 **************************************************************************************************************************/
 void setup() {
   mainApplet = this;
-  
-  size(800, 600);
-  surface.setTitle(MSG_WINDOWTITLE); 
-  clockFont = createFont("fonts/LCDM.TTF", 58, false);
-  scoreFont = createFont("fonts/LED.ttf", 36, false);
+  backgroundImage = loadImage("img/V4_23_03WLT.png");
+  size(1000, 680);
+  frame.setTitle(MSG_WINDOWTITLE); 
+  clockFont = createFont("fonts/LCDM.TTF", 64, false);
+  scoreFont = createFont("fonts/LED.ttf", 40, false);
   buttonFont=loadFont("fonts/Futura-CondensedExtraBold-24.vlw");
   teamFont=loadFont("fonts/Futura-CondensedExtraBold-52.vlw");
-  panelFont=loadFont("fonts/Futura-CondensedExtraBold-16.vlw");
-  debugFont=loadFont("fonts/Monaco-12.vlw");
+  panelFont=loadFont("fonts/Futura-CondensedExtraBold-20.vlw");
+  debugFont=loadFont("fonts/Monaco-14.vlw");
   watermark=createFont("Arial", 112, false);
   
   createDir(mainApplet.dataPath("tmp/"));
@@ -107,7 +109,9 @@ void setup() {
   Log.init(this);                                                       // Init Log module
   comms_initDescriptionDictionary();                                    // Initializes the dictionary for communications with the basestations 
   
-  setbackground();                                                      // Load background
+  
+  //setbackground();                                                      // Load background
+  //backgroundImage=get();
 
   scoreClients = new ScoreClients(this, Config.scoreServerPort);        // Load score clients server
   BaseStationServer = new MyServer(this, Config.basestationServerPort); // Load basestations server
@@ -122,7 +126,7 @@ void setup() {
   //=== GUI Initialization
   initGui();
   RefreshButonStatus1();
-  resetStartTime();
+  resetStartTime(true);
   frameRate(appFrameRate);
   
   // Sounds initialization
@@ -189,29 +193,31 @@ void draw() {
 
   fill(255);
   textAlign(CENTER, CENTER);
+
   //score
   textFont(scoreFont);
-  text("[  "+teamA.Score+"  -  "+teamB.Score+"  ]", 400, 20);
+  text("[  "+teamA.Score+"  -  "+teamB.Score+"  ]", 500, 25);
   //main clock
   textFont(clockFont);
   fill(255);
-  text( gametime, 400, 72);
+  text( gametime, 500, 85);
   //run clock  
   textFont(panelFont);
-  text(StateMachine.GetCurrentGameStateString()+" ["+gameruntime+"]", 400, 123);
+  text(StateMachine.GetCurrentGameStateString()+" ["+gameruntime+"]", 500, 140);
   //debug msgs  
   textFont(debugFont);
   textAlign(LEFT, BOTTOM);
   fill(#00ff00);
   for (int i=0; i<5; i++)
-    text( Last5cmds[i], 250, height-2-i*16);
+    text( Last5cmds[i], 340, height-4-i*18);
   fill(255);
   //server info
   textAlign(CENTER, BOTTOM);
   String time=nf(hour(),2)+":"+nf(minute(),2)+":"+nf(second(),2);
-  text("[ "+time+" ]     "+Server.ip()+" ["+scoreClients.clientCount()+"/"+BaseStationServer.clientCount+"]", width/2, 512);  
+  text("[ "+time+" ]        "+Server.ip()+" ["+scoreClients.clientCount()+"/"+BaseStationServer.clientCount+"]", width/2, 578);  
   
   //println(StateMachine.GetCurrentGameState().getValue());
+
 
   //==========================================
 
@@ -260,7 +266,7 @@ void initGui()
 {
   //common commands
   for (int i=0; i < bCommoncmds.length; i++){
-    bCommoncmds[i] = new Button(340+120*(i%2), 224+i*32-32*(i%2), Commcmds[i], #FEFF00, -1, 255, #FEFF00);
+    bCommoncmds[i] = new Button(435+130*(i%2), 275+i*35-35*(i%2), Commcmds[i], #FEFF00, -1, 255, #FEFF00);
     
     // End part and reset need confirmation popup (don't send message right away)
     if(i <= CMDID_COMMON_PARKING) {
@@ -269,27 +275,27 @@ void initGui()
     }
   }
   bCommoncmds[0].setcolor(#12FF03, -1, -1, #12FF03);  //Start  / green
-  bCommoncmds[1].setcolor(#FC0303, -1, -1, #FC0303);  //Stop  /red 
+  bCommoncmds[1].setcolor(#E03020, -1, -1, #E03030);  //Stop  /red  #FC0303 
 
   for (int i=0; i<6; i++) {
-    bTeamAcmds[i] = new Button(offsetLeft.x, offsetLeft.y+64*i, Teamcmds[i], 255, -1, 255, Config.defaultCyanTeamColor);
+    bTeamAcmds[i] = new Button(offsetLeft.x, offsetLeft.y+70*i, Teamcmds[i], 255, -1, 255, Config.defaultCyanTeamColor);
     bTeamAcmds[i].cmd = "" + cCTeamcmds[i];
     bTeamAcmds[i].msg = Teamcmds[i];
     
-    bTeamBcmds[i] = new Button(offsetRight.x, offsetRight.y+64*i, Teamcmds[i], 255, -1, 255, Config.defaultMagentaTeamColor);
+    bTeamBcmds[i] = new Button(offsetRight.x, offsetRight.y+70*i, Teamcmds[i], 255, -1, 255, Config.defaultMagentaTeamColor);
     bTeamBcmds[i].cmd = "" + cMTeamcmds[i];
     bTeamBcmds[i].msg = Teamcmds[i];
   }
 
-  bTeamAcmds[6] = new Button(offsetLeft.x-108, offsetLeft.y, Teamcmds[6], Config.defaultCyanTeamColor, -1, 255, Config.defaultCyanTeamColor);   // Goal A
-  bTeamAcmds[7] = new Button(offsetLeft.x-108, offsetLeft.y+64*4, Teamcmds[7], Config.defaultCyanTeamColor, -1, 255, Config.defaultCyanTeamColor); // Repair A
-  bTeamAcmds[8] = new Button(offsetLeft.x-130, offsetLeft.y+64*5, "", #FC0303, #810303, 255, #FC0303);  //red card A
-  bTeamAcmds[9] = new Button(offsetLeft.x-84, offsetLeft.y+64*5, "", #FEFF00, #808100, 255, #FEFF00);  //yellow card A
+  bTeamAcmds[6] = new Button(offsetLeft.x-135, offsetLeft.y, Teamcmds[6], Config.defaultCyanTeamColor, -1, 255, Config.defaultCyanTeamColor);   // Goal A
+  bTeamAcmds[7] = new Button(offsetLeft.x-135, offsetLeft.y+70*4, Teamcmds[7], Config.defaultCyanTeamColor, -1, 255, Config.defaultCyanTeamColor); // Repair A
+  bTeamAcmds[8] = new Button(offsetLeft.x-162, offsetLeft.y+70*5, "", #FC0303, #810303, 255, #FC0303);  //red card A
+  bTeamAcmds[9] = new Button(offsetLeft.x-105, offsetLeft.y+70*5, "", #FEFF00, #808100, 255, #FEFF00);  //yellow card A
   
-  bTeamBcmds[6] = new Button(offsetRight.x+108, offsetRight.y, Teamcmds[6], Config.defaultMagentaTeamColor, -1, 255, Config.defaultMagentaTeamColor);  //Goal B
-  bTeamBcmds[7] = new Button(offsetRight.x+108, offsetRight.y+64*4, Teamcmds[7], Config.defaultMagentaTeamColor, -1, 255, Config.defaultMagentaTeamColor);//Repair B
-  bTeamBcmds[8] = new Button(offsetRight.x+130, offsetRight.y+64*5, "", #FC0303, #810303, 255, #FC0303);  //red card B
-  bTeamBcmds[9] = new Button(offsetRight.x+84, offsetRight.y+64*5, "", #FEFF00, #808100, 255, #FEFF00);  //yellow card B
+  bTeamBcmds[6] = new Button(offsetRight.x+135, offsetRight.y, Teamcmds[6], Config.defaultMagentaTeamColor, -1, 255, Config.defaultMagentaTeamColor);  //Goal B
+  bTeamBcmds[7] = new Button(offsetRight.x+135, offsetRight.y+70*4, Teamcmds[7], Config.defaultMagentaTeamColor, -1, 255, Config.defaultMagentaTeamColor);//Repair B
+  bTeamBcmds[8] = new Button(offsetRight.x+162, offsetRight.y+70*5, "", #FC0303, #810303, 255, #FC0303);  //red card B
+  bTeamBcmds[9] = new Button(offsetRight.x+105, offsetRight.y+70*5, "", #FEFF00, #808100, 255, #FEFF00);  //yellow card B
   
   for (int i = 6; i < 10; i++) {
     bTeamAcmds[i].cmd = "" + cCTeamcmds[i];
@@ -313,10 +319,10 @@ void initGui()
   bPopup[0] = new Button(0, 0, "y", 255, Config.defaultCyanTeamColor, 0, Config.defaultCyanTeamColor);
   bPopup[1] = new Button(0, 0, "n", 255, Config.defaultMagentaTeamColor, 0, Config.defaultMagentaTeamColor);
 
-  bSlider[0]=new BSliders("Testmode",310,424,true, TESTMODE);
-  bSlider[1]=new BSliders("Log",310+132,424,true, Log.enable);
-  bSlider[2]=new BSliders("Remote",310,424+32,Config.remoteControlEnable, REMOTECONTROLENABLE);
-  bSlider[3]=new BSliders("Coach",310+132,424+32,false, VOICECOACH);
+  bSlider[0]=new BSliders("Testmode",420,480,true, TESTMODE);
+  bSlider[1]=new BSliders("Log",420+132,480,true, Log.enable);
+  bSlider[2]=new BSliders("Remote",420,480+32,Config.remoteControlEnable, REMOTECONTROLENABLE);
+  bSlider[3]=new BSliders("Coach",420+132,480+32,false, VOICECOACH);
   
   buttonCSTOPactivate();
 }
