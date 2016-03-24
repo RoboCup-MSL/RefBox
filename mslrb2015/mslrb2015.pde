@@ -89,7 +89,7 @@ void setup() {
   mainApplet = this;
   
   size(800, 600);
-  frame.setTitle(MSG_WINDOWTITLE); 
+  surface.setTitle(MSG_WINDOWTITLE); 
   clockFont = createFont("fonts/LCDM.TTF", 58, false);
   scoreFont = createFont("fonts/LED.ttf", 36, false);
   buttonFont=loadFont("fonts/Futura-CondensedExtraBold-24.vlw");
