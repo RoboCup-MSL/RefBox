@@ -228,7 +228,7 @@ void draw() {
   
   if(lastPlayMillis != 0 && millis() - lastPlayMillis > Config.setPieceMaxTime_ms)
   {
-    Log.logMessage("7 seconds rule!");
+    //Log.logMessage("7 seconds rule!");
     lastPlayMillis = 0;
     soundMaxTime.cue(0);
     soundMaxTime.play();
