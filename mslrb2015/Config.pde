@@ -211,5 +211,9 @@ static class Config
     println( "defaultMagentaTeamShortName  : " + defaultMagentaTeamShortName );
     println( "defaultMagentaTeamLongName   : " + defaultMagentaTeamLongName );
     println( "defaultMagentaTeamColor      : " + color2string( defaultMagentaTeamColor ));
+    // Sounds
+    println( "### Sounds ###" );
+    println( "sounds_maxTime                 : " + sounds_maxTime);
+    
   }
 }

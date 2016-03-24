@@ -73,7 +73,7 @@ void setup() {
   
   size(1000, 680);
   
- backgroundImage = loadImage("img/V6_23_03WLT.png");
+ backgroundImage = loadImage("img/bg_wood.png");
 
   frame.setTitle(MSG_WINDOWTITLE); 
   clockFont = createFont("fonts/LCDM.TTF", 64, false);

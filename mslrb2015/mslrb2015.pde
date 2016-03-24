@@ -89,9 +89,10 @@ public static PApplet mainApplet = null;
 **************************************************************************************************************************/
 void setup() {
   mainApplet = this;
-  backgroundImage = loadImage("img/V4_23_03WLT.png");
+  
+  backgroundImage = loadImage("img/bg_normal.png");
   size(1000, 680);
-  frame.setTitle(MSG_WINDOWTITLE); 
+  surface.setTitle(MSG_WINDOWTITLE); 
   clockFont = createFont("fonts/LCDM.TTF", 64, false);
   scoreFont = createFont("fonts/LED.ttf", 40, false);
   buttonFont=loadFont("fonts/Futura-CondensedExtraBold-24.vlw");
@@ -131,11 +132,9 @@ void setup() {
   
   // Sounds initialization
   Ess.start(this); // start up Ess
-  
-  if(Config.sounds_maxTime.length() > 0)
+  if(Config.sounds_maxTime.length() > 0) {
     soundMaxTime = new AudioChannel(dataPath("sounds/" + Config.sounds_maxTime));
-  
-  
+  }
 }
 
 /**************************************************************************************************************************
@@ -229,6 +228,7 @@ void draw() {
   
   if(lastPlayMillis != 0 && millis() - lastPlayMillis > Config.setPieceMaxTime_ms)
   {
+    Log.logMessage("7 seconds rule!");
     lastPlayMillis = 0;
     soundMaxTime.cue(0);
     soundMaxTime.play();
