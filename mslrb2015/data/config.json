@@ -14,7 +14,8 @@
 	"rules":
 	{
 		"repairPenalty_ms": 30000,
-		"doubleYellowPenalty_ms": 120000
+		"doubleYellowPenalty_ms": 120000,
+		"setPieceMaxTime_ms": 7000,
 	},
 	"appearance":
 	{
@@ -29,6 +30,10 @@
 		"defaultMagentaTeamShortName": "***",
 		"defaultMagentaTeamLongName": "Disconnected",
 		"defaultMagentaTeamColor": "#DA70D6"
+	},
+	"sounds":
+	{
+		"maxSetPieceTime": "elevator-ding.wav"
 	}
 }
 
