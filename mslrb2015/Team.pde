@@ -261,21 +261,11 @@ class Team {
       connectedClient = null;
     }
     
-    
-    //side border
-/*    rectMode(TOP);
-    noStroke();
-    fill(c);
-    if (isCyan) rect(0, 0, 4, height);
-    else rect(width-4, 0, width, height);
-*/
     //team names
-//    String sn=shortName;
-//    String ln=longName
-    String sn="***";
-    String ln="***";
+    String sn=shortName;
+    String ln=longName;
     if (sn.length()>Config.maxShortName) sn=shortName.substring(0, Config.maxShortName);
-    if (ln.length()>Config.maxLongName) ln=longName.substring(0, Config.maxLongName);     
+    if (ln.length()>Config.maxLongName) ln=longName.substring(0, Config.maxLongName);
     rectMode(CENTER);
     fill(255);
     textFont(teamFont);
@@ -327,4 +317,3 @@ class Team {
     return this.unicastIP.equals(clientipstr);
   }
 }
-
