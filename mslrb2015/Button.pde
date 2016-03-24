@@ -191,6 +191,16 @@ void bevent(char group, int pos) {
     
     StateMachine.Update(clickedButton, btnOn);
     
+    if(soundMaxTime != null && clickedButton.isStart())
+      lastPlayMillis = millis();
+    else
+      lastPlayMillis = 0;
+    
+    if(clickedButton.isStop())
+    {
+      lastPlayMillis = 0;
+    }
+    
     // Special cases, that send only event message on game change (flags)
     if( clickedButton.isYellow() || clickedButton.isRed() || clickedButton.isRepair() )
     {

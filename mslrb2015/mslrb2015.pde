@@ -6,6 +6,7 @@
        BCunha
    ================================== */
 import processing.net.*;
+import krister.Ess.*;
 import org.json.*;
 
 public static final String MSG_VERSION="1.1.0";
@@ -69,6 +70,10 @@ public static PVector offsetRight= new PVector(620, 160);
 public static PFont buttonFont, clockFont, panelFont, scoreFont, debugFont, teamFont, watermark;
 public static PImage backgroundImage;
 
+// Sounds
+AudioChannel soundMaxTime;
+public static long lastPlayMillis = 0;
+
 public static PApplet mainApplet = null;
 //static long ctr = 0;
 
@@ -118,8 +123,15 @@ void setup() {
   initGui();
   RefreshButonStatus1();
   resetStartTime();
-  
   frameRate(appFrameRate);
+  
+  // Sounds initialization
+  Ess.start(this); // start up Ess
+  
+  if(Config.sounds_maxTime.length() > 0)
+    soundMaxTime = new AudioChannel(dataPath("sounds/" + Config.sounds_maxTime));
+  
+  
 }
 
 /**************************************************************************************************************************
@@ -207,7 +219,14 @@ void draw() {
     Popup.draw();
   }
 
-  //==========================================   
+  //==========================================
+  
+  if(lastPlayMillis != 0 && millis() - lastPlayMillis > Config.setPieceMaxTime_ms)
+  {
+    lastPlayMillis = 0;
+    soundMaxTime.cue(0);
+    soundMaxTime.play();
+  }
 }
 
 /**************************************************************************************************************************
@@ -315,4 +334,3 @@ boolean createDir(String dirPath)
     }
     return true;
 }
-

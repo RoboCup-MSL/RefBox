@@ -13,6 +13,7 @@ static class Config
   // Rules
   public static int repairPenalty_ms = 30000;
   public static int doubleYellowPenalty_ms = 120000;
+  public static int setPieceMaxTime_ms = 7000;
 
   // Appearance
   public static int maxShortName = 8;
@@ -28,6 +29,9 @@ static class Config
   public static String defaultMagentaTeamShortName = "Team";
   public static String defaultMagentaTeamLongName = "Magenta";
   public static color defaultMagentaTeamColor  = #ff00ff;
+  
+  // Sounds
+  public static String sounds_maxTime = "";
   
   public static void Load(PApplet parent, String filename)
   {
@@ -78,6 +82,7 @@ static class Config
           org.json.JSONObject networking = json_root.getJSONObject("networking");
           org.json.JSONObject rules = json_root.getJSONObject("rules");
           org.json.JSONObject appearance = json_root.getJSONObject("appearance");
+          org.json.JSONObject sounds = json_root.getJSONObject("sounds");
           
           // ----
           // Networking
@@ -112,6 +117,9 @@ static class Config
             
           if(rules.has("doubleYellowPenalty_ms"))
             doubleYellowPenalty_ms = rules.getInt("doubleYellowPenalty_ms");
+          
+          if(rules.has("setPieceMaxTime_ms"))
+            setPieceMaxTime_ms = rules.getInt("setPieceMaxTime_ms");
             
           // ----
           // Appearance
@@ -154,6 +162,11 @@ static class Config
           
           if(appearance.has("defaultMagentaTeamColor"))
             defaultMagentaTeamColor = string2color(appearance.getString("defaultMagentaTeamColor"));
+            
+          // ----
+          // Sounds
+          if(sounds.has("maxSetPieceTime"))
+            sounds_maxTime = sounds.getString("maxSetPieceTime");
             
         } catch(JSONException e) {
           String errorMsg = "ERROR reading config file...";
