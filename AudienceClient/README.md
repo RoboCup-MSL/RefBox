@@ -24,6 +24,6 @@ make
 Environment variable `LC_NUMERIC` must be set to `C` in order for OBJ models to load correctly.
 
 ```
-LC_NUMERIC=C ./basestation
+LC_NUMERIC=C ./audienceClient
 ```
 
