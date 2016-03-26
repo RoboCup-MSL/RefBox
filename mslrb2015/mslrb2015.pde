@@ -56,7 +56,7 @@ public static Table teamstable;
 public static TableRow teamselect;
 public static long updateScoreClientslasttime=0;
 public static long tstartTime=0, tsplitTime=0, tprevsplitTime=0;
-public static boolean TESTMODE=false, stopsplittimer=true, BACKGROUNDon=true, VOICECOACH=false, REMOTECONTROLENABLE=false;
+public static boolean TESTMODE=false, stopsplittimer=true, VOICECOACH=false, REMOTECONTROLENABLE=false;
 public static char LastKickOff='.';
 public static String[] Last5cmds= { ".", ".", ".", ".", "." };
 public static String LogFileName;
@@ -73,11 +73,10 @@ public PImage backgroundImage;
 public PImage rcfLogo;
 
 // Sounds
-AudioChannel soundMaxTime;
+public static AudioChannel soundMaxTime;
 public static long lastPlayMillis = 0;
 
 public static PApplet mainApplet = null;
-//static long ctr = 0;
 
 /**************************************************************************************************************************
  * This the Processing setup() function
@@ -109,10 +108,6 @@ void setup() {
   Config.Load(this, "config.json");                                     // Load config file
   Log.init(this);                                                       // Init Log module
   comms_initDescriptionDictionary();                                    // Initializes the dictionary for communications with the basestations 
-  
-  
-  //setbackground();                                                      // Load background
-  //backgroundImage=get();
 
   scoreClients = new ScoreClients(this, Config.scoreServerPort);        // Load score clients server
   BaseStationServer = new MyServer(this, Config.basestationServerPort); // Load basestations server
@@ -134,6 +129,8 @@ void setup() {
   Ess.start(this); // start up Ess
   if(Config.sounds_maxTime.length() > 0) {
     soundMaxTime = new AudioChannel(dataPath("sounds/" + Config.sounds_maxTime));
+  }else{
+    soundMaxTime = null;
   }
 }
 
@@ -153,9 +150,8 @@ void setup() {
  **************************************************************************************************************************/
 void draw() {
   
-  if (BACKGROUNDon) background(backgroundImage);
-  else background(48);
-
+  background(backgroundImage);
+  
   long t1=getGameTime();
   long t2=getSplitTime();
   gametime=nf(int((t1/1000)/60), 2)+":"+nf(int((t1/1000)%60), 2);
@@ -176,19 +172,14 @@ void draw() {
     bTeamBcmds[i].update();
   }
 
-//    ctr ++;
-//    println ("Update : ", ctr);
   teamA.updateUI();
   teamB.updateUI();
   
   for (int i = 0; i < bSlider.length; i++)
     bSlider[i].update();
 
-  // Check scheduled state change
-  StateMachineCheck();
-  
-  // Refresh buttons
-  RefreshButonStatus1();
+  StateMachineCheck(); // Check scheduled state change
+  RefreshButonStatus1(); // Refresh buttons
 
   fill(255);
   textAlign(CENTER, CENTER);

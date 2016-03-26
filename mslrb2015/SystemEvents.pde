@@ -23,7 +23,7 @@ void mousePressed() {
       if (bCommoncmds[i].isEnabled()) {
         bCommoncmds[i].checkhover();
         if (bCommoncmds[i].HOVER==true) { 
-          bevent('C', i); 
+          buttonEvent('C', i); 
           break;
         }
       }
@@ -34,14 +34,14 @@ void mousePressed() {
       if (bTeamAcmds[i].isEnabled()) {
         bTeamAcmds[i].checkhover();
         if (bTeamAcmds[i].HOVER==true) { 
-          bevent('A', i); 
+          buttonEvent('A', i); 
           break;
         }
       }
       if (bTeamBcmds[i].isEnabled()) {
         bTeamBcmds[i].checkhover();
         if (bTeamBcmds[i].HOVER==true) { 
-          bevent('B', i); 
+          buttonEvent('B', i); 
           break;
         }
       }
@@ -85,4 +85,3 @@ void keyPressed() {
   }
 
 }
-

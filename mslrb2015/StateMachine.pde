@@ -324,6 +324,9 @@ static class StateMachine
   
   public static void reset()
   {
+    try {
+      send_to_basestation("" + COMM_RESET);
+      
       needUpdate = false; 
       btnCurrent = ButtonsEnum.BTN_ILLEGAL;
       btnPrev = ButtonsEnum.BTN_ILLEGAL;
@@ -341,10 +344,9 @@ static class StateMachine
       
       Log.createLog();
       
-      send_to_basestation("" + COMM_RESET);
-      
       BaseStationServer.stop();
       BaseStationServer = new MyServer(mainApplet, Config.basestationServerPort);
+    } catch(Exception e) {}
   }
   
   public static boolean isHalf()
@@ -385,55 +387,4 @@ static class StateMachine
 
 void StateMachineCheck() {
   StateMachine.StateMachineRefresh();
-}
-
-//==============
-void checkpopup() {
-  /*if (bCommoncmds[5].isActive()) checkresetpopup();  //"RESET"
-  else if (bCommoncmds[4].isActive()) checkendhalfpopup(); //"ENDHALF"
-  else if (StateMachine.GetCurrentGameState() == GameStateEnum.GS_PREGAME) checkteampopup();*/
-}
-
-void checkresetpopup() {  //RESET
-    //if (bPopup[0].isActive())  resetgame();  //popup yes
-    if (bPopup[0].isActive() || bPopup[1].isActive())  {
-      bCommoncmds[5].enable();  //reset
-      Popup.close();
-    }
-    //else println("outside click...");
-}
-
-void checkteampopup(){
-  if (bPopup[0].isActive()) {
-    println("cyan - " + teamselect.getString("shortname8"));
-    teamA.shortName=teamselect.getString("shortname8");
-    teamA.longName=teamselect.getString("longame24");
-    teamA.unicastIP = teamselect.getString("UnicastAddr");
-    teamA.multicastIP = teamselect.getString("MulticastAddr");
-    Popup.close();
-  } 
-  else if (bPopup[1].isActive()) {
-    println("magenta - " + teamselect.getString("shortname8"));
-    teamB.shortName=teamselect.getString("shortname8");
-    teamB.longName=teamselect.getString("longame24");
-    teamB.unicastIP = teamselect.getString("UnicastAddr");
-    teamB.multicastIP = teamselect.getString("MulticastAddr");
-    Popup.close();
-  }
-  //else println("outside click...");
-}
-
-void checkflags() {
-  teamA.checkflags();
-  teamB.checkflags();
-}
-
-void doubleyellowtimercheck() {
-  if (teamA.DoubleYellowCardCount>0)  teamA.setDoubleYellowOutRemain();
-  if (teamB.DoubleYellowCardCount>0)  teamB.setDoubleYellowOutRemain();
-}
-
-void doubleyellowtimercheckresume() {
-  if (teamA.DoubleYellowCardCount>0)  teamA.resumeDoubleYellowOutRemain();
-  if (teamB.DoubleYellowCardCount>0)  teamB.resumeDoubleYellowOutRemain();
 }

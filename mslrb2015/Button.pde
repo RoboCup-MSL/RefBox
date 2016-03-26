@@ -152,7 +152,7 @@ public static Button buttonFromEnum(ButtonsEnum btn)
   return null;
 }
 
-void bevent(char group, int pos) {
+void buttonEvent(char group, int pos) {
   
   ButtonsEnum clickedButton = null;
   Button clickBtn = null;
@@ -192,7 +192,7 @@ void bevent(char group, int pos) {
     StateMachine.Update(clickedButton, btnOn);
     
     if(soundMaxTime != null && clickedButton.isStart())
-      lastPlayMillis = millis();
+      lastPlayMillis = mainApplet.millis();
     else
       lastPlayMillis = 0;
     

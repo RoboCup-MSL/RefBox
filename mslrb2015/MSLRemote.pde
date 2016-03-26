@@ -253,7 +253,7 @@ class MSLRemote
           
           char group = 'C';
           
-          bevent(group, pos);
+          buttonEvent(group, pos);
           
         }
       }

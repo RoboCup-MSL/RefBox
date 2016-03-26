@@ -2,13 +2,13 @@
 public static void serverEvent(MyServer whichServer, Client whichClient) {
   try {
   if (whichServer.equals(BaseStationServer)) {
-    Log.logMessage("New BaseStationClient @ "+whichClient.ip());
+    Log.logMessage("New BaseStation @ "+whichClient.ip());
   }
   else if (whichServer.equals(scoreClients.scoreServer)) {
     Log.logMessage("New ScoreClient @ " + whichClient.ip());
   }
   else if (mslRemote != null && mslRemote.server != null && whichServer != null && whichServer.equals(mslRemote.server)) {
-    Log.logMessage("New RemoteControl @ " + whichClient.ip());
+    Log.logMessage("New Remote @ " + whichClient.ip());
   }
   }catch(Exception e){}
 }
@@ -382,11 +382,6 @@ public static final char COMM_DROPPED_BALL = 'N';
 // repair Commands
 public static final char COMM_REPAIR_OUT_MAGENTA = 'o';  //exits field
 public static final char COMM_REPAIR_OUT_CYAN = 'O';
-//public static final char COMM_REPAIR_IN_MAGENTA = 'i';
-//public static final char COMM_REPAIR_IN_CYAN = 'I';
-
-//  public static final char COMM_CANCEL = 'x'; //not used
-//  public static final String COMM_RECONNECT_STRING = "Reconnect"; //not used
 
 //free: fFHlmMnqQvVxX
 //------------------------------------------------------
@@ -399,16 +394,15 @@ void comms_initDescriptionDictionary() {
   Description.set("N", "Drop Ball");
   Description.set("h", "Halftime");
   Description.set("e", "End Game");
-  Description.set("z", "Game Over");  //NEW 2015CAMBADA
-  Description.set("Z", "Reset Game");  //NEW 2015CAMBADA
-  Description.set("W", "Welcome");  //NEW 2015CAMBADA
-  Description.set("w", "Request World State");  //NEW 2015CAMBADA
-  Description.set("U", "Test Mode on");  //NEW 2015CAMBADA  ?
-  Description.set("u", "Test Mode off");  //NEW 2015CAMBADA  ?
+  Description.set("z", "Game Over");
+  Description.set("Z", "Reset Game");
+  Description.set("W", "Welcome");
+  Description.set("U", "Test Mode on");
+  Description.set("u", "Test Mode off");
   Description.set("1", "1st half");
   Description.set("2", "2nd half");
-  Description.set("3", "Overtime 1st half");  //NEW 2015CAMBADA
-  Description.set("4", "Overtime 2nd half");  //NEW 2015CAMBADA
+  Description.set("3", "Overtime 1st half");
+  Description.set("4", "Overtime 2nd half");
   Description.set("L", "Park");
   
   Description.set("K", "CYAN Kickoff");
@@ -418,13 +412,11 @@ void comms_initDescriptionDictionary() {
   Description.set("C", "CYAN Corner");
   Description.set("P", "CYAN Penalty Kick");
   Description.set("A", "CYAN Goal+");
-  Description.set("D", "CYAN Goal-");  
+  Description.set("D", "CYAN Goal-");
   Description.set("O", "CYAN Repair Out");
-//  Description.set("I", "CYAN Repair In");
-  Description.set("R", "CYAN Red Card");  //NEW 2015CAMBADA
-  Description.set("Y", "CYAN Yellow Card");  //NEW 2015CAMBADA
-//  Description.set("J", "CYAN Double Yellow in");  //NEW 2015CAMBADA
-  Description.set("B","CYAN Double Yellow");  //NEW 2015CAMBADA
+  Description.set("R", "CYAN Red Card");
+  Description.set("Y", "CYAN Yellow Card");
+  Description.set("B", "CYAN Double Yellow");
 
   Description.set("k", "MAGENTA Kickoff");
   Description.set("f", "MAGENTA Freekick");
@@ -435,9 +427,7 @@ void comms_initDescriptionDictionary() {
   Description.set("a", "MAGENTA Goal+");
   Description.set("d", "MAGENTA Goal-");
   Description.set("o", "MAGENTA Repair Out");
-//  Description.set("i", "MAGENTA Repair In");
-  Description.set("r", "MAGENTA Red Card");  //NEW 2015CAMBADA
-  Description.set("y", "MAGENTA Yellow Card");  //NEW 2015CAMBADA
-//  Description.set("j", "MAGENTA Double Yellow in");  //NEW 2015CAMBADA
-  Description.set("b","MAGENTA Double Yellow");  //NEW 2015CAMBADA
+  Description.set("r", "MAGENTA Red Card");
+  Description.set("y", "MAGENTA Yellow Card");
+  Description.set("b", "MAGENTA Double Yellow");
 }

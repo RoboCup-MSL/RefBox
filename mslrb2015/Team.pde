@@ -96,7 +96,11 @@ class Team {
     this.newPenaltyKick=false;
     for (int i=0; i<5; i++)
       r[i].reset();
+    
+    if(this.connectedClient != null && this.connectedClient.active())
+      this.connectedClient.stop();
     this.connectedClient = null;
+    
     this.firstWorldState = true;
   }
 
