@@ -9,6 +9,7 @@ libqt4-dev
 libvtk5-qt4-dev
 libqjson-dev
 libxerces-c-dev
+xsdcxx
 ```
 
 ## Building
