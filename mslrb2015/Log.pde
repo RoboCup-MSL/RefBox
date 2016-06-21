@@ -63,7 +63,8 @@ static class Log
   // Log action to both screen and logfile
   public static void logactions(String c) {
     //year()+month()+hour()+minute()+second()+millis()
-    String s1="["+StateMachine.GetCurrentGameStateString()+"] "+Description.get(c+"");
+    //String s1="["+StateMachine.GetCurrentGameStateString()+"] "+Description.get(c+"");
+    String s1=Description.get(c+"");
     String s2=System.currentTimeMillis()+","+gametime+"("+gameruntime+"),"+StateMachine.GetCurrentGameStateString()+","+c+","+Description.get(c+"");
     lastaction=c;
   

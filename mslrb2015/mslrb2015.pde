@@ -199,7 +199,10 @@ void draw() {
   textAlign(LEFT, BOTTOM);
   fill(#00ff00);
   for (int i=0; i<5; i++)
+  {
     text( Last5cmds[i], 340, height-4-i*18);
+    fill(#007700);
+  }
   fill(255);
   //server info
   textAlign(CENTER, BOTTOM);
@@ -243,7 +246,8 @@ void exit() {
   if(teamB != null) teamB.reset();
   
   LogMerger merger = new LogMerger(Log.getTimedName());
-  merger.merge();
+  //merger.merge();
+  merger.zipAllFiles();
   
   // Stop all servers
   scoreClients.stopServer();
