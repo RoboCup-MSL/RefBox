@@ -146,7 +146,7 @@ static class LogMerger
 
 // ---
 // Zip all
-  private boolean zipAllFiles()
+  public boolean zipAllFiles()
   {    
     try
     {
@@ -157,7 +157,8 @@ static class LogMerger
       out.setMethod(ZipOutputStream.DEFLATED);
       byte data[] = new byte[BUFFER];
       
-      String[] files = {".msl", ".A.msl", ".B.msl", ".merged.msl"};
+      //String[] files = {".msl", ".A.msl", ".B.msl", ".merged.msl"};
+      String[] files = {".msl", ".A.msl", ".B.msl"};
       for(int i = 0; i < files.length; i++)
       {
         String fileName = mainApplet.dataPath("tmp/" + timedName + files[i]);
