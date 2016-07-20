@@ -4,9 +4,6 @@ public static void serverEvent(MyServer whichServer, Client whichClient) {
   if (whichServer.equals(BaseStationServer)) {
     Log.logMessage("New BaseStation @ "+whichClient.ip());
   }
-  else if (whichServer.equals(scoreClients.scoreServer)) {
-    Log.logMessage("New ScoreClient @ " + whichClient.ip());
-  }
   else if (mslRemote != null && mslRemote.server != null && whichServer != null && whichServer.equals(mslRemote.server)) {
     Log.logMessage("New Remote @ " + whichClient.ip());
   }
@@ -31,13 +28,6 @@ public static void clientValidation(MyServer whichServer, Client whichClient) {
       } else {
         Log.logMessage("ERR Another team connecting");
         whichClient.write(COMM_RESET);
-        whichClient.stop();
-      }
-    }
-    // SCORE CLIENTS AUTH
-    else if (whichServer.equals(scoreClients.scoreServer)) {
-      if(!Config.scoreServerClients.hasValue(whichClient.ip())) {
-        Log.logMessage("Reject ScoreClient " + whichClient.ip());
         whichClient.stop();
       }
     }
@@ -324,7 +314,6 @@ public static void checkBasestationsMessages()
   }catch(Exception e){
   }
 }
-
 
 // -------------------------
 // Referee Box Protocol 2015

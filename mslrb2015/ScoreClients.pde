@@ -1,11 +1,17 @@
 class ScoreClients
 {
-  public MyServer scoreServer;
+  //public MyServer scoreServer1;
   private static final boolean debug = false;
+  public ArrayList<UDP> scoreClients = new ArrayList<UDP>();
   
   public ScoreClients(PApplet parent, int port)
   {
-    scoreServer = new MyServer(parent, port);
+    int numberOfClients = Config.scoreClientHosts.size();
+    
+    for(int i = 0; i < numberOfClients; i++)
+    {
+      scoreClients.add(new UDP(parent));
+    }
   }
   
   // Sends an "event" type update message to the clients
@@ -100,19 +106,22 @@ class ScoreClients
   
   public int clientCount()
   {
-    return scoreServer.clientCount;
+    return Config.scoreClientHosts.size();
   }
   
   public void stopServer()
   {
-    scoreServer.stop();
+    for(int i = 0; i < clientCount(); i++)
+    {
+      scoreClients.get(i).close();
+    }
   }
   
   public void writeMsg(String message)
   {
-    if (scoreServer.clientCount>0){
-      scoreServer.write(message);
-    }
+    // Write message to all clients
+    for(int i = 0; i < clientCount(); i++)
+      scoreClients.get(i).send(message, Config.scoreClientHosts.get(i), Config.scoreClientPorts.get(i));
   }
   
 }

@@ -3,8 +3,18 @@
 	"description": "MSL RefBox configuration file",
 	"networking":
 	{
-		"scoreServerPort": 12345,
 		"scoreClientsUpdatePeriod_ms": 50,
+		"scoreClientsList": [
+			{
+				"ip": "127.0.0.1",
+				"port": 12345
+			},
+			{
+				"ip": "172.16.39.10",
+				"port": 12345
+			}
+		],
+		"scoreServerPort": 12345,
 		"scoreServerClients": [
 			"127.0.0.1"
 		],

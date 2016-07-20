@@ -9,8 +9,8 @@ import processing.net.*;
 import krister.Ess.*;
 import org.json.*;
 
-public static final String MSG_VERSION="1.2.3";
-public static final String MSG_VERSION_MSG="(RoboCup 2016)";
+public static final String MSG_VERSION="1.3.0";
+public static final String MSG_VERSION_MSG="(2016)";
 public static final String MSG_WINDOWTITLE="RoboCup MSL RefBox 2015 - "+MSG_VERSION+" "+MSG_VERSION_MSG;
 public static final String MSG_HALFTIME="End Current Part ?";
 public static final String MSG_RESET="Reset Game ?";
@@ -113,7 +113,6 @@ void setup() {
   BaseStationServer = new MyServer(this, Config.basestationServerPort); // Load basestations server
   mslRemote = new MSLRemote(this, Config.remoteServerPort);             // Load module for MSL remote control
   
-  println("This IP: "+Server.ip());
   teamA = new Team(Config.defaultCyanTeamColor,true);                   // Initialize Cyan team (Team A)
   teamB = new Team(Config.defaultMagentaTeamColor,false);               // Initialize Magenta team (Team B)
   teamstable = loadTable("msl_teams.csv", "header");                    // Load teams table
@@ -206,8 +205,8 @@ void draw() {
   fill(255);
   //server info
   textAlign(CENTER, BOTTOM);
-  String time=nf(hour(),2)+":"+nf(minute(),2)+":"+nf(second(),2);
-  text("[ "+time+" ]        "+Server.ip()+" ["+scoreClients.clientCount()+"/"+BaseStationServer.clientCount+"]", width/2, 578);  
+  //String time=nf(hour(),2)+":"+nf(minute(),2)+":"+nf(second(),2);
+  text(scoreClients.clientCount()+" score clients :: "+BaseStationServer.clientCount+" basestations", width/2, 578);  
   
   //println(StateMachine.GetCurrentGameState().getValue());
 

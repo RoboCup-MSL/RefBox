@@ -3,8 +3,10 @@ import java.io.*;
 static class Config
 {
   // Networking
-  public static int scoreServerPort = 12345;
   public static int scoreClientsUpdatePeriod_ms = 1000;
+  public static StringList scoreClientHosts = new StringList();
+  public static IntList scoreClientPorts = new IntList();
+  public static int scoreServerPort = 12345;
   public static StringList scoreServerClients = new StringList();
   public static int remoteServerPort = 54321;
   public static int basestationServerPort = 28097;
@@ -86,6 +88,24 @@ static class Config
           
           // ----
           // Networking
+          
+          if(networking.has("scoreClientsUpdatePeriod_ms"))
+            scoreClientsUpdatePeriod_ms = networking.getInt("scoreClientsUpdatePeriod_ms");
+          
+          if(networking.has("scoreClientsList"))
+          {
+            org.json.JSONArray listOfClients = networking.getJSONArray("scoreClientsList");
+            for(int i = 0; i < listOfClients.length(); i++)
+            {
+              org.json.JSONObject client = listOfClients.getJSONObject(i);
+              if(client.has("ip") && client.has("port"))
+              {
+                scoreClientHosts.append(client.getString("ip"));
+                scoreClientPorts.append(client.getInt("port"));
+              }
+            }
+          }
+          
           if(networking.has("scoreServerPort"))
             scoreServerPort = networking.getInt("scoreServerPort");
           
@@ -104,8 +124,7 @@ static class Config
           if(networking.has("basestationServerPort"))
             basestationServerPort = networking.getInt("basestationServerPort");
             
-          if(networking.has("scoreClientsUpdatePeriod_ms"))
-            scoreClientsUpdatePeriod_ms = networking.getInt("scoreClientsUpdatePeriod_ms");
+
             
           if(networking.has("remoteControlEnable"))
             remoteControlEnable = networking.getBoolean("remoteControlEnable");
@@ -178,18 +197,25 @@ static class Config
     
     if (scoreClientsUpdatePeriod_ms<50) scoreClientsUpdatePeriod_ms=50;
     
-    //printConfig();
+    printConfig();
   }
   
   public static void printConfig()
   {
     // Networking
     println( "### Networking ###" );
+    println( "scoreClientsUpdatePeriod_ms  : " + scoreClientsUpdatePeriod_ms);
+    println( "scoreClients                 : " + scoreClientHosts.size());
+    for(int i = 0; i < scoreClientHosts.size(); i++)
+      println( "    " + scoreClientHosts.get(i) + ":" + scoreClientPorts.get(i));
+    
     println( "scoreServerPort              : " + scoreServerPort);
     println( "remoteServerPort             : " + remoteServerPort);
     println( "basestationServerPort        : " + basestationServerPort);
-    println( "scoreClientsUpdatePeriod_ms  : " + scoreClientsUpdatePeriod_ms);
     println( "remoteControlEnable          : " + remoteControlEnable);
+    
+    
+    
     println();
     // Rules
     println( "### Rules ###" );
