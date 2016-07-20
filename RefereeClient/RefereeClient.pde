@@ -6,7 +6,7 @@
 import processing.net.*;
 import org.json.*;
 
-public static final String MSG_VERSION="1.1.0";
+public static final String MSG_VERSION="1.2.0";
 public static final String MSG_VERSION_MSG="";
 public static final String MSG_WINDOWTITLE="RoboCup MSL Referee Client - "+MSG_VERSION+" "+MSG_VERSION_MSG;
 
@@ -38,7 +38,8 @@ public static final int CMDID_COMMON_RESET = 5;
 public static final int CMDID_COMMON_ENDGAME = 6;
 
 public static Team teamA,teamB;
-Client myClient;
+//Client myClient;
+UDP myUDPClient;
 String msgBuffer = "";
 
 public static String[] Last5cmds= { ".", ".", ".", ".", "." };
@@ -74,7 +75,7 @@ void setup() {
   
   size(1000, 680);
   
- backgroundImage = loadImage("img/bg_wood.png");
+ backgroundImage = loadImage("img/bg_normal.png");
 
   frame.setTitle(MSG_WINDOWTITLE); 
   clockFont = createFont("fonts/LCDM.TTF", 64, false);
@@ -100,6 +101,9 @@ void setup() {
   lastConnectionAttempt = millis();
   nConnAttempts = 0;
   
+  myUDPClient = new UDP(this, Config.port);
+  myUDPClient.listen(true);
+  
   frameRate(appFrameRate);
 }
 
@@ -108,6 +112,7 @@ void setup() {
  **************************************************************************************************************************/
 void draw() {
   
+  /*
   if(myClient == null || !myClient.active()) {
     if(myClient == null || millis() - lastConnectionAttempt > 1000)
     {
@@ -230,7 +235,7 @@ void draw() {
         }
     }
   }
-  
+  */
   
   background(backgroundImage);
   
@@ -239,7 +244,7 @@ void draw() {
   teamA.updateUI();
   teamB.updateUI();
   
-  if(myClient != null && myClient.active())
+  if(true)//myClient != null && myClient.active())
   {
     fill(255);
     textAlign(CENTER, CENTER);
@@ -267,13 +272,13 @@ void draw() {
   }
   
   // Show current situation in the middle
-  if(myClient == null || !myClient.active()) {
+  /*if(myClient == null || !myClient.active()) {
     fill(255);
     textFont(teamFont);
     textSize(36);
     textAlign(CENTER, CENTER);
     text("Connecting to\n"+Config.scoreServerHost+"\n(" + nConnAttempts + ")", width/2, height/2 + 30);
-  }else{
+  }else*/{
     PImage img = null;
     String imageName = "";
     if(lastCommandCode.equals("S")) imageName = "stop";
@@ -300,6 +305,115 @@ void draw() {
       text(description, width/2, height/2 + 45);
     }
   }
+}
+
+void receive(byte[] data, String HOST_IP, int PORT_RX){
+  String whatClientSaid = new String(data);
+  
+  while(whatClientSaid.length() != 0)
+  {
+    nConnAttempts = 0;
+    
+    int idx = whatClientSaid.indexOf('\0');
+    if(idx == -1) { // Terminator not found
+      msgBuffer += whatClientSaid;
+      break;
+    }else{ // Terminator found
+      if(idx != 0)
+      {
+        msgBuffer += whatClientSaid.substring(0,idx);
+        if(idx < whatClientSaid.length())
+          whatClientSaid = whatClientSaid.substring(idx+1);
+        else
+          whatClientSaid = "";
+      }else{
+        if(whatClientSaid.length() == 1)
+          whatClientSaid = "";
+        else
+          whatClientSaid = whatClientSaid.substring(1);
+      }
+      
+      // Validate message
+      boolean ok = true;
+      org.json.JSONObject root = null;
+      org.json.JSONObject jsonA = null;
+      org.json.JSONObject jsonB = null;
+      
+      try // Check for malformed JSON
+      {
+        root = new org.json.JSONObject(msgBuffer);
+      } catch(JSONException e) {
+        String errorMsg = "ERROR malformed JSON : " + msgBuffer;
+        println(errorMsg);
+        ok = false;
+      }
+      
+      if(ok && root.has("type") && root.optString("type","").equals("event")) // event type messages
+      {
+        String eventCode = root.optString("eventCode","");
+        if(Description.hasKey(eventCode))
+        {
+          String desc = Description.get(eventCode);
+          Log.logactions(eventCode);
+          lastCommandCode = eventCode;
+          lastCommandDescription = desc;
+        }
+      }else if(ok && root.has("type") && root.optString("type","").equals("teams")){
+      
+        if(ok)
+        {
+          try // Check for worldstate
+          {
+            jsonA = root.getJSONObject("teamA");
+            jsonB = root.getJSONObject("teamB");
+          } catch(JSONException e) {
+            String errorMsg = "ERROR No worldstate from teams : " + msgBuffer;
+            println(errorMsg);
+            ok = false;
+          }
+        }
+        
+        if(ok && root != null && jsonA != null && jsonB != null)
+        {
+          // Global
+          currentGameStateString = root.optString("gameStateString");
+          gametime = root.optString("gameTime", gametime);
+          gameruntime = root.optString("gameRunTime", gameruntime);
+          gameState = root.optInt("gameState", gameState);
+          
+          // Team A
+          teamA.shortName = jsonA.optString("shortName", teamA.shortName);
+          teamA.longName = jsonA.optString("longName", teamA.longName);
+          teamA.Score = jsonA.optInt("score", teamA.Score);
+          if(jsonA.has("robotState")) {
+            for(int i = 0; i < 5; i++) {
+              org.json.JSONArray state = jsonA.getJSONArray("robotState");
+              teamA.r[i].state = state.optString(i, teamA.r[i].state);
+              
+              org.json.JSONArray waitTime = jsonA.getJSONArray("robotWaitTime");
+              teamA.r[i].waittime = waitTime.optInt(i, teamA.r[i].waittime);
+            }
+          }
+          
+          // Team B
+          teamB.shortName = jsonB.optString("shortName", teamB.shortName);
+          teamB.longName = jsonB.optString("longName", teamB.longName);
+          teamB.Score = jsonB.optInt("score", teamB.Score);
+          if(jsonB.has("robotState")) {
+            for(int i = 0; i < 5; i++) {
+              org.json.JSONArray state = jsonB.getJSONArray("robotState");
+              teamB.r[i].state = state.optString(i, teamB.r[i].state);
+              org.json.JSONArray waitTime = jsonB.getJSONArray("robotWaitTime");
+              teamB.r[i].waittime = waitTime.optInt(i, teamB.r[i].waittime);
+            }
+          }
+        }
+      
+      } // end "teams" type
+      msgBuffer = ""; // Clean buffer
+    }
+  }
+    
 }
 
 /**************************************************************************************************************************

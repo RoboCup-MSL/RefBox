@@ -3,8 +3,7 @@
 	"description": "MSL RefBox Referee Client configuration file",
 	"networking":
 	{
-		"scoreServerHost": "127.0.0.1",
-		"scoreServerPort": 12345
+		"port": 12345
 	},
 	"appearance":
 	{
