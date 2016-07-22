@@ -9,9 +9,12 @@ INCLUDEPATH += . ../config/ /usr/include/vtk-5.8/
 
 # Input
 HEADERS += ConfigXML.h FieldWidget3D.h mainwindow.h Param.h ../config/field.conf.hxx \
-    Team.h
-FORMS += mainwindow.ui
-SOURCES += ConfigXML.cpp FieldWidget3D.cpp main.cpp mainwindow.cpp Param.cpp  ../config/field.conf.cxx
+    Team.h \
+    controlpanel.h
+FORMS += mainwindow.ui \
+    controlpanel.ui
+SOURCES += ConfigXML.cpp FieldWidget3D.cpp main.cpp mainwindow.cpp Param.cpp  ../config/field.conf.cxx \
+    controlpanel.cpp
 
 QT += network
 LIBS += -lQVTK -lvtkRendering -lvtkGraphics -lvtkCommon -lvtkIO -lvtkFiltering -lvtkHybrid -lxerces-c -lqjson
