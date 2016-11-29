@@ -8,10 +8,12 @@
 
 import subprocess
 import time,datetime
-import rospy # only for rate/sleep
 from inspect import isfunction
 from collections import defaultdict
 import traceback
+from pygame import time
+import json
+from zipfile import ZipFile
 import socket
 
 
@@ -26,11 +28,32 @@ class MatchLogPublisher():
         # load the bag file
         self.loadZipFile(zipfile)
         # setup port connection
+        self.setupPorts()
+
+    def setupPorts(self):
+        # TODO implement
+        pass
+
+    def processBuffer(self):
+        """
+        Send the contents of buffer over the port.
+        """
+        for (k,v) in self.buffer.items():
+            # process the message
+            try:
+                # TODO process the data element
+                pass
+            except:
+                print "something went wrong when executing callback for topic %s, message follows" % k
+                print v
+                traceback.print_exc()
+                pass
+        self.buffer = {}
         self.host(self)
         # init buffer
         self.buffer = ''
         # connection
-        
+
     def host(self):
         HOST = ''
         PORT = 12345
@@ -41,37 +64,45 @@ class MatchLogPublisher():
         return conn,addr
 
     def loadZipFile(self, zipfile):
-        # TODO: reimplement, this does not yet work
-        print "TODO load " + zipfile
-        
-        # self.data is an array of tuples (t1, topic, msg, t2), where
-        #  * t1 is a posix timestamp (float), e.g. 1437281188.41
-        #  * topic the topic on which the message was received
-        #  * msg the message data struct
-        #  * t2 a datetime converted time object (for display)
-        print "loading bagfile ", bagfile
-        # load all at once, can take a few seconds though
-        bag = rosbag.Bag(bagfile)
-        self.data = []
+        print "Loading {0}...".format(zipfile)
+
+        with ZipFile(zipfile, 'r') as mslzip:
+            files = mslzip.filelist
+
+            # find files and parse json
+            for f in files:
+                if f.filename.endswith(".A.msl"):
+                    json_a = json.loads(mslzip.read(f.filename).encode("utf-8"))
+                elif f.filename.endswith(".B.msl"):
+                    json_b = json.loads(mslzip.read(f.filename).encode("utf-8"))
+
+        if json_a != None:
+            self.data_a, self.meta_a = self.createData(json_a)
+            print "Team A loaded, meta:", self.meta_a
+
+        if json_b != None:
+            self.data_b, self.meta_b = self.createData(json_b)
+            print "Team B loaded, meta:", self.meta_b
+
+    def createData(dataself, json_data):
+        data = meta = {}
         first = True
-        prev = 0
-        for topic, msg, t in bag.read_messages():
+
+        for entry in json_data:
+            time = long(entry['timestamp'])
             if first:
-                self.t0 = t.to_time()
+                tStart = time
+                tEnd = time
                 first = False
-            t1 = t.to_time()
-            assert(t1 >= prev) # check that the data stream is ordered in time
-            t2 = datetime.datetime.fromtimestamp(t1)
-            self.data.append((t1, topic, msg, t2))
-            prev = t1
-        self.tElapsed = t1 - self.t0
-        self.tStart = self.data[0][0]
-        self.tEnd = self.data[-1][0]
-        print "done"
-        print "  t_start:", str(self.data[0][3])
-        print "  t_end  :", str(t2)
-        print "  elapsed: %6.2f" % (self.tElapsed)
-        self.pointer = 0
+            else:
+                tStart = min(tStart, time)
+                tEnd = max(tEnd, time)
+
+        meta['tElapsed'] = tEnd - tStart
+        meta['tStart'] = tStart
+        meta['tEnd'] = tEnd
+
+        return (data, meta)
 
     def advance(self, t):
         """
@@ -104,7 +135,7 @@ class MatchLogPublisher():
 
     def run(self, playback):
         done = False
-        rate = rospy.Rate(self.frequency)
+
         dt = 1.0 / self.frequency
         conn, addr = self.host()
         while not done:
@@ -115,10 +146,10 @@ class MatchLogPublisher():
             # send msg buffer
             self.conn.sendall(self.buffer) # TODO Erik convert buffer json
             # sleep
-            rate.sleep()
+            time.Clock.tick_busy_loop(self.frequency)
             if rospy.is_shutdown():
                 done = True
             if t > self.tElapsed:
                 done = True
-        conn.close()
 
+        conn.close()
