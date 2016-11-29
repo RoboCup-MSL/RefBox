@@ -27,12 +27,6 @@ class MatchLogPublisher():
         self.frequency = 20.0
         # load the bag file
         self.loadZipFile(zipfile)
-        # setup port connection
-        self.setupPorts()
-
-    def setupPorts(self):
-        # TODO implement
-        pass
 
     def processBuffer(self):
         """
@@ -48,7 +42,7 @@ class MatchLogPublisher():
                 print v
                 traceback.print_exc()
                 pass
-        self.buffer = {}
+
         self.host(self)
         # init buffer
         self.buffer = ''
