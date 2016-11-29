@@ -8,10 +8,10 @@
 
 import subprocess
 import time,datetime
-import rospy # only for rate/sleep
 from inspect import isfunction
 from collections import defaultdict
 import traceback
+from pygame import time
 
 
 
@@ -27,7 +27,7 @@ class MatchLogPublisher():
         self.loadZipFile(zipfile)
         # setup port connection
         self.setupPorts()
-        
+
     def setupPorts(self):
         # TODO implement
         pass
@@ -47,11 +47,11 @@ class MatchLogPublisher():
                 traceback.print_exc()
                 pass
         self.buffer = {}
-      
+
     def loadZipFile(self, zipfile):
         # TODO: reimplement, this does not yet work
         print "TODO load " + zipfile
-        
+
         # self.data is an array of tuples (t1, topic, msg, t2), where
         #  * t1 is a posix timestamp (float), e.g. 1437281188.41
         #  * topic the topic on which the message was received
@@ -114,7 +114,7 @@ class MatchLogPublisher():
 
     def run(self, playback):
         done = False
-        rate = rospy.Rate(self.frequency)
+
         dt = 1.0 / self.frequency
         while not done:
             # get timestamp from playback
@@ -122,11 +122,11 @@ class MatchLogPublisher():
             # advance and publish
             self.advance(t)
             # sleep
-            rate.sleep()
+            time.Clock.tick_busy_loop(self.frequency)
             if rospy.is_shutdown():
                 done = True
             if t > self.tElapsed:
                 done = True
-            
+
 
 
