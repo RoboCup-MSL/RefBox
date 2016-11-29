@@ -157,6 +157,9 @@ class MatchLogPublisher():
             self.buffer = (entry_a, entry_b) # TODO this should move into advance() for reuse in statistics
             # convert buffer json
             buf = MSLLog2AudienceClientLog(self.buffer[0], self.buffer[1])
+            # set time stamp
+            buf['gameTime'] = "%02d:%02d" % (int(t / 60), int(t) % 60)
+            # client expects null termination (!)
             bufStr = json.dumps(buf) + "\0"
             # send msg buffer
             conn.sendall(bufStr)
