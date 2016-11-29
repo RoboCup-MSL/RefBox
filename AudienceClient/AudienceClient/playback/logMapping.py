@@ -65,7 +65,7 @@ def MSLLog2AudienceClientLog(logEntryTeamA, logEntryTeamB):
     output["teamA"]["longName"] = logEntryTeamA["teamName"]
 
     #TODO
-    output["teamA"]["score"] = 0
+    output["teamA"]["score"] = "0"
     output["teamA"]["robotState"] = ["play", "play", "play", "play", "play"]
     output["teamA"]["robotWaitTime"] = [-1, -1, -1, -1, -1]
 
@@ -78,7 +78,7 @@ def MSLLog2AudienceClientLog(logEntryTeamA, logEntryTeamB):
     output["teamB"]["longName"] = logEntryTeamB["teamName"]
 
     #TODO
-    output["teamB"]["score"] = 0
+    output["teamB"]["score"] = "0"
     output["teamB"]["robotState"] = ["play", "play", "play", "play", "play"]
     output["teamB"]["robotWaitTime"] = [-1, -1, -1, -1, -1]
 
