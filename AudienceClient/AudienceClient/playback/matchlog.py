@@ -5,17 +5,10 @@
 # TODO statistics
 
 
-
-import subprocess
-import time,datetime
-from inspect import isfunction
-from collections import defaultdict
-import traceback
 from pygame import time
 import json
 from zipfile import ZipFile
 import socket
-
 
 class MatchLogPublisher():
     """
@@ -112,10 +105,14 @@ class MatchLogPublisher():
 
     def advance(self, t):
         """
-        Advance to given timestamp (relative).
+        Advance to given timestamp (relative) as float, in seconds.
         """
         # translate relative to absolute time
-        t = t + self.t0
+        t = int(1000*t) + self.tStart
+        # temporary: return last message
+        self.buffer = (self.data_a[self.data_a.keys()[-1]], self.data_b[self.data_b.keys()[-1]])
+        return
+
         # dumb lookup to find latest message just before t
         # invariant: pointer is a valid index and data is not empty
         tpoint = self.data[self.pointer][0]
@@ -154,11 +151,12 @@ class MatchLogPublisher():
             self.advance(t)
             # send msg buffer
             print "buffer=", self.buffer
-            self.conn.sendall(self.buffer) # TODO Erik convert buffer json
+            for logItem in self.buffer:
+                # TODO Erik convert buffer json
+                buf = json.dumps(logItem)
+                conn.sendall(buf)
             # sleep
-            time.Clock.tick_busy_loop(self.frequency)
-            if rospy.is_shutdown():
-                done = True
+            time.Clock().tick_busy_loop(self.frequency)
             if t > self.tElapsed:
                 done = True
 
