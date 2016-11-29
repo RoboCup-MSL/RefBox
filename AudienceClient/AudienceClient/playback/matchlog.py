@@ -11,39 +11,7 @@ from zipfile import ZipFile
 import socket
 from logMapping import MSLLog2AudienceClientLog
 import sys
-
-# binary search that searches nearest elem in array
-def bsearch(array, elem):
-    l = 0
-    r = len(array) - 1
-    m = (l + r) / 2
-    while True:
-        if r < l:
-            break
-        m = (l + r) / 2
-        if array[m] < elem:
-            l = m + 1
-        elif array[m] > elem:
-            r = m - 1
-        else:
-            # exact match
-            return array[m]
-    # fuzzy match
-    diffs = {}
-    diffs[m] = abs(elem - array[m])
-    if m < len(array)-2: # get right element of m
-        diffs[m+1] = abs(elem - array[m+1])
-    if m > 1: # get right element of m
-        diffs[m-1] = abs(elem - array[m-1])
-
-    minval = sys.maxint
-    minindex = -1
-    for k,v in diffs.iteritems():
-        if v < minval:
-            minindex = k
-            minval = v
-
-    return array[minindex]
+from bsearch import bsearch
 
 
 class MatchLogPublisher():
@@ -101,6 +69,11 @@ class MatchLogPublisher():
         self.tEnd = float(self.tEnd * 1e-3)
         
         self.tElapsed = self.tEnd - self.tStart
+        
+        print 'sorting timestamps'
+        self.keys_a = sorted(self.data_a.keys())
+        self.keys_b = sorted(self.data_b.keys())
+
 
     def createData(dataself, json_data):
         data = {}
@@ -130,13 +103,13 @@ class MatchLogPublisher():
         """
         # translate relative to absolute time
         t = long(1000*(t + self.tStart))
-        # temporary: return last message
-        self.buffer = (self.data_a[self.data_a.keys()[-1]], self.data_b[self.data_b.keys()[-1]])
+        key_a = bsearch(self.keys_a, t)
+        entry_a = self.data_a[key_a]
+        key_b = bsearch(self.keys_b, t)
+        entry_b = self.data_b[key_b]
+        self.buffer = (entry_a, entry_b) 
         
     def run(self, playback):
-        print 'sorting timestamps'
-        keys_a = sorted(self.data_a.keys())
-        keys_b = sorted(self.data_b.keys())
         done = False
 
         dt = 1.0 / self.frequency
@@ -148,13 +121,8 @@ class MatchLogPublisher():
             # get timestamp from playback
             t = playback.updateTime(dt)
 
-            # advance and publish
-            #self.advance(t)
-            key_a = bsearch(keys_a, long ((t+self.tStart)*1000.0))
-            entry_a = self.data_a[key_a]
-            key_b = bsearch(keys_b, long((t+self.tStart)*1000.0))
-            entry_b = self.data_b[key_b]
-            self.buffer = (entry_a, entry_b) # TODO this should move into advance() for reuse in statistics
+            # advance 
+            self.advance(t)
             # convert buffer json
             buf = MSLLog2AudienceClientLog(self.buffer[0], self.buffer[1])
             # set time stamp
