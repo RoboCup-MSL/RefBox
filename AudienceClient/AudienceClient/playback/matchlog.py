@@ -70,13 +70,22 @@ class MatchLogPublisher():
                 elif f.filename.endswith(".B.msl"):
                     json_b = json.loads(mslzip.read(f.filename).encode("utf-8"))
 
+        self.tStart = 1e99
+        self.tEnd = -1e99
+
         if json_a != None:
             self.data_a, self.meta_a = self.createData(json_a)
             print "Team A loaded, meta:", self.meta_a
+            self.tStart = min(self.tStart, self.meta_a['tStart'])
+            self.tEnd = max(self.tEnd, self.meta_a['tEnd'])
 
         if json_b != None:
             self.data_b, self.meta_b = self.createData(json_b)
             print "Team B loaded, meta:", self.meta_b
+            self.tStart = min(self.tStart, self.meta_b['tStart'])
+            self.tEnd = max(self.tEnd, self.meta_b['tEnd'])
+
+        self.tElapsed = self.tEnd - self.tStart
 
     def createData(dataself, json_data):
         data = {}
@@ -100,6 +109,16 @@ class MatchLogPublisher():
 
         return (data, meta)
 
+
+    def getNearestEntry(data, time)
+
+        # look for nearest
+        for i in range(len(data)):
+            if time in data:
+                return data[time]
+            if time in data:
+                return data[time]
+            i+=1
 
     def advance(self, t):
         """
@@ -138,10 +157,15 @@ class MatchLogPublisher():
         while not done:
             # get timestamp from playback
             t = playback.updateTime(dt)
+
+            # get nearest data
+            a = self.getNearestEntry(self.data_a, t)
+            print a
+
             # advance and publish
-            self.advance(t)
+            #self.advance(t)
             # send msg buffer
-            self.conn.sendall(self.buffer)
+            self.conn.sendall(self.buffer) # TODO Erik convert buffer json
             # sleep
             time.Clock.tick_busy_loop(self.frequency)
             if rospy.is_shutdown():
