@@ -17,30 +17,11 @@ class MatchLogPublisher():
     """
     def __init__(self, zipfile):
         # initialize self
+        self.buffer = None
         self.frequency = 20.0
         # load the bag file
         self.loadZipFile(zipfile)
-
-    def processBuffer(self):
-        """
-        Send the contents of buffer over the port.
-        """
-        for (k,v) in self.buffer.items():
-            # process the message
-            try:
-                # TODO process the data element
-                pass
-            except:
-                print "something went wrong when executing callback for topic %s, message follows" % k
-                print v
-                traceback.print_exc()
-                pass
-
-        self.host(self)
-        # init buffer
-        self.buffer = ''
-        # connection
-
+        
     def host(self):
         HOST = ''
         PORT = 12345
@@ -78,6 +59,9 @@ class MatchLogPublisher():
             self.tStart = min(self.tStart, self.meta_b['tStart'])
             self.tEnd = max(self.tEnd, self.meta_b['tEnd'])
             
+        # convert to float [seconds]
+        self.tStart = float(self.tStart * 1e-3)
+        self.tEnd = float(self.tEnd * 1e-3)
         self.tElapsed = self.tEnd - self.tStart
 
     def createData(dataself, json_data):
@@ -108,7 +92,7 @@ class MatchLogPublisher():
         Advance to given timestamp (relative) as float, in seconds.
         """
         # translate relative to absolute time
-        t = int(1000*t) + self.tStart
+        t = long(1000*(t + self.tStart))
         # temporary: return last message
         self.buffer = (self.data_a[self.data_a.keys()[-1]], self.data_b[self.data_b.keys()[-1]])
         return
