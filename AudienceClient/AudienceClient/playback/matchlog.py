@@ -30,12 +30,6 @@ class MatchLogPublisher():
         # init buffer
         self.buffer = ''
         # connection
-        self.conn = None
-        self.addr = None
-
-    def __del__(self):
-        #disconnect port connection
-        self.disconnect(self)
         
     def host(self):
         HOST = ''
@@ -43,10 +37,8 @@ class MatchLogPublisher():
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.s.bind((HOST, PORT))
         self.s.listen(1)
-        self.conn, self.addr = self.s.accept()
-
-    def disconnect(self):
-        self.conn.close()
+        conn,addr = self.s.accept()
+        return conn,addr
 
     def loadZipFile(self, zipfile):
         # TODO: reimplement, this does not yet work
@@ -116,7 +108,7 @@ class MatchLogPublisher():
         done = False
         rate = rospy.Rate(self.frequency)
         dt = 1.0 / self.frequency
-        self.host(self)
+        conn, addr = self.host()
         while not done:
             # get timestamp from playback
             t = playback.updateTime(dt)
@@ -130,7 +122,5 @@ class MatchLogPublisher():
                 done = True
             if t > self.tElapsed:
                 done = True
-            
-
-
+        conn.close()
 
