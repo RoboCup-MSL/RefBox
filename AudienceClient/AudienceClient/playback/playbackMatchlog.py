@@ -15,6 +15,7 @@ import threading
 import traceback
 from playbackControl import PlaybackControl
 from matchlog import MatchLogPublisher
+from matchStatistics import MatchStatistics
 
 
 # globals
@@ -43,6 +44,10 @@ if __name__ == '__main__':
         # Override options - TODO
 
 
+        # Calculate match statistics from matchlog
+        statistics = MatchStatistics(matchlog)
+        print statistics
+        
         # Construct the playback window and run its GUI loop in a dedicated thread
         gPbCtrl    = PlaybackControl(tStart, tEnd, tElapsed)
         gPbGuiTr   = threading.Thread(target=gPbCtrl.run)

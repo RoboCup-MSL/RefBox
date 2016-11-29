@@ -11,6 +11,7 @@ import sys,os
 import signal
 import pygame
 from pygame.locals import *
+sys.path.append("./pgu")
 from pgu import gui
 
 

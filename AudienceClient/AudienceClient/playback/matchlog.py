@@ -14,7 +14,7 @@ import traceback
 from pygame import time
 import json
 from zipfile import ZipFile
-
+import socket
 
 
 class MatchLogPublisher():
@@ -49,6 +49,19 @@ class MatchLogPublisher():
                 traceback.print_exc()
                 pass
         self.buffer = {}
+        self.host(self)
+        # init buffer
+        self.buffer = ''
+        # connection
+
+    def host(self):
+        HOST = ''
+        PORT = 12345
+        self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.s.bind((HOST, PORT))
+        self.s.listen(1)
+        conn,addr = self.s.accept()
+        return conn,addr
 
     def loadZipFile(self, zipfile):
         print "Loading {0}...".format(zipfile)
@@ -104,7 +117,7 @@ class MatchLogPublisher():
             # rewind to zero
             self.pointer = 0
             tpoint = self.data[self.pointer][0]
-            self.buffer = {}
+            self.buffer = ''
         while t > tpoint:
             if t - tpoint < 1.0:
                 self.buffer[self.data[self.pointer][1]] = self.data[self.pointer][2]
@@ -119,18 +132,19 @@ class MatchLogPublisher():
             self.pointer -= 1
         if self.pointer > len(self.data) - 1:
             self.pointer = len(self.data) - 1
-        # process buffer and clear it
-        self.processBuffer()
 
     def run(self, playback):
         done = False
 
         dt = 1.0 / self.frequency
+        conn, addr = self.host()
         while not done:
             # get timestamp from playback
             t = playback.updateTime(dt)
             # advance and publish
             self.advance(t)
+            # send msg buffer
+            self.conn.sendall(self.buffer)
             # sleep
             time.Clock.tick_busy_loop(self.frequency)
             if rospy.is_shutdown():
@@ -138,5 +152,4 @@ class MatchLogPublisher():
             if t > self.tElapsed:
                 done = True
 
-
-
+        conn.close()
