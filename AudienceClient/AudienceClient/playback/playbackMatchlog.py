@@ -45,8 +45,8 @@ if __name__ == '__main__':
 
 
         # Calculate match statistics from matchlog
-        statistics = MatchStatistics(matchlog)
-        print statistics
+        #statistics = MatchStatistics(matchlog)
+        #print statistics
         
         # Construct the playback window and run its GUI loop in a dedicated thread
         gPbCtrl    = PlaybackControl(tStart, tEnd, tElapsed)
