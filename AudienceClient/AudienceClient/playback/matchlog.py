@@ -100,7 +100,7 @@ class MatchLogPublisher():
 
         self.tStart = 1e99
         self.tEnd = -1e99
-        
+
         if json_a != None:
             self.data_a, self.meta_a = self.createData(json_a)
             print "Team A loaded, meta:", self.meta_a
@@ -112,7 +112,7 @@ class MatchLogPublisher():
             print "Team B loaded, meta:", self.meta_b
             self.tStart = min(self.tStart, self.meta_b['tStart'])
             self.tEnd = max(self.tEnd, self.meta_b['tEnd'])
-            
+
         self.tElapsed = self.tEnd - self.tStart
 
     def createData(dataself, json_data):
@@ -138,6 +138,16 @@ class MatchLogPublisher():
         return (data, meta)
 
 
+    def getNearestEntry(data, time)
+
+        # look for nearest
+        for i in range(len(data)):
+            if time in data:
+                return data[time]
+            if time in data:
+                return data[time]
+            i+=1
+
     def advance(self, t):
         """
         Advance to given timestamp (relative) as float, in seconds.
@@ -161,6 +171,11 @@ class MatchLogPublisher():
         while not done:
             # get timestamp from playback
             t = playback.updateTime(dt)
+
+            # get nearest data
+           # a = self.getNearestEntry(self.data_a, t)
+           # print a
+
             print "t = " + str(t)
             # advance and publish
             #self.advance(t)
