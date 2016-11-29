@@ -9,6 +9,8 @@ from pygame import time
 import json
 from zipfile import ZipFile
 import socket
+from logMapping import MSLLog2AudienceClientLog
+
 
 class MatchLogPublisher():
     """
@@ -26,6 +28,7 @@ class MatchLogPublisher():
         HOST = ''
         PORT = 12345
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.s.bind((HOST, PORT))
         self.s.listen(1)
         conn,addr = self.s.accept()
@@ -135,10 +138,13 @@ class MatchLogPublisher():
             self.advance(t)
             # send msg buffer
             print "buffer=", self.buffer
-            for logItem in self.buffer:
-                # TODO Erik convert buffer json
-                buf = json.dumps(logItem)
-                conn.sendall(buf)
+            # convert buffer json
+            buf = MSLLog2AudienceClientLog(self.buffer[0], self.buffer[1])
+            bufStr = json.dumps(buf) + "\0"
+            print
+            print "send=", bufStr
+            print
+            conn.sendall(bufStr)
             # sleep
             time.Clock().tick_busy_loop(self.frequency)
             if t > self.tElapsed:
