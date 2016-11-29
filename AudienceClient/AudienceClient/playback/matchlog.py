@@ -123,18 +123,7 @@ class MatchLogPublisher():
         meta['tEnd'] = tEnd
 
         return (data, meta)
-
-
-    def getNearestEntry(data, time):
-
-        # look for nearest
-        for i in range(len(data)):
-            if time in data:
-                return data[time]
-            if time in data:
-                return data[time]
-            i+=1
-
+        
     def advance(self, t):
         """
         Advance to given timestamp (relative) as float, in seconds.
@@ -159,26 +148,17 @@ class MatchLogPublisher():
             # get timestamp from playback
             t = playback.updateTime(dt)
 
-            # get nearest data
-           # a = self.getNearestEntry(self.data_a, t)
-           # print a
-
-            print "t = " + str(t)
             # advance and publish
             #self.advance(t)
-            key_a = bsearch(keys_a, long (t*1000.0))
+            key_a = bsearch(keys_a, long ((t+self.tStart)*1000.0))
             entry_a = self.data_a[key_a]
-            key_b = bsearch(keys_b, long(t*1000.0))
+            key_b = bsearch(keys_b, long((t+self.tStart)*1000.0))
             entry_b = self.data_b[key_b]
             self.buffer = (entry_a, entry_b) # TODO this should move into advance() for reuse in statistics
-            # send msg buffer
-            print "buffer=", self.buffer
             # convert buffer json
             buf = MSLLog2AudienceClientLog(self.buffer[0], self.buffer[1])
             bufStr = json.dumps(buf) + "\0"
-            print
-            print "send=", bufStr
-            print
+            # send msg buffer
             conn.sendall(bufStr)
             # sleep
             time.Clock().tick_busy_loop(self.frequency)
