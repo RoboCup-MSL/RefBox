@@ -113,7 +113,7 @@ class MatchLogPublisher():
             # advance and publish
             self.advance(t)
             # send msg buffer
-            self.conn.sendall(self.buffer) 
+            self.conn.sendall(self.buffer) # TODO Erik convert buffer json
             # sleep
             rate.sleep()
             if rospy.is_shutdown():
