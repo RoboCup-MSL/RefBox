@@ -60,7 +60,7 @@ class Team {
     }
     
     logFileOut.print("{");
-    logFileOut.print("\"teamName\": " + shortName + ",");
+    logFileOut.print("\"teamName\": \"" + shortName + "\",");
     logFileOut.print("\"timestamp\": " + (System.currentTimeMillis() - ageMs) + ",");
     logFileOut.print("\"gametimeMs\": " + getGameTime() + ",");
     logFileOut.print("\"worldstate\": " + teamWorldstate);
