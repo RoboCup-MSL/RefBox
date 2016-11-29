@@ -12,7 +12,7 @@ import rospy # only for rate/sleep
 from inspect import isfunction
 from collections import defaultdict
 import traceback
-
+import socket
 
 
 class MatchLogPublisher():
@@ -26,27 +26,30 @@ class MatchLogPublisher():
         # load the bag file
         self.loadZipFile(zipfile)
         # setup port connection
-        self.setupPorts()
+        self.connect(self)
+	# init buffer
+	self.buffer = ''
+
+    def __del__(self):
+	#disconnect port connection
+	self.disconnect(self)
         
-    def setupPorts(self):
-        # TODO implement
-        pass
+    def connect(self):
+	HOST = '127.0.0.1'
+	PORT = 12345
+	self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	self.s.connect((HOST, PORT))
+
+    def disconnect(self):
+	self.s.close()
 
     def processBuffer(self):
         """
         Send the contents of buffer over the port.
         """
-        for (k,v) in self.buffer.items():
-            # process the message
-            try:
-                # TODO process the data element
-                pass
-            except:
-                print "something went wrong when executing callback for topic %s, message follows" % k
-                print v
-                traceback.print_exc()
-                pass
-        self.buffer = {}
+	s.sendAll(self.buffer)
+	self.buffer = ''
+
       
     def loadZipFile(self, zipfile):
         # TODO: reimplement, this does not yet work
@@ -94,7 +97,7 @@ class MatchLogPublisher():
             # rewind to zero
             self.pointer = 0
             tpoint = self.data[self.pointer][0]
-            self.buffer = {}
+            self.buffer = ''
         while t > tpoint:
             if t - tpoint < 1.0:
                 self.buffer[self.data[self.pointer][1]] = self.data[self.pointer][2]
@@ -128,5 +131,6 @@ class MatchLogPublisher():
             if t > self.tElapsed:
                 done = True
             
+
 
 
