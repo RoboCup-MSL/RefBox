@@ -1,0 +1,432 @@
+<html>
+<head>
+<title>gui.widget</title>
+<style type='text/css'><!--
+.sections { 
+	border: 1px solid black;
+	background: #fef790;
+        margin-left: 8px;
+	}
+	
+.sections th {
+	background: #fde42d; 
+	}
+	
+.sections .h1 {
+	padding: 2px;
+	padding-left: 0px;
+	}
+.sections .h2 {
+	padding: 2px;
+	padding-left: 16px;
+	}
+.sections .h3 {
+	padding: 2px;
+	padding-left: 32px;
+	}
+.sections .h4 {
+	padding: 2px;
+	padding-left: 48px;
+	}
+	
+.sections .h5 {
+	padding: 2px;
+	padding-left: 64px;
+	}
+.sections .h6 {
+	padding: 2px;
+	padding-left: 72px;
+	}
+
+.wiki h1, .wiki h2, .wiki h3, .wiki h4, .wiki h5, .wiki h6 {
+	border: 0px;
+	padding: 0px;
+	background: none;
+        border-bottom: 1px solid #bbbbbb;
+
+	}
+        
+.wiki div.h1 {
+    }
+.wiki div.h2 {
+    }
+    
+.wiki dt {
+    font-style: italic;
+    }
+    
+.wiki dd,dd,p.dd {
+    font-style: normal;
+    margin-left: 48px;
+    margin-top: 0px;
+    margin-bottom: 8px;
+    display: block;
+    }
+    
+.wiki h3 {
+    margin-left: 48px; 
+    }
+.wiki div.h3 {
+    margin-left: 48px;
+    }
+        
+.wiki code, .wiki pre {
+    background: #eeeeee;
+    padding: 4px;
+    border: 1px dashed #888888;
+    }
+    
+    
+.wiki table {
+    border-top: 1px solid #888888;
+    border-left: 1px solid #888888;
+    border-spacing: 0px; border-collapse: collapse;
+    }
+.wiki td {
+    border-bottom: 1px solid #888888;
+    border-right: 1px solid #888888;
+    padding: 3px;
+    }
+.wiki th {
+    background: #eeeeee;
+    border-bottom: 1px solid #888888;
+    border-right: 1px solid #888888;
+    padding: 3px;
+    }
+
+-->
+</style>
+
+</head>
+<body>
+<div align='center'>
+
+<table cellpadding=8><tr><td>
+<a href='http://www.imitationpickles.org/pgu/'><img src='skin/logo.gif' alt="Phil's pyGame Utilities" border=0></a>
+<td style='font-size:48px'>Documentation
+</table>
+
+</div>
+
+<hr width=500 align=center>
+
+<table width='100%'><tr><td valign=top width=120 style='padding-right:6px;border-right: 1px solid black;'>
+<a href='index.html'>Overview</a><br><br>
+<strong>Scripts</strong><br>
+<a href="tileedit.html">tileedit</a>
+ | <a href="leveledit.html">leveledit</a>
+ | <a href="tganew.html">tganew</a>
+ | <a href="levelfancy.html">levelfancy</a>
+<br><br>
+<strong>Reference</strong><br>
+<a href="algo.html">algo</a>
+ | <a href="ani.html">ani</a>
+ | <a href="engine.html">engine</a>
+ | <a href="fonts.html">fonts</a>
+ | <a href="high.html">high</a>
+ | <a href="html.html">html</a>
+ | <a href="layout.html">layout</a>
+ | <a href="text.html">text</a>
+ | <a href="timer.html">timer</a>
+ | <a href="vid.html">vid</a>
+<br><br>
+<strong>Tutorials</strong><br>
+<a href="tilevid1.html">1</a>
+ | <a href="tilevid2.html">2</a>
+ | <a href="tilevid3.html">3</a>
+ | <a href="tilevid4.html">4</a>
+ | <a href="tilevid5.html">5</a>
+<br><br>
+<strong>GUI&nbsp;Ref.</strong><br>
+<a href="gui.theme.html">theme</a>
+ | <a href="gui.style.html">style</a>
+ | <a href="gui.widget.html">widget</a>
+ | <a href="gui.surface.html">surface</a>
+ | <a href="gui.const.html">const</a>
+<br><br>
+<strong>Containers</strong><br>
+<a href="gui.container.html">container</a>
+ | <a href="gui.app.html">app</a>
+ | <a href="gui.table.html">table</a>
+ | <a href="gui.document.html">document</a>
+ | <a href="gui.area.html">area</a>
+<br><br>
+<strong>Forms</strong><br>
+<a href="gui.form.html">form</a>
+ | <a href="gui.group.html">group</a>
+<br><br>
+<strong>Widgets</strong><br>
+<a href="gui.basic.html">basic</a>
+ | <a href="gui.button.html">button</a>
+ | <a href="gui.input.html">input</a>
+ | <a href="gui.keysym.html">keysym</a>
+ | <a href="gui.slider.html">slider</a>
+ | <a href="gui.select.html">select</a>
+ | <a href="gui.misc.html">misc</a>
+<br><br>
+<strong>Other</strong><br>
+<a href="gui.menus.html">menus</a>
+ | <a href="gui.dialog.html">dialog</a>
+<br><br>
+<strong>Tutorials</strong><br>
+<a href="gui1.html">1</a>
+ | <a href="gui2.html">2</a>
+ | <a href="gui3.html">3</a>
+ | <a href="gui4.html">4</a>
+ | <a href="gui5.html">5</a>
+ | <a href="gui6.html">6</a>
+ | <a href="gui7.html">7</a>
+ | <a href="gui8.html">8</a>
+ | <a href="gui9.html">9</a>
+ | <a href="gui10.html">10</a>
+<br><br>
+
+<td valign=top style='padding-left:6px;'>
+
+<h1>gui.widget</h1>
+<table class='sections' align=right>
+<tr><th>sections</th>
+<tr><td class='h1'><a href='#Widget'>Widget</a>
+<tr><td class='h2'><a href='#Widget.__init__'>Widget.__init__</a>
+<tr><td class='h2'><a href='#Widget.focus'>Widget.focus</a>
+<tr><td class='h2'><a href='#Widget.blur'>Widget.blur</a>
+<tr><td class='h2'><a href='#Widget.open'>Widget.open</a>
+<tr><td class='h2'><a href='#Widget.close'>Widget.close</a>
+<tr><td class='h2'><a href='#Widget.is_hovering'>Widget.is_hovering</a>
+<tr><td class='h2'><a href='#Widget.resize'>Widget.resize</a>
+<tr><td class='h2'><a href='#Widget.chsize'>Widget.chsize</a>
+<tr><td class='h2'><a href='#Widget.update'>Widget.update</a>
+<tr><td class='h2'><a href='#Widget.paint'>Widget.paint</a>
+<tr><td class='h2'><a href='#Widget.repaint'>Widget.repaint</a>
+<tr><td class='h2'><a href='#Widget.repaintall'>Widget.repaintall</a>
+<tr><td class='h2'><a href='#Widget.reupdate'>Widget.reupdate</a>
+<tr><td class='h2'><a href='#Widget.next'>Widget.next</a>
+<tr><td class='h2'><a href='#Widget.previous'>Widget.previous</a>
+<tr><td class='h2'><a href='#Widget.get_abs_rect'>Widget.get_abs_rect</a>
+<tr><td class='h2'><a href='#Widget.connect'>Widget.connect</a>
+<tr><td class='h2'><a href='#Widget.send'>Widget.send</a>
+<tr><td class='h2'><a href='#Widget.event'>Widget.event</a>
+<tr><td class='h2'><a href='#Widget.get_toplevel'>Widget.get_toplevel</a>
+<tr><td class='h2'><a href='#Widget.collidepoint'>Widget.collidepoint</a>
+</table>
+
+<div class='wiki'>
+<a name="">
+<div class="h1">
+
+
+</div>
+<a name="Widget">
+<h2>Widget</h2>
+<div class="h2">
+Base class for all PGU graphical objects.
+
+Example - Creating your own Widget:
+
+    class Draw(gui.Widget):
+        def paint(self,s):
+            # Paint the pygame.Surface
+            return
+
+        def update(self,s):
+            # Update the pygame.Surface and return the update rects
+            return [pygame.Rect(0,0,self.rect.w,self.rect.h)]
+
+        def event(self,e):
+            # Handle the pygame.Event
+            return
+
+        def resize(self,width=None,height=None):
+            # Return the width and height of this widget
+            return 256,256
+
+</div>
+<a name="Widget.__init__">
+<h3>Widget.__init__</h3>
+<div class="h3">
+Create a new Widget instance given the style parameters.
+
+Keyword arguments:
+    decorate -- whether to call theme.decorate(self) to allow the
+        theme a chance to decorate the widget. (default is true)
+    style -- a dict of style parameters.
+    x, y -- position parameters
+    width, height -- size parameters
+    align, valign -- alignment parameters, passed along to style
+    font -- the font to use with this widget
+    color -- the color property, if applicable
+    background -- the widget used to paint the background
+    cls -- class name as used by Theme
+    name -- name of widget as used by Form.  If set, will call
+        form.add(self,name) to add the widget to the most recently
+        created Form.
+    focusable -- True if this widget can receive focus via Tab, etc.
+        (default is True)
+    disabled -- True of this widget is disabled (defaults is False)
+    value -- initial value
+
+
+</div>
+<a name="Widget.focus">
+<h3>Widget.focus</h3>
+<div class="h3">
+Focus this Widget.
+</div>
+<a name="Widget.blur">
+<h3>Widget.blur</h3>
+<div class="h3">
+Blur this Widget.
+</div>
+<a name="Widget.open">
+<h3>Widget.open</h3>
+<div class="h3">
+Open this widget as a modal dialog.
+</div>
+<a name="Widget.close">
+<h3>Widget.close</h3>
+<div class="h3">
+Close this widget, if it is currently an open dialog.
+</div>
+<a name="Widget.is_hovering">
+<h3>Widget.is_hovering</h3>
+<div class="h3">
+Returns true if the mouse is hovering over this widget.
+</div>
+<a name="Widget.resize">
+<h3>Widget.resize</h3>
+<div class="h3">
+Resize this widget and all sub-widgets, returning the new size.
+
+This should be implemented by a subclass.
+
+
+</div>
+<a name="Widget.chsize">
+<h3>Widget.chsize</h3>
+<div class="h3">
+Signal that this widget has changed its size.
+</div>
+<a name="Widget.update">
+<h3>Widget.update</h3>
+<div class="h3">
+Updates the surface and returns a rect list of updated areas
+
+This should be implemented by a subclass.
+
+
+</div>
+<a name="Widget.paint">
+<h3>Widget.paint</h3>
+<div class="h3">
+Render this widget onto the given surface
+
+This should be implemented by a subclass.
+
+
+</div>
+<a name="Widget.repaint">
+<h3>Widget.repaint</h3>
+<div class="h3">
+Request a repaint of this Widget.
+</div>
+<a name="Widget.repaintall">
+<h3>Widget.repaintall</h3>
+<div class="h3">
+Request a repaint of all Widgets.
+</div>
+<a name="Widget.reupdate">
+<h3>Widget.reupdate</h3>
+<div class="h3">
+Request a reupdate of this Widget.
+</div>
+<a name="Widget.next">
+<h3>Widget.next</h3>
+<div class="h3">
+Pass focus to next Widget.
+
+Widget order determined by the order they were added to their container.
+
+
+</div>
+<a name="Widget.previous">
+<h3>Widget.previous</h3>
+<div class="h3">
+Pass focus to previous Widget.
+
+Widget order determined by the order they were added to their container.
+
+
+</div>
+<a name="Widget.get_abs_rect">
+<h3>Widget.get_abs_rect</h3>
+<div class="h3">
+Returns the absolute rect of this widget on the App screen.
+</div>
+<a name="Widget.connect">
+<h3>Widget.connect</h3>
+<div class="h3">
+Connect an event code to a callback function.
+
+Note that there may be multiple callbacks per event code.
+
+Arguments:
+    code -- event type
+    fnc -- callback function
+    *values -- values to pass to callback.
+
+Please note that callbacks may also have "magicaly" parameters.
+Such as:
+
+    _event -- receive the event
+    _code -- receive the event code
+    _widget -- receive the sending widget
+
+Example:
+    def onclick(value):
+        print 'click', value
+
+    w = Button("PGU!")
+    w.connect(gui.CLICK,onclick,'PGU Button Clicked')
+
+
+</div>
+<a name="Widget.send">
+<h3>Widget.send</h3>
+<div class="h3">
+Send a code, event callback trigger.
+</div>
+<a name="Widget.event">
+<h3>Widget.event</h3>
+<div class="h3">
+Called when an event is passed to this object.
+
+Please note that if you use an event, returning the value True
+will stop parent containers from also using the event.  (For example, if
+your widget handles TABs or arrow keys, and you don't want those to
+also alter the focus.)
+
+This should be implemented by a subclass.
+
+
+</div>
+<a name="Widget.get_toplevel">
+<h3>Widget.get_toplevel</h3>
+<div class="h3">
+Returns the top-level widget (usually the Desktop) by following the
+chain of 'container' references.
+</div>
+<a name="Widget.collidepoint">
+<h3>Widget.collidepoint</h3>
+<div class="h3">
+Test if the given point hits this widget. Over-ride this function
+for more advanced collision testing.
+</div>
+
+</div>
+
+</table>
+
+<hr width=500 align=center>
+<div align='center'>all content (c) 2006 Phil Hassey - <a href='http://www.imitationpickles.org/pgu/'>Phil's pyGame Utilities</a></div>
+</body>
+</html>
