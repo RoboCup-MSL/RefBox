@@ -88,11 +88,13 @@ class MatchLogPublisher():
         self.tElapsed = self.tEnd - self.tStart
 
     def createData(dataself, json_data):
-        data = meta = {}
+        data = {}
+        meta = {}
         first = True
 
         for entry in json_data:
             time = long(entry['timestamp'])
+            data[time] = entry
             if first:
                 tStart = time
                 tEnd = time
@@ -106,6 +108,7 @@ class MatchLogPublisher():
         meta['tEnd'] = tEnd
 
         return (data, meta)
+
 
     def advance(self, t):
         """
