@@ -26,31 +26,28 @@ class MatchLogPublisher():
         # load the bag file
         self.loadZipFile(zipfile)
         # setup port connection
-        self.connect(self)
-	# init buffer
-	self.buffer = ''
+        self.host(self)
+        # init buffer
+        self.buffer = ''
+        # connection
+        self.conn = None
+        self.addr = None
 
     def __del__(self):
-	#disconnect port connection
-	self.disconnect(self)
+        #disconnect port connection
+        self.disconnect(self)
         
-    def connect(self):
-	HOST = '127.0.0.1'
-	PORT = 12345
-	self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-	self.s.connect((HOST, PORT))
+    def host(self):
+        HOST = ''
+        PORT = 12345
+        self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.s.bind((HOST, PORT))
+        self.s.listen(1)
+        self.conn, self.addr = self.s.accept()
 
     def disconnect(self):
-	self.s.close()
+        self.conn.close()
 
-    def processBuffer(self):
-        """
-        Send the contents of buffer over the port.
-        """
-	s.sendAll(self.buffer)
-	self.buffer = ''
-
-      
     def loadZipFile(self, zipfile):
         # TODO: reimplement, this does not yet work
         print "TODO load " + zipfile
@@ -119,11 +116,14 @@ class MatchLogPublisher():
         done = False
         rate = rospy.Rate(self.frequency)
         dt = 1.0 / self.frequency
+        self.host(self)
         while not done:
             # get timestamp from playback
             t = playback.updateTime(dt)
             # advance and publish
             self.advance(t)
+            # send msg buffer
+            self.conn.sendall(self.buffer) 
             # sleep
             rate.sleep()
             if rospy.is_shutdown():
