@@ -101,8 +101,6 @@ class MatchLogPublisher():
             self.pointer -= 1
         if self.pointer > len(self.data) - 1:
             self.pointer = len(self.data) - 1
-        # process buffer and clear it
-        self.processBuffer()
 
     def run(self, playback):
         done = False
