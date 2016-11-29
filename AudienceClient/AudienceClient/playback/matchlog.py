@@ -140,13 +140,17 @@ class MatchLogPublisher():
         done = False
 
         dt = 1.0 / self.frequency
+        print "setup load"
         conn, addr = self.host()
+        print "starting loop"
         while not done:
             # get timestamp from playback
             t = playback.updateTime(dt)
+            print "t = " + str(t)
             # advance and publish
             self.advance(t)
             # send msg buffer
+            print "buffer=", self.buffer
             self.conn.sendall(self.buffer) # TODO Erik convert buffer json
             # sleep
             time.Clock.tick_busy_loop(self.frequency)
