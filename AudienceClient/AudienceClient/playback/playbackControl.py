@@ -6,14 +6,12 @@
 #
 # 
 
-
 import sys,os
 import signal
 import pygame
 from pygame.locals import *
 sys.path.append("./pgu")
 from pgu import gui
-
 
 class PlaybackControl(gui.Table):
     def __init__(self, tStart, tEnd, tElapsed, **params):
@@ -72,5 +70,4 @@ class PlaybackControl(gui.Table):
             self.t += self.speed * dt
             self.timeslider.value = self.t
         return self.t
-
 
