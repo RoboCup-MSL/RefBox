@@ -25,13 +25,16 @@ gPbGuiTr = None
 
 
 def cleanup():
-    gPbCtrl.quit()
+    if gPbCtrl != None:
+        gPbCtrl.quit()
 
 
 if __name__ == '__main__':
     # Argument parsing.
     parser     = argparse.ArgumentParser(description='MSL log viewer')
     parser.add_argument('zipfile', help='zip file of the log', nargs='?', default=None)
+    parser.add_argument('-s', '--statsonly', help='only statistics', action='store_true')
+
     args       = parser.parse_args()
 
     try:
@@ -54,13 +57,17 @@ if __name__ == '__main__':
             print traceback.format_exc()
             pass
         
-        # Construct the playback window and run its GUI loop in a dedicated thread
-        gPbCtrl    = PlaybackControl(tStart, tEnd, tElapsed)
-        gPbGuiTr   = threading.Thread(target=gPbCtrl.run)
-        gPbGuiTr.start()
+        # Stop if statsonly option is used
+        if not args.statsonly:
         
-        # Run the matchlog data handler loop to start publishing
-        matchlog.run(gPbCtrl)
+            # Construct the playback window and run its GUI loop in a dedicated thread
+            gPbCtrl    = PlaybackControl(tStart, tEnd, tElapsed)
+            gPbGuiTr   = threading.Thread(target=gPbCtrl.run)
+            gPbGuiTr.start()
+            
+            # Run the matchlog data handler loop to start publishing
+            matchlog.run(gPbCtrl)
+
         
     except:
         print "Unexpected error:", sys.exc_info()[0]
