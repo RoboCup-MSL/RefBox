@@ -1,3 +1,6 @@
+# 2016-11-29 Erik Kouters
+#
+# Description: Convert a log from the MSL log to a message used by the AudienceClient
 import datetime
 
 def MSLLog2AudienceClientLog(logEntryTeamA, logEntryTeamB):
@@ -33,6 +36,7 @@ def MSLLog2AudienceClientLog(logEntryTeamA, logEntryTeamB):
 
     GS_ILLEGAL(99);
     '''
+    #TODO To be filled in later. 
     output["gameState"] = 0
 
     '''
@@ -52,9 +56,10 @@ def MSLLog2AudienceClientLog(logEntryTeamA, logEntryTeamB):
     "Penalties",
     "End Game"
     '''
+    #TODO To be filled in later. 
     output["gameStateString"] = "Pre-Game"
 
-    #TODO
+    #TODO To be filled in later. 
     output["gameTime"] = "00:00"
 
     output["gameRunTime"] = str(datetime.timedelta(seconds=logEntryTeamA["gametimeMs"]/1000))
@@ -64,7 +69,7 @@ def MSLLog2AudienceClientLog(logEntryTeamA, logEntryTeamB):
     output["teamA"]["shortName"] = logEntryTeamA["worldstate"]["teamName"]
     output["teamA"]["longName"] = logEntryTeamA["teamName"]
 
-    #TODO
+    #TODO To be filled in later. 
     output["teamA"]["score"] = "0"
     output["teamA"]["robotState"] = ["play", "play", "play", "play", "play"]
     output["teamA"]["robotWaitTime"] = [-1, -1, -1, -1, -1]
@@ -77,7 +82,7 @@ def MSLLog2AudienceClientLog(logEntryTeamA, logEntryTeamB):
     output["teamB"]["shortName"] = logEntryTeamB["worldstate"]["teamName"]
     output["teamB"]["longName"] = logEntryTeamB["teamName"]
 
-    #TODO
+    #TODO To be filled in later. 
     output["teamB"]["score"] = "0"
     output["teamB"]["robotState"] = ["play", "play", "play", "play", "play"]
     output["teamB"]["robotWaitTime"] = [-1, -1, -1, -1, -1]
