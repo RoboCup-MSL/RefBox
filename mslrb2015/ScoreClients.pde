@@ -4,7 +4,7 @@ class ScoreClients
   private static final boolean debug = false;
   public ArrayList<UDP> scoreClients = new ArrayList<UDP>();
   
-  public ScoreClients(PApplet parent, int port)
+  public ScoreClients(PApplet parent)
   {
     int numberOfClients = Config.scoreClientHosts.size();
     

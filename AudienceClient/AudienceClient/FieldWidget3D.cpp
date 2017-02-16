@@ -39,6 +39,7 @@ public:
     // When the left button of the mouse is pressed
     virtual void OnLeftButtonDown()
     {
+        this->parent->parentWidget()->setFocus();
 
         // Decide if drag of a robot or field orientation change
         //fprintf(stderr,"LEFT MOUSE BUTTON PRESSED\n");

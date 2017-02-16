@@ -109,7 +109,7 @@ void setup() {
   Log.init(this);                                                       // Init Log module
   comms_initDescriptionDictionary();                                    // Initializes the dictionary for communications with the basestations 
 
-  scoreClients = new ScoreClients(this, Config.scoreServerPort);        // Load score clients server
+  scoreClients = new ScoreClients(this);        // Load score clients server
   BaseStationServer = new MyServer(this, Config.basestationServerPort); // Load basestations server
   mslRemote = new MSLRemote(this, Config.remoteServerPort);             // Load module for MSL remote control
   

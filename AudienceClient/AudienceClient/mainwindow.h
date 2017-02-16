@@ -13,6 +13,13 @@ namespace Ui {
 class MainWindow;
 }
 
+enum MainWindowShowMode
+{
+    MW_SHOW_BLACKSCREEN = 0,
+    MW_SHOW_FIELD3D,
+    MW_SHOW_PICTURE
+};
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -31,6 +38,9 @@ public:
     bool openConnection(int port);
     void closeConnection();
     bool isConnected();
+    bool isFullscreen();
+
+    void setShowMode(MainWindowShowMode newShowMode);
 
     FieldWidget3D* field;
 
@@ -46,8 +56,8 @@ signals:
 
 private:
     Ui::MainWindow *ui;
-
     QTimer timer;
+    MainWindowShowMode showMode;
 
     QUdpSocket *tcpSocket;
     QString currentFortune;

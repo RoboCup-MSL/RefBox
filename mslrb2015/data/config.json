@@ -8,15 +8,7 @@
 			{
 				"ip": "127.0.0.1",
 				"port": 12345
-			},
-			{
-				"ip": "172.16.39.10",
-				"port": 12345
 			}
-		],
-		"scoreServerPort": 12345,
-		"scoreServerClients": [
-			"127.0.0.1"
 		],
 		"basestationServerPort": 28097,
 		"enableRemote": false

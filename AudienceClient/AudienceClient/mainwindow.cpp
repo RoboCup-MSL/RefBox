@@ -3,6 +3,7 @@
 #include <QLayout>
 #include <QMessageBox>
 #include <QDesktopWidget>
+#include <QFileDialog>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -192,4 +193,21 @@ void MainWindow::displayError(QAbstractSocket::SocketError socketError)
 void MainWindow::update()
 {
     field->update_robot_info("");
+}
+
+void MainWindow::setShowMode(MainWindowShowMode newShowMode)
+{
+    ui->centralWidget->setVisible(false);
+    this->setStyleSheet("background-color: black;");
+
+    switch(newShowMode)
+    {
+    case MW_SHOW_BLACKSCREEN: break;
+    case MW_SHOW_FIELD3D: ui->centralWidget->setVisible(true); break;
+    case MW_SHOW_PICTURE:
+        QString fileName = QFileDialog::getOpenFileName(this, tr("Open Image"), "", tr("Image Files (*.png)"));
+        this->setStyleSheet("background-color: black; background-image: url(" + fileName + "); background-repeat: no-repeat; background-position: center center;");
+        //border-image: url(:/res/background.jpg) 0 0 0 0 stretch stretch;
+        break;
+    }
 }

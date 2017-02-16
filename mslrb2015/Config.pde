@@ -6,9 +6,7 @@ static class Config
   public static int scoreClientsUpdatePeriod_ms = 1000;
   public static StringList scoreClientHosts = new StringList();
   public static IntList scoreClientPorts = new IntList();
-  public static int scoreServerPort = 12345;
-  public static StringList scoreServerClients = new StringList();
-  public static int remoteServerPort = 54321;
+  public static int remoteServerPort = 12345;
   public static int basestationServerPort = 28097;
   public static boolean remoteControlEnable = false;
   
@@ -106,18 +104,6 @@ static class Config
             }
           }
           
-          if(networking.has("scoreServerPort"))
-            scoreServerPort = networking.getInt("scoreServerPort");
-          
-          if(networking.has("scoreServerClients"))
-          {
-            org.json.JSONArray listOfClients = networking.getJSONArray("scoreServerClients");
-            for(int i = 0; i < listOfClients.length(); i++)
-            {
-              scoreServerClients.append(listOfClients.getString(i));
-            }
-          }
-          
           if(networking.has("remoteServerPort"))
             remoteServerPort = networking.getInt("remoteServerPort");
             
@@ -209,7 +195,6 @@ static class Config
     for(int i = 0; i < scoreClientHosts.size(); i++)
       println( "    " + scoreClientHosts.get(i) + ":" + scoreClientPorts.get(i));
     
-    println( "scoreServerPort              : " + scoreServerPort);
     println( "remoteServerPort             : " + remoteServerPort);
     println( "basestationServerPort        : " + basestationServerPort);
     println( "remoteControlEnable          : " + remoteControlEnable);

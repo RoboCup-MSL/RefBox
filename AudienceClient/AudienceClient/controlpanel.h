@@ -32,6 +32,26 @@ private slots:
 
     void on_btn_popup_clicked();
 
+    void on_pushButton_pushing_clicked();
+
+    void on_pushButton_ballholding_clicked();
+
+    void on_pushButton_longdribble_clicked();
+
+    void on_pushButton_2robots_clicked();
+
+    void on_pushButton_illegaldefense_clicked();
+
+    void on_pushButton_illegalattack_clicked();
+
+    void on_pushButton_repair_clicked();
+
+    void on_pushButton_mode_black_clicked();
+
+    void on_pushButton_mode_3d_clicked();
+
+    void on_pushButton_mode_image_clicked();
+
 private:
     Ui::ControlPanel *ui;
     QElapsedTimer timer_fps;
