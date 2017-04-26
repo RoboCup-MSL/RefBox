@@ -161,6 +161,7 @@ void FieldWidget3D::initAll()
 {
     drawField(renderer);
     drawGoals(renderer);
+    renderWindow->Render();
     initBalls(renderer);
 
     // Camera properties
@@ -457,17 +458,20 @@ void FieldWidget3D::initBalls(vtkRenderer* renderer)
 
     ball_teamA = vtkActor::New();
     ball_teamA->SetMapper(sphereMapper);
+    renderer->AddActor(ball_teamA);
+
     ball_teamA->GetProperty()->SetRepresentationToSurface();
     ball_teamA->GetProperty()->SetColor(robotsColorR[0],robotsColorG[0],robotsColorB[0]);
-    ball_teamA->SetPosition(1000,1000,1000);
-    renderer->AddActor(ball_teamA);
+    ball_teamA->SetPosition(100.0,100.0,0.0);
+
 
     ball_teamB = vtkActor::New();
     ball_teamB->SetMapper(sphereMapper);
+    renderer->AddActor(ball_teamB);
+
     ball_teamB->GetProperty()->SetRepresentationToSurface();
     ball_teamB->GetProperty()->SetColor(robotsColorR[1],robotsColorG[1],robotsColorB[1]);
-    ball_teamB->SetPosition(1000,1000,1000);
-    renderer->AddActor(ball_teamB);
+    ball_teamB->SetPosition(100.0,100.0,0.0);
 }
 
 void FieldWidget3D::drawRobots(vtkActor** actor_array, Team* team)
@@ -510,48 +514,6 @@ vtkActor* FieldWidget3D::createText(QString text){
     actor->GetProperty()->SetAmbient(1.0);
     actor->SetOrientation(0,0,90);
     return actor;
-}
-
-vtkActor* FieldWidget3D::createBall(QVector3D pos, QColor color)
-{
-    float ballRadius = 0.11;
-
-    vtkSmartPointer<vtkSphereSource> sphereSrc = vtkSmartPointer<vtkSphereSource>::New();
-    sphereSrc->SetRadius(ballRadius);
-    vtkSmartPointer<vtkPolyDataMapper> sphereMapper = vtkSmartPointer<vtkPolyDataMapper>::New();
-    sphereMapper->SetInput(sphereSrc->GetOutput());
-
-    vtkActor* ball = vtkActor::New();
-    ball->SetMapper(sphereMapper);
-    ball->GetProperty()->SetRepresentationToSurface();
-    ball->GetProperty()->SetColor(color.red()/255.0, color.green()/255.0, color.blue()/255.0);
-
-    if(pos.x() == 0.0 && pos.y() == 0.0 && pos.z() == 0.0)
-        pos.setX(1000);
-
-    float posZ = (pos.z() < ballRadius) ? ballRadius : pos.z();
-    ball->SetPosition(pos.x(), pos.y(), posZ);
-    renderer->AddActor(ball);
-
-    return ball;
-}
-
-vtkActor* FieldWidget3D::createObstacle(){
-    // Obstacle actors
-    vtkSmartPointer<vtkCylinderSource> cylinder = vtkSmartPointer<vtkCylinderSource>::New();
-    cylinder->SetRadius(0.25);
-    cylinder->SetHeight(OBSTACLE_HEIGHT);
-    cylinder->SetResolution(12);
-    vtkSmartPointer<vtkPolyDataMapper> cylinderMapper = vtkSmartPointer<vtkPolyDataMapper>::New();
-    cylinderMapper->SetInput(cylinder->GetOutput());
-
-    vtkActor* obstacleActor = vtkActor::New();
-    obstacleActor->SetMapper(cylinderMapper);
-    obstacleActor->GetProperty()->SetColor(0,0,0);
-    //obstacleActor->GetProperty()->SetRepresentationToWireframe();
-    obstacleActor->RotateX(90); // Rotate 90 degrees in XX axis
-
-    return obstacleActor;
 }
 
 bool FieldWidget3D::canOverlay()

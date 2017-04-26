@@ -121,10 +121,6 @@ private:
     void drawRobots(vtkActor** actor_array, Team* team);
 
     vtkActor* createText(QString text);
-    vtkActor* createObstacle();
-    vtkActor* createDebugPt();
-    vtkActor* createDashedLine(float x1, float y1, float z1, float x2, float y2, float z2);
-    vtkActor* createBall(QVector3D pos, QColor color);
     void createDot(vtkRenderer* renderer, float x, float y, bool black, float radius=0.05);
 
     float robotsColorR[2];
