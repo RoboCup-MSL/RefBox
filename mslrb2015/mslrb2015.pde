@@ -9,8 +9,8 @@ import processing.net.*;
 import krister.Ess.*;
 import org.json.*;
 
-public static final String MSG_VERSION="1.3.0";
-public static final String MSG_VERSION_MSG="(2016)";
+public static final String MSG_VERSION="1.4.0";
+public static final String MSG_VERSION_MSG="(Portuguese Open 2016)";
 public static final String MSG_WINDOWTITLE="RoboCup MSL RefBox 2015 - "+MSG_VERSION+" "+MSG_VERSION_MSG;
 public static final String MSG_HALFTIME="End Current Part ?";
 public static final String MSG_RESET="Reset Game ?";
