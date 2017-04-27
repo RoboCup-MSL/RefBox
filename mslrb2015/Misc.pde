@@ -141,4 +141,3 @@ public static String color2string(color col)
   ret = "#" + ret.substring(2);
   return ret;
 }
-
