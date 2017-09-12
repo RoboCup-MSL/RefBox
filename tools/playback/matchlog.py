@@ -14,6 +14,9 @@ import sys
 from bsearch import bsearch
 
 
+HOST = ''
+PORT = 12345
+
 class MatchLogPublisher():
     """
     This class can load a MSL zip file and stimulate AudienceClient.
@@ -27,14 +30,8 @@ class MatchLogPublisher():
         self.loadZipFile(zipfile)
         
     def host(self):
-        HOST = ''
-        PORT = 12345
-        self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        self.s.bind((HOST, PORT))
-        self.s.listen(1)
-        conn,addr = self.s.accept()
-        return conn,addr
 
     def loadZipFile(self, zipfile):
         print "Loading {0}...".format(zipfile)
@@ -114,7 +111,7 @@ class MatchLogPublisher():
 
         dt = 1.0 / self.frequency
         print "setup load"
-        conn, addr = self.host()
+        self.host()
         print "starting loop"
         
         while not done:
@@ -130,10 +127,10 @@ class MatchLogPublisher():
             # client expects null termination (!)
             bufStr = json.dumps(buf) + "\0"
             # send msg buffer
-            conn.sendall(bufStr)
+            self.s.sendto(bufStr, (HOST, PORT))
             # sleep
             time.Clock().tick_busy_loop(self.frequency)
             if t > self.tElapsed:
                 done = True
 
-        conn.close()
+        self.s.close()

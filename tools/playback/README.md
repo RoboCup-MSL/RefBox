@@ -10,6 +10,12 @@ The LogFileAnalyzer:
 * populates a message to the AudienceClient,
 * sends the message to the AudienceClient
 
+Example:
+* in a terminal, start audienceClient, then press "connect" (keep default port 12345)
+* in another terminal, run:
+ playbackMatchlog.py logfile.zip
+
+
 ## JSON format MSL Logging
 ``` json
 {
