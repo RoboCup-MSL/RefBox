@@ -55,6 +55,8 @@
 #include <vtkLookupTable.h>
 #include <vtkMath.h>
 #include <vtkPointData.h>
+#include <vtkLightCollection.h>
+#include <vtkLight.h>
 
 #include <QVTKInteractor.h>
 #include <QTimer>
@@ -80,19 +82,18 @@ public:
     vtkActor* field;
 
     vtkActor* robots_teamA[NROBOTS];
-    vtkActor* robotNum_teamA[NROBOTS];
-    vtkActor* balls_teamA[NROBOTS];
-
     vtkActor* robots_teamB[NROBOTS];
-    vtkActor* robotNum_teamB[NROBOTS];
-    vtkActor* balls_teamB[NROBOTS];
+
+    vtkActor* ball_teamA;
+    vtkActor* ball_teamB;
 
     vector<vtkActor*> toDeleteActors;
 
-    void initAll();
+    Team tA, tB;
+    QString gametime_str;
 
-    bool top;
-    bool lockCam;
+    void initAll();
+    void showPopup(QString msg);
 
 private:
     float _FIELD_LENGTH;
@@ -110,6 +111,8 @@ private:
     float _BLACK_POINT_LENGTH;
     float _ROBOT_RADIUS;
 
+    vtkLight* light;
+
     vtkSmartPointer<vtkActor> createLine(float x1, float y1, float z1, float x2, float y2, float z2);
     void addArc(vtkRenderer* renderer, float x, float y, float radius, float startDeg, float endDeg);
     void drawField(vtkRenderer* renderer);
@@ -118,21 +121,7 @@ private:
     void drawRobots(vtkActor** actor_array, Team* team);
 
     vtkActor* createText(QString text);
-    vtkActor* createObstacle();
-    vtkActor* createDebugPt();
-    vtkActor* createDashedLine(float x1, float y1, float z1, float x2, float y2, float z2);
-    vtkActor* createBall(QVector3D pos, QColor color);
     void createDot(vtkRenderer* renderer, float x, float y, bool black, float radius=0.05);
-
-    // Score board
-    vtkActor2D* score_board;
-    int scoreInt_teamA, scoreInt_teamB;
-    vtkTextActor* score_teamA;
-    vtkTextActor* score_teamB;
-    vtkTextActor* score_goals;
-    vtkTextActor* score_time;
-
-    Team tA, tB;
 
     float robotsColorR[2];
     float robotsColorG[2];
@@ -148,18 +137,13 @@ private:
     vtkTextActor* textOverlay_actor;
     vtkActor2D* textOverlay_background;
     QString textOverlay_text;
-    bool canOverlay();
 
-    // HACK - TODO a proper class
-    QString gametime_str;
-    QString tA_shortname, tB_shortname;
+    bool canOverlay();
 
 signals:
     
 public slots:
     void flip(void);
-    void setTop(bool);
-    void lock(bool);
     void update_robot_info(const QByteArray& json_status);
     void refresh();
 };

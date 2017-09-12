@@ -157,30 +157,30 @@ class Team {
   }
 
   public void double_yellow_timer_check() {
-    for (int i=(5-DoubleYellowCardCount); i<5; i++) {
-    long remain;
-    if (StateMachine.isHalf()) {
-      remain=r[i].DoubleYellowOut-getAbsoluteTime();
-    }
-    else {
-      remain = r[i].waittime * 1000;
-      r[i].DoubleYellowOut = remain + getAbsoluteTime();
-    }
-        
-        if (remain>=0)
-         r[i].waittime=PApplet.parseInt(remain/1000);
-        else {  //shift right & reset
-          r[i].reset();
-          for (int j=4; j>0; j--) {
-            if (!r[j].state.equals("doubleyellow") && r[j-1].state.equals("doubleyellow")){
-              r[j].setRstate(r[j-1]);
-              r[j-1].reset();
-            }
+    for (int i=(5-DoubleYellowCardCount); i<5; i++)
+    {
+      long remain;
+      if (StateMachine.isHalf() && StateMachine.gsCurrent.isRunning()) {
+        remain=r[i].DoubleYellowOut-getAbsoluteTime();
+      } else {
+        remain = r[i].waittime * 1000;
+        r[i].DoubleYellowOut = remain + getAbsoluteTime();
+      }
+          
+      if (remain>=0)
+        r[i].waittime=PApplet.parseInt(remain/1000);
+      else {  //shift right & reset
+        r[i].reset();
+        for (int j=4; j>0; j--) {
+          if (!r[j].state.equals("doubleyellow") && r[j-1].state.equals("doubleyellow")){
+            r[j].setRstate(r[j-1]);
+            r[j-1].reset();
           }
+        }
         DoubleYellowCardCount--;
         println("Double Yellow end: "+shortName+" @"+(isCyan?"left":"right"));
       }
-                
+                  
     }
   }
 //*******************************************************************

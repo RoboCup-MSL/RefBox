@@ -8,17 +8,18 @@ INCLUDE_DIRECTORIES(
 )
 
 SET( AUDIENCECLIENT_SRCS 
-	ConfigXML.cpp FieldWidget3D.cpp main.cpp mainwindow.cpp Param.cpp  ../config/field.conf.cxx
+	ConfigXML.cpp FieldWidget3D.cpp main.cpp mainwindow.cpp Param.cpp  ../config/field.conf.cxx controlpanel.cpp
 )
 
 # another list, this time it includes all header files that should be treated with moc
 SET( AUDIENCECLIENT_MOC_HDRS
-	ConfigXML.h FieldWidget3D.h mainwindow.h Param.h ../config/field.conf.hxx  Team.h
+	ConfigXML.h FieldWidget3D.h mainwindow.h Param.h ../config/field.conf.hxx  Team.h controlpanel.h
 )
 
 # some .ui files
 SET( AUDIENCECLIENT_UIS
 	mainwindow.ui
+	controlpanel.ui
 )
 
 QT4_WRAP_UI( AUDIENCECLIENT_UI_HDRS ${AUDIENCECLIENT_UIS} ) #Generate headers using QT UI files

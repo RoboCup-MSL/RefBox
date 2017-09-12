@@ -3,8 +3,7 @@ import java.io.*;
 static class Config
 {
   // Networking
-  public static int scoreServerPort = 12345;
-  public static String scoreServerHost = "127.0.0.1";
+  public static int port = 12345;
   
   // Appearance
   public static int maxShortName = 8;
@@ -72,11 +71,8 @@ static class Config
           
           // ----
           // Networking
-          if(networking.has("scoreServerPort"))
-            scoreServerPort = networking.getInt("scoreServerPort");
-            
-          if(networking.has("scoreServerHost"))
-            scoreServerHost = networking.getString("scoreServerHost");
+          if(networking.has("port"))
+            port = networking.getInt("port");
             
           // ----
           // Appearance
@@ -135,7 +131,7 @@ static class Config
   {
     // Networking
     println( "### Networking ###" );
-    println( "scoreServerPort              : " + scoreServerPort);
+    println( "port                         : " + port);
     println();
     // Appearance
     println( "### Appearance ###" );

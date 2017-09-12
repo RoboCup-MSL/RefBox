@@ -346,7 +346,9 @@ public class MyServer implements Runnable {
       }
       try {
         Thread.sleep(8);
-      } catch (InterruptedException ex) { }
+      } catch (InterruptedException ex) {
+        ex.printStackTrace();
+      }
     }
   }
 
@@ -363,41 +365,46 @@ public class MyServer implements Runnable {
    * @param data data to write
    */
   public void write(int data) {  // will also cover char
-    int index = 0;
-    while (index < clientCount) {
-      if (clients[index].active()) {
-        clients[index].write(data);
-        index++;
-      } else {
-        removeIndex(index);
+    synchronized (clients) {
+      int index = 0;
+      while (index < clientCount) {
+        if (clients[index].active()) {
+          clients[index].write(data);
+          index++;
+        } else {
+          removeIndex(index);
+        }
       }
     }
   }
   
 
   public void write(byte data[]) {
-    int index = 0;
-    while (index < clientCount) {
-      if (clients[index].active()) {
-        clients[index].write(data);
-        index++;
-      } else {
-        removeIndex(index);
+    synchronized (clients) {
+      int index = 0;
+      while (index < clientCount) {
+        if (clients[index].active()) {
+          clients[index].write(data);
+          index++;
+        } else {
+          removeIndex(index);
+        }
       }
     }
   }
   
 
   public void write(String data) {
-    int index = 0;
-    while (index < clientCount) {
-      if (clients[index].active()) {
-        clients[index].write(data);
-        index++;
-      } else {
-        removeIndex(index);
+    synchronized (clients) {
+      int index = 0;
+      while (index < clientCount) {
+        if (clients[index].active()) {
+          clients[index].write(data);
+          index++;
+        } else {
+          removeIndex(index);
+        }
       }
     }
   }
 }
-

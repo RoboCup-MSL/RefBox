@@ -110,8 +110,8 @@ class Team
 public:
     Team()
     {
-        longName = QString("");
-        shortName = QString("");
+        longName = QString("_");
+        shortName = QString("_");
         score = 0;
 
         color = QColor::fromRgb(0,0,0);
@@ -120,11 +120,7 @@ public:
     void update(QVariantMap team_map)
     {
         longName = team_map["longName"].toString();
-        //shortName = team_map["shortName"].toString();
-
-        if(team_map["worldState"].toMap()["teamName"].isValid())
-            shortName = team_map["worldState"].toMap()["teamName"].toString();
-        shortName = shortName.mid(0,4);
+        shortName = team_map["shortName"].toString();
 
         score = team_map["score"].toInt();
         color = QColor(QString("#") + team_map["color"].toString());
