@@ -1,0 +1,331 @@
+<html>
+<head>
+<title>tutorial on how to add Sprite collision hit handlers, custom painting</title>
+<style type='text/css'><!--
+.sections { 
+	border: 1px solid black;
+	background: #fef790;
+        margin-left: 8px;
+	}
+	
+.sections th {
+	background: #fde42d; 
+	}
+	
+.sections .h1 {
+	padding: 2px;
+	padding-left: 0px;
+	}
+.sections .h2 {
+	padding: 2px;
+	padding-left: 16px;
+	}
+.sections .h3 {
+	padding: 2px;
+	padding-left: 32px;
+	}
+.sections .h4 {
+	padding: 2px;
+	padding-left: 48px;
+	}
+	
+.sections .h5 {
+	padding: 2px;
+	padding-left: 64px;
+	}
+.sections .h6 {
+	padding: 2px;
+	padding-left: 72px;
+	}
+
+.wiki h1, .wiki h2, .wiki h3, .wiki h4, .wiki h5, .wiki h6 {
+	border: 0px;
+	padding: 0px;
+	background: none;
+        border-bottom: 1px solid #bbbbbb;
+
+	}
+        
+.wiki div.h1 {
+    }
+.wiki div.h2 {
+    }
+    
+.wiki dt {
+    font-style: italic;
+    }
+    
+.wiki dd,dd,p.dd {
+    font-style: normal;
+    margin-left: 48px;
+    margin-top: 0px;
+    margin-bottom: 8px;
+    display: block;
+    }
+    
+.wiki h3 {
+    margin-left: 48px; 
+    }
+.wiki div.h3 {
+    margin-left: 48px;
+    }
+        
+.wiki code, .wiki pre {
+    background: #eeeeee;
+    padding: 4px;
+    border: 1px dashed #888888;
+    }
+    
+    
+.wiki table {
+    border-top: 1px solid #888888;
+    border-left: 1px solid #888888;
+    border-spacing: 0px; border-collapse: collapse;
+    }
+.wiki td {
+    border-bottom: 1px solid #888888;
+    border-right: 1px solid #888888;
+    padding: 3px;
+    }
+.wiki th {
+    background: #eeeeee;
+    border-bottom: 1px solid #888888;
+    border-right: 1px solid #888888;
+    padding: 3px;
+    }
+
+-->
+</style>
+
+</head>
+<body>
+<div align='center'>
+
+<table cellpadding=8><tr><td>
+<a href='http://www.imitationpickles.org/pgu/'><img src='skin/logo.gif' alt="Phil's pyGame Utilities" border=0></a>
+<td style='font-size:48px'>Documentation
+</table>
+
+</div>
+
+<hr width=500 align=center>
+
+<table width='100%'><tr><td valign=top width=120 style='padding-right:6px;border-right: 1px solid black;'>
+<a href='index.html'>Overview</a><br><br>
+<strong>Scripts</strong><br>
+<a href="tileedit.html">tileedit</a>
+ | <a href="leveledit.html">leveledit</a>
+ | <a href="tganew.html">tganew</a>
+ | <a href="levelfancy.html">levelfancy</a>
+<br><br>
+<strong>Reference</strong><br>
+<a href="algo.html">algo</a>
+ | <a href="ani.html">ani</a>
+ | <a href="engine.html">engine</a>
+ | <a href="fonts.html">fonts</a>
+ | <a href="high.html">high</a>
+ | <a href="html.html">html</a>
+ | <a href="layout.html">layout</a>
+ | <a href="text.html">text</a>
+ | <a href="timer.html">timer</a>
+ | <a href="vid.html">vid</a>
+<br><br>
+<strong>Tutorials</strong><br>
+<a href="tilevid1.html">1</a>
+ | <a href="tilevid2.html">2</a>
+ | <a href="tilevid3.html">3</a>
+ | <a href="tilevid4.html">4</a>
+ | <a href="tilevid5.html">5</a>
+<br><br>
+<strong>GUI&nbsp;Ref.</strong><br>
+<a href="gui.theme.html">theme</a>
+ | <a href="gui.style.html">style</a>
+ | <a href="gui.widget.html">widget</a>
+ | <a href="gui.surface.html">surface</a>
+ | <a href="gui.const.html">const</a>
+<br><br>
+<strong>Containers</strong><br>
+<a href="gui.container.html">container</a>
+ | <a href="gui.app.html">app</a>
+ | <a href="gui.table.html">table</a>
+ | <a href="gui.document.html">document</a>
+ | <a href="gui.area.html">area</a>
+<br><br>
+<strong>Forms</strong><br>
+<a href="gui.form.html">form</a>
+ | <a href="gui.group.html">group</a>
+<br><br>
+<strong>Widgets</strong><br>
+<a href="gui.basic.html">basic</a>
+ | <a href="gui.button.html">button</a>
+ | <a href="gui.input.html">input</a>
+ | <a href="gui.keysym.html">keysym</a>
+ | <a href="gui.slider.html">slider</a>
+ | <a href="gui.select.html">select</a>
+ | <a href="gui.misc.html">misc</a>
+<br><br>
+<strong>Other</strong><br>
+<a href="gui.menus.html">menus</a>
+ | <a href="gui.dialog.html">dialog</a>
+<br><br>
+<strong>Tutorials</strong><br>
+<a href="gui1.html">1</a>
+ | <a href="gui2.html">2</a>
+ | <a href="gui3.html">3</a>
+ | <a href="gui4.html">4</a>
+ | <a href="gui5.html">5</a>
+ | <a href="gui6.html">6</a>
+ | <a href="gui7.html">7</a>
+ | <a href="gui8.html">8</a>
+ | <a href="gui9.html">9</a>
+ | <a href="gui10.html">10</a>
+<br><br>
+
+<td valign=top style='padding-left:6px;'>
+
+<h1>tutorial on how to add Sprite collision hit handlers, custom painting</h1>
+
+<div class='wiki'>
+<a name="">
+<div class="h1">
+
+</div>
+In player_new() I add the shoot handler.
+<pre>
+  28:    s.shoot = player_shoot
+</pre>
+In player_loop(), I check for the spacebar.  The spacebar triggers a shot every 8 frames.
+<pre>
+  48:    if keys[K_SPACE] and g.frame%8==0:
+  49:        shot_new(g,s,None)
+</pre>
+The player_shoot() handler, as well as the shot Sprite functions.  The shot group
+has its agroup set to 'enemy' so it can hit 'enemy' Sprites.
+<pre>
+  55:def player_shoot(g,s):
+  56:    shot_new(g,s,None)
+  57:
+  58:def shot_new(g,t,value):
+  59:    s = tilevid.Sprite(g.images['shot'],(t.rect.right,t.rect.centery-2))
+  60:    g.sprites.append(s)
+  61:    s.agroups = g.string2groups('enemy')
+  62:    s.hit = shot_hit
+  63:    s.loop = shot_loop
+  64:
+  65:def shot_loop(g,s):
+  66:    s.rect.x += 8
+  67:    if s.rect.left > g.view.right:
+  68:        g.sprites.remove(s)
+</pre>
+In enemy_new(), I've added a lot more detail.
+- A move function to handle the type of movement the enemy will do.
+- A record of the origin and entering frame of the enemy (useful for the move functions.)
+- Set up the groups and agroups and a hit handler for the enemy.
+<pre>
+  86:    s.move = value['move']
+  87:    s.origin = pygame.Rect(s.rect)
+  88:    s.frame = g.frame
+  89:    s.groups = g.string2groups('enemy')
+  90:    s.agroups = g.string2groups('player')
+  91:    s.hit = enemy_hit
+</pre>
+When an enemy is hit, the game quits.
+<pre>
+  96:def enemy_hit(g,s,a):
+  97:    g.quit = 1
+</pre>
+In enemy_loop() we call the move handler.
+<pre>
+ 103:    s.move(g,s)
+</pre>
+The enemy movement handlers.
+<pre>
+ 110:def enemy_move_line(g,s):
+ 111:    s.rect.x -= 3
+ 112:
+ 113:def enemy_move_sine(g,s):
+ 114:    s.rect.x -= 2
+ 115:    s.rect.y = s.origin.y + 65*math.sin((g.frame-s.frame)/10.0)
+ 116:
+ 117:def enemy_move_circle(g,s):
+ 118:    s.origin.x -= 1
+ 119:    s.rect.y = s.origin.y + 50*math.sin((g.frame-s.frame)/10.0)
+ 120:    s.rect.x = s.origin.x + 50*math.cos((g.frame-s.frame)/10.0)
+</pre>
+
+The codes data has been updated to include information about the appropriate
+movement handlers for enemies.
+<pre>
+ 151:cdata = {
+ 152:    1:(player_new,None),
+ 153:    2:(enemy_new,{'move':enemy_move_line}),
+ 154:    3:(enemy_new,{'move':enemy_move_sine}),
+ 155:    4:(enemy_new,{'move':enemy_move_circle}),
+ 156:    }
+</pre>
+In init(), set the g.view size so that all the handlers will work properly.  (The player_loop one depends on view having the correct size.)
+<pre>
+ 171:    g.view.w,g.view.h = SW,SH
+</pre>
+In init() I no longer have tga_load_level load the background layer, as
+we will generate our own multi-layered starfield.
+<pre>
+ 181:    g.tga_load_level('level.tga')
+</pre>
+In run(), adding a pause variable to the game.
+<pre>
+ 195:    g.pause = 0
+</pre>
+In run(), initializing the stars.
+<pre>
+ 202:    stars = []
+ 203:    NS = 256
+ 204:    for n in range(0,NS):
+ 205:        stars.append([random.randrange(0,SW),random.randrange(0,SH),random.randrange(2,8)])
+</pre>
+In run(), in the event loop, checking for F10 for full screen, RETURN for pause.
+<pre>
+ 214:            if e.type is KEYDOWN and e.key == K_F10:
+ 215:                #g.screen = pygame.display.set_mode((SW,SH),FULLSCREEN|HWSURFACE|DOUBLEBUF)
+ 216:                pygame.display.toggle_fullscreen()
+ 217:
+ 218:            if e.type is KEYDOWN and e.key == K_RETURN:
+ 219:                g.pause ^= 1
+</pre>
+In run(), handles pause, and also renders the star field before the
+foreground is painted.
+<pre>
+ 225:        if not g.pause:
+ 226:            g.view.x += SPEED
+ 227:            g.run_codes(cdata,(g.view.right/TW,0,1,17))
+ 228:
+ 229:            g.loop()
+ 230:
+ 231:            g.screen.fill((0,0,0))
+ 232:            n = 0
+ 233:            for n in range(0,NS):
+ 234:                x,y,s = stars[n]
+ 235:                if ((g.frame*s)%8) < s:
+ 236:                    x -= 1
+ 237:                if x < 0: x += SW
+ 238:                stars[n][0] = x
+ 239:                g.screen.set_at((x,y),(255,255,255))
+ 240:
+ 241:            g.paint(g.screen)
+ 242:            img = g.font.render('%05d'%g.player.score,1,(0,0,0))
+ 243:            g.screen.blit(img,(0+1,SH-img.get_height()+1))
+ 244:            img = g.font.render('%05d'%g.player.score,1,(255,255,255))
+ 245:            g.screen.blit(img,(0,SH-img.get_height()))
+ 246:            pygame.display.flip()
+ 247:
+ 248:            g.frame += 1
+</pre>
+
+</div>
+
+</table>
+
+<hr width=500 align=center>
+<div align='center'>all content (c) 2006 Phil Hassey - <a href='http://www.imitationpickles.org/pgu/'>Phil's pyGame Utilities</a></div>
+</body>
+</html>

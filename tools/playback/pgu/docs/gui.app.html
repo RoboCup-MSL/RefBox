@@ -1,0 +1,309 @@
+<html>
+<head>
+<title>gui.app</title>
+<style type='text/css'><!--
+.sections { 
+	border: 1px solid black;
+	background: #fef790;
+        margin-left: 8px;
+	}
+	
+.sections th {
+	background: #fde42d; 
+	}
+	
+.sections .h1 {
+	padding: 2px;
+	padding-left: 0px;
+	}
+.sections .h2 {
+	padding: 2px;
+	padding-left: 16px;
+	}
+.sections .h3 {
+	padding: 2px;
+	padding-left: 32px;
+	}
+.sections .h4 {
+	padding: 2px;
+	padding-left: 48px;
+	}
+	
+.sections .h5 {
+	padding: 2px;
+	padding-left: 64px;
+	}
+.sections .h6 {
+	padding: 2px;
+	padding-left: 72px;
+	}
+
+.wiki h1, .wiki h2, .wiki h3, .wiki h4, .wiki h5, .wiki h6 {
+	border: 0px;
+	padding: 0px;
+	background: none;
+        border-bottom: 1px solid #bbbbbb;
+
+	}
+        
+.wiki div.h1 {
+    }
+.wiki div.h2 {
+    }
+    
+.wiki dt {
+    font-style: italic;
+    }
+    
+.wiki dd,dd,p.dd {
+    font-style: normal;
+    margin-left: 48px;
+    margin-top: 0px;
+    margin-bottom: 8px;
+    display: block;
+    }
+    
+.wiki h3 {
+    margin-left: 48px; 
+    }
+.wiki div.h3 {
+    margin-left: 48px;
+    }
+        
+.wiki code, .wiki pre {
+    background: #eeeeee;
+    padding: 4px;
+    border: 1px dashed #888888;
+    }
+    
+    
+.wiki table {
+    border-top: 1px solid #888888;
+    border-left: 1px solid #888888;
+    border-spacing: 0px; border-collapse: collapse;
+    }
+.wiki td {
+    border-bottom: 1px solid #888888;
+    border-right: 1px solid #888888;
+    padding: 3px;
+    }
+.wiki th {
+    background: #eeeeee;
+    border-bottom: 1px solid #888888;
+    border-right: 1px solid #888888;
+    padding: 3px;
+    }
+
+-->
+</style>
+
+</head>
+<body>
+<div align='center'>
+
+<table cellpadding=8><tr><td>
+<a href='http://www.imitationpickles.org/pgu/'><img src='skin/logo.gif' alt="Phil's pyGame Utilities" border=0></a>
+<td style='font-size:48px'>Documentation
+</table>
+
+</div>
+
+<hr width=500 align=center>
+
+<table width='100%'><tr><td valign=top width=120 style='padding-right:6px;border-right: 1px solid black;'>
+<a href='index.html'>Overview</a><br><br>
+<strong>Scripts</strong><br>
+<a href="tileedit.html">tileedit</a>
+ | <a href="leveledit.html">leveledit</a>
+ | <a href="tganew.html">tganew</a>
+ | <a href="levelfancy.html">levelfancy</a>
+<br><br>
+<strong>Reference</strong><br>
+<a href="algo.html">algo</a>
+ | <a href="ani.html">ani</a>
+ | <a href="engine.html">engine</a>
+ | <a href="fonts.html">fonts</a>
+ | <a href="high.html">high</a>
+ | <a href="html.html">html</a>
+ | <a href="layout.html">layout</a>
+ | <a href="text.html">text</a>
+ | <a href="timer.html">timer</a>
+ | <a href="vid.html">vid</a>
+<br><br>
+<strong>Tutorials</strong><br>
+<a href="tilevid1.html">1</a>
+ | <a href="tilevid2.html">2</a>
+ | <a href="tilevid3.html">3</a>
+ | <a href="tilevid4.html">4</a>
+ | <a href="tilevid5.html">5</a>
+<br><br>
+<strong>GUI&nbsp;Ref.</strong><br>
+<a href="gui.theme.html">theme</a>
+ | <a href="gui.style.html">style</a>
+ | <a href="gui.widget.html">widget</a>
+ | <a href="gui.surface.html">surface</a>
+ | <a href="gui.const.html">const</a>
+<br><br>
+<strong>Containers</strong><br>
+<a href="gui.container.html">container</a>
+ | <a href="gui.app.html">app</a>
+ | <a href="gui.table.html">table</a>
+ | <a href="gui.document.html">document</a>
+ | <a href="gui.area.html">area</a>
+<br><br>
+<strong>Forms</strong><br>
+<a href="gui.form.html">form</a>
+ | <a href="gui.group.html">group</a>
+<br><br>
+<strong>Widgets</strong><br>
+<a href="gui.basic.html">basic</a>
+ | <a href="gui.button.html">button</a>
+ | <a href="gui.input.html">input</a>
+ | <a href="gui.keysym.html">keysym</a>
+ | <a href="gui.slider.html">slider</a>
+ | <a href="gui.select.html">select</a>
+ | <a href="gui.misc.html">misc</a>
+<br><br>
+<strong>Other</strong><br>
+<a href="gui.menus.html">menus</a>
+ | <a href="gui.dialog.html">dialog</a>
+<br><br>
+<strong>Tutorials</strong><br>
+<a href="gui1.html">1</a>
+ | <a href="gui2.html">2</a>
+ | <a href="gui3.html">3</a>
+ | <a href="gui4.html">4</a>
+ | <a href="gui5.html">5</a>
+ | <a href="gui6.html">6</a>
+ | <a href="gui7.html">7</a>
+ | <a href="gui8.html">8</a>
+ | <a href="gui9.html">9</a>
+ | <a href="gui10.html">10</a>
+<br><br>
+
+<td valign=top style='padding-left:6px;'>
+
+<h1>gui.app</h1>
+<table class='sections' align=right>
+<tr><th>sections</th>
+<tr><td class='h1'><a href='#App'>App</a>
+<tr><td class='h2'><a href='#App.__init__'>App.__init__</a>
+<tr><td class='h2'><a href='#App.set_global_app'>App.set_global_app</a>
+<tr><td class='h2'><a href='#App.init'>App.init</a>
+<tr><td class='h2'><a href='#App.event'>App.event</a>
+<tr><td class='h2'><a href='#App.loop'>App.loop</a>
+<tr><td class='h2'><a href='#App.paint'>App.paint</a>
+<tr><td class='h2'><a href='#App.update'>App.update</a>
+<tr><td class='h2'><a href='#App.run'>App.run</a>
+<tr><td class='h2'><a href='#App.open'>App.open</a>
+<tr><td class='h2'><a href='#App.close'>App.close</a>
+<tr><td class='h1'><a href='#Desktop'>Desktop</a>
+</table>
+
+<div class='wiki'>
+<a name="">
+<div class="h1">
+Defines the top-level application widget
+</div>
+<a name="App">
+<h2>App</h2>
+<div class="h2">
+The top-level widget for an application.
+
+Example:
+    import pygame
+    from pgu import gui
+
+    widget = gui.Button("Testing")
+
+    app = gui.App()
+    app.init(widget=widget)
+    app.run()
+
+
+</div>
+<a name="App.__init__">
+<h3>App.__init__</h3>
+<div class="h3">
+Create a new application given the (optional) theme instance.
+</div>
+<a name="App.set_global_app">
+<h3>App.set_global_app</h3>
+<div class="h3">
+Registers this app as _the_ global PGU application. You
+generally shouldn't need to call this function.
+</div>
+<a name="App.init">
+<h3>App.init</h3>
+<div class="h3">
+Initialize the application.
+
+Keyword arguments:
+    widget -- the top-level widget in the application
+    screen -- the pygame surface to render to
+    area -- the rectangle (within 'screen') to use for rendering
+
+</div>
+<a name="App.event">
+<h3>App.event</h3>
+<div class="h3">
+Pass an event to the main widget. If you are managing your own
+mainloop, this function should be called periodically when you are
+processing pygame events.
+
+</div>
+<a name="App.loop">
+<h3>App.loop</h3>
+<div class="h3">
+Performs one iteration of the PGU application loop, which
+processes events and update the pygame display.
+</div>
+<a name="App.paint">
+<h3>App.paint</h3>
+<div class="h3">
+Renders the application onto the given pygame surface
+</div>
+<a name="App.update">
+<h3>App.update</h3>
+<div class="h3">
+Update the screen in a semi-efficient manner, and returns
+a list of pygame rects to be updated.
+</div>
+<a name="App.run">
+<h3>App.run</h3>
+<div class="h3">
+Run an application.
+
+Automatically calls App.init and then forever loops while
+calling App.event and App.update
+
+Keyword arguments:
+    widget -- the top-level widget to use
+    screen -- the pygame surface to render to
+    delay -- the delay between updates (in milliseconds)
+
+</div>
+<a name="App.open">
+<h3>App.open</h3>
+<div class="h3">
+Opens the given PGU window and positions it on the screen
+</div>
+<a name="App.close">
+<h3>App.close</h3>
+<div class="h3">
+Closes the previously opened PGU window
+</div>
+<a name="Desktop">
+<h2>Desktop</h2>
+<div class="h2">
+Create an App using the desktop theme class.
+</div>
+
+</div>
+
+</table>
+
+<hr width=500 align=center>
+<div align='center'>all content (c) 2006 Phil Hassey - <a href='http://www.imitationpickles.org/pgu/'>Phil's pyGame Utilities</a></div>
+</body>
+</html>

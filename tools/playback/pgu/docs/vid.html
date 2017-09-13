@@ -1,0 +1,459 @@
+<html>
+<head>
+<title>vid</title>
+<style type='text/css'><!--
+.sections { 
+	border: 1px solid black;
+	background: #fef790;
+        margin-left: 8px;
+	}
+	
+.sections th {
+	background: #fde42d; 
+	}
+	
+.sections .h1 {
+	padding: 2px;
+	padding-left: 0px;
+	}
+.sections .h2 {
+	padding: 2px;
+	padding-left: 16px;
+	}
+.sections .h3 {
+	padding: 2px;
+	padding-left: 32px;
+	}
+.sections .h4 {
+	padding: 2px;
+	padding-left: 48px;
+	}
+	
+.sections .h5 {
+	padding: 2px;
+	padding-left: 64px;
+	}
+.sections .h6 {
+	padding: 2px;
+	padding-left: 72px;
+	}
+
+.wiki h1, .wiki h2, .wiki h3, .wiki h4, .wiki h5, .wiki h6 {
+	border: 0px;
+	padding: 0px;
+	background: none;
+        border-bottom: 1px solid #bbbbbb;
+
+	}
+        
+.wiki div.h1 {
+    }
+.wiki div.h2 {
+    }
+    
+.wiki dt {
+    font-style: italic;
+    }
+    
+.wiki dd,dd,p.dd {
+    font-style: normal;
+    margin-left: 48px;
+    margin-top: 0px;
+    margin-bottom: 8px;
+    display: block;
+    }
+    
+.wiki h3 {
+    margin-left: 48px; 
+    }
+.wiki div.h3 {
+    margin-left: 48px;
+    }
+        
+.wiki code, .wiki pre {
+    background: #eeeeee;
+    padding: 4px;
+    border: 1px dashed #888888;
+    }
+    
+    
+.wiki table {
+    border-top: 1px solid #888888;
+    border-left: 1px solid #888888;
+    border-spacing: 0px; border-collapse: collapse;
+    }
+.wiki td {
+    border-bottom: 1px solid #888888;
+    border-right: 1px solid #888888;
+    padding: 3px;
+    }
+.wiki th {
+    background: #eeeeee;
+    border-bottom: 1px solid #888888;
+    border-right: 1px solid #888888;
+    padding: 3px;
+    }
+
+-->
+</style>
+
+</head>
+<body>
+<div align='center'>
+
+<table cellpadding=8><tr><td>
+<a href='http://www.imitationpickles.org/pgu/'><img src='skin/logo.gif' alt="Phil's pyGame Utilities" border=0></a>
+<td style='font-size:48px'>Documentation
+</table>
+
+</div>
+
+<hr width=500 align=center>
+
+<table width='100%'><tr><td valign=top width=120 style='padding-right:6px;border-right: 1px solid black;'>
+<a href='index.html'>Overview</a><br><br>
+<strong>Scripts</strong><br>
+<a href="tileedit.html">tileedit</a>
+ | <a href="leveledit.html">leveledit</a>
+ | <a href="tganew.html">tganew</a>
+ | <a href="levelfancy.html">levelfancy</a>
+<br><br>
+<strong>Reference</strong><br>
+<a href="algo.html">algo</a>
+ | <a href="ani.html">ani</a>
+ | <a href="engine.html">engine</a>
+ | <a href="fonts.html">fonts</a>
+ | <a href="high.html">high</a>
+ | <a href="html.html">html</a>
+ | <a href="layout.html">layout</a>
+ | <a href="text.html">text</a>
+ | <a href="timer.html">timer</a>
+ | <a href="vid.html">vid</a>
+<br><br>
+<strong>Tutorials</strong><br>
+<a href="tilevid1.html">1</a>
+ | <a href="tilevid2.html">2</a>
+ | <a href="tilevid3.html">3</a>
+ | <a href="tilevid4.html">4</a>
+ | <a href="tilevid5.html">5</a>
+<br><br>
+<strong>GUI&nbsp;Ref.</strong><br>
+<a href="gui.theme.html">theme</a>
+ | <a href="gui.style.html">style</a>
+ | <a href="gui.widget.html">widget</a>
+ | <a href="gui.surface.html">surface</a>
+ | <a href="gui.const.html">const</a>
+<br><br>
+<strong>Containers</strong><br>
+<a href="gui.container.html">container</a>
+ | <a href="gui.app.html">app</a>
+ | <a href="gui.table.html">table</a>
+ | <a href="gui.document.html">document</a>
+ | <a href="gui.area.html">area</a>
+<br><br>
+<strong>Forms</strong><br>
+<a href="gui.form.html">form</a>
+ | <a href="gui.group.html">group</a>
+<br><br>
+<strong>Widgets</strong><br>
+<a href="gui.basic.html">basic</a>
+ | <a href="gui.button.html">button</a>
+ | <a href="gui.input.html">input</a>
+ | <a href="gui.keysym.html">keysym</a>
+ | <a href="gui.slider.html">slider</a>
+ | <a href="gui.select.html">select</a>
+ | <a href="gui.misc.html">misc</a>
+<br><br>
+<strong>Other</strong><br>
+<a href="gui.menus.html">menus</a>
+ | <a href="gui.dialog.html">dialog</a>
+<br><br>
+<strong>Tutorials</strong><br>
+<a href="gui1.html">1</a>
+ | <a href="gui2.html">2</a>
+ | <a href="gui3.html">3</a>
+ | <a href="gui4.html">4</a>
+ | <a href="gui5.html">5</a>
+ | <a href="gui6.html">6</a>
+ | <a href="gui7.html">7</a>
+ | <a href="gui8.html">8</a>
+ | <a href="gui9.html">9</a>
+ | <a href="gui10.html">10</a>
+<br><br>
+
+<td valign=top style='padding-left:6px;'>
+
+<h1>vid</h1>
+<table class='sections' align=right>
+<tr><th>sections</th>
+<tr><td class='h1'><a href='#Sprite'>Sprite</a>
+<tr><td class='h2'><a href='#Sprite.setimage'>Sprite.setimage</a>
+<tr><td class='h1'><a href='#Tile'>Tile</a>
+<tr><td class='h1'><a href='#Vid'>Vid</a>
+<tr><td class='h2'><a href='#Vid.resize'>Vid.resize</a>
+<tr><td class='h2'><a href='#Vid.set'>Vid.set</a>
+<tr><td class='h2'><a href='#Vid.get'>Vid.get</a>
+<tr><td class='h2'><a href='#Vid.paint'>Vid.paint</a>
+<tr><td class='h2'><a href='#Vid.update'>Vid.update</a>
+<tr><td class='h2'><a href='#Vid.tga_load_level'>Vid.tga_load_level</a>
+<tr><td class='h2'><a href='#Vid.tga_save_level'>Vid.tga_save_level</a>
+<tr><td class='h2'><a href='#Vid.tga_load_tiles'>Vid.tga_load_tiles</a>
+<tr><td class='h2'><a href='#Vid.load_images'>Vid.load_images</a>
+<tr><td class='h2'><a href='#Vid.run_codes'>Vid.run_codes</a>
+<tr><td class='h2'><a href='#Vid.string2groups'>Vid.string2groups</a>
+<tr><td class='h2'><a href='#Vid.list2groups'>Vid.list2groups</a>
+<tr><td class='h2'><a href='#Vid.groups2list'>Vid.groups2list</a>
+<tr><td class='h2'><a href='#Vid.loop'>Vid.loop</a>
+<tr><td class='h2'><a href='#Vid.screen_to_tile'>Vid.screen_to_tile</a>
+<tr><td class='h2'><a href='#Vid.tile_to_screen'>Vid.tile_to_screen</a>
+</table>
+
+<div class='wiki'>
+<a name="">
+<div class="h1">
+Sprite and tile engine.
+
+tilevid, isovid, hexvid are all subclasses of this interface.
+
+Includes support for:
+
+* Foreground Tiles
+* Background Tiles
+* Sprites
+* Sprite-Sprite Collision handling
+* Sprite-Tile Collision handling
+* Scrolling
+* Loading from PGU tile and sprite formats (optional)
+* Set rate FPS (optional)
+
+This code was previously known as the King James Version (named after the
+Bible of the same name for historical reasons.)
+
+
+</div>
+<a name="Sprite">
+<h2>Sprite</h2>
+<div class="h2">
+The object used for Sprites.
+
+Arguments:
+    ishape -- an image, or an image, rectstyle.  The rectstyle will
+        describe the shape of the image, used for collision
+        detection.
+    pos -- initial (x,y) position of the Sprite.
+
+Attributes:
+    rect -- the current position of the Sprite
+    _rect -- the previous position of the Sprite
+    groups -- the groups the Sprite is in
+    agroups -- the groups the Sprite can hit in a collision
+    hit -- the handler for hits -- hit(g,s,a)
+    loop -- the loop handler, called once a frame
+
+
+</div>
+<a name="Sprite.setimage">
+<h3>Sprite.setimage</h3>
+<div class="h3">
+Set the image of the Sprite.
+
+Arguments:
+    ishape -- an image, or an image, rectstyle.  The rectstyle will
+              describe the shape of the image, used for collision detection.
+
+
+</div>
+<a name="Tile">
+<h2>Tile</h2>
+<div class="h2">
+Tile Object used by TileCollide.
+
+Arguments:
+    image -- an image for the Tile.
+
+Attributes:
+    agroups -- the groups the Tile can hit in a collision
+    hit -- the handler for hits -- hit(g,t,a)
+
+
+</div>
+<a name="Vid">
+<h2>Vid</h2>
+<div class="h2">
+An engine for rendering Sprites and Tiles.
+
+Attributes:
+    sprites -- a list of the Sprites to be displayed.  You may append and
+               remove Sprites from it.
+    images  -- a dict for images to be put in.
+    size    -- the width, height in Tiles of the layers.  Do not modify.
+    view    -- a pygame.Rect of the viewed area.  You may change .x, .y,
+                etc to move the viewed area around.
+    bounds  -- a pygame.Rect (set to None by default) that sets the bounds
+                of the viewable area.  Useful for setting certain borders
+                as not viewable.
+    tlayer  -- the foreground tiles layer
+    clayer  -- the code layer (optional)
+    blayer  -- the background tiles layer (optional)
+    groups  -- a hash of group names to group values (32 groups max, as a tile/sprites
+            membership in a group is determined by the bits in an integer)
+
+
+</div>
+<a name="Vid.resize">
+<h3>Vid.resize</h3>
+<div class="h3">
+Resize the layers.
+
+Arguments:
+    size -- w,h in Tiles of the layers
+    bg   -- set to 1 if you wish to use both a foreground layer and a
+            background layer
+
+
+</div>
+<a name="Vid.set">
+<h3>Vid.set</h3>
+<div class="h3">
+Set a tile in the foreground to a value.
+
+Use this method to set tiles in the foreground, as it will make
+sure the screen is updated with the change.  Directly changing
+the tlayer will not guarantee updates unless you are using .paint()
+
+Arguments:
+    pos -- (x,y) of tile
+    v -- value
+
+
+</div>
+<a name="Vid.get">
+<h3>Vid.get</h3>
+<div class="h3">
+Get the tlayer at pos.
+
+Arguments:
+    pos -- (x,y) of tile
+
+
+</div>
+<a name="Vid.paint">
+<h3>Vid.paint</h3>
+<div class="h3">
+Paint the screen.
+
+Arguments:
+    screen -- a pygame.Surface to paint to
+
+Returns the updated portion of the screen (all of it)
+
+
+</div>
+<a name="Vid.update">
+<h3>Vid.update</h3>
+<div class="h3">
+Update the screen.
+
+Arguments:
+    screen -- a pygame.Rect to update
+
+Returns a list of updated rectangles.
+
+
+</div>
+<a name="Vid.tga_load_level">
+<h3>Vid.tga_load_level</h3>
+<div class="h3">
+Load a TGA level.
+
+Arguments:
+    g        -- a Tilevid instance
+    fname    -- tga image to load
+    bg        -- set to 1 if you wish to load the background layer
+
+
+</div>
+<a name="Vid.tga_save_level">
+<h3>Vid.tga_save_level</h3>
+<div class="h3">
+Save a TGA level.
+
+Arguments:
+    fname -- tga image to save to
+
+
+</div>
+<a name="Vid.tga_load_tiles">
+<h3>Vid.tga_load_tiles</h3>
+<div class="h3">
+Load a TGA tileset.
+
+Arguments:
+    g       -- a Tilevid instance
+    fname    -- tga image to load
+    size    -- (w,h) size of tiles in pixels
+    tdata    -- tile data, a dict of tile:(agroups, hit handler, config)
+
+
+</div>
+<a name="Vid.load_images">
+<h3>Vid.load_images</h3>
+<div class="h3">
+Load images.
+
+Arguments:
+    idata -- a list of (name, fname, shape)
+
+
+</div>
+<a name="Vid.run_codes">
+<h3>Vid.run_codes</h3>
+<div class="h3">
+Run codes.
+
+Arguments:
+    cdata -- a dict of code:(handler function, value)
+    rect -- a tile rect of the parts of the layer that should have
+         their codes run
+
+
+</div>
+<a name="Vid.string2groups">
+<h3>Vid.string2groups</h3>
+<div class="h3">
+Convert a string to groups.
+</div>
+<a name="Vid.list2groups">
+<h3>Vid.list2groups</h3>
+<div class="h3">
+Convert a list to groups.
+</div>
+<a name="Vid.groups2list">
+<h3>Vid.groups2list</h3>
+<div class="h3">
+Convert a groups to a list.
+</div>
+<a name="Vid.loop">
+<h3>Vid.loop</h3>
+<div class="h3">
+Update and hit testing loop.  Run this once per frame.
+</div>
+<a name="Vid.screen_to_tile">
+<h3>Vid.screen_to_tile</h3>
+<div class="h3">
+Convert a screen position to a tile position.
+</div>
+<a name="Vid.tile_to_screen">
+<h3>Vid.tile_to_screen</h3>
+<div class="h3">
+Convert a tile position to a screen position.
+</div>
+
+</div>
+
+</table>
+
+<hr width=500 align=center>
+<div align='center'>all content (c) 2006 Phil Hassey - <a href='http://www.imitationpickles.org/pgu/'>Phil's pyGame Utilities</a></div>
+</body>
+</html>

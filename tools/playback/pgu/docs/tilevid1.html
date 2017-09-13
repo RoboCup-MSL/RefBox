@@ -1,0 +1,269 @@
+<html>
+<head>
+<title>tutorial on how to load tiles and levels</title>
+<style type='text/css'><!--
+.sections { 
+	border: 1px solid black;
+	background: #fef790;
+        margin-left: 8px;
+	}
+	
+.sections th {
+	background: #fde42d; 
+	}
+	
+.sections .h1 {
+	padding: 2px;
+	padding-left: 0px;
+	}
+.sections .h2 {
+	padding: 2px;
+	padding-left: 16px;
+	}
+.sections .h3 {
+	padding: 2px;
+	padding-left: 32px;
+	}
+.sections .h4 {
+	padding: 2px;
+	padding-left: 48px;
+	}
+	
+.sections .h5 {
+	padding: 2px;
+	padding-left: 64px;
+	}
+.sections .h6 {
+	padding: 2px;
+	padding-left: 72px;
+	}
+
+.wiki h1, .wiki h2, .wiki h3, .wiki h4, .wiki h5, .wiki h6 {
+	border: 0px;
+	padding: 0px;
+	background: none;
+        border-bottom: 1px solid #bbbbbb;
+
+	}
+        
+.wiki div.h1 {
+    }
+.wiki div.h2 {
+    }
+    
+.wiki dt {
+    font-style: italic;
+    }
+    
+.wiki dd,dd,p.dd {
+    font-style: normal;
+    margin-left: 48px;
+    margin-top: 0px;
+    margin-bottom: 8px;
+    display: block;
+    }
+    
+.wiki h3 {
+    margin-left: 48px; 
+    }
+.wiki div.h3 {
+    margin-left: 48px;
+    }
+        
+.wiki code, .wiki pre {
+    background: #eeeeee;
+    padding: 4px;
+    border: 1px dashed #888888;
+    }
+    
+    
+.wiki table {
+    border-top: 1px solid #888888;
+    border-left: 1px solid #888888;
+    border-spacing: 0px; border-collapse: collapse;
+    }
+.wiki td {
+    border-bottom: 1px solid #888888;
+    border-right: 1px solid #888888;
+    padding: 3px;
+    }
+.wiki th {
+    background: #eeeeee;
+    border-bottom: 1px solid #888888;
+    border-right: 1px solid #888888;
+    padding: 3px;
+    }
+
+-->
+</style>
+
+</head>
+<body>
+<div align='center'>
+
+<table cellpadding=8><tr><td>
+<a href='http://www.imitationpickles.org/pgu/'><img src='skin/logo.gif' alt="Phil's pyGame Utilities" border=0></a>
+<td style='font-size:48px'>Documentation
+</table>
+
+</div>
+
+<hr width=500 align=center>
+
+<table width='100%'><tr><td valign=top width=120 style='padding-right:6px;border-right: 1px solid black;'>
+<a href='index.html'>Overview</a><br><br>
+<strong>Scripts</strong><br>
+<a href="tileedit.html">tileedit</a>
+ | <a href="leveledit.html">leveledit</a>
+ | <a href="tganew.html">tganew</a>
+ | <a href="levelfancy.html">levelfancy</a>
+<br><br>
+<strong>Reference</strong><br>
+<a href="algo.html">algo</a>
+ | <a href="ani.html">ani</a>
+ | <a href="engine.html">engine</a>
+ | <a href="fonts.html">fonts</a>
+ | <a href="high.html">high</a>
+ | <a href="html.html">html</a>
+ | <a href="layout.html">layout</a>
+ | <a href="text.html">text</a>
+ | <a href="timer.html">timer</a>
+ | <a href="vid.html">vid</a>
+<br><br>
+<strong>Tutorials</strong><br>
+<a href="tilevid1.html">1</a>
+ | <a href="tilevid2.html">2</a>
+ | <a href="tilevid3.html">3</a>
+ | <a href="tilevid4.html">4</a>
+ | <a href="tilevid5.html">5</a>
+<br><br>
+<strong>GUI&nbsp;Ref.</strong><br>
+<a href="gui.theme.html">theme</a>
+ | <a href="gui.style.html">style</a>
+ | <a href="gui.widget.html">widget</a>
+ | <a href="gui.surface.html">surface</a>
+ | <a href="gui.const.html">const</a>
+<br><br>
+<strong>Containers</strong><br>
+<a href="gui.container.html">container</a>
+ | <a href="gui.app.html">app</a>
+ | <a href="gui.table.html">table</a>
+ | <a href="gui.document.html">document</a>
+ | <a href="gui.area.html">area</a>
+<br><br>
+<strong>Forms</strong><br>
+<a href="gui.form.html">form</a>
+ | <a href="gui.group.html">group</a>
+<br><br>
+<strong>Widgets</strong><br>
+<a href="gui.basic.html">basic</a>
+ | <a href="gui.button.html">button</a>
+ | <a href="gui.input.html">input</a>
+ | <a href="gui.keysym.html">keysym</a>
+ | <a href="gui.slider.html">slider</a>
+ | <a href="gui.select.html">select</a>
+ | <a href="gui.misc.html">misc</a>
+<br><br>
+<strong>Other</strong><br>
+<a href="gui.menus.html">menus</a>
+ | <a href="gui.dialog.html">dialog</a>
+<br><br>
+<strong>Tutorials</strong><br>
+<a href="gui1.html">1</a>
+ | <a href="gui2.html">2</a>
+ | <a href="gui3.html">3</a>
+ | <a href="gui4.html">4</a>
+ | <a href="gui5.html">5</a>
+ | <a href="gui6.html">6</a>
+ | <a href="gui7.html">7</a>
+ | <a href="gui8.html">8</a>
+ | <a href="gui9.html">9</a>
+ | <a href="gui10.html">10</a>
+<br><br>
+
+<td valign=top style='padding-left:6px;'>
+
+<h1>tutorial on how to load tiles and levels</h1>
+
+<div class='wiki'>
+<a name="">
+<div class="h1">
+
+
+<p>The following tutorial demonstrates how to use tileedit and leveledit via the
+command line.  You can just as easily do all these things via the in-program
+"File/Open" and "File/New" menu items.
+
+<p>Here's an introduction to using tileedit and leveledit
+<pre>$ -- linux, etc instructions
+C:\> -- windows instructions</pre>
+
+<p>first you need to be in the examples dir for this tutorial to
+work
+
+<pre>$ cd examples
+C:\pgu> cd examples
+
+$ tileedit tiles.tga 16 16
+C:\pgu\examples> python ../scripts/tileedit tiles.tga 16 16</pre>
+
+<p>the next time you run tileedit, you will not need to provide
+the width and height of the tiles
+
+<pre>$ tileedit codes.tga 16 16
+C:\pgu\examples> python ../scripts/tileedit codes.tga 16 16</pre>
+
+<p>the next time you run tileedit, you will not need to provide
+the width and height of the codes
+
+<pre>$ leveledit level.tga tiles.tga codes.tga 16 16
+C:\pgu\examples> python ../scripts/leveledit level.tga tiles.tga codes.tga 16 16</pre>
+
+<p>the next time you run leveledit, you will not need to provide
+the tiles, codes, and width and height of the tiles
+
+
+</div>
+This is the initialization function I created for
+the game.
+
+I use the tga_ methods to load up the tiles and level I created.
+<pre>
+  55:def init():
+  56:    g = tilevid.Tilevid()
+  57:
+  58:    g.screen = pygame.display.set_mode((SW,SH),SWSURFACE)
+  59:
+  60:    g.tga_load_tiles('tiles.tga',(TW,TH))
+  61:    g.tga_load_level('level.tga')
+  62:
+  63:    return g
+</pre>
+This is the run function I created for the game.  In this example,
+the level is displayed, but there is no interaction (other than allowing the
+user to quit via ESC or the QUIT signal.
+<pre>
+  70:def run(g):
+  71:    g.quit = 0
+  72:
+  73:    g.paint(g.screen)
+  74:    pygame.display.flip()
+  75:
+  76:    while not g.quit:
+  77:        for e in pygame.event.get():
+  78:            if e.type is QUIT: g.quit = 1
+  79:            if e.type is KEYDOWN and e.key == K_ESCAPE: g.quit = 1
+  80:
+  81:        g.loop()
+  82:        updates = g.update(g.screen)
+  83:        pygame.display.update(updates)
+</pre>
+
+</div>
+
+</table>
+
+<hr width=500 align=center>
+<div align='center'>all content (c) 2006 Phil Hassey - <a href='http://www.imitationpickles.org/pgu/'>Phil's pyGame Utilities</a></div>
+</body>
+</html>
