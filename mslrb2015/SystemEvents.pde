@@ -6,7 +6,7 @@ void mousePressed() {
     int pos = -1;
     
     for (int i=0; i<4; i++)
-      if (bSlider[i].mouseover()) { bSlider[i].toogle(); refreshslider=true; pos=i; break;}    
+      if (bSlider[i].mouseover()) { bSlider[i].toogle(); refreshslider=true; pos=i; break;}
     if (refreshslider) {
       
     setbooleansfrombsliders();
