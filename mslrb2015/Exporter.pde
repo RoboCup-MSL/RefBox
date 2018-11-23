@@ -42,7 +42,7 @@ static class Exporter
     {
       println("Zipping game log files...");
       BufferedInputStream origin = null;
-      FileOutputStream dest = new FileOutputStream(mainApplet.dataPath("logs/" + timedName + "." + teamA.shortName + "-" + teamB.shortName + ".zip"));
+      FileOutputStream dest = new FileOutputStream(mainApplet.dataPath("logs/" + timedName + "." + previousNameTeamA + "-" + previousNameTeamB + ".zip"));
       ZipOutputStream out = new ZipOutputStream(new BufferedOutputStream(dest));
       out.setMethod(ZipOutputStream.DEFLATED);
       byte data[] = new byte[BUFFER];
@@ -67,7 +67,7 @@ static class Exporter
         origin.close();
       }
       out.close();
-      println("DONE! \"" + timedName + "." + teamA.shortName + "-" + teamB.shortName + ".zip\" created");
+      println("DONE! \"" + timedName + "." + previousNameTeamA + "-" + previousNameTeamB + ".zip\" created");
       
     } catch(Exception e) {
       println("ERROR Zipping log files");
