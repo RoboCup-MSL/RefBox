@@ -29,7 +29,7 @@ class TeamTableBuilder {
     Table table = new Table();
 
     for (int i = 0; i < teamSettings.size(); i++) {
-      TableRow newRow = table.addRow();
+      TableRow newRow = makeTable();
       
       JSONObject teamSetting = teamSettings.getJSONObject(i);
 
