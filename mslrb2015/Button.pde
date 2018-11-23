@@ -105,14 +105,13 @@ class Button {
 
   public void toggle() {
     if (this.isEnabled()) {
-      if ( this.isActive() ){
+      if ( this.isActive() ) {
         this.bStatus="normal";
-        if(StateMachine.setpiece && this.Label == Teamcmds[6]) {
+        if (StateMachine.setpiece && this.Label == Teamcmds[6]) {
           StateMachine.ResetSetpiece();
           send_to_basestation(cCommcmds[1]);
         }
-      }
-      else this.bStatus="active";
+      } else this.bStatus="active";
     }
   }
 
@@ -130,86 +129,86 @@ class Button {
     hbwidth=bwidth/2; 
     hbheight=bheight/2;
   }
-  
-  void setxy(float x, float y){    
+
+  void setxy(float x, float y) {    
     this.x=x;
     this.y=y;
   }
-
 }
 
 public static Button buttonFromEnum(ButtonsEnum btn)
 {
-  if(btn.getValue() <= ButtonsEnum.BTN_RESET.getValue())
+  if (btn.getValue() <= ButtonsEnum.BTN_RESET.getValue())
     return bCommoncmds[btn.getValue()];
-  
-  if(btn.getValue() <= ButtonsEnum.BTN_C_YELLOW.getValue())
+
+  if (btn.getValue() <= ButtonsEnum.BTN_C_YELLOW.getValue())
     return bTeamAcmds[btn.getValue() - ButtonsEnum.BTN_C_KICKOFF.getValue()];
-  
-  if(btn.getValue() <= ButtonsEnum.BTN_M_YELLOW.getValue())
+
+  if (btn.getValue() <= ButtonsEnum.BTN_M_YELLOW.getValue())
     return bTeamBcmds[btn.getValue() - ButtonsEnum.BTN_M_KICKOFF.getValue()];
-  
+  if (btn.getValue() <= ButtonsEnum.BTN_A_COLOR.getValue())
+    return bTeamAcolor;
+ if (btn.getValue() <= ButtonsEnum.BTN_B_COLOR.getValue())
+    return bTeamBcolor;
+
   return null;
 }
 
 void buttonEvent(char group, int pos) {
-  
+
   ButtonsEnum clickedButton = null;
   Button clickBtn = null;
-   
   if (group=='C')
   {
     clickedButton = ButtonsEnum.items[pos];
     clickBtn = buttonFromEnum(clickedButton);
-    if(!clickBtn.isDisabled())
+    if (!clickBtn.isDisabled())
       clickBtn.toggle();
     else
       clickedButton = null;
-  }
-  else if (group=='A')
+  } else if (group=='A')
   {
     clickedButton = ButtonsEnum.items[pos + ButtonsEnum.BTN_C_KICKOFF.getValue()];
     clickBtn = buttonFromEnum(clickedButton);
-    if(!clickBtn.isDisabled())
+    if (!clickBtn.isDisabled())
       clickBtn.toggle();
     else
       clickedButton = null;
-  }
-  else if (group=='B')
+  } else if (group=='B')
   {
     clickedButton = ButtonsEnum.items[pos + ButtonsEnum.BTN_M_KICKOFF.getValue()];
     clickBtn = buttonFromEnum(clickedButton);
-    if(!clickBtn.isDisabled())
+    if (!clickBtn.isDisabled())
       clickBtn.toggle();
     else
       clickedButton = null;
   }
-  
-  if(clickedButton != null)
+
+  if (clickedButton != null)
   {
     boolean btnOn = buttonFromEnum(clickedButton).isActive();
-    
+
     StateMachine.Update(clickedButton, btnOn);
-    
-    if(soundMaxTime != null && clickedButton.isStart())
+
+    if (soundMaxTime != null && clickedButton.isStart())
       lastPlayMillis = mainApplet.millis();
     else
       lastPlayMillis = 0;
-    
-    if(clickedButton.isStop())
+
+    if (clickedButton.isStop())
     {
       lastPlayMillis = 0;
     }
-    
+
     // Special cases, that send only event message on game change (flags)
-    if( clickedButton.isYellow() || clickedButton.isRed() || clickedButton.isRepair() )
+    if ( clickedButton.isYellow() || clickedButton.isRed() || clickedButton.isRepair() )
     {
       // Do literally nothing...
-    }else{
-      if(clickedButton.isCommon())
+    } else {
+      if (clickedButton.isCommon())
       {
         event_message_v2(clickedButton, true);
-      }else{
+      } else {
         event_message_v2(clickedButton, buttonFromEnum(clickedButton).isActive());
       }
     }

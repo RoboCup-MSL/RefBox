@@ -31,6 +31,9 @@ void RefreshButonStatus1() {
       }
       
       buttonFromEnum(ButtonsEnum.BTN_RESET).enable();
+      buttonFromEnum(ButtonsEnum.BTN_A_COLOR).enable();
+      buttonFromEnum(ButtonsEnum.BTN_B_COLOR).enable();
+
 
       break;
       
@@ -39,6 +42,8 @@ void RefreshButonStatus1() {
     case GS_GAMEON_H3:
     case GS_GAMEON_H4:
       refreshbutton_game_on();
+      buttonFromEnum(ButtonsEnum.BTN_A_COLOR).disable();
+      buttonFromEnum(ButtonsEnum.BTN_B_COLOR).disable();
       break;
     
     case GS_GAMESTOP_H1:
@@ -111,6 +116,7 @@ void RefreshButonStatus1() {
       bCommoncmds[CMDID_COMMON_HALFTIME].enable();
       bCommoncmds[CMDID_COMMON_PARKING].enable();
       bCommoncmds[CMDID_COMMON_RESET].disable();
+      
       break;
       
     case GS_PENALTIES_ON:
@@ -169,6 +175,7 @@ void refreshbutton_game_on()
   buttonCdisable();     //common commands 
   buttonCSTARTdisable();
   buttonCSTOPactivate();
+  bTeamAcolor.enable();
 }
 
 void refreshbutton_game_stopped()

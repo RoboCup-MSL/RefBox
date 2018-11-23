@@ -4,20 +4,39 @@ void mousePressed() {
     //sliders
     boolean refreshslider = false;
     int pos = -1;
-    
+
     for (int i=0; i<4; i++)
-      if (bSlider[i].mouseover()) { bSlider[i].toogle(); refreshslider=true; pos=i; break;}
+      if (bSlider[i].mouseover()) { 
+        bSlider[i].toogle(); 
+        refreshslider=true; 
+        pos=i; 
+        break;
+      }
     if (refreshslider) {
-      
-    setbooleansfrombsliders();
-    //if (pos==0) screenlog("Testmode "+(TESTMODE?"enabled":"disabled"));
-    if (pos==1) Log.screenlog("Log "+(Log.enable?"enabled":"disabled"));
-    if (pos==2) Log.screenlog("Remote "+(REMOTECONTROLENABLE?"enabled":"disabled"));
-    
-      
-//    RefreshButonStatus();
+
+      setbooleansfrombsliders();
+      //if (pos==0) screenlog("Testmode "+(TESTMODE?"enabled":"disabled"));
+      if (pos==1) Log.screenlog("Log "+(Log.enable?"enabled":"disabled"));
+      if (pos==2) Log.screenlog("Remote "+(REMOTECONTROLENABLE?"enabled":"disabled"));
+
+
+      //    RefreshButonStatus();
     }
+    //color Change
+    if (bTeamAcolor.isEnabled()) {
+      bTeamAcolor.checkhover();
+      if (bTeamAcolor.HOVER==true) { 
+        colorAteam=#ff7205;
+       
+      }
+    }
+     if (bTeamBcolor.isEnabled()) {
+      bTeamBcolor.checkhover();
+      if (bTeamBcolor.HOVER==true) { 
+        colorBteam=#ff0000;
     
+      }
+    }
     //common commands
     for (int i=0; i<bCommoncmds.length; i++) {
       if (bCommoncmds[i].isEnabled()) {
