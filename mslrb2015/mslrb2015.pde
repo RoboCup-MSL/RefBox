@@ -244,9 +244,8 @@ void exit() {
   if(teamA != null) teamA.reset();
   if(teamB != null) teamB.reset();
   
-  LogMerger merger = new LogMerger(Log.getTimedName());
-  //merger.merge();
-  merger.zipAllFiles();
+  Exporter exporter = new Exporter(Log.getTimedName());
+  exporter.zipAllFiles();
   
   // Stop all servers
   scoreClients.stopServer();

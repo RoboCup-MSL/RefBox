@@ -340,14 +340,14 @@ static class StateMachine
       gsCurrent = GameStateEnum.GS_PREGAME;
       gsPrev = GameStateEnum.GS_ILLEGAL;
       
+      Exporter exporter = new Exporter(Log.getTimedName());
+      exporter.zipAllFiles();
+      
       teamA.reset();
       teamB.reset();        
       teamA.resetname();
       teamB.resetname();        
       resetStartTime(true);
-      
-      LogMerger merger = new LogMerger(Log.getTimedName());
-      merger.merge();
       
       Log.createLog();
       
