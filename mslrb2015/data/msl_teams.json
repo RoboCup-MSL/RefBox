@@ -1,0 +1,422 @@
+[
+	{
+		"longame24": "Organization",
+		"UnicastAddr": "172.16.32.*",
+		"Team": "Organization",
+		"shortname8": "Organiza",
+		"MulticastAddr": "224.16.32.32"
+	},
+	{
+		"longame24": "5DPO",
+		"UnicastAddr": "172.16.33.*",
+		"Team": "5DPO",
+		"shortname8": "5DPO",
+		"MulticastAddr": "224.16.32.33"
+	},
+	{
+		"longame24": "AIS/BIT Robots",
+		"UnicastAddr": "172.16.34.*",
+		"Team": "AIS/BIT Robots",
+		"shortname8": "AIS/BIT ",
+		"MulticastAddr": "224.16.32.34"
+	},
+	{
+		"longame24": "AllemaniACs",
+		"UnicastAddr": "172.16.35.*",
+		"Team": "AllemaniACs",
+		"shortname8": "Allemani",
+		"MulticastAddr": "224.16.32.35"
+	},
+	{
+		"longame24": "Team Aros",
+		"UnicastAddr": "172.16.36.*",
+		"Team": "Team Aros",
+		"shortname8": "Team Aro",
+		"MulticastAddr": "224.16.32.36"
+	},
+	{
+		"longame24": "Attempto Tubingen",
+		"UnicastAddr": "172.16.37.*",
+		"Team": "Attempto Tubingen",
+		"shortname8": "Attempto",
+		"MulticastAddr": "224.16.32.37"
+	},
+	{
+		"longame24": "Brainstormers Tribots",
+		"UnicastAddr": "172.16.38.*",
+		"Team": "Brainstormers Tribots",
+		"shortname8": "Brainsto",
+		"MulticastAddr": "224.16.32.38"
+	},
+	{
+		"longame24": "CAMBADA",
+		"UnicastAddr": "172.16.39.*",
+		"Team": "CAMBADA",
+		"shortname8": "CAMBADA",
+		"MulticastAddr": "224.16.32.39"
+	},
+	{
+		"longame24": "Carpe Noctem Cassel (CNC",
+		"UnicastAddr": "172.16.40.*",
+		"Team": "Carpe Noctem Cassel (CNC)",
+		"shortname8": "Carpe No",
+		"MulticastAddr": "224.16.32.40"
+	},
+	{
+		"longame24": "RFC Stuttgart",
+		"UnicastAddr": "172.16.41.*",
+		"Team": "RFC Stuttgart",
+		"shortname8": "RFC Stut",
+		"MulticastAddr": "224.16.32.41"
+	},
+	{
+		"longame24": "EIGEN",
+		"UnicastAddr": "172.16.42.*",
+		"Team": "EIGEN",
+		"shortname8": "EIGEN",
+		"MulticastAddr": "224.16.32.42"
+	},
+	{
+		"longame24": "FU-Fighters",
+		"UnicastAddr": "172.16.43.*",
+		"Team": "FU-Fighters",
+		"shortname8": "FU-Fight",
+		"MulticastAddr": "224.16.32.43"
+	},
+	{
+		"longame24": "Hibikino-Musashi",
+		"UnicastAddr": "172.16.44.*",
+		"Team": "Hibikino-Musashi",
+		"shortname8": "Hibikino",
+		"MulticastAddr": "224.16.32.44"
+	},
+	{
+		"longame24": "ISePorto",
+		"UnicastAddr": "172.16.45.*",
+		"Team": "ISePorto",
+		"shortname8": "ISePorto",
+		"MulticastAddr": "224.16.32.45"
+	},
+	{
+		"longame24": "SocRob",
+		"UnicastAddr": "172.16.46.*",
+		"Team": "SocRob",
+		"shortname8": "SocRob",
+		"MulticastAddr": "224.16.32.46"
+	},
+	{
+		"longame24": "Jiao Long",
+		"UnicastAddr": "172.16.47.*",
+		"Team": "Jiao Long",
+		"shortname8": "Jiao Lon",
+		"MulticastAddr": "224.16.32.47"
+	},
+	{
+		"longame24": "Khorasgan University",
+		"UnicastAddr": "172.16.48.*",
+		"Team": "Khorasgan University",
+		"shortname8": "Khorasga",
+		"MulticastAddr": "224.16.32.48"
+	},
+	{
+		"longame24": "MINHO",
+		"UnicastAddr": "172.16.49.*",
+		"Team": "MINHO",
+		"shortname8": "MINHO",
+		"MulticastAddr": "224.16.32.49"
+	},
+	{
+		"longame24": "Mostly Harmless",
+		"UnicastAddr": "172.16.50.*",
+		"Team": "Mostly Harmless",
+		"shortname8": "Mostly H",
+		"MulticastAddr": "224.16.32.50"
+	},
+	{
+		"longame24": "MRL",
+		"UnicastAddr": "172.16.51.*",
+		"Team": "MRL",
+		"shortname8": "MRL",
+		"MulticastAddr": "224.16.32.51"
+	},
+	{
+		"longame24": "MRT - Milan Robocup Team",
+		"UnicastAddr": "172.16.52.*",
+		"Team": "MRT - Milan Robocup Team",
+		"shortname8": "MRT - Mi",
+		"MulticastAddr": "224.16.32.52"
+	},
+	{
+		"longame24": "NuBot",
+		"UnicastAddr": "172.16.53.*",
+		"Team": "NuBot",
+		"shortname8": "NuBot",
+		"MulticastAddr": "224.16.32.53"
+	},
+	{
+		"longame24": "Paderkicker",
+		"UnicastAddr": "172.16.54.*",
+		"Team": "Paderkicker",
+		"shortname8": "Paderkic",
+		"MulticastAddr": "224.16.32.54"
+	},
+	{
+		"longame24": "Persian Gulf (IAUT)",
+		"UnicastAddr": "172.16.55.*",
+		"Team": "Persian Gulf (IAUT)",
+		"shortname8": "Persian ",
+		"MulticastAddr": "224.16.32.55"
+	},
+	{
+		"longame24": "VDL Robot Sports",
+		"UnicastAddr": "172.16.56.*",
+		"Team": "VDL Robot Sports",
+		"shortname8": "VDL Robo",
+		"MulticastAddr": "224.16.32.56"
+	},
+	{
+		"longame24": "The Orient",
+		"UnicastAddr": "172.16.57.*",
+		"Team": "The Orient",
+		"shortname8": "The Orie",
+		"MulticastAddr": "224.16.32.57"
+	},
+	{
+		"longame24": "Osaka University Trackie",
+		"UnicastAddr": "172.16.58.*",
+		"Team": "Osaka University Trackies",
+		"shortname8": "Osaka Un",
+		"MulticastAddr": "224.16.32.58"
+	},
+	{
+		"longame24": "Robofoot EPM",
+		"UnicastAddr": "172.16.59.*",
+		"Team": "Robofoot EPM",
+		"shortname8": "Robofoot",
+		"MulticastAddr": "224.16.32.59"
+	},
+	{
+		"longame24": "Satrap",
+		"UnicastAddr": "172.16.60.*",
+		"Team": "Satrap",
+		"shortname8": "Satrap",
+		"MulticastAddr": "224.16.32.60"
+	},
+	{
+		"longame24": "Smoking Jays",
+		"UnicastAddr": "172.16.61.*",
+		"Team": "Smoking Jays",
+		"shortname8": "Smoking ",
+		"MulticastAddr": "224.16.32.61"
+	},
+	{
+		"longame24": "Su-Spada",
+		"UnicastAddr": "172.16.62.*",
+		"Team": "Su-Spada",
+		"shortname8": "Su-Spada",
+		"MulticastAddr": "224.16.32.62"
+	},
+	{
+		"longame24": "Tech United Eindhoven",
+		"UnicastAddr": "172.16.63.*",
+		"Team": "Tech United Eindhoven",
+		"shortname8": "Tech Uni",
+		"MulticastAddr": "224.16.32.63"
+	},
+	{
+		"longame24": "TKU-ITRI",
+		"UnicastAddr": "172.16.64.*",
+		"Team": "TKU-ITRI",
+		"shortname8": "TKU-ITRI",
+		"MulticastAddr": "224.16.32.64"
+	},
+	{
+		"longame24": "Ulm Sparrows",
+		"UnicastAddr": "172.16.65.*",
+		"Team": "Ulm Sparrows",
+		"shortname8": "Ulm Spar",
+		"MulticastAddr": "224.16.32.65"
+	},
+	{
+		"longame24": "WinKIT",
+		"UnicastAddr": "172.16.66.*",
+		"Team": "WinKIT",
+		"shortname8": "WinKIT",
+		"MulticastAddr": "224.16.32.66"
+	},
+	{
+		"longame24": "Water",
+		"UnicastAddr": "172.16.67.*",
+		"Team": "Water",
+		"shortname8": "Water",
+		"MulticastAddr": "224.16.32.67"
+	},
+	{
+		"longame24": "Adro",
+		"UnicastAddr": "172.16.68.*",
+		"Team": "Adro",
+		"shortname8": "Adro",
+		"MulticastAddr": "224.16.32.68"
+	},
+	{
+		"longame24": "Endeavor",
+		"UnicastAddr": "172.16.69.*",
+		"Team": "Endeavor",
+		"shortname8": "Endeavor",
+		"MulticastAddr": "224.16.32.69"
+	},
+	{
+		"longame24": "Hong Kong Dragons",
+		"UnicastAddr": "172.16.70.*",
+		"Team": "Hong Kong Dragons",
+		"shortname8": "Hong Kon",
+		"MulticastAddr": "224.16.32.70"
+	},
+	{
+		"longame24": "MU Penguins",
+		"UnicastAddr": "172.16.71.*",
+		"Team": "MU Penguins",
+		"shortname8": "MU Pengu",
+		"MulticastAddr": "224.16.32.71"
+	},
+	{
+		"longame24": "Strive-Legends",
+		"UnicastAddr": "172.16.72.*",
+		"Team": "Strive-Legends",
+		"shortname8": "Strive-L",
+		"MulticastAddr": "224.16.32.72"
+	},
+	{
+		"longame24": "ROBIT",
+		"UnicastAddr": "172.16.73.*",
+		"Team": "ROBIT",
+		"shortname8": "ROBIT",
+		"MulticastAddr": "224.16.32.73"
+	},
+	{
+		"longame24": "ASML Falcons",
+		"UnicastAddr": "172.16.74.*",
+		"Team": "ASML Falcons",
+		"shortname8": "Falcons",
+		"MulticastAddr": "224.16.32.74"
+	},
+	{
+		"longame24": "n.a.",
+		"UnicastAddr": "172.16.75.*",
+		"Team": "n.a.",
+		"shortname8": "n.a.",
+		"MulticastAddr": "224.16.32.75"
+	},
+	{
+		"longame24": "n.a.",
+		"UnicastAddr": "172.16.76.*",
+		"Team": "n.a.",
+		"shortname8": "n.a.",
+		"MulticastAddr": "224.16.32.76"
+	},
+	{
+		"longame24": "n.a.",
+		"UnicastAddr": "172.16.77.*",
+		"Team": "n.a.",
+		"shortname8": "n.a.",
+		"MulticastAddr": "224.16.32.77"
+	},
+	{
+		"longame24": "n.a.",
+		"UnicastAddr": "172.16.78.*",
+		"Team": "n.a.",
+		"shortname8": "n.a.",
+		"MulticastAddr": "224.16.32.78"
+	},
+	{
+		"longame24": "n.a.",
+		"UnicastAddr": "172.16.79.*",
+		"Team": "n.a.",
+		"shortname8": "n.a.",
+		"MulticastAddr": "224.16.32.79"
+	},
+	{
+		"longame24": "n.a.",
+		"UnicastAddr": "172.16.80.*",
+		"Team": "n.a.",
+		"shortname8": "n.a.",
+		"MulticastAddr": "224.16.32.80"
+	},
+	{
+		"longame24": "n.a.",
+		"UnicastAddr": "172.16.81.*",
+		"Team": "n.a.",
+		"shortname8": "n.a.",
+		"MulticastAddr": "224.16.32.81"
+	},
+	{
+		"longame24": "n.a.",
+		"UnicastAddr": "172.16.82.*",
+		"Team": "n.a.",
+		"shortname8": "n.a.",
+		"MulticastAddr": "224.16.32.82"
+	},
+	{
+		"longame24": "n.a.",
+		"UnicastAddr": "172.16.83.*",
+		"Team": "n.a.",
+		"shortname8": "n.a.",
+		"MulticastAddr": "224.16.32.83"
+	},
+	{
+		"longame24": "n.a.",
+		"UnicastAddr": "172.16.84.*",
+		"Team": "n.a.",
+		"shortname8": "n.a.",
+		"MulticastAddr": "224.16.32.84"
+	},
+	{
+		"longame24": "n.a.",
+		"UnicastAddr": "172.16.85.*",
+		"Team": "n.a.",
+		"shortname8": "n.a.",
+		"MulticastAddr": "224.16.32.85"
+	},
+	{
+		"longame24": "n.a.",
+		"UnicastAddr": "172.16.86.*",
+		"Team": "n.a.",
+		"shortname8": "n.a.",
+		"MulticastAddr": "224.16.32.86"
+	},
+	{
+		"longame24": "n.a.",
+		"UnicastAddr": "172.16.87.*",
+		"Team": "n.a.",
+		"shortname8": "n.a.",
+		"MulticastAddr": "224.16.32.87"
+	},
+	{
+		"longame24": "n.a.",
+		"UnicastAddr": "172.16.88.*",
+		"Team": "n.a.",
+		"shortname8": "n.a.",
+		"MulticastAddr": "224.16.32.88"
+	},
+	{
+		"longame24": "Mixed teams",
+		"UnicastAddr": "172.16.100.*",
+		"Team": "Mixed teams",
+		"shortname8": "Mixed te",
+		"MulticastAddr": "224.16.32.100"
+	},
+	{
+		"longame24": "TEST",
+		"UnicastAddr": "127.0.0.*",
+		"Team": "localhost",
+		"shortname8": "local",
+		"MulticastAddr": "224.16.32.127"
+	},
+	{
+		"longame24": "TEST",
+		"UnicastAddr": "192.168.1.*",
+		"Team": "irislab",
+		"shortname8": "test",
+		"MulticastAddr": "224.16.32.1"
+	}
+]
