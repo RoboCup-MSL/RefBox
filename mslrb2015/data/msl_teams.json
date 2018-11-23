@@ -406,7 +406,7 @@
 		"MulticastAddr": "224.16.32.100"
 	},
 	{
-		"longame24": "TEST",
+		"longame24": "LOCALHOST",
 		"UnicastAddr": "127.0.0.*",
 		"Team": "localhost",
 		"shortname8": "local",
