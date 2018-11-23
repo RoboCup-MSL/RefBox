@@ -1,5 +1,3 @@
-import org.json.*;
-
 class Team {
   String shortName;  //max 8 chars
   String longName;  //max 24 chars
