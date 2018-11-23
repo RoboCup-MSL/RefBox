@@ -115,7 +115,7 @@ void setup() {
   
   teamA = new Team(Config.defaultCyanTeamColor,true);                   // Initialize Cyan team (Team A)
   teamB = new Team(Config.defaultMagentaTeamColor,false);               // Initialize Magenta team (Team B)
-  teamstable = loadTable("msl_teams.csv", "header");                    // Load teams table
+  teamstable = new TeamTableBuilder("msl_teams.json").build();          // Load teams table
   
   //==============================================
   //=== GUI Initialization
