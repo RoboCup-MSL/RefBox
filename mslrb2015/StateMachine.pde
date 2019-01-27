@@ -26,9 +26,9 @@ static class StateMachine
     StateMachineRefresh();
   }
   
-  //
+  //************************************************************************
   // Basic state machine main refresh
-  //
+  //************************************************************************
   private static void StateMachineRefresh()
   {
     GameStateEnum nextGS = GameStateEnum.newInstance(gsCurrent);
@@ -233,7 +233,7 @@ static class StateMachine
           break;
       }
       
-      if(nextGS != null)
+      if(nextGS != null)        //What to do when there is a new game state
       {
         // Update split time
         if(nextGS.isRunning())
@@ -253,14 +253,14 @@ static class StateMachine
         }
       }
       
-      btnPrev = btnCurrent;
-      
-      
-      
+      btnPrev = btnCurrent;      
       needUpdate = false;
     }
   }
   
+  //************************************************************************
+  // 
+  //************************************************************************
   private static GameStateEnum SwitchGamePart()
   {
     switch(gsCurrent)
@@ -275,6 +275,9 @@ static class StateMachine
     return null;
   }
   
+  //************************************************************************
+  // 
+  //************************************************************************
   private static GameStateEnum SwitchRunningStopped()
   {
     switch(gsCurrent)
@@ -304,11 +307,17 @@ static class StateMachine
     return null;
   }
   
+  //************************************************************************
+  // 
+  //************************************************************************
   private static void ResetSetpiece()
   {
     setpiece = false;
   }
   
+  //************************************************************************
+  // 
+  //************************************************************************
   private static void SetSetpiece(boolean cyan, ButtonsEnum btn)
   {
       setpiece = true;
@@ -316,11 +325,17 @@ static class StateMachine
       setpiece_button = btn;
   }
   
+  //************************************************************************
+  // 
+  //************************************************************************
   public static GameStateEnum GetCurrentGameState()
   {
     return gsCurrent;
   }
   
+  //************************************************************************
+  // 
+  //************************************************************************
   public static String GetCurrentGameStateString()
   {
     if(gsCurrent != null)
@@ -329,6 +344,9 @@ static class StateMachine
       return "";
   }
   
+  //************************************************************************
+  // 
+  //************************************************************************
   public static void reset()
   {
     try {
@@ -356,6 +374,9 @@ static class StateMachine
     } catch(Exception e) {}
   }
   
+  //************************************************************************
+  // 
+  //************************************************************************
   public static boolean isHalf()
   {
     return is1stHalf() || is2ndHalf() || is3rdHalf() || is4thHalf();
@@ -392,6 +413,9 @@ static class StateMachine
 
 }
 
+//************************************************************************
+// 
+//************************************************************************
 void StateMachineCheck() {
   StateMachine.StateMachineRefresh();
 }

@@ -138,6 +138,8 @@ class Button {
 
 }
 
+//***********************************************************************
+//
 public static Button buttonFromEnum(ButtonsEnum btn)
 {
   if(btn.getValue() <= ButtonsEnum.BTN_RESET.getValue())
@@ -152,6 +154,8 @@ public static Button buttonFromEnum(ButtonsEnum btn)
   return null;
 }
 
+//***********************************************************************
+//
 void buttonEvent(char group, int pos) {
   
   ButtonsEnum clickedButton = null;
@@ -161,7 +165,7 @@ void buttonEvent(char group, int pos) {
   {
     clickedButton = ButtonsEnum.items[pos];
     clickBtn = buttonFromEnum(clickedButton);
-    if(!clickBtn.isDisabled())
+    if(clickBtn.isEnabled())
       clickBtn.toggle();
     else
       clickedButton = null;
@@ -170,7 +174,7 @@ void buttonEvent(char group, int pos) {
   {
     clickedButton = ButtonsEnum.items[pos + ButtonsEnum.BTN_C_KICKOFF.getValue()];
     clickBtn = buttonFromEnum(clickedButton);
-    if(!clickBtn.isDisabled())
+    if(clickBtn.isEnabled())
       clickBtn.toggle();
     else
       clickedButton = null;
@@ -179,13 +183,13 @@ void buttonEvent(char group, int pos) {
   {
     clickedButton = ButtonsEnum.items[pos + ButtonsEnum.BTN_M_KICKOFF.getValue()];
     clickBtn = buttonFromEnum(clickedButton);
-    if(!clickBtn.isDisabled())
+    if(clickBtn.isEnabled())
       clickBtn.toggle();
     else
       clickedButton = null;
   }
   
-  if(clickedButton != null)
+  if(clickedButton != null)        // A button has been clicked
   {
     boolean btnOn = buttonFromEnum(clickedButton).isActive();
     

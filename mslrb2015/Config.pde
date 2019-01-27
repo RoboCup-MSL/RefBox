@@ -11,8 +11,8 @@ static class Config
   public static boolean remoteControlEnable = false;
   
   // Rules
-  public static int repairPenalty_ms = 30000;
-  public static int doubleYellowPenalty_ms = 120000;
+  public static int repairPenalty_ms = 20000;                      //@mbc default value reajusted according to rules
+  public static int doubleYellowPenalty_ms = 90000;                //@mbc default value reajusted according to rules
   public static int setPieceMaxTime_ms = 7000;
 
   // Appearance

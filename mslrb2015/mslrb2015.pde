@@ -159,6 +159,7 @@ void draw() {
   //update basestations data   
   long t=System.currentTimeMillis();
   if ( (t-updateScoreClientslasttime) >= Config.scoreClientsUpdatePeriod_ms ) scoreClients.update_tTeams(gametime,gameruntime);
+
   //verifyremotecontrol();
   mslRemote.checkMessages();
   checkBasestationsMessages();
@@ -183,16 +184,19 @@ void draw() {
   fill(255);
   textAlign(CENTER, CENTER);
 
-  //score
+  //dispay score
   textFont(scoreFont);
   text("[  "+teamA.Score+"  -  "+teamB.Score+"  ]", 500, 25);
-  //main clock
+
+  //display main running clock
   textFont(clockFont);
   fill(255);
   text( gametime, 500, 85);
-  //run clock  
+
+  //display effective game clock  
   textFont(panelFont);
   text(StateMachine.GetCurrentGameStateString()+" ["+gameruntime+"]", 500, 140);
+
   //debug msgs  
   textFont(debugFont);
   textAlign(LEFT, BOTTOM);
@@ -203,8 +207,10 @@ void draw() {
     fill(#007700);
   }
   fill(255);
+
   //server info
   textAlign(CENTER, BOTTOM);
+  
   //String time=nf(hour(),2)+":"+nf(minute(),2)+":"+nf(second(),2);
   text(scoreClients.clientCount()+" score clients :: "+BaseStationServer.clientCount+" basestations", width/2, 578);  
   

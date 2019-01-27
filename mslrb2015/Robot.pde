@@ -4,6 +4,8 @@ class Robot {
   float guix, guiy;
   String state="play"; //play , repair , yellow, doubleyellow , red
   int waittime=-1;
+  int DYwaittime=-1;
+  long RepairOut=0;
   long DoubleYellowOut=0; 
   long DoubleYellowOutRemain=0; 
 
@@ -16,12 +18,22 @@ class Robot {
   void reset_to_play() {
     state="play";
     waittime=-1;
-  }
-  
+    RepairOut=0;
+}
+
+//-------------------------------
+  void reset_double_yellow() {
+    state="play";
+    DYwaittime=-1;
+    RepairOut=0;
+}
+
 //-------------------------------
   void reset() {
-    state="play";
-    waittime=-1;
+    this.state="play";
+    this.waittime=-1;
+    this.DYwaittime=-1;
+    this.RepairOut=0;
     this.DoubleYellowOut=0;
     this.DoubleYellowOutRemain=0; 
   }
@@ -49,7 +61,8 @@ class Robot {
     if (UIleft) tx=offsetLeft.x - 165 + this.guix;       
     ellipse(tx, ty, 42, 42);  
     fill(255);
-    if (waittime>=0)  text(nf(waittime+1, 2), tx, ty);
+    if (this.waittime>=0)  text(nf(this.waittime+1, 2), tx, ty);
+    if (this.DYwaittime>=0)  text(nf(this.DYwaittime+1, 2), tx, ty);
   }
   
 }

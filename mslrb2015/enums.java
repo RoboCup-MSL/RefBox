@@ -1,3 +1,9 @@
+//****************************************************************************************************** 
+
+//Enumerated value for button status
+
+//******************************************************************************************************
+
 enum ButtonsEnum
 {
   BTN_START(0),
@@ -34,69 +40,84 @@ enum ButtonsEnum
   BTN_ILLEGAL(99);
   
   private final int value;
+  
+//******************************************************************************************************  Assigns value to buttons enum
   private ButtonsEnum(int value) {
       this.value = value;
   }
 
+//******************************************************************************************************
   public int getValue() {
       return value;
   }
   
+//******************************************************************************************************
   public boolean isSetPiece()
   {
     return (value >= BTN_C_KICKOFF.value && value <= BTN_C_PENALTY.value) || (value >= BTN_M_KICKOFF.value && value <= BTN_M_PENALTY.value) || value == BTN_DROPBALL.value;
   }
   
+//******************************************************************************************************
   public boolean isCommon()
   {
     return value >= BTN_START.value && value <= BTN_RESET.value;
   }
   
+//******************************************************************************************************
   public boolean isCyan()
   {
     return value >= BTN_C_KICKOFF.value && value <= BTN_C_YELLOW.value;
   }
   
+//******************************************************************************************************
   public boolean isMagenta()
   {
     return value >= BTN_M_KICKOFF.value && value <= BTN_M_YELLOW.value;
   }
   
+//******************************************************************************************************
   public boolean isStop()
   {
     return value == BTN_STOP.value;
   }
   
+//******************************************************************************************************
   public boolean isStart()
   {
     return value == BTN_START.value;
   }
   
+//******************************************************************************************************
   public boolean isGoal()
   {
     return value == BTN_C_GOAL.value || value == BTN_M_GOAL.value;
   }
   
+//******************************************************************************************************
   public boolean isRepair()
   {
     return value == BTN_C_REPAIR.value || value == BTN_M_REPAIR.value;
   }
   
+//******************************************************************************************************
   public boolean isEndPart()
   {
     return value == BTN_ENDPART.value;
   }
   
+//******************************************************************************************************
   public boolean isReset()
   {
     return value == BTN_RESET.value;
   }
   
+//******************************************************************************************************
   public boolean isYellow()
   {
     return value == BTN_C_YELLOW.value || value == BTN_M_YELLOW.value;
   }
   
+//******************************************************************************************************
   public boolean isRed()
   {
     return value == BTN_C_RED.value || value == BTN_M_RED.value;
@@ -104,6 +125,12 @@ enum ButtonsEnum
   
   public static final ButtonsEnum[] items = ButtonsEnum.values();
 };
+
+//****************************************************************************************************** 
+//
+//Enumerated value for game status
+//
+//******************************************************************************************************
 
 enum GameStateEnum
 {
@@ -134,26 +161,32 @@ enum GameStateEnum
   GS_ILLEGAL(99);
   
   private final int value;
+//******************************************************************************************************  Assigns value to game status enum
   private GameStateEnum(int value) {
       this.value = value;
   }
 
+//******************************************************************************************************
   public int getValue() {
       return value;
   }
   
+//******************************************************************************************************
   public boolean isRunning() {
     return value == GS_GAMEON_H1.value || value == GS_GAMEON_H2.value || value == GS_GAMEON_H3.value || value == GS_GAMEON_H4.value;
   }
   
+//******************************************************************************************************
   public boolean isStopped() {
     return value == GS_GAMESTOP_H1.value || value == GS_GAMESTOP_H2.value || value == GS_GAMESTOP_H3.value || value == GS_GAMESTOP_H4.value;
   }
  
+//******************************************************************************************************
   public static GameStateEnum newInstance(GameStateEnum symbol) {
     return GameStateEnum.values()[symbol.ordinal()];
   }
   
+//******************************************************************************************************
   private static String[] GameStatusNames = 
   { 
     "Pre-Game", 
@@ -183,6 +216,11 @@ enum GameStateEnum
 };
 
 
+//****************************************************************************************************** 
+//
+//Enumerated value for pop up values
+//
+//******************************************************************************************************
 enum PopupTypeEnum
 {
   POPUP_RESET(0),
@@ -200,4 +238,3 @@ enum PopupTypeEnum
       return value;
   }
 };
-

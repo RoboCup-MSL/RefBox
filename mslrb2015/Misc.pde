@@ -6,6 +6,9 @@ public static void resetStartTime(boolean resetSplitTime) {
   updateScoreClientslasttime = 0;
 }
 
+//  tsplitTime -> contains the system split time when last restart occured
+//  tprevsplitTime -> contains the total time ellapsed during play-on period
+
 public static long getGameTime() {                    // Used in mslrb2005, Team 
   return (System.currentTimeMillis()-tstartTime);
 }

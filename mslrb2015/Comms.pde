@@ -372,7 +372,7 @@ public static final char COMM_DROPPED_BALL = 'N';
 public static final char COMM_REPAIR_OUT_MAGENTA = 'o';  //exits field
 public static final char COMM_REPAIR_OUT_CYAN = 'O';
 
-//free: fFHlmMnqQvVxX
+//free: 056789 iIfFHlmMnqQwxX
 //------------------------------------------------------
 
 public static StringDict Description;

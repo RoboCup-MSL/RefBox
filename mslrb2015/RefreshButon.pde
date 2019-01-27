@@ -1,3 +1,4 @@
+//*********************************************************************
 void RefreshButonStatus1() {
   
   switch(StateMachine.GetCurrentGameState())
@@ -161,7 +162,7 @@ void RefreshButonStatus1() {
   bCommoncmds[CMDID_COMMON_HALFTIME].Label = endPartOrEndGame; 
 }
 
-
+//*********************************************************************
 void refreshbutton_game_on()
 {
   buttonAdisableAll();  //team A commands
@@ -171,6 +172,7 @@ void refreshbutton_game_on()
   buttonCSTOPactivate();
 }
 
+//*********************************************************************
 void refreshbutton_game_stopped()
 {
 
@@ -211,89 +213,120 @@ void refreshbutton_game_stopped()
         bTeamBcmds[i].enable();
     }  
   }
-  buttonCSTOPactivate();
-  buttonCSTARTdisable();  
+  buttonCSTOPactivate();            // Turn ON STOP button
+  buttonCSTARTdisable();            // Turn OFF START button  
 }
 
 
 
 // ============================
 
+//*********************************************************************
 void buttonA_setpieces_en()
 {
   for (int i=CMDID_TEAM_KICKOFF; i <= CMDID_TEAM_PENALTY; i++)
     bTeamAcmds[i].enable();
 }
 
+//*********************************************************************
 void buttonB_setpieces_en()
 {
   for (int i=CMDID_TEAM_KICKOFF; i <= CMDID_TEAM_PENALTY; i++)
     bTeamBcmds[i].enable();
 }
 
+//*********************************************************************
 void buttonAenable() {
   for (int i=0; i<bTeamAcmds.length; i++) {
     if (i>6 && bTeamAcmds[i].isActive()) ; //maintains goals+repair+cards
     else bTeamAcmds[i].enable();
   }
 }
+//*********************************************************************
 void buttonBenable() {
   for (int i=0; i<bTeamBcmds.length; i++) {
     if (i>6 && bTeamBcmds[i].isActive()) ; //maintains repair+cards
     else bTeamBcmds[i].enable();
   }
 }
+
+//*********************************************************************
 void buttonCenable() {
   for (int i=2; i<bCommoncmds.length; i++)
     bCommoncmds[i].enable();
 }
+
+//*********************************************************************
 void buttonAdisable() {
   for (int i=0; i <= CMDID_TEAM_PENALTY; i++)
     bTeamAcmds[i].disable();
 }
+
+//*********************************************************************
 void buttonBdisable() {
   for (int i=0; i <= CMDID_TEAM_PENALTY; i++)
     bTeamBcmds[i].disable();
 }
+
+//*********************************************************************
 void buttonAdisableAll() {
   for (int i=0; i<bTeamAcmds.length; i++)
     bTeamAcmds[i].disable();
 }
+
+//*********************************************************************
 void buttonBdisableAll() {
   for (int i=0; i<bTeamBcmds.length; i++)
     bTeamBcmds[i].disable();
 }
+
+//*********************************************************************
 void buttonCdisable() {
   for (int i=2; i<bCommoncmds.length; i++)
     bCommoncmds[i].disable();
 }
+
+//*********************************************************************
 void buttonABdisableinactive() {
   for (int i=0; i<bTeamAcmds.length; i++) {
     if (!bTeamAcmds[i].isActive()) bTeamAcmds[i].disable();
     if (!bTeamBcmds[i].isActive()) bTeamBcmds[i].disable();
   }
 }
+
+//*********************************************************************
 void buttonABdisablemain() {
   for (int i=0; i < CMDID_TEAM_PENALTY; i++) {
     bTeamAcmds[i].disable();
     bTeamBcmds[i].disable();
   }
 }
+//*********************************************************************
 void buttonCSTARTenable() {
   bCommoncmds[0].enable();
 }
+
+//*********************************************************************
 void buttonCSTARTdisable() {
   bCommoncmds[0].disable();
 }
+
+//*********************************************************************
 void buttonCSTOPenable() {
   bCommoncmds[1].enable();
 }
+
+//*********************************************************************
 void buttonCSTOPactivate() {
   bCommoncmds[1].activate();
 }
+
+//*********************************************************************
 boolean isCSTOPactive() {
   return bCommoncmds[1].isActive();
 }
+
+//*********************************************************************
 boolean isCSTARTenabled() {
   return bCommoncmds[0].isEnabled();
 }

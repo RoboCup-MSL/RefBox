@@ -7,14 +7,11 @@ void mousePressed() {
     
     for (int i=0; i<4; i++)
       if (bSlider[i].mouseover()) { bSlider[i].toogle(); refreshslider=true; pos=i; break;}
-    if (refreshslider) {
-      
-    setbooleansfrombsliders();
-    //if (pos==0) screenlog("Testmode "+(TESTMODE?"enabled":"disabled"));
-    if (pos==1) Log.screenlog("Log "+(Log.enable?"enabled":"disabled"));
-    if (pos==2) Log.screenlog("Remote "+(REMOTECONTROLENABLE?"enabled":"disabled"));
-    
-      
+    if (refreshslider) {    
+        setbooleansfrombsliders();
+        //if (pos==0) screenlog("Testmode "+(TESTMODE?"enabled":"disabled"));
+        if (pos==1) Log.screenlog("Log "+(Log.enable?"enabled":"disabled"));
+        if (pos==2) Log.screenlog("Remote "+(REMOTECONTROLENABLE?"enabled":"disabled"));
 //    RefreshButonStatus();
     }
     
