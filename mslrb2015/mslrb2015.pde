@@ -51,6 +51,7 @@ public static Button[] bTeamAcmds = new Button[CMDID_TEAM_YELLOWCARD + 1];
 public static Button[] bTeamBcmds = new Button[CMDID_TEAM_YELLOWCARD + 1];
 public static Button[] bCommoncmds = new Button[CMDID_COMMON_RESET + 1];
 public static BSliders[] bSlider = new BSliders[4];
+public static String previousNameTeamA, previousNameTeamB;
 
 public static Table teamstable;
 public static TableRow teamselect;
@@ -241,12 +242,18 @@ void exit() {
   println("Program is stopped !!!");
   
   // Reset teams to close log files
-  if(teamA != null) teamA.reset();
-  if(teamB != null) teamB.reset();
+  if(teamA != null) {
+    previousNameTeamA = teamA.shortName;
+    teamA.reset();
+  }
   
-  LogMerger merger = new LogMerger(Log.getTimedName());
-  //merger.merge();
-  merger.zipAllFiles();
+  if(teamB != null) {
+    previousNameTeamB = teamB.shortName;
+    teamB.reset();
+  }
+  
+  Exporter exporter = new Exporter(Log.getTimedName());
+  exporter.zipAllFiles();
   
   // Stop all servers
   scoreClients.stopServer();
