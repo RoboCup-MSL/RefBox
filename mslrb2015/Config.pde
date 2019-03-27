@@ -2,36 +2,39 @@ import java.io.*;
 
 static class Config
 {
+  /* Note: Most parameters below are set in config.json. Change values for these parameters in that file. 
+           Also look at the Load() method below, to see how values are assigned. */
+  
   // Networking
-  public static int scoreClientsUpdatePeriod_ms = 1000;
+  public static int scoreClientsUpdatePeriod_ms;
   public static StringList scoreClientHosts = new StringList();
   public static IntList scoreClientPorts = new IntList();
-  public static int remoteServerPort = 12345;
-  public static int basestationServerPort = 28097;
-  public static boolean remoteControlEnable = false;
+  public static int remoteServerPort;
+  public static int basestationServerPort;
+  public static boolean remoteControlEnable;
   
   // Rules
-  public static int repairPenalty_ms = 30000;
-  public static int doubleYellowPenalty_ms = 120000;
-  public static int setPieceMaxTime_ms = 7000;
+  public static int repairPenalty_ms; 
+  public static int doubleYellowPenalty_ms; 
+  public static int setPieceMaxTime_ms;
 
   // Appearance
   public static int maxShortName = 8;
   public static int maxLongName = 24;
-  public static color robotPlayColor = #E8FFD8;  //white (very light-green)
-  public static color robotRepairColor = #24287B;  //blue
-  public static color robotYellowCardColor = #FEFF0F;  //yellow  
-  public static color robotDoubleYellowCardColor = #707000;  //doubleyellow
-  public static color robotRedCardColor = #E03030;  //red
-  public static String defaultCyanTeamShortName = "Team";
-  public static String defaultCyanTeamLongName = "Cyan";
-  public static color defaultCyanTeamColor = #00ffff;
-  public static String defaultMagentaTeamShortName = "Team";
-  public static String defaultMagentaTeamLongName = "Magenta";
-  public static color defaultMagentaTeamColor  = #ff00ff;
+  public static color robotPlayColor;  //white (very light-green)
+  public static color robotRepairColor;  //blue
+  public static color robotYellowCardColor;  //yellow  
+  public static color robotDoubleYellowCardColor;  //doubleyellow
+  public static color robotRedCardColor;  //red
+  public static String defaultCyanTeamShortName;
+  public static String defaultCyanTeamLongName;
+  public static color defaultCyanTeamColor;
+  public static String defaultMagentaTeamShortName;
+  public static String defaultMagentaTeamLongName;
+  public static color defaultMagentaTeamColor;
   
   // Sounds
-  public static String sounds_maxTime = "";
+  public static String sounds_maxTime;
   
   public static void Load(PApplet parent, String filename)
   {
