@@ -16,7 +16,7 @@
 	"rules":
 	{
 		"repairPenalty_ms": 20000,
-		"doubleYellowPenalty_ms": 120000,
+		"doubleYellowPenalty_ms": 90000,
 		"setPieceMaxTime_ms": 7000
 	},
 	"appearance":
