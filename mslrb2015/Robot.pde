@@ -3,9 +3,7 @@
 class Robot {
   float guix, guiy;
   String state="play"; //play , repair , yellow, doubleyellow , red
-  int waittime=-1;
-  long DoubleYellowOut=0; 
-  long DoubleYellowOutRemain=0; 
+  long outTime = 0; // Time at which this robot left the field
 
   Robot(float zx, float zy) {
     guix=zx; 
@@ -13,24 +11,9 @@ class Robot {
   }
 
 //-------------------------------
-  void reset_to_play() {
-    state="play";
-    waittime=-1;
-  }
-  
-//-------------------------------
   void reset() {
     state="play";
-    waittime=-1;
-    this.DoubleYellowOut=0;
-    this.DoubleYellowOutRemain=0; 
-  }
-  
-//-------------------------------
-  void setRstate(Robot r) {
-    this.state=r.state;
-    this.waittime=r.waittime;
-    this.DoubleYellowOut=r.DoubleYellowOut;
+    outTime=0;
   }
   
 //-------------------------------
@@ -49,7 +32,14 @@ class Robot {
     if (UIleft) tx=offsetLeft.x - 165 + this.guix;       
     ellipse(tx, ty, 42, 42);  
     fill(255);
-    if (waittime>=0)  text(nf(waittime+1, 2), tx, ty);
+    
+    /* Repair */
+    int waitTime = (int)(this.outTime+Config.repairPenalty_ms - getSplitTime())/1000;
+    if (waitTime >= 0 && state.equals("repair")) text(nf(waitTime+1, 2), tx, ty);
+    
+    /* Double Yellow */
+    waitTime = (int)(this.outTime + Config.doubleYellowPenalty_ms - getSplitTime())/1000;
+    if (waitTime >= 0 && state.equals("doubleyellow")) text(nf(waitTime+1, 2), tx, ty);
   }
   
 }

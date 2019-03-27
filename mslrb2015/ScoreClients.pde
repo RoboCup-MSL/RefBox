@@ -61,9 +61,11 @@ class ScoreClients
     
     for(int i = 0; i < 5; i++){
       teamA_robotState += "\"" + teamA.r[i].state + "\"" + ((i==4)?"":",");
-      teamA_robotWaitTime += teamA.r[i].waittime + ((i==4)?"":",");
+      long waitTime = teamA.r[i].outTime - getSplitTime() + Config.repairPenalty_ms;
+      teamA_robotWaitTime += waitTime + ((i==4)?"":",");
       teamB_robotState += "\"" + teamB.r[i].state + "\"" + ((i==4)?"":",");
-      teamB_robotWaitTime += teamB.r[i].waittime + ((i==4)?"":",");
+      waitTime = teamB.r[i].outTime - getSplitTime() + Config.repairPenalty_ms;
+      teamB_robotWaitTime += waitTime + ((i==4)?"":",");
     }
     
     String msg = "{";

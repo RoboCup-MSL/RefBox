@@ -6,7 +6,6 @@ class Team {
   boolean isCyan;  //default: cyan@left
   boolean newYellowCard, newRedCard, newRepair, newDoubleYellow, newPenaltyKick, newGoal; // Pending commands, effective only on gamestate change
   int Score, RepairCount, RedCardCount, YellowCardCount, DoubleYellowCardCount, PenaltyCount;
-  long RepairOut;
   int tableindex=0;
   org.json.JSONObject worldstate_json;
   String wsBuffer;
@@ -86,7 +85,6 @@ class Team {
     this.YellowCardCount=0;
     this.DoubleYellowCardCount=0;
     this.PenaltyCount=0;
-    this.RepairOut=0;
     this.newYellowCard=false;
     this.newRedCard=false;
     this.newRepair=false;
@@ -129,82 +127,104 @@ class Team {
     
 //*******************************************************************
 //*******************************************************************
-  void repair_timer_start() { 
-    this.RepairOut=getSplitTime()+Config.repairPenalty_ms;
+  void repair_timer_start() {
+    for(int i=0; i<5; ++i) {
+      if(r[i].state.equals("play")) {
+        r[i].state = "repair";
+        r[i].outTime = getSplitTime();
+        return;
+      }
+    }
   }
   
 //*******************************************************************
   void repair_timer_check() {
-    long remain=RepairOut-getSplitTime();
-    if (StateMachine.isInterval()) {
-        remain = -1;
-        println("Repair reseted!");
-    }
-    if (remain>=0)
-      for(int i=0; i<RepairCount; i++) r[i].waittime=int(remain/1000);
-    else {
-      for(int i=0; i<RepairCount; i++) r[i].waittime=-1;
-      RepairCount=0;
-      println("Repair OUT: "+shortName+" @"+(isCyan?"left":"right"));
+    for(int i=0; i<5; ++i){
+      if (!r[i].state.equals("repair")) continue;
+      
+      if (StateMachine.isInterval()) {
+          r[i].outTime = 0;
+          println("Repair reset!");
+      }
+      
+      long time = getSplitTime();
+      
+      /* Close timer when robot has waited long enough */
+      if(r[i].outTime + Config.repairPenalty_ms < time){
+        r[i].reset();
+        RepairCount--;
+        println("Repair OUT: "+shortName+" @"+(isCyan?"left":"right"));
+      }
     }
   }
   
 //*******************************************************************
   public void double_yellow_timer_start() {
-    r[5-DoubleYellowCardCount].DoubleYellowOut=getAbsoluteTime()+Config.doubleYellowPenalty_ms;
+    for(int i=4; i>=0; --i){
+      if(r[i].state.equals("yellow")) {
+        r[i].state = "doubleyellow";
+        r[i].outTime = getSplitTime();
+        this.YellowCardCount=0;
+        this.DoubleYellowCardCount++;
+        return;
+      }
+    }
   }
 
   public void double_yellow_timer_check() {
-    for (int i=(5-DoubleYellowCardCount); i<5; i++)
-    {
-      long remain;
-      if (StateMachine.isHalf() && StateMachine.gsCurrent.isRunning()) {
-        remain=r[i].DoubleYellowOut-getAbsoluteTime();
-      } else {
-        remain = r[i].waittime * 1000;
-        r[i].DoubleYellowOut = remain + getAbsoluteTime();
-      }
-          
-      if (remain>=0)
-        r[i].waittime=PApplet.parseInt(remain/1000);
-      else {  //shift right & reset
+    for(int i=0; i<5; ++i) {
+      if (!r[i].state.equals("doubleyellow")) continue;
+      
+      long time = getSplitTime();
+      
+      /* Close timer when robot has waited long enough */
+      if(r[i].outTime + Config.doubleYellowPenalty_ms < time) {
         r[i].reset();
-        for (int j=4; j>0; j--) {
-          if (!r[j].state.equals("doubleyellow") && r[j-1].state.equals("doubleyellow")){
-            r[j].setRstate(r[j-1]);
-            r[j-1].reset();
-          }
-        }
         DoubleYellowCardCount--;
         println("Double Yellow end: "+shortName+" @"+(isCyan?"left":"right"));
+      }    
+    }
+  }
+////*******************************************************************
+  public void addYellowCard() {
+    for(int i=0; i<5; ++i){
+      if(r[i].state.equals("play")) {
+        r[i].state = "yellow";
+        r[i].outTime = getSplitTime();
+        this.YellowCardCount=1;
+        return;
       }
-                  
-    }
-  }
-//*******************************************************************
-  void setDoubleYellowOutRemain() {
-    println("setDoubleYellowOutRemain");
-    for (int j=0; j<5; j++) {
-      if (r[j].state.equals("doubleyellow"))  r[j].DoubleYellowOutRemain=r[j].DoubleYellowOut-getGameTime();
-      else r[j].DoubleYellowOutRemain=0;
-    }
-  }
-
-//*******************************************************************
-  void resumeDoubleYellowOutRemain() {
-    println("resumeDoubleYellowOutRemain");
-    for (int j=0; j<5; j++) {
-      if (r[j].state.equals("doubleyellow"))  r[j].DoubleYellowOut=r[j].DoubleYellowOutRemain;
-      r[j].DoubleYellowOutRemain=0;
     }
   }
   
+////*******************************************************************
+  public void addRedCard() {
+    for(int i=0; i<5; ++i){
+      if(r[i].state.equals("play")) {
+        r[i].state = "red";
+        r[i].outTime = getSplitTime();
+        this.RedCardCount++;
+        return;
+      }
+    }
+    
+    /* If there was no Robot marked "play", replace a yellow card */
+    for(int i=0; i<5; ++i){
+      if(r[i].state.equals("yellow")) {
+        r[i].state = "red";
+        r[i].outTime = getSplitTime();
+        return;
+      }
+    }
+  }
+
+  
 //*******************************************************************
   void repairclear() {
-    this.RepairCount=0;
-    this.RepairOut=0;
-    for (int i=0; i<5; i++)
-      if (r[i].state.equals("repair"))  r[i].reset_to_play();
+    this.RepairCount = 0;
+    for (int i=0; i<5; i++) {
+      if (r[i].state.equals("repair")) r[i].reset();
+    }
   }
   
 //*******************************************************************
@@ -219,7 +239,7 @@ class Team {
       else event_message_v2(ButtonsEnum.BTN_M_REPAIR, true);
     }
     if (this.newYellowCard) {
-      this.YellowCardCount=1;
+      this.addYellowCard();
       this.newYellowCard=false;
 
       // Hack: send command only on game change
@@ -227,7 +247,7 @@ class Team {
       else event_message_v2(ButtonsEnum.BTN_M_YELLOW, true);
     }
     if (this.newRedCard) {
-      this.RedCardCount++;
+      this.addRedCard();
       this.newRedCard=false;
 
       // Hack: send command only on game change
@@ -235,8 +255,6 @@ class Team {
       else event_message_v2(ButtonsEnum.BTN_M_RED, true);
     }
     if (this.newDoubleYellow) {
-      this.DoubleYellowCardCount++;
-      this.YellowCardCount=0;
       this.double_yellow_timer_start();
       this.newDoubleYellow=false;
 
@@ -277,14 +295,6 @@ class Team {
     textFont(panelFont);
     if (isCyan) text(ln, 163, 90);
     else text(ln, 837, 90);
-
-
-    // robot state 
-    for (int i=0; i<5; i++) r[i].state="play";//in-game: white, default setting
-    for (int i=0; i<RepairCount; i++)  r[i].state="repair";//in-repair: blue
-    for (int i=RepairCount; i< min(RepairCount+YellowCardCount, 5); i++)  r[i].state="yellow"; //yellow-card: yellow
-    for (int i=(RepairCount+YellowCardCount); i<min(RepairCount+YellowCardCount+RedCardCount, 5); i++)  r[i].state="red";//red
-    for (int i=(5-DoubleYellowCardCount); i<5; i++)  r[i].state="doubleyellow";//doubleyellow
 
     if (RepairCount > 0)            //repair #
       repair_timer_check();
