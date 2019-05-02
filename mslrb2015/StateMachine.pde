@@ -480,4 +480,3 @@ void StateMachineCheck() {
 	StateMachine.StateMachineRefresh();
 }
 
-

@@ -56,6 +56,7 @@ public static Button[] bTeamAcmds = new Button[CMDID_TEAM_YELLOWCARD + 1];
 public static Button[] bTeamBcmds = new Button[CMDID_TEAM_YELLOWCARD + 1];
 public static Button[] bCommoncmds = new Button[CMDID_COMMON_RESET + 1];
 public static BSliders[] bSlider = new BSliders[4];
+public static String previousNameTeamA, previousNameTeamB;
 
 public static Table teamstable;
 public static TableRow teamselect;
