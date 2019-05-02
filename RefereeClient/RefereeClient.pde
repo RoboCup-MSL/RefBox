@@ -290,7 +290,7 @@ void draw() {
       fill(255);
       String description = lastCommandDescription;
       if(description.contains("START"))
-        fill(#28C700);
+        fill(#28C700); //<>//
       else if(description.contains("MAGENTA"))
       {
         fill(teamB.c);
@@ -303,6 +303,7 @@ void draw() {
       textFont(teamFont);
       textAlign(CENTER, CENTER);
       text(description, width/2, height/2 + 45);
+      println("Desc: " + description);
     }
   }
 }

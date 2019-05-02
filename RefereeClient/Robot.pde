@@ -53,7 +53,7 @@ class Robot {
     ellipse(tx, ty, 106, 106);  
     fill(255);
     textFont(teamFont);
-    if (waittime>=0)  text(nf(waittime+1, 2), tx, ty);
+    if (waittime>0)  text(nf(waittime, 2), tx, ty);
   }
   
 }
