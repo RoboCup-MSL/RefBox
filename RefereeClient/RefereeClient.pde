@@ -290,7 +290,7 @@ void draw() {
       fill(255);
       String description = lastCommandDescription;
       if(description.contains("START"))
-        fill(#28C700); //<>//
+        fill(#28C700);
       else if(description.contains("MAGENTA"))
       {
         fill(teamB.c);
