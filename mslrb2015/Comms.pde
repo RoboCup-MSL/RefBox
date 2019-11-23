@@ -42,12 +42,8 @@ public static void clientValidation(MyServer whichServer, Client whichClient) {
 public static void send_to_basestation(String c){
 	println("Command "+c+" :"+Description.get(c+""));
 	BaseStationServer.write(c);
-
-	//  if(!c.equals("" + COMM_WORLD_STATE))
-	//  {
 	Log.logactions(c);
 	mslRemote.setLastCommand(c);      // Update MSL remote module with last command sent to basestations
-	//  }
 }
 
 public static void event_message_v2(ButtonsEnum btn, boolean on)
@@ -77,33 +73,6 @@ public static void send_event_v2(String cmd, String msg, Team t)
 	send_to_basestation(cmd);
 	scoreClients.update_tEvent(cmd, msg, teamName);
 	mslRemote.update_tEvent(cmd, msg, t);
-}
-
-void event_message(char team, boolean on, int pos) {
-	if (on) {  //send to basestations
-		if (team=='C' && pos<4){
-			send_to_basestation(cCommcmds[pos]);
-			scoreClients.update_tEvent("" + cCommcmds[pos], Commcmds[pos], "");
-			mslRemote.update_tEvent("" + cCommcmds[pos], Commcmds[pos], null);
-		} 
-		else if (team=='A' && pos<10){
-			send_to_basestation(cCTeamcmds[pos]);//<8
-			scoreClients.update_tEvent("" + cCTeamcmds[pos], Teamcmds[pos], teamA.longName);
-			mslRemote.update_tEvent("" + cCTeamcmds[pos], Teamcmds[pos], teamA);
-		}
-		else if (team=='B' && pos<10)
-		{
-			send_to_basestation(cMTeamcmds[pos]);//<8
-			scoreClients.update_tEvent("" + cMTeamcmds[pos], Teamcmds[pos], teamB.longName);
-			mslRemote.update_tEvent("" + cMTeamcmds[pos], Teamcmds[pos], teamB);
-		}
-	}
-}
-
-public static void test_send_direct(char team, int pos) {
-	if (team=='C') BaseStationServer.write(cCommcmds[pos]);
-	if (team=='A') BaseStationServer.write(cCTeamcmds[pos]);
-	if (team=='B') BaseStationServer.write(cMTeamcmds[pos]);
 }
 
 public static boolean setteamfromip(String s) {
