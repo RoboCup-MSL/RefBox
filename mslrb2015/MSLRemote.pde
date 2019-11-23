@@ -102,7 +102,7 @@ class MSLRemote
 		boolean kickoff = false;
 		boolean teamCyan = false;
 		
-		if(lastCommand == cMTeamcmds[CMDID_TEAM_KICKOFF])
+		if(lastCommand == cTeamcmds[CMDID_TEAM_KICKOFF])
 		{
 			if(gs == GameStateEnum.GS_PREGAME || gs == GameStateEnum.GS_HALFTIME || gs == GameStateEnum.GS_HALFTIME_OVERTIME) // pre or halftime
 			{
