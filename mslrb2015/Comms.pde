@@ -39,11 +39,19 @@ public static void clientValidation(MyServer whichServer, Client whichClient) {
 }
 
 
-public static void send_to_basestation(String c){
-	println("Command "+c+" :"+Description.get(c+""));
-	BaseStationServer.write(c);
-	Log.logactions(c);
-	mslRemote.setLastCommand(c);      // Update MSL remote module with last command sent to basestations
+public static void send_to_basestation(String c, String team){
+  
+    JSONObject jsonObject = new JSONObject();
+      jsonObject.put("command", c);
+      jsonObject.put("targetTeam", team);
+      System.out.println(jsonObject.toString());
+	BaseStationServer.write(jsonObject.toString());
+
+	//  if(!c.equals("" + COMM_WORLD_STATE))
+	//  {
+	Log.logactions(jsonObject.toString());
+	mslRemote.setLastCommand(jsonObject.toString());      // Update MSL remote module with last command sent to basestations
+	//  }
 }
 
 public static void event_message_v2(ButtonsEnum btn, boolean on)
@@ -70,7 +78,7 @@ public static void event_message_v2(ButtonsEnum btn, boolean on)
 public static void send_event_v2(String cmd, String msg, Team t)
 {
 	String teamName = (t != null) ? t.longName : "";
-	send_to_basestation(cmd);
+	send_to_basestation(cmd,teamName);
 	scoreClients.update_tEvent(cmd, msg, teamName);
 	mslRemote.update_tEvent(cmd, msg, t);
 }
@@ -363,4 +371,3 @@ void comms_initDescriptionDictionary() {
 	Description.set(COMM_YELLOW_CARD,   "Yellow Card");
 	Description.set(COMM_DOUBLE_YELLOW, "Double Yellow");
 }
-
