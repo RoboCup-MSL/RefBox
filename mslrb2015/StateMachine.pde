@@ -198,10 +198,10 @@ static class StateMachine
 					nextGS = SwitchRunningStopped();
 					switch(nextGS)
 					{
-					case GS_GAMEON_H1: send_to_basestation(COMM_FIRST_HALF + ""); break;
-					case GS_GAMEON_H2: send_to_basestation(COMM_SECOND_HALF + ""); break;
-					case GS_GAMEON_H3: send_to_basestation(COMM_FIRST_HALF_OVERTIME + ""); break;
-					case GS_GAMEON_H4: send_to_basestation(COMM_SECOND_HALF_OVERTIME + ""); break;
+					case GS_GAMEON_H1: send_to_basestation(COMM_FIRST_HALF + "",""); break;
+					case GS_GAMEON_H2: send_to_basestation(COMM_SECOND_HALF + "",""); break;
+					case GS_GAMEON_H3: send_to_basestation(COMM_FIRST_HALF_OVERTIME + "",""); break;
+					case GS_GAMEON_H4: send_to_basestation(COMM_SECOND_HALF_OVERTIME + "",""); break;
 					}
 				}
 				else if(btnCurrent == ButtonsEnum.BTN_STOP)
@@ -399,7 +399,7 @@ static class StateMachine
 	public static void reset()
 	{
 		try {
-			send_to_basestation("" + COMM_RESET);
+			send_to_basestation("" + COMM_RESET,"");
 			buttonFromEnum(ButtonsEnum.BTN_PARK).disable();
 			btnCurrent = ButtonsEnum.BTN_ILLEGAL;
 			btnPrev = ButtonsEnum.BTN_ILLEGAL;
