@@ -68,31 +68,18 @@ class MSLRemote
 		else if(lastCommand.equals(cCommcmds[CMDID_COMMON_RESET]))
 		return COMMAND_RESET;
 		
-		else if(lastCommand.equals(cCTeamcmds[CMDID_TEAM_KICKOFF]))
+		else if(lastCommand.equals(cTeamcmds[CMDID_TEAM_KICKOFF]))
 		return COMMAND_KICK_OFF_CYAN;
-		else if(lastCommand.equals(cCTeamcmds[CMDID_TEAM_FREEKICK]))
+		else if(lastCommand.equals(cTeamcmds[CMDID_TEAM_FREEKICK]))
 		return COMMAND_FREEKICK_CYAN;
-		else if(lastCommand.equals(cCTeamcmds[CMDID_TEAM_GOALKICK]))
+		else if(lastCommand.equals(cTeamcmds[CMDID_TEAM_GOALKICK]))
 		return COMMAND_GOALKICK_CYAN;
-		else if(lastCommand.equals(cCTeamcmds[CMDID_TEAM_THROWIN]))
+		else if(lastCommand.equals(cTeamcmds[CMDID_TEAM_THROWIN]))
 		return COMMAND_THROW_IN_CYAN;
-		else if(lastCommand.equals(cCTeamcmds[CMDID_TEAM_CORNER]))
+		else if(lastCommand.equals(cTeamcmds[CMDID_TEAM_CORNER]))
 		return COMMAND_CORNER_CYAN;
-		else if(lastCommand.equals(cCTeamcmds[CMDID_TEAM_PENALTY]))
+		else if(lastCommand.equals(cTeamcmds[CMDID_TEAM_PENALTY]))
 		return COMMAND_PENALTY_CYAN;
-		
-		else if(lastCommand.equals(cMTeamcmds[CMDID_TEAM_KICKOFF]))
-		return COMMAND_KICK_OFF_MAGENTA;
-		else if(lastCommand.equals(cMTeamcmds[CMDID_TEAM_FREEKICK]))
-		return COMMAND_FREEKICK_MAGENTA;
-		else if(lastCommand.equals(cMTeamcmds[CMDID_TEAM_GOALKICK]))
-		return COMMAND_GOALKICK_MAGENTA;
-		else if(lastCommand.equals(cMTeamcmds[CMDID_TEAM_THROWIN]))
-		return COMMAND_THROW_IN_MAGENTA;
-		else if(lastCommand.equals(cMTeamcmds[CMDID_TEAM_CORNER]))
-		return COMMAND_CORNER_MAGENTA;
-		else if(lastCommand.equals(cMTeamcmds[CMDID_TEAM_PENALTY]))
-		return COMMAND_PENALTY_MAGENTA;
 		
 		return "";
 	}
@@ -115,24 +102,19 @@ class MSLRemote
 		boolean kickoff = false;
 		boolean teamCyan = false;
 		
-		if(lastCommand == cCTeamcmds[CMDID_TEAM_KICKOFF] || lastCommand == cMTeamcmds[CMDID_TEAM_KICKOFF])
+		if(lastCommand == cMTeamcmds[CMDID_TEAM_KICKOFF])
 		{
 			if(gs == GameStateEnum.GS_PREGAME || gs == GameStateEnum.GS_HALFTIME || gs == GameStateEnum.GS_HALFTIME_OVERTIME) // pre or halftime
 			{
 				kickoff = true;
-				if(lastCommand == cCTeamcmds[CMDID_TEAM_KICKOFF])
+				if(lastCommand == cTeamcmds[CMDID_TEAM_KICKOFF])
 				teamCyan = true;
 			}
-		}else if(lastCommand == cCTeamcmds[CMDID_TEAM_FREEKICK]
-				|| lastCommand == cCTeamcmds[CMDID_TEAM_GOALKICK]
-				|| lastCommand == cCTeamcmds[CMDID_TEAM_THROWIN]
-				|| lastCommand == cCTeamcmds[CMDID_TEAM_CORNER]
-				|| lastCommand == cCTeamcmds[CMDID_TEAM_PENALTY]
-				|| lastCommand == cMTeamcmds[CMDID_TEAM_FREEKICK]
-				|| lastCommand == cMTeamcmds[CMDID_TEAM_GOALKICK]
-				|| lastCommand == cMTeamcmds[CMDID_TEAM_THROWIN]
-				|| lastCommand == cMTeamcmds[CMDID_TEAM_CORNER]
-				|| lastCommand == cMTeamcmds[CMDID_TEAM_PENALTY]
+		}else if(lastCommand == cTeamcmds[CMDID_TEAM_FREEKICK]
+				|| lastCommand == cTeamcmds[CMDID_TEAM_GOALKICK]
+				|| lastCommand == cTeamcmds[CMDID_TEAM_THROWIN]
+				|| lastCommand == cTeamcmds[CMDID_TEAM_CORNER]
+				|| lastCommand == cTeamcmds[CMDID_TEAM_PENALTY]
 				|| lastCommand == cCommcmds[CMDID_COMMON_DROP_BALL])
 		return GAMESTATUS_SET_PLAY;
 

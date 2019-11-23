@@ -24,8 +24,8 @@ public static final int appFrameRate = 25;
 public static String[] Teamcmds= { "KickOff", "FreeKick", "GoalKick", "Throw In", "Corner", "Penalty", "Goal", "Repair", "Red", "Yellow" };
 public static String[] Commcmds= { "START", "STOP", "DropBall", "Park", "End Part",  "RESET", "EndGame" };
 
-public static final String[] cCTeamcmds= { "K", "F", "G", "T", "C", "P", "A", "O", "R", "Y" };
-public static final String[] cMTeamcmds= { "k", "f", "g", "t", "c", "p", "a", "o", "r", "y" };
+public static final String[] cTeamcmds= { "KICKOFF", "FREEKICK", "GOALKICK", "THROWIN", "CORNER", "PENALTY", "GOAL", "REPAIR", "RED_CARD", "YELLOW_CARD" };
+
 public static final int CMDID_TEAM_KICKOFF = 0;
 public static final int CMDID_TEAM_FREEKICK = 1;
 public static final int CMDID_TEAM_GOALKICK = 2;
@@ -37,7 +37,7 @@ public static final int CMDID_TEAM_REPAIR_OUT = 7;
 public static final int CMDID_TEAM_REDCARD = 8;
 public static final int CMDID_TEAM_YELLOWCARD = 9;
 
-public static final String[] cCommcmds= { "s", "S", "N", "L", "h", "Z", "e" };  
+public static String[] cCommcmds= { "START", "STOP", "DROP_BALL", "PARK", "END_PART", "RESET", "END_GAME" };
 public static final int CMDID_COMMON_START = 0;
 public static final int CMDID_COMMON_STOP = 1;
 public static final int CMDID_COMMON_DROP_BALL = 2;
@@ -311,11 +311,11 @@ void initGui()
 
 	for (int i=0; i<6; i++) {
 		bTeamAcmds[i] = new Button(offsetLeft.x, offsetLeft.y+70*i, Teamcmds[i], 255, -1, 255, Config.defaultCyanTeamColor);
-		bTeamAcmds[i].cmd = "" + cCTeamcmds[i];
+		bTeamAcmds[i].cmd = "" + cTeamcmds[i];
 		bTeamAcmds[i].msg = Teamcmds[i];
 
 		bTeamBcmds[i] = new Button(offsetRight.x, offsetRight.y+70*i, Teamcmds[i], 255, -1, 255, Config.defaultMagentaTeamColor);
-		bTeamBcmds[i].cmd = "" + cMTeamcmds[i];
+		bTeamBcmds[i].cmd = "" + cTeamcmds[i];
 		bTeamBcmds[i].msg = Teamcmds[i];
 	}
 
@@ -330,9 +330,9 @@ void initGui()
 	bTeamBcmds[9] = new Button(offsetRight.x+105, offsetRight.y+70*5, "", #FEFF00, #808100, 255, #FEFF00);  //yellow card B
 
 	for (int i = 6; i < 10; i++) {
-		bTeamAcmds[i].cmd = "" + cCTeamcmds[i];
+		bTeamAcmds[i].cmd = "" + cTeamcmds[i];
 		bTeamAcmds[i].msg = Teamcmds[i];
-		bTeamBcmds[i].cmd = "" + cMTeamcmds[i];
+		bTeamBcmds[i].cmd = "" + cTeamcmds[i];
 		bTeamBcmds[i].msg = Teamcmds[i];
 	}
 
