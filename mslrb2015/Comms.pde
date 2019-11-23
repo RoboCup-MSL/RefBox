@@ -107,7 +107,7 @@ public static boolean setteamfromip(String s) {
 			}
 		}
 	}
-	Log.logMessage("ERR Unknown team (Attempt from " + s + ")");
+	Log.logMessage("ERR Unknteam (Attempt from " + s + ")");
 	return false;
 }
 
@@ -298,12 +298,9 @@ public static final String COMM_TESTMODE_ON = "TESTMODE_ON";  //NEW 2015CAMBADA:
 public static final String COMM_TESTMODE_OFF = "TESTMODE_OFF";  //NEW 2015CAMBADA: TestMode Off
 
 // penalty Commands 
-public static final String COMM_YELLOW_CARD_OWN = "YELLOW_CARD_OWN";  //NEW 2015CAMBADA: @remote
-public static final String COMM_YELLOW_CARD_OPP = "YELLOW_CARD_OPP";//NEW 2015CAMBADA: @remote
-public static final String COMM_RED_CARD_OWN = "RED_CARD_OWN";//NEW 2015CAMBADA: @remote
-public static final String COMM_RED_CARD_OPP = "RED_CARD_OPP";//NEW 2015CAMBADA: @remote
-public static final String COMM_DOUBLE_YELLOW_OWN = "DOUBLE_YELLOW_OWN"; //NEW 2015CAMBADA: exits field
-public static final String COMM_DOUBLE_YELLOW_OPP = "DOUBLE_YELLOW_OPP"; //NEW 2015CAMBADA:
+public static final String COMM_YELLOW_CARD = "YELLOW_CARD";//NEW 2015CAMBADA: @remote
+public static final String COMM_RED_CARD = "RED_CARD";//NEW 2015CAMBADA: @remote
+public static final String COMM_DOUBLE_YELLOW = "DOUBLE_YELLOW"; //NEW 2015CAMBADA: exits field
 
 // game flow commands
 public static final String COMM_FIRST_HALF = "FIRST_HALF";
@@ -316,29 +313,20 @@ public static final String COMM_GAMEOVER = "GAMEOVER";  //NEW 2015CAMBADA: Game 
 public static final String COMM_PARK = "PARK";
 
 // goal status
-public static final String COMM_GOAL_OPP = "GOAL_OPP";
-public static final String COMM_GOAL_OWN = "GOAL_OWN";
-public static final String COMM_SUBGOAL_OPP = "SUBGOAL_OPP";
-public static final String COMM_SUBGOAL_OWN = "SUBGOAL_OWN";
+public static final String COMM_GOAL = "GOAL";
+public static final String COMM_SUBGOAL = "SUBGOAL";
 
 // game flow commands
-public static final String COMM_KICKOFF_OPP = "KICKOFF_OPP";
-public static final String COMM_KICKOFF_OWN = "KICKOFF_OWN";
-public static final String COMM_FREEKICK_OPP = "FREEKICK_OPP";
-public static final String COMM_FREEKICK_OWN = "FREEKICK_OWN";
-public static final String COMM_GOALKICK_OPP = "GOALKICK_OPP";
-public static final String COMM_GOALKICK_OWN = "GOALKICK_OWN";
-public static final String COMM_THROWIN_OPP = "THROWIN_OPP";
-public static final String COMM_THROWIN_OWN = "THROWIN_OWN";
-public static final String COMM_CORNER_OPP = "CORNER_OPP";
-public static final String COMM_CORNER_OWN = "CORNER_OWN";
-public static final String COMM_PENALTY_OPP = "PENALTY_OPP";
-public static final String COMM_PENALTY_OWN = "PENALTY_OWN";
+public static final String COMM_KICKOFF = "KICKOFF";
+public static final String COMM_FREEKICK = "FREEKICK";
+public static final String COMM_GOALKICK = "GOALKICK";
+public static final String COMM_THROWIN = "THROWIN";
+public static final String COMM_CORNER = "CORNER";
+public static final String COMM_PENALTY = "PENALTY";
 public static final String COMM_DROP_BALL = "DROP_BALL";
 
 // repair Commands
-public static final String COMM_REPAIR_OUT_OPP = "REPAIR_OUT_OPP";  //exits field
-public static final String COMM_REPAIR_OUT_OWN = "REPAIR_OUT_OWN";
+public static final String COMM_REPAIR_OUT = "REPAIR_OUT";
 
 //free: 056789 iIfFHlmMnqQwxX
 //------------------------------------------------------
@@ -362,30 +350,17 @@ void comms_initDescriptionDictionary() {
 	Description.set(COMM_SECOND_HALF_OVERTIME, "Overtime 2nd half");
 	Description.set(COMM_PARK, "Park");
 
-	Description.set(COMM_KICKOFF_OWN,       "OWN Kickoff");
-	Description.set(COMM_FREEKICK_OWN,      "OWN Freekick");
-	Description.set(COMM_GOALKICK_OWN,      "OWN Goalkick");
-	Description.set(COMM_THROWIN_OWN,       "OWN Throw In");
-	Description.set(COMM_CORNER_OWN,        "OWN Corner");
-	Description.set(COMM_PENALTY_OWN,       "OWN Penalty Kick");
-	Description.set(COMM_GOAL_OWN,          "OWN Goal+");
-	Description.set(COMM_SUBGOAL_OWN,       "OWN Goal-");
-	Description.set(COMM_REPAIR_OUT_OWN,    "OWN Repair Out");
-	Description.set(COMM_RED_CARD_OWN,      "OWN Red Card");
-	Description.set(COMM_YELLOW_CARD_OWN,   "OWN Yellow Card");
-	Description.set(COMM_DOUBLE_YELLOW_OWN, "OWN Double Yellow");
-
-	Description.set(COMM_KICKOFF_OPP,       "OPP Kickoff");
-	Description.set(COMM_FREEKICK_OPP,      "OPP Freekick");
-	Description.set(COMM_GOALKICK_OPP,      "OPP Goalkick");
-	Description.set(COMM_THROWIN_OPP,       "OPP Throw In");
-	Description.set(COMM_CORNER_OPP,        "OPP Corner");
-	Description.set(COMM_PENALTY_OPP,       "OPP Penalty Kick");
-	Description.set(COMM_GOAL_OPP,          "OPP Goal+");
-	Description.set(COMM_SUBGOAL_OPP,       "OPP Goal-");
-	Description.set(COMM_REPAIR_OUT_OPP,    "OPP Repair Out");
-	Description.set(COMM_RED_CARD_OPP,      "OPP Red Card");
-	Description.set(COMM_YELLOW_CARD_OPP,   "OPP Yellow Card");
-	Description.set(COMM_DOUBLE_YELLOW_OPP, "OPP Double Yellow");
+	Description.set(COMM_KICKOFF,       "Kickoff");
+	Description.set(COMM_FREEKICK,      "Freekick");
+	Description.set(COMM_GOALKICK,      "Goalkick");
+	Description.set(COMM_THROWIN,       "Throw In");
+	Description.set(COMM_CORNER,        "Corner");
+	Description.set(COMM_PENALTY,       "Penalty Kick");
+	Description.set(COMM_GOAL,          "Goal+");
+	Description.set(COMM_SUBGOAL,       "Goal-");
+	Description.set(COMM_REPAIR_OUT,    "Repair Out");
+	Description.set(COMM_RED_CARD,      "Red Card");
+	Description.set(COMM_YELLOW_CARD,   "Yellow Card");
+	Description.set(COMM_DOUBLE_YELLOW, "Double Yellow");
 }
 

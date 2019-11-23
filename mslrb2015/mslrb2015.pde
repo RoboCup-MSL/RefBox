@@ -338,9 +338,9 @@ void initGui()
 
 	// OFF-state goal button (subtract goal)
 	bTeamAcmds[6].msg_off = "Goal-";
-	bTeamAcmds[6].cmd_off = "" + COMM_SUBGOAL_OWN;
+	bTeamAcmds[6].cmd_off = "" + COMM_SUBGOAL;
 	bTeamBcmds[6].msg_off = "Goal-";
-	bTeamBcmds[6].cmd_off = "" + COMM_SUBGOAL_OPP;
+	bTeamBcmds[6].cmd_off = "" + COMM_SUBGOAL;
 
 
 	bTeamAcmds[8].setdim(32, 48); 

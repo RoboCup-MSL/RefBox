@@ -235,8 +235,8 @@ class Team {
 				this.DoubleYellowCardCount++;
 				this.YellowCardCount = 0;
 
-				if(this.isCyan) send_event_v2(""+COMM_DOUBLE_YELLOW_OWN, "Double Yellow", this);
-				else send_event_v2(""+COMM_DOUBLE_YELLOW_OPP, "Double Yellow", this);
+				if(this.isCyan) send_event_v2(""+COMM_DOUBLE_YELLOW, "Double Yellow", this);
+				else send_event_v2(""+COMM_DOUBLE_YELLOW, "Double Yellow", this);
 			}
 			this.newDoubleYellow = false;
 		}
