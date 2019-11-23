@@ -318,58 +318,58 @@ public static void checkBasestationsMessages()
 // -------------------------
 // Referee Box Protocol 2015
 
+// TODO generate this? enum2str converter?
+
 // default commands
-public static final char COMM_STOP = 'S';
-public static final char COMM_START = 's';
-public static final char COMM_WELCOME = 'W';  //NEW 2015CAMBADA: welcome message
-public static final char COMM_RESET = 'Z';  //NEW 2015CAMBADA: Reset Game
-public static final char COMM_TESTMODE_ON = 'U';  //NEW 2015CAMBADA: TestMode On
-public static final char COMM_TESTMODE_OFF = 'u';  //NEW 2015CAMBADA: TestMode Off
+public static final String COMM_STOP = "STOP";
+public static final String COMM_START = "START";
+public static final String COMM_WELCOME = "WELCOME";  //NEW 2015CAMBADA: welcome message
+public static final String COMM_RESET = "RESET";  //NEW 2015CAMBADA: Reset Game
+public static final String COMM_TESTMODE_ON = "TESTMODE_ON";  //NEW 2015CAMBADA: TestMode On
+public static final String COMM_TESTMODE_OFF = "TESTMODE_OFF";  //NEW 2015CAMBADA: TestMode Off
 
 // penalty Commands 
-public static final char COMM_YELLOW_CARD_MAGENTA = 'y';  //NEW 2015CAMBADA: @remote
-public static final char COMM_YELLOW_CARD_CYAN = 'Y';//NEW 2015CAMBADA: @remote
-public static final char COMM_RED_CARD_MAGENTA = 'r';//NEW 2015CAMBADA: @remote
-public static final char COMM_RED_CARD_CYAN = 'R';//NEW 2015CAMBADA: @remote
-public static final char COMM_DOUBLE_YELLOW_MAGENTA = 'b'; //NEW 2015CAMBADA: exits field
-public static final char COMM_DOUBLE_YELLOW_CYAN = 'B'; //NEW 2015CAMBADA:
-//public static final char COMM_DOUBLE_YELLOW_IN_MAGENTA = 'j'; //NEW 2015CAMBADA: 
-//public static final char COMM_DOUBLE_YELLOW_IN_CYAN = 'J'; //NEW 2015CAMBADA: 
+public static final String COMM_YELLOW_CARD_OWN = "YELLOW_CARD_OWN";  //NEW 2015CAMBADA: @remote
+public static final String COMM_YELLOW_CARD_OPP = "YELLOW_CARD_OPP";//NEW 2015CAMBADA: @remote
+public static final String COMM_RED_CARD_OWN = "RED_CARD_OWN";//NEW 2015CAMBADA: @remote
+public static final String COMM_RED_CARD_OPP = "RED_CARD_OPP";//NEW 2015CAMBADA: @remote
+public static final String COMM_DOUBLE_YELLOW_OWN = "DOUBLE_YELLOW_OWN"; //NEW 2015CAMBADA: exits field
+public static final String COMM_DOUBLE_YELLOW_OPP = "DOUBLE_YELLOW_OPP"; //NEW 2015CAMBADA:
 
 // game flow commands
-public static final char COMM_FIRST_HALF = '1';
-public static final char COMM_SECOND_HALF = '2';
-public static final char COMM_FIRST_HALF_OVERTIME = '3';  //NEW 2015CAMBADA: 
-public static final char COMM_SECOND_HALF_OVERTIME = '4';  //NEW 2015CAMBADA: 
-public static final char COMM_HALF_TIME = 'h';
-public static final char COMM_END_GAME = 'e';    //ends 2nd part, may go into overtime
-public static final char COMM_GAMEOVER = 'z';  //NEW 2015CAMBADA: Game Over
-public static final char COMM_PARKING = 'L';
+public static final String COMM_FIRST_HALF = "FIRST_HALF";
+public static final String COMM_SECOND_HALF = "SECOND_HALF";
+public static final String COMM_FIRST_HALF_OVERTIME = "FIRST_HALF_OVERTIME";  //NEW 2015CAMBADA: 
+public static final String COMM_SECOND_HALF_OVERTIME = "SECOND_HALF_OVERTIME";  //NEW 2015CAMBADA: 
+public static final String COMM_HALF_TIME = "HALF_TIME";
+public static final String COMM_END_GAME = "END_GAME";    //ends 2nd part, may go into overtime
+public static final String COMM_GAMEOVER = "GAMEOVER";  //NEW 2015CAMBADA: Game Over
+public static final String COMM_PARK = "PARK";
 
 // goal status
-public static final char COMM_GOAL_MAGENTA = 'a';
-public static final char COMM_GOAL_CYAN = 'A';
-public static final char COMM_SUBGOAL_MAGENTA = 'd';
-public static final char COMM_SUBGOAL_CYAN = 'D';
+public static final String COMM_GOAL_OPP = "GOAL_OPP";
+public static final String COMM_GOAL_OWN = "GOAL_OWN";
+public static final String COMM_SUBGOAL_OPP = "SUBGOAL_OPP";
+public static final String COMM_SUBGOAL_OWN = "SUBGOAL_OWN";
 
 // game flow commands
-public static final char COMM_KICKOFF_MAGENTA = 'k';
-public static final char COMM_KICKOFF_CYAN = 'K';
-public static final char COMM_FREEKICK_MAGENTA = 'f';
-public static final char COMM_FREEKICK_CYAN = 'F';
-public static final char COMM_GOALKICK_MAGENTA = 'g';
-public static final char COMM_GOALKICK_CYAN = 'G';
-public static final char COMM_THROWIN_MAGENTA = 't';
-public static final char COMM_THROWIN_CYAN = 'T';
-public static final char COMM_CORNER_MAGENTA = 'c';
-public static final char COMM_CORNER_CYAN = 'C';
-public static final char COMM_PENALTY_MAGENTA = 'p';
-public static final char COMM_PENALTY_CYAN = 'P';
-public static final char COMM_DROPPED_BALL = 'N';
+public static final String COMM_KICKOFF_OPP = "KICKOFF_OPP";
+public static final String COMM_KICKOFF_OWN = "KICKOFF_OWN";
+public static final String COMM_FREEKICK_OPP = "FREEKICK_OPP";
+public static final String COMM_FREEKICK_OWN = "FREEKICK_OWN";
+public static final String COMM_GOALKICK_OPP = "GOALKICK_OPP";
+public static final String COMM_GOALKICK_OWN = "GOALKICK_OWN";
+public static final String COMM_THROWIN_OPP = "THROWIN_OPP";
+public static final String COMM_THROWIN_OWN = "THROWIN_OWN";
+public static final String COMM_CORNER_OPP = "CORNER_OPP";
+public static final String COMM_CORNER_OWN = "CORNER_OWN";
+public static final String COMM_PENALTY_OPP = "PENALTY_OPP";
+public static final String COMM_PENALTY_OWN = "PENALTY_OWN";
+public static final String COMM_DROP_BALL = "DROP_BALL";
 
 // repair Commands
-public static final char COMM_REPAIR_OUT_MAGENTA = 'o';  //exits field
-public static final char COMM_REPAIR_OUT_CYAN = 'O';
+public static final String COMM_REPAIR_OUT_OPP = "REPAIR_OUT_OPP";  //exits field
+public static final String COMM_REPAIR_OUT_OWN = "REPAIR_OUT_OWN";
 
 //free: 056789 iIfFHlmMnqQwxX
 //------------------------------------------------------
@@ -377,45 +377,46 @@ public static final char COMM_REPAIR_OUT_CYAN = 'O';
 public static StringDict Description;
 void comms_initDescriptionDictionary() {
 	Description = new StringDict();
-	Description.set("S", "STOP");
-	Description.set("s", "START");
-	Description.set("N", "Drop Ball");
-	Description.set("h", "Halftime");
-	Description.set("e", "End Game");
-	Description.set("z", "Game Over");
-	Description.set("Z", "Reset Game");
-	Description.set("W", "Welcome");
-	Description.set("U", "Test Mode on");
-	Description.set("u", "Test Mode off");
-	Description.set("1", "1st half");
-	Description.set("2", "2nd half");
-	Description.set("3", "Overtime 1st half");
-	Description.set("4", "Overtime 2nd half");
-	Description.set("L", "Park");
+	Description.set(COMM_STOP, "STOP");
+	Description.set(COMM_START, "START");
+	Description.set(COMM_DROP_BALL, "Drop Ball");
+	Description.set(COMM_HALF_TIME, "Halftime");
+	Description.set(COMM_END_GAME, "End Game");
+	Description.set(COMM_GAMEOVER, "Game Over");
+	Description.set(COMM_RESET, "Reset Game");
+	Description.set(COMM_WELCOME, "Welcome");
+	Description.set(COMM_TESTMODE_ON, "Test Mode on");
+	Description.set(COMM_TESTMODE_OFF, "Test Mode off");
+	Description.set(COMM_FIRST_HALF, "1st half");
+	Description.set(COMM_SECOND_HALF, "2nd half");
+	Description.set(COMM_FIRST_HALF_OVERTIME, "Overtime 1st half");
+	Description.set(COMM_SECOND_HALF_OVERTIME, "Overtime 2nd half");
+	Description.set(COMM_PARK, "Park");
 
-	Description.set("K", "CYAN Kickoff");
-	Description.set("F", "CYAN Freekick");
-	Description.set("G", "CYAN Goalkick");
-	Description.set("T", "CYAN Throw In");
-	Description.set("C", "CYAN Corner");
-	Description.set("P", "CYAN Penalty Kick");
-	Description.set("A", "CYAN Goal+");
-	Description.set("D", "CYAN Goal-");
-	Description.set("O", "CYAN Repair Out");
-	Description.set("R", "CYAN Red Card");
-	Description.set("Y", "CYAN Yellow Card");
-	Description.set("B", "CYAN Double Yellow");
+	Description.set(COMM_KICKOFF_OWN,       "OWN Kickoff");
+	Description.set(COMM_FREEKICK_OWN,      "OWN Freekick");
+	Description.set(COMM_GOALKICK_OWN,      "OWN Goalkick");
+	Description.set(COMM_THROWIN_OWN,       "OWN Throw In");
+	Description.set(COMM_CORNER_OWN,        "OWN Corner");
+	Description.set(COMM_PENALTY_OWN,       "OWN Penalty Kick");
+	Description.set(COMM_GOAL_OWN,          "OWN Goal+");
+	Description.set(COMM_SUBGOAL_OWN,       "OWN Goal-");
+	Description.set(COMM_REPAIR_OUT_OWN,    "OWN Repair Out");
+	Description.set(COMM_RED_CARD_OWN,      "OWN Red Card");
+	Description.set(COMM_YELLOW_CARD_OWN,   "OWN Yellow Card");
+	Description.set(COMM_DOUBLE_YELLOW_OWN, "OWN Double Yellow");
 
-	Description.set("k", "MAGENTA Kickoff");
-	Description.set("f", "MAGENTA Freekick");
-	Description.set("g", "MAGENTA Goalkick");
-	Description.set("t", "MAGENTA Throw In");
-	Description.set("c", "MAGENTA Corner");
-	Description.set("p", "MAGENTA Penalty Kick");
-	Description.set("a", "MAGENTA Goal+");
-	Description.set("d", "MAGENTA Goal-");
-	Description.set("o", "MAGENTA Repair Out");
-	Description.set("r", "MAGENTA Red Card");
-	Description.set("y", "MAGENTA Yellow Card");
-	Description.set("b", "MAGENTA Double Yellow");
+	Description.set(COMM_KICKOFF_OPP,       "OPP Kickoff");
+	Description.set(COMM_FREEKICK_OPP,      "OPP Freekick");
+	Description.set(COMM_GOALKICK_OPP,      "OPP Goalkick");
+	Description.set(COMM_THROWIN_OPP,       "OPP Throw In");
+	Description.set(COMM_CORNER_OPP,        "OPP Corner");
+	Description.set(COMM_PENALTY_OPP,       "OPP Penalty Kick");
+	Description.set(COMM_GOAL_OPP,          "OPP Goal+");
+	Description.set(COMM_SUBGOAL_OPP,       "OPP Goal-");
+	Description.set(COMM_REPAIR_OUT_OPP,    "OPP Repair Out");
+	Description.set(COMM_RED_CARD_OPP,      "OPP Red Card");
+	Description.set(COMM_YELLOW_CARD_OPP,   "OPP Yellow Card");
+	Description.set(COMM_DOUBLE_YELLOW_OPP, "OPP Double Yellow");
 }
+
