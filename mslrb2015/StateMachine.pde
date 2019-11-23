@@ -101,7 +101,16 @@ static class StateMachine
 					if(Popup.getResponse().equals("3")) teamB.nOfRepairs = 3;
 					break;
 				}
-			}      
+
+      case POPUP_CONFIG:
+        {
+          if(Popup.getResponse().equals("1")) teamB.nOfRepairs = 1; 
+          if(Popup.getResponse().equals("2")) teamB.nOfRepairs = 2;
+          if(Popup.getResponse().equals("3")) teamB.nOfRepairs = 3;
+          break;
+        }   
+      }
+      
 			needUpdate = false;
 			Popup.close();
 			return;
@@ -479,4 +488,3 @@ static class StateMachine
 void StateMachineCheck() {
 	StateMachine.StateMachineRefresh();
 }
-

@@ -37,6 +37,9 @@ enum ButtonsEnum
 	BTN_M_RED(24),
 	BTN_M_YELLOW(25),
 
+	//BTN_SUBS(26),
+	//BTN_CONFIG(27),
+
 	BTN_ILLEGAL(99);
 
 	private final int value;
@@ -232,6 +235,7 @@ enum PopupTypeEnum
 	POPUP_REPAIRR(4),
 	POPUP_HELP(5),
 	POPUP_WAIT(6),
+	POPUP_CONFIG(7),
 
 	POPUP_ILLEGAL(99);
 

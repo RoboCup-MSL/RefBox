@@ -26,6 +26,7 @@ void RefreshButonStatus1() {
 			buttonFromEnum(ButtonsEnum.BTN_RESET).disable();
 			buttonFromEnum(ButtonsEnum.BTN_START).enable();
 			buttonFromEnum(ButtonsEnum.BTN_STOP).activate();
+
 		}else{
 			buttonFromEnum(ButtonsEnum.BTN_C_KICKOFF).enable();
 			buttonFromEnum(ButtonsEnum.BTN_M_KICKOFF).enable();
@@ -33,6 +34,9 @@ void RefreshButonStatus1() {
 			buttonFromEnum(ButtonsEnum.BTN_START).disable();
 			buttonFromEnum(ButtonsEnum.BTN_STOP).activate();
 			buttonFromEnum(ButtonsEnum.BTN_RESET).activate();
+
+//public static final int CMDID_COMMON_SUBS = 6;
+        bCommoncmds[CMDID_COMMON_CONFIG].activate();
 		}
 		
 
@@ -212,6 +216,7 @@ void refreshbutton_game_stopped()
 			bTeamAcmds[CMDID_TEAM_GOAL].enable();
 			bTeamBcmds[CMDID_TEAM_GOAL].enable();
 			buttonCSTARTdisable();            // Turn OFF START button  
+        bCommoncmds[CMDID_COMMON_SUBS].enable();
 		}
 		else
 		{

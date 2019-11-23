@@ -22,7 +22,7 @@ public static String MSG_HELP="SHORT CUT KEYS:";
 public static final int appFrameRate = 25;
 
 public static String[] Teamcmds= { "KickOff", "FreeKick", "GoalKick", "Throw In", "Corner", "Penalty", "Goal", "Repair", "Red", "Yellow" };
-public static String[] Commcmds= { "START", "STOP", "DropBall", "Park", "End Part",  "RESET", "EndGame" };
+public static String[] Commcmds= { "START", "STOP", "DropBall", "Park", "End Part",  "RESET", "Substitute", "Config", "EndGame" };
 
 public static final String[] cCTeamcmds= { "K", "F", "G", "T", "C", "P", "A", "O", "R", "Y" };
 public static final String[] cMTeamcmds= { "k", "f", "g", "t", "c", "p", "a", "o", "r", "y" };
@@ -37,14 +37,16 @@ public static final int CMDID_TEAM_REPAIR_OUT = 7;
 public static final int CMDID_TEAM_REDCARD = 8;
 public static final int CMDID_TEAM_YELLOWCARD = 9;
 
-public static final String[] cCommcmds= { "s", "S", "N", "L", "h", "Z", "e" };  
+public static final String[] cCommcmds= { "s", "S", "N", "L", "h", "Z", "i", "I", "e" };
 public static final int CMDID_COMMON_START = 0;
 public static final int CMDID_COMMON_STOP = 1;
 public static final int CMDID_COMMON_DROP_BALL = 2;
 public static final int CMDID_COMMON_PARKING = 3;
 public static final int CMDID_COMMON_HALFTIME = 4;
 public static final int CMDID_COMMON_RESET = 5;
-public static final int CMDID_COMMON_ENDGAME = 6;
+public static final int CMDID_COMMON_SUBS = 6;
+public static final int CMDID_COMMON_CONFIG = 7;
+public static final int CMDID_COMMON_ENDGAME = 8;
 
 public static ScoreClients scoreClients = null;
 public static MSLRemote mslRemote = null;
@@ -54,7 +56,7 @@ public static Client connectingClient = null;
 public static Team teamA,teamB;
 public static Button[] bTeamAcmds = new Button[CMDID_TEAM_YELLOWCARD + 1];
 public static Button[] bTeamBcmds = new Button[CMDID_TEAM_YELLOWCARD + 1];
-public static Button[] bCommoncmds = new Button[CMDID_COMMON_RESET + 1];
+public static Button[] bCommoncmds = new Button[CMDID_COMMON_CONFIG + 1];
 public static BSliders[] bSlider = new BSliders[4];
 public static String previousNameTeamA, previousNameTeamB;
 
@@ -70,7 +72,7 @@ public static String lastaction=".";
 public static String gametime = "", gameruntime = "";
 
 //GUI
-public static final int popUpButtons = 9;					// Currently defined number of Pop Up Buttons
+public static final int popUpButtons = 10;					// Currently defined number of Pop Up Buttons
 public static Button[] bPopup = new Button[popUpButtons];	// button 0 is reserved.
 public static PVector offsetLeft= new PVector(230, 180);
 public static PVector offsetRight= new PVector(760, 180);
@@ -357,6 +359,8 @@ void initGui()
 	bPopup[6] = new Button(0, 0, "2", 220, #6D9C75, 0, #6D9C75); bPopup[6].setdim(80, 48);
 	bPopup[7] = new Button(0, 0, "3", 220, #6D9C75, 0, #6D9C75); bPopup[7].setdim(80, 48);
 	bPopup[8] = new Button(0, 0, "OK", 220, #6D9C75, 0, #6D9C75); bPopup[8].setdim(80, 48);
+  bPopup[9] = new Button(0, 0, "TEST", 220, #6D9C75, 0, #6D9C75); bPopup[9].setdim(80, 48);
+  
 	for (int n = 0; n < popUpButtons; n++)
 	bPopup[n].disable();
 
