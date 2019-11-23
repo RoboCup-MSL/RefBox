@@ -77,7 +77,14 @@ public static void event_message_v2(ButtonsEnum btn, boolean on)
 
 public static void send_event_v2(String cmd, String msg, Team t)
 {
-	String teamName = (t != null) ? t.longName : "";
+	String teamName;
+
+  if( t == null)
+  {
+    teamName = "";
+  }else{
+    teamName = t.team;
+  }
 	send_to_basestation(cmd,teamName);
 	scoreClients.update_tEvent(cmd, msg, teamName);
 	mslRemote.update_tEvent(cmd, msg, t);
