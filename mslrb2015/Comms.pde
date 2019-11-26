@@ -22,12 +22,13 @@ public static void clientValidation(MyServer whichServer, Client whichClient) {
 				{
 					// Invalid team
 					Log.logMessage("Invalid team " + whichClient.ip());
-					whichClient.write(COMM_RESET);
+					send_to_basestation(COMM_RESET,"");
 					whichClient.stop();
 				}
 			} else {
 				Log.logMessage("ERR Another team connecting");
-				whichClient.write(COMM_RESET);
+				//whichClient.write(COMM_RESET);
+        send_to_basestation(COMM_RESET,"");
 				whichClient.stop();
 			}
 		}
@@ -72,7 +73,7 @@ public static void event_message_v2(ButtonsEnum btn, boolean on)
 	{
 		send_event_v2(cmd, msg, t);
 	}
-	println("Command: " + cmd);
+	//println("Command: " + cmd);
 }
 
 public static void send_event_v2(String cmd, String msg, Team t)

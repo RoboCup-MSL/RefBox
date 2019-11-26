@@ -158,7 +158,7 @@ static class Config
 					defaultCyanTeamLongName = appearance.getString("defaultCyanTeamLongName");
 
           if(appearance.has("defaultCyanTeam"))
-          defaultCyanTeamLongName = appearance.getString("defaultCyanTeam");
+          defaultCyanTeam = appearance.getString("defaultCyanTeam");
 					
 					if(appearance.has("defaultCyanTeamColor"))
 					defaultCyanTeamColor = string2color(appearance.getString("defaultCyanTeamColor"));
@@ -171,7 +171,7 @@ static class Config
 					defaultMagentaTeamLongName = appearance.getString("defaultMagentaTeamLongName");
 
            if(appearance.has("defaultMagentaTeam"))
-          defaultMagentaTeamLongName = appearance.getString("defaultMagentaTeam");
+          defaultMagentaTeam = appearance.getString("defaultMagentaTeam");
 					
 					if(appearance.has("defaultMagentaTeamColor"))
 					defaultMagentaTeamColor = string2color(appearance.getString("defaultMagentaTeamColor"));
