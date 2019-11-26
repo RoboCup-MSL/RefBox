@@ -45,7 +45,7 @@ public static void send_to_basestation(String c, String team){
     JSONObject jsonObject = new JSONObject();
       jsonObject.put("command", c);
       jsonObject.put("targetTeam", team);
-      System.out.println(jsonObject.toString());
+     // System.out.println(jsonObject.toString());
 	BaseStationServer.write(jsonObject.toString());
 
 	//  if(!c.equals("" + COMM_WORLD_STATE))

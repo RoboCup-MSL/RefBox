@@ -3,6 +3,7 @@ import org.json.*;
 class Team {
   String shortName;  //max 8 chars
   String longName;  //max 24 chars
+  String team;
   String unicastIP, multicastIP;
   color c=(#000000);
   boolean isCyan;  //default: cyan@left
@@ -40,10 +41,12 @@ class Team {
     if (this.isCyan) {
       this.shortName=Config.defaultCyanTeamShortName;
       this.longName=Config.defaultCyanTeamLongName;
+      this.team=Config.defaultCyanTeam;
     }
     else {
       this.shortName=Config.defaultMagentaTeamShortName;
       this.longName=Config.defaultMagentaTeamLongName;
+      this.team=Config.defaultMagentaTeam;
     }
   }
   

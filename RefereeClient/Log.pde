@@ -39,10 +39,14 @@ static class Log
   }
   
   // Log action to both screen and logfile
-  public static void logactions(String c) {
+  public static void logactions(String c, String team) {
     //year()+month()+hour()+minute()+second()+millis()
-    String s1="" + Description.get(c+"");
-    String s2=System.currentTimeMillis()+","+gametime+"("+gameruntime+"),"+currentGameStateString+","+c+","+Description.get(c+"");
+      if(team.length() > 1)
+       {
+         team = "=> " +team;
+       }
+      String s1=Description.get(c)+" "+team;
+    String s2=System.currentTimeMillis()+","+gametime+"("+gameruntime+"),"+currentGameStateString+","+s1+","+Description.get(c+"");
     lastaction=c;
     
     screenlog(s1);
