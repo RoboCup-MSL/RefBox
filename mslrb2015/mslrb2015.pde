@@ -208,6 +208,13 @@ void draw() {
 		bTeamAcmds[i].update();
 		bTeamBcmds[i].update();
 	}
+  
+  //Special case: what if the same team connects twice to RefBox
+  if(teamA.team == teamB.team)
+  {
+      teamA.team =  teamA.team +" A";
+      teamA.longName = teamA.longName+" A";
+  }   
 
 	teamA.updateUI();
 	teamB.updateUI();
