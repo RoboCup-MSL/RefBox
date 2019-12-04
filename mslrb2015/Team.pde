@@ -3,7 +3,7 @@ class Team {
 	String longName;  //max 24 chars
   String team;
 	String unicastIP, multicastIP;
-	color c=(#000000);
+	color colorTeam=(#000000);
 	boolean isCyan;  //default: cyan@left
 	boolean newYellowCard, newRedCard, newRepair, newDoubleYellow, newPenaltyKick, newGoal; // Pending commands, effective only on gamestate change
 	int Score, RedCardCount, YellowCardCount, DoubleYellowCardCount, PenaltyCount;
@@ -20,7 +20,7 @@ class Team {
 	boolean firstWorldState;
 	
 	Team(color c, boolean uileftside) {
-		this.c=c;
+		this.colorTeam=colorTeam;
 		this.isCyan=uileftside;
 		//robots
 		float x=0, y=64; 
@@ -303,7 +303,7 @@ class Team {
 		}    
 
 		for (int i=0; i<5; i++)
-		r[i].updateUI(c,isCyan);
+		r[i].updateUI(colorTeam,isCyan);
 
 		textAlign(LEFT, BOTTOM);
 		textFont(debugFont);
