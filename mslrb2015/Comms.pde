@@ -22,13 +22,13 @@ public static void clientValidation(MyServer whichServer, Client whichClient) {
 				{
 					// Invalid team
 					Log.logMessage("Invalid team " + whichClient.ip());
-					send_to_basestation(COMM_RESET,"");
+					send_to_basestation(COMM_RESET,"",-1);
 					whichClient.stop();
 				}
 			} else {
 				Log.logMessage("ERR Another team connecting");
 				//whichClient.write(COMM_RESET);
-        send_to_basestation(COMM_RESET,"");
+        send_to_basestation(COMM_RESET,"",-1);
 				whichClient.stop();
 			}
 		}
@@ -40,17 +40,21 @@ public static void clientValidation(MyServer whichServer, Client whichClient) {
 }
 
 
-public static void send_to_basestation(String c, String teamIP){
+public static void send_to_basestation(String c, String teamIP, int robotID){
   
     JSONObject jsonObject = new JSONObject();
-      jsonObject.put("command", c);
-      jsonObject.put("targetTeam", teamIP);
-      String send = jsonObject.toString() + "\0";
-     System.out.println(send);
-	BaseStationServer.write(send);
+    jsonObject.put("command", c);
+    jsonObject.put("targetTeam", teamIP);
+    if(robotID > -1)
+    {
+      jsonObject.put("robotID", robotID);
+    }
+    String send = jsonObject.toString() + "\0";
+    System.out.println(send);
+	  BaseStationServer.write(send);
 
-	Log.logactions(send);
-	mslRemote.setLastCommand(send);      // Update MSL remote module with last command sent to basestations
+	  Log.logactions(send);
+	  mslRemote.setLastCommand(send);      // Update MSL remote module with last command sent to basestations
 
 }
 
@@ -85,7 +89,7 @@ public static void send_event_v2(String cmd, String msg, Team t)
   }else{
     teamIP = t.multicastIP;
   }
-	send_to_basestation(cmd,teamIP);
+	send_to_basestation(cmd,teamIP,-1);
 	scoreClients.update_tEvent(cmd, msg, teamIP);
 	mslRemote.update_tEvent(cmd, msg, t);
 }
@@ -342,6 +346,7 @@ public static final String COMM_DROP_BALL = "DROP_BALL";
 
 // repair Commands
 public static final String COMM_REPAIR_OUT = "REPAIR_OUT";
+public static final String COMM_SUBSTITUTION = "SUBSTITUTION";
 
 //free: 056789 iIfFHlmMnqQwxX
 //------------------------------------------------------
@@ -364,6 +369,7 @@ void comms_initDescriptionDictionary() {
 	Description.set(COMM_FIRST_HALF_OVERTIME, "Overtime 1st half");
 	Description.set(COMM_SECOND_HALF_OVERTIME, "Overtime 2nd half");
 	Description.set(COMM_PARK, "Park");
+  Description.set(COMM_SUBSTITUTION, "Substitution");
 
 	Description.set(COMM_KICKOFF,       "Kickoff");
 	Description.set(COMM_FREEKICK,      "Freekick");

@@ -67,6 +67,7 @@ public static final String COMM_DROP_BALL = "DROP_BALL";
 
 // repair Commands
 public static final String COMM_REPAIR_OUT = "REPAIR_OUT";
+public static final String COMM_SUBSTITUTION = "SUBSTITUTION";
 
 //free: 056789 iIfFHlmMnqQwxX
 //------------------------------------------------------
@@ -102,4 +103,5 @@ void comms_initDescriptionDictionary() {
   Description.set(COMM_RED_CARD,      "Red Card");
   Description.set(COMM_YELLOW_CARD,   "Yellow Card");
   Description.set(COMM_DOUBLE_YELLOW, "Double Yellow");
+  Description.set(COMM_SUBSTITUTION, "Substitution");
 }

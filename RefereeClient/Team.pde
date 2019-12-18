@@ -48,6 +48,8 @@ class Team {
       this.longName=Config.defaultMagentaTeamLongName;
       this.team=Config.defaultMagentaTeam;
     }
+    this.unicastIP="172.16.0.0";     //reset unicastIP for generic IP
+    this.multicastIP = "224.16.32.0";   //reset multicastIP for generic IP
   }
   
   void reset() {
