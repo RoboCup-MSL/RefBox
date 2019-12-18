@@ -81,17 +81,19 @@ public static void event_message_v2(ButtonsEnum btn, boolean on)
 
 public static void send_event_v2(String cmd, String msg, Team t)
 {
-	String teamIP;
+	String teamIP, teamName;
 
   if( t == null)
   {
     teamIP = "";
+    teamName = "";
   }else{
     teamIP = t.multicastIP;
+    teamName = t.team;
   }
-	send_to_basestation(cmd,teamIP,-1);
-	scoreClients.update_tEvent(cmd, msg, teamIP);
-	mslRemote.update_tEvent(cmd, msg, t);
+	send_to_basestation(cmd,teamIP,-1);  //send to basestatin
+	scoreClients.update_tEvent(cmd, msg, teamName); //send to referee client
+	mslRemote.update_tEvent(cmd, msg, t); //remote command
 }
 
 public static boolean setteamfromip(String s) {
