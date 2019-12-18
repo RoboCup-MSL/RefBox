@@ -214,7 +214,12 @@ void draw() {
   {
       teamA.team =  teamA.team +" A";
       teamA.longName = teamA.longName+" A";
-  }   
+      teamA.multicastIP += ":1";
+  }
+  if(teamA.multicastIP == teamB.multicastIP)
+  {
+      teamA.multicastIP += ":1";
+  }
 
 	teamA.updateUI();
 	teamB.updateUI();
