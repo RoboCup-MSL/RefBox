@@ -72,12 +72,12 @@ static class StateMachine
 			case POPUP_TEAMSELECTION:
 				{
 					Team t = null;
-					if(Popup.getResponse().equals("cyan"))
+					if(Popup.getResponse().equals("Left"))
 					{
-						Log.logMessage("Connection from " + connectingClient.ip() + " accepted - Cyan");
+						Log.logMessage("Connection from " + connectingClient.ip() + " accepted - Leht");
 						t = teamA;
 					}else{
-						Log.logMessage("Connection from " + connectingClient.ip() + " accepted - Magenta");
+						Log.logMessage("Connection from " + connectingClient.ip() + " accepted - Rigth");
 						t = teamB;
 					}
 					
