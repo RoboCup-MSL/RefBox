@@ -39,13 +39,15 @@ class Team {
 		if (this.isCyan) {
 			this.shortName=Config.defaultCyanTeamShortName;
 			this.longName=Config.defaultCyanTeamLongName;
-      this.team=Config.defaultCyanTeam;
+      		this.team=Config.defaultCyanTeam;
 		}
 		else {
 			this.shortName=Config.defaultMagentaTeamShortName;
 			this.longName=Config.defaultMagentaTeamLongName;
-      this.team=Config.defaultMagentaTeam;
+     		 this.team=Config.defaultMagentaTeam;
 		}
+    	this.unicastIP="172.16.0.0"; 		//reset unicastIP for generic IP
+    	this.multicastIP = "224.16.32.0"; 	//reset multicastIP for generic IP
 	}
 
 	void logWorldstate(String teamWorldstate, int ageMs){
