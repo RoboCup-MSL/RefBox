@@ -116,7 +116,7 @@ class Team {
 		BaseStationServer.disconnect(connectedClient);
 
 		connectedClient = connectingClient;
-		send_to_basestation(COMM_WELCOME,"");
+		send_to_basestation(COMM_WELCOME,multicastIP);
 		connectingClient = null;
 
 		if(this.logFile == null || this.logFileOut == null)
