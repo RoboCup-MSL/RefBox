@@ -40,19 +40,18 @@ public static void clientValidation(MyServer whichServer, Client whichClient) {
 }
 
 
-public static void send_to_basestation(String c, String team){
+public static void send_to_basestation(String c, String teamIP){
   
     JSONObject jsonObject = new JSONObject();
       jsonObject.put("command", c);
-      jsonObject.put("targetTeam", team);
-     // System.out.println(jsonObject.toString());
-	BaseStationServer.write(jsonObject.toString());
+      jsonObject.put("targetTeam", teamIP);
+      String send = jsonObject.toString() + "\0";
+     System.out.println(send);
+	BaseStationServer.write(send);
 
-	//  if(!c.equals("" + COMM_WORLD_STATE))
-	//  {
-	Log.logactions(jsonObject.toString());
-	mslRemote.setLastCommand(jsonObject.toString());      // Update MSL remote module with last command sent to basestations
-	//  }
+	Log.logactions(send);
+	mslRemote.setLastCommand(send);      // Update MSL remote module with last command sent to basestations
+
 }
 
 public static void event_message_v2(ButtonsEnum btn, boolean on)
@@ -78,16 +77,16 @@ public static void event_message_v2(ButtonsEnum btn, boolean on)
 
 public static void send_event_v2(String cmd, String msg, Team t)
 {
-	String teamName;
+	String teamIP;
 
   if( t == null)
   {
-    teamName = "";
+    teamIP = "";
   }else{
-    teamName = t.team;
+    teamIP = t.multicastIP;
   }
-	send_to_basestation(cmd,teamName);
-	scoreClients.update_tEvent(cmd, msg, teamName);
+	send_to_basestation(cmd,teamIP);
+	scoreClients.update_tEvent(cmd, msg, teamIP);
 	mslRemote.update_tEvent(cmd, msg, t);
 }
 
