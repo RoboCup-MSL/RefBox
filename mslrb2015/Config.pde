@@ -15,6 +15,7 @@ static class Config
   public static int substitutePenalty_ms = 30000;                  // TODO: 30 seconds okay?
 	public static int doubleYellowPenalty_ms = 90000;                //@mbc default value reajusted according to rules
 	public static int setPieceMaxTime_ms = 7000;
+  public static int substitutionMaxTime_ms = 20000;
 
 	// Appearance
 	public static int maxShortName = 8;
@@ -131,6 +132,9 @@ static class Config
 					
 					if(rules.has("setPieceMaxTime_ms"))
 					setPieceMaxTime_ms = rules.getInt("setPieceMaxTime_ms");
+
+          if(rules.has("substitutionMaxTime_ms"))
+          substitutionMaxTime_ms = rules.getInt("substitutionMaxTime_ms");
 					
 					// ----
 					// Appearance

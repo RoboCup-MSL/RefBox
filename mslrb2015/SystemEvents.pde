@@ -86,7 +86,8 @@ void mouseMoved() {
 
 // Processing key'event
 void keyPressed() {
-
+  
+  // TODO: only accept numbers for textbox value
   for (int i=0; i<tBox.length; i++) {
     if (tBox[i].clickedLast && tBox[i].visible) {
       if (key == BACKSPACE && tBox[i].value.length() > 1) {

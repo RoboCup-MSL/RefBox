@@ -17,7 +17,8 @@
 	{
 		"repairPenalty_ms": 20000,
 		"doubleYellowPenalty_ms": 90000,
-		"setPieceMaxTime_ms": 7000
+		"setPieceMaxTime_ms": 7000,
+		"substitutionMaxTime_ms": 20000
 	},
 	"appearance":
 	{

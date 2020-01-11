@@ -35,7 +35,7 @@ public class StopWatch {
 		oldTime = t;
 		adjustValues();
 	}
-	
+
 	private void adjustValues()
 	{
 		if (isTimer)

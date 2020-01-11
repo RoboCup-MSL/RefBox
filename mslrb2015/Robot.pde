@@ -2,7 +2,7 @@
 //==============================================================================
 class Robot {
 	float guix, guiy;
-	String state = "play"; //play , repair , yellow, doubleyellow , red
+	String state = "play"; //play, repair, yellow, doubleyellow, red
 	StopWatch RepairTimer;
   StopWatch SubstituteTimer;
 	StopWatch DoubleYellowTimer;
@@ -11,7 +11,7 @@ class Robot {
 		guix=zx; 
 		guiy=zy;
 		RepairTimer = new StopWatch(true, 0, false, false);
-    SubstituteTimer = new StopWatch(true, 0, false, false);
+    SubstituteTimer = new StopWatch(true, 0, true, false);
 		DoubleYellowTimer = new StopWatch(true, 0, false, false);
 	}
 

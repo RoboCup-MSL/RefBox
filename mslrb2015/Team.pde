@@ -5,11 +5,10 @@ class Team {
 	String unicastIP, multicastIP;
 	color colorTeam=(#000000);
 	boolean isCyan;  //default: cyan@left
-	boolean newYellowCard, newRedCard, newRepair, newSubstitute, newDoubleYellow, newPenaltyKick, newGoal; // Pending commands, effective only on gamestate change
+	boolean newYellowCard, newRedCard, newRepair, newSubstitution, newDoubleYellow, newPenaltyKick, newGoal; // Pending commands, effective only on gamestate change
 	int Score, RedCardCount, YellowCardCount, DoubleYellowCardCount, PenaltyCount;
 	public int RepairCount;
 	public int nOfRepairs;
-  public int nSubstitutions;
 	int tableindex=0;
 	org.json.JSONObject worldstate_json;
 	String wsBuffer;
@@ -86,7 +85,6 @@ class Team {
 		this.Score=0; 
 		this.RepairCount=0;
 		this.nOfRepairs = 1;
-    this.nSubstitutions = 0;
 		this.RedCardCount=0;
 		this.YellowCardCount=0;
 		this.DoubleYellowCardCount=0;
@@ -94,7 +92,7 @@ class Team {
 		this.newYellowCard=false;
 		this.newRedCard=false;
 		this.newRepair=false;
-    this.newSubstitute=false;
+    this.newSubstitution=false;
 		this.newDoubleYellow=false;
 		this.newPenaltyKick=false;
 		for (int i=0; i<5; i++)
@@ -170,29 +168,6 @@ class Team {
   //*******************************************************************
   void substitute_timer_start(int subCount) {
     r[subCount].SubstituteTimer.startTimer(Config.substitutePenalty_ms);
-    
-    if (isCyan)
-    println("Substitution Cyan started!");
-    else
-    println("Substitution Magenta started!");
-  }
-  
-  //*******************************************************************
-  void substitute_timer_check(int subCount) {
-    if (r[subCount].SubstituteTimer.getStatus())
-    {
-      if (r[subCount].SubstituteTimer.getTimeMs() > 0)
-      {
-        if (StateMachine.isInterval()) {
-          r[subCount].SubstituteTimer.resetStopWatch();
-          println("Substitution reseted!");
-        }
-      }
-      else
-      {
-        //r[subCount].SubstituteTimer.resetStopWatch();
-      }
-    }
   }
 
 	//*******************************************************************
@@ -272,8 +247,8 @@ class Team {
 				this.DoubleYellowCardCount++;
 				this.YellowCardCount = 0;
 
-				if(this.isCyan) send_event_v2(""+COMM_DOUBLE_YELLOW, "Double Yellow", this);
-				else send_event_v2(""+COMM_DOUBLE_YELLOW, "Double Yellow", this);
+				if(this.isCyan) send_event_v2(""+COMM_DOUBLE_YELLOW, "Double Yellow", this, -1);
+				else send_event_v2(""+COMM_DOUBLE_YELLOW, "Double Yellow", this, -1);    // TODO: Same as line above
 			}
 			this.newDoubleYellow = false;
 		}
@@ -284,21 +259,19 @@ class Team {
 		}
 	}
 
-  void checkSubstitutions() {
-    int i;
-    
-    if (this.newSubstitute) {
-      while (this.nSubstitutions > 0) {    // Number of substitutions that have to be performed
-        for (i = 0; i < r.length; i++) if (this.r[i].state == "play") break;    // If any robot in play, don't substitute
-        this.substitute_timer_start(i);
-        this.r[i].setState("substituting");
-        this.nSubstitutions--;
+  //*******************************************************************
+  void substitute(int robotID) {    
+    for (int i = 0; i < r.length; i++) {
+      if (this.r[i].state.equals("play") || this.r[i].state.equals("yellow")) {    // only robots that are in play can substitute
+      send_event_v2(""+COMM_SUBSTITUTION, "substituting", this, robotID);
+      this.substitute_timer_start(i);
+      println("substituting robot " + i + " (on field) for robot " + robotID + " (outside field)");
+      break;
       }
-      //TODO: send message v2
-      this.newSubstitute = false;
     }
   }
 
+  //*******************************************************************
 	public int numberOfPlayingRobots()
 	{
 		int i, count;
@@ -308,8 +281,6 @@ class Team {
 	}
 
 	//*******************************************************************
-	//*******************************************************************
-
 	void updateUI() {
 		if(connectedClient != null && !connectedClient.active())
 		{
@@ -346,10 +317,6 @@ class Team {
 		for (int i=0; i < 4; i++) {
 			if (r[i].state == "repair") repair_timer_check(i);
 		}
-
-    for (int i=0; i < r.length; i++) {
-      if (r[i].state == "substituting") substitute_timer_check(i);
-    }
 
 		for (int i=0; i < 4; i++) {
 			if (r[i].state == "doubleyellow") double_yellow_timer_check(i);

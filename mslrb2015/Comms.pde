@@ -74,12 +74,12 @@ public static void event_message_v2(ButtonsEnum btn, boolean on)
 
 	if(cmd != null && msg != null)
 	{
-		send_event_v2(cmd, msg, t);
+		send_event_v2(cmd, msg, t, -1);
 	}
 	//println("Command: " + cmd);
 }
 
-public static void send_event_v2(String cmd, String msg, Team t)
+public static void send_event_v2(String cmd, String msg, Team t, int robotID)
 {
 	String teamIP, teamName;
 
@@ -91,7 +91,7 @@ public static void send_event_v2(String cmd, String msg, Team t)
     teamIP = t.multicastIP;
     teamName = t.team;
   }
-	send_to_basestation(cmd,teamIP,-1);  //send to basestatin
+	send_to_basestation(cmd, teamIP, robotID);  //send to basestation
 	scoreClients.update_tEvent(cmd, msg, teamName); //send to referee client
 	mslRemote.update_tEvent(cmd, msg, t); //remote command
 }

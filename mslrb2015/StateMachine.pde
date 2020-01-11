@@ -39,7 +39,7 @@ static class StateMachine
 				{
 					if(Popup.getResponse().equals("yes"))
 					{
-						send_event_v2(cCommcmds[CMDID_COMMON_RESET], Commcmds[CMDID_COMMON_RESET], null);
+						send_event_v2(cCommcmds[CMDID_COMMON_RESET], Commcmds[CMDID_COMMON_RESET], null, -1);
 						Popup.close();
 						gsCurrent = GameStateEnum.GS_RESET;            // Game over
 						needUpdate = true;
@@ -62,9 +62,9 @@ static class StateMachine
 						SetPieceDelay.stopTimer();
 
 						if (bCommoncmds[CMDID_COMMON_HALFTIME].Label.equals("End Game"))
-						send_event_v2(cCommcmds[CMDID_COMMON_ENDGAME], Commcmds[CMDID_COMMON_ENDGAME], null);
+						send_event_v2(cCommcmds[CMDID_COMMON_ENDGAME], Commcmds[CMDID_COMMON_ENDGAME], null, -1);
 						else
-						send_event_v2(cCommcmds[CMDID_COMMON_HALFTIME], Commcmds[CMDID_COMMON_HALFTIME], null);            
+						send_event_v2(cCommcmds[CMDID_COMMON_HALFTIME], Commcmds[CMDID_COMMON_HALFTIME], null, -1);            
 					}
 					break;
 				}
@@ -109,21 +109,23 @@ static class StateMachine
             {
               if (tBox[t].value != "0") {
                 if (t < 3) {
-                  if(!teamA.newSubstitute) teamA.newSubstitute = true;
-                  teamA.nSubstitutions++;
-                  println("Send new substitution to A");
+                  if(!teamA.newSubstitution) teamA.newSubstitution = true;
+                  println(tBox[t].value);
+                  teamA.substitute(int(tBox[t].value));
                 }
                 else {
-                  if (!teamB.newSubstitute) teamB.newSubstitute = true; 
-                  teamB.nSubstitutions++;
-                  println("Send new substitution to ");
+                  if (!teamB.newSubstitution) teamB.newSubstitution = true; 
+                  println(tBox[t].value);
+                  teamB.substitute(int(tBox[t].value));
                 }
               }
               tBox[t].value = "0";
               tBox[t].hide();
             }
-            teamA.checkSubstitutions();  // Perform substitutions
-            teamB.checkSubstitutions();
+            if (teamA.newSubstitution || teamB.newSubstitution) {
+              SetPieceDelay.startTimer(Config.substitutionMaxTime_ms);
+              println ("Substitution timer: " + Config.substitutionMaxTime_ms);
+            }
           } else if (Popup.getResponse().equals("Cancel")) {
             for (int t = 0; t < tBox.length; t++)
             {
