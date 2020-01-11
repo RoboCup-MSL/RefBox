@@ -135,7 +135,7 @@ class Button {
 				this.bStatus="normal";
 				if(StateMachine.setpiece && this.Label == Teamcmds[6]) {
 					StateMachine.ResetSetpiece();
-					send_to_basestation(cCommcmds[1]);
+					send_to_basestation(cCommcmds[1], "", -1);
 				}
 			}
 			else this.bStatus="active";
@@ -168,7 +168,7 @@ class Button {
 //
 public static Button buttonFromEnum(ButtonsEnum btn)
 {
-	if(btn.getValue() <= ButtonsEnum.BTN_RESET.getValue())
+	if(btn.getValue() <= ButtonsEnum.BTN_CONFIG.getValue())
 	return bCommoncmds[btn.getValue()];
 
 	if(btn.getValue() <= ButtonsEnum.BTN_C_YELLOW.getValue())
@@ -177,12 +177,16 @@ public static Button buttonFromEnum(ButtonsEnum btn)
 	if(btn.getValue() <= ButtonsEnum.BTN_M_YELLOW.getValue())
 	return bTeamBcmds[btn.getValue() - ButtonsEnum.BTN_M_KICKOFF.getValue()];
 
+  if(btn.getValue() <= ButtonsEnum.BTN_CONFIG.getValue())
+  return bCommoncmds[btn.getValue()];
+  
 	return null;
 }
 
 //***********************************************************************
 //
 void buttonEvent(char group, int pos) {
+  System.out.println("group = " + group + " pos = " + pos);
 
 	ButtonsEnum clickedButton = null;
 	Button clickBtn = null;
@@ -190,6 +194,7 @@ void buttonEvent(char group, int pos) {
 	if (group=='C')
 	{
 		clickedButton = ButtonsEnum.items[pos];
+    System.out.println(clickedButton);
 		clickBtn = buttonFromEnum(clickedButton);
 		if(clickBtn.isEnabled())
 		clickBtn.toggle();
@@ -215,6 +220,8 @@ void buttonEvent(char group, int pos) {
 		clickedButton = null;
 	}
 
+  System.out.println("..." + clickedButton);
+
 	if(clickedButton != null)        // A button has been clicked
 	{
 		boolean btnOn = buttonFromEnum(clickedButton).isActive();
@@ -227,7 +234,7 @@ void buttonEvent(char group, int pos) {
 		}
 		
 		// Special cases, that send only event message on game change (flags)
-		if( clickedButton.isYellow() || clickedButton.isRed() || clickedButton.isRepair() )
+		if( clickedButton.isYellow() || clickedButton.isRed() || clickedButton.isRepair() || clickedButton.isConfig() )
 		{
 			// Do literally nothing...
 		}else{

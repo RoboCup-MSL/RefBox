@@ -14,9 +14,15 @@ static class Popup
 	private static int b1;
 	private static int b2;
 	private static int b3;
+  private static int b4;
+  private static int b5;
+  private static int b6;
 	private static int bw1;
 	private static int bw2;
 	private static int bw3;
+  private static int bw4;
+  private static int bw5;
+  private static int bw6;
 
 	private static int fontSize;
 
@@ -49,7 +55,7 @@ static class Popup
 		b1 = bt1; bw1 = 0;
 		b2 = bt2; bw2 = 0;
 		b3 = bt3; bw3 = 0;
-		
+
 		if (bt1 > 0) {bPopup[bt1].enable(); bw1 = bPopup[bt1].bwidth; numOfButtons++;}
 		if (bt2 > 0) {bPopup[bt2].enable(); bw2 = bPopup[bt2].bwidth; numOfButtons++;} 
 		if (bt3 > 0) {bPopup[bt3].enable(); bw3 = bPopup[bt3].bwidth; numOfButtons++;}
@@ -98,7 +104,7 @@ static class Popup
 	}
 
 	public static void draw() {
-		
+		//println("draw pop up"); 
 		mainApplet.rectMode(CENTER);
 
 		mainApplet.noStroke();
@@ -120,18 +126,38 @@ static class Popup
 			if (type == PopupTypeEnum.POPUP_HELP) {
 				bPopup[b1].setxy(leftOffset, mainApplet.height/2+78);
 			}
+      else if (type == PopupTypeEnum.POPUP_CONFIG) {
+        bPopup[b1].setxy(leftOffset, mainApplet.height/2 + 85);
+      }
+      else if (type == PopupTypeEnum.POPUP_SUBS) {
+        bPopup[b1].setxy(leftOffset, mainApplet.height/2 + 240);
+      }
 			else {
 				bPopup[b1].setxy(leftOffset, mainApplet.height/2+40);
 			}
 			leftOffset += (delta + bw1);  
 		}
 		if (bPopup[b2].isEnabled()) {
+      if (type == PopupTypeEnum.POPUP_SUBS) {
+        bPopup[b2].setxy(leftOffset, mainApplet.height/2 + 240);
+      }
+      else {
 			bPopup[b2].setxy(leftOffset, mainApplet.height/2+40);
+      }
 			leftOffset += (delta + bw2);  
 		}
 		if (bPopup[b3].isEnabled()) {
 			bPopup[b3].setxy(leftOffset, mainApplet.height/2+40);
 		}
+    if (bPopup[b4].isEnabled()){
+      bPopup[b4].setxy(leftOffset, mainApplet.height/2);
+    }
+    if (bPopup[b5].isEnabled()){
+      bPopup[b5].setxy(leftOffset, mainApplet.height/2);
+    }
+    if (bPopup[b6].isEnabled()){
+      bPopup[b6].setxy(leftOffset, mainApplet.height/2);
+    }
 		
 		mainApplet.fill(220);
 		mainApplet.textFont(panelFont);
@@ -142,9 +168,15 @@ static class Popup
 			mainApplet.textAlign(LEFT, CENTER);
 			mainApplet.text( message, mainApplet.width/2 - 205 , mainApplet.height/2 - 35);
 		}
-		else if (type == PopupTypeEnum.POPUP_WAIT){
+		else if (type == PopupTypeEnum.POPUP_WAIT) {
 			mainApplet.text( message, mainApplet.width/2, mainApplet.height/2);
 		}
+    else if (type == PopupTypeEnum.POPUP_CONFIG) {
+      mainApplet.text( message, mainApplet.width/2, mainApplet.height/2 - 90);
+    }
+    else if (type == PopupTypeEnum.POPUP_SUBS) {
+      mainApplet.text( message, mainApplet.width/2, mainApplet.height/2 - 220);
+    }
 		else {
 			mainApplet.text( message, mainApplet.width/2, mainApplet.height/2 - 50);
 		}

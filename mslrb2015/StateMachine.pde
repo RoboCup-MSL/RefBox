@@ -102,13 +102,51 @@ static class StateMachine
 					break;
 				}
 
+      case POPUP_SUBS:
+        {
+          if (Popup.getResponse().equals("Apply")) {
+            for (int t = 0; t < tBox.length; t++)
+            {
+              if (tBox[t].value != "0") {
+                if (t < 3) {
+                  if(!teamA.newSubstitute) teamA.newSubstitute = true;
+                  teamA.nSubstitutions++;
+                  println("Send new substitution to A");
+                }
+                else {
+                  if (!teamB.newSubstitute) teamB.newSubstitute = true; 
+                  teamB.nSubstitutions++;
+                  println("Send new substitution to ");
+                }
+              }
+              tBox[t].value = "0";
+              tBox[t].hide();
+            }
+            teamA.checkSubstitutions();  // Perform substitutions
+            teamB.checkSubstitutions();
+          } else if (Popup.getResponse().equals("Cancel")) {
+            for (int t = 0; t < tBox.length; t++)
+            {
+              tBox[t].value = "0";
+              tBox[t].hide();
+            }
+          }
+        }
+        
       case POPUP_CONFIG:
         {
-          if(Popup.getResponse().equals("1")) teamB.nOfRepairs = 1; 
-          if(Popup.getResponse().equals("2")) teamB.nOfRepairs = 2;
-          if(Popup.getResponse().equals("3")) teamB.nOfRepairs = 3;
+          for (int s = 0; s < bSlider.length; s++)
+          {
+            bSlider[s].disable();
+            if(StateMachine.GetCurrentGameState() != GameStateEnum.GS_PREGAME)
+            {
+                //bSlider[i].disable();
+            }else{
+                //bSlider[i].enable();
+            }
+          }
           break;
-        }   
+        }
       }
       
 			needUpdate = false;
@@ -184,10 +222,34 @@ static class StateMachine
 			}
 			else if(btnCurrent.isStop())
 			{
+  //println(12);
 				SetPieceDelay.resetStopWatch();
 				SetPieceDelay.stopTimer();
 				forceKickoff = false; 
 			}
+      else if(btnCurrent.isSubs())
+      {
+          Popup.show(PopupTypeEnum.POPUP_SUBS, MSG_SUBS, 9, 10, 0, 24, 840, 600);
+          for (int t = 0; t < tBox.length; t++)
+          {
+            tBox[t].show();
+          }
+          
+      }
+      else if(btnCurrent.isConfig())
+      {
+          Popup.show(PopupTypeEnum.POPUP_CONFIG, MSG_CONFIG, 8, 0, 0, 24, 380, 300);
+          for (int s = 0; s < bSlider.length; s++)
+          {
+            //bSlider[s].enable();
+            if(StateMachine.GetCurrentGameState() != GameStateEnum.GS_PREGAME)
+            {
+                bSlider[s].disable();
+            }else{
+                bSlider[s].enable();
+            }
+          }
+      }
 			
 			println ("Current: " + gsCurrent);
 			switch(gsCurrent)
@@ -207,10 +269,10 @@ static class StateMachine
 					nextGS = SwitchRunningStopped();
 					switch(nextGS)
 					{
-					case GS_GAMEON_H1: send_to_basestation(COMM_FIRST_HALF + ""); break;
-					case GS_GAMEON_H2: send_to_basestation(COMM_SECOND_HALF + ""); break;
-					case GS_GAMEON_H3: send_to_basestation(COMM_FIRST_HALF_OVERTIME + ""); break;
-					case GS_GAMEON_H4: send_to_basestation(COMM_SECOND_HALF_OVERTIME + ""); break;
+          case GS_GAMEON_H1: send_to_basestation(COMM_FIRST_HALF + "","",-1); break;
+          case GS_GAMEON_H2: send_to_basestation(COMM_SECOND_HALF + "","",-1); break;
+          case GS_GAMEON_H3: send_to_basestation(COMM_FIRST_HALF_OVERTIME + "","",-1); break;
+          case GS_GAMEON_H4: send_to_basestation(COMM_SECOND_HALF_OVERTIME + "","",-1); break;
 					}
 				}
 				else if(btnCurrent == ButtonsEnum.BTN_STOP)
@@ -407,23 +469,23 @@ static class StateMachine
 	//************************************************************************
 	public static void reset()
 	{
-		try {
-			send_to_basestation("" + COMM_RESET);
-			buttonFromEnum(ButtonsEnum.BTN_PARK).disable();
-			btnCurrent = ButtonsEnum.BTN_ILLEGAL;
-			btnPrev = ButtonsEnum.BTN_ILLEGAL;
-			gsCurrent = GameStateEnum.GS_PREGAME;
-			gsPrev = GameStateEnum.GS_ILLEGAL;
-			
-			teamA.reset();
-			teamB.reset();        
-			teamA.resetname();
-			teamB.resetname();        
-			mainWatch.resetStopWatch();
-			playTimeWatch.resetStopWatch();
-			SetPieceDelay.resetStopWatch();
-			SetPieceDelay.stopTimer();
-		} catch(Exception e) {}
+    try {
+      send_to_basestation("" + COMM_RESET,"",-1);
+      buttonFromEnum(ButtonsEnum.BTN_PARK).disable();
+      btnCurrent = ButtonsEnum.BTN_ILLEGAL;
+      btnPrev = ButtonsEnum.BTN_ILLEGAL;
+      gsCurrent = GameStateEnum.GS_PREGAME;
+      gsPrev = GameStateEnum.GS_ILLEGAL;
+      
+      teamA.reset();
+      teamB.reset();        
+      teamA.resetname();
+      teamB.resetname();        
+      mainWatch.resetStopWatch();
+      playTimeWatch.resetStopWatch();
+      SetPieceDelay.resetStopWatch();
+      SetPieceDelay.stopTimer();
+    } catch(Exception e) {}
 	}
 
 	//************************************************************************
