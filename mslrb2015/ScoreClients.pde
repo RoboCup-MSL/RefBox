@@ -81,7 +81,7 @@ class ScoreClients
 		msg += "\"gameRunTime\": \"" + gamerunt + "\",";
 		
 		msg += "\"teamA\": {"; // Team A
-		msg += "\"color\": \"" + hex(teamA.c,6) + "\",";
+		msg += "\"color\": \"" + hex(teamA.colorTeam,6) + "\",";
 		msg += "\"shortName\": \"" + snA + "\",";
 		msg += "\"longName\": \"" + lnA + "\",";
 		msg += "\"score\": \"" + teamA.Score + "\",";
@@ -91,7 +91,7 @@ class ScoreClients
 		msg += "},"; // END Team A
 		
 		msg += "\"teamB\": {"; // Team B
-		msg += "\"color\": \"" + hex(teamB.c,6) + "\",";
+		msg += "\"color\": \"" + hex(teamB.colorTeam,6) + "\",";
 		msg += "\"shortName\": \"" + snB + "\",";
 		msg += "\"longName\": \"" + lnB + "\",";
 		msg += "\"score\": \"" + teamB.Score + "\",";

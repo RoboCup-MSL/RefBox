@@ -26,9 +26,11 @@ static class Config
 	public static color robotRedCardColor = #E03030;  //red
 	public static String defaultCyanTeamShortName = "Team";
 	public static String defaultCyanTeamLongName = "Cyan";
+  public static String defaultCyanTeam = "TeamCyan";
 	public static color defaultCyanTeamColor = #00ffff;
 	public static String defaultMagentaTeamShortName = "Team";
 	public static String defaultMagentaTeamLongName = "Magenta";
+  public static String defaultMagentaTeam = "TeamMagenta";
 	public static color defaultMagentaTeamColor  = #ff00ff;
 
 	// Sounds
@@ -158,6 +160,9 @@ static class Config
 
 					if(appearance.has("defaultCyanTeamLongName"))
 					defaultCyanTeamLongName = appearance.getString("defaultCyanTeamLongName");
+
+          if(appearance.has("defaultCyanTeam"))
+          defaultCyanTeam = appearance.getString("defaultCyanTeam");
 					
 					if(appearance.has("defaultCyanTeamColor"))
 					defaultCyanTeamColor = string2color(appearance.getString("defaultCyanTeamColor"));
@@ -168,6 +173,9 @@ static class Config
 
 					if(appearance.has("defaultMagentaTeamLongName"))
 					defaultMagentaTeamLongName = appearance.getString("defaultMagentaTeamLongName");
+
+           if(appearance.has("defaultMagentaTeam"))
+          defaultMagentaTeam = appearance.getString("defaultMagentaTeam");
 					
 					if(appearance.has("defaultMagentaTeamColor"))
 					defaultMagentaTeamColor = string2color(appearance.getString("defaultMagentaTeamColor"));
@@ -220,9 +228,11 @@ static class Config
 		println( "robotRedCardColor            : " + color2string(robotRedCardColor));
 		println( "defaultCyanTeamShortName     : " + defaultCyanTeamShortName);
 		println( "defaultCyanTeamLongName      : " + defaultCyanTeamLongName);
+    println( "defaultCyanTeam              : " + defaultCyanTeam);
 		println( "defaultCyanTeamColor         : " + color2string( defaultCyanTeamColor));
 		println( "defaultMagentaTeamShortName  : " + defaultMagentaTeamShortName );
 		println( "defaultMagentaTeamLongName   : " + defaultMagentaTeamLongName );
+    println( "defaultCyanTeam              : " + defaultMagentaTeam);
 		println( "defaultMagentaTeamColor      : " + color2string( defaultMagentaTeamColor ));
 		// Sounds
 		println( "### Sounds ###" );

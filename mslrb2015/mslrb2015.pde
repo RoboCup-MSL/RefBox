@@ -26,8 +26,8 @@ public static final int appFrameRate = 25;
 public static String[] Teamcmds= { "KickOff", "FreeKick", "GoalKick", "Throw In", "Corner", "Penalty", "Goal", "Repair", "Red", "Yellow" };
 public static String[] Commcmds= { "START", "STOP", "DropBall", "Park", "End Part",  "RESET", "Substitute", "Config", "EndGame" };
 
-public static final String[] cCTeamcmds= { "K", "F", "G", "T", "C", "P", "A", "O", "R", "Y" };
-public static final String[] cMTeamcmds= { "k", "f", "g", "t", "c", "p", "a", "o", "r", "y" };
+public static final String[] cTeamcmds= { "KICKOFF", "FREEKICK", "GOALKICK", "THROWIN", "CORNER", "PENALTY", "GOAL", "REPAIR", "RED_CARD", "YELLOW_CARD" };
+
 public static final int CMDID_TEAM_KICKOFF = 0;
 public static final int CMDID_TEAM_FREEKICK = 1;
 public static final int CMDID_TEAM_GOALKICK = 2;
@@ -39,7 +39,8 @@ public static final int CMDID_TEAM_REPAIR_OUT = 7;
 public static final int CMDID_TEAM_REDCARD = 8;
 public static final int CMDID_TEAM_YELLOWCARD = 9;
 
-public static final String[] cCommcmds= { "s", "S", "N", "L", "h", "Z", "i", "I", "e" };
+public static String[] cCommcmds= { "START", "STOP", "DROP_BALL", "PARK", "END_PART", "RESET", "SUBSTITUTE", "CONFIG", "END_GAME" };
+
 public static final int CMDID_COMMON_START = 0;
 public static final int CMDID_COMMON_STOP = 1;
 public static final int CMDID_COMMON_DROP_BALL = 2;
@@ -213,6 +214,18 @@ void draw() {
 		bTeamAcmds[i].update();
 		bTeamBcmds[i].update();
 	}
+  
+  //Special case: what if the same team connects twice to RefBox
+  if(teamA.team == teamB.team)
+  {
+      teamA.team =  teamA.team +" A";
+      teamA.longName = teamA.longName+" A";
+      teamA.multicastIP += ":1";
+  }
+  if(teamA.multicastIP == teamB.multicastIP)
+  {
+      teamA.multicastIP += ":1";
+  }
 
 	teamA.updateUI();
 	teamB.updateUI();
@@ -328,11 +341,11 @@ void initGui()
 
 	for (int i=0; i<6; i++) {
 		bTeamAcmds[i] = new Button(offsetLeft.x, offsetLeft.y+70*i, Teamcmds[i], 255, -1, 255, Config.defaultCyanTeamColor);
-		bTeamAcmds[i].cmd = "" + cCTeamcmds[i];
+		bTeamAcmds[i].cmd = "" + cTeamcmds[i];
 		bTeamAcmds[i].msg = Teamcmds[i];
 
 		bTeamBcmds[i] = new Button(offsetRight.x, offsetRight.y+70*i, Teamcmds[i], 255, -1, 255, Config.defaultMagentaTeamColor);
-		bTeamBcmds[i].cmd = "" + cMTeamcmds[i];
+		bTeamBcmds[i].cmd = "" + cTeamcmds[i];
 		bTeamBcmds[i].msg = Teamcmds[i];
 	}
 
@@ -347,9 +360,9 @@ void initGui()
 	bTeamBcmds[9] = new Button(offsetRight.x+105, offsetRight.y+70*5, "", #FEFF00, #808100, 255, #FEFF00);  //yellow card B
 
 	for (int i = 6; i < 10; i++) {
-		bTeamAcmds[i].cmd = "" + cCTeamcmds[i];
+		bTeamAcmds[i].cmd = "" + cTeamcmds[i];
 		bTeamAcmds[i].msg = Teamcmds[i];
-		bTeamBcmds[i].cmd = "" + cMTeamcmds[i];
+		bTeamBcmds[i].cmd = "" + cTeamcmds[i];
 		bTeamBcmds[i].msg = Teamcmds[i];
 	}
 
@@ -368,8 +381,8 @@ void initGui()
 	bPopup[0] = new Button(0, 0, "", 0, 0, 0, 0);
 	bPopup[1] = new Button(0, 0, "yes", 220, #129003, 0, #129003);
 	bPopup[2] = new Button(0, 0, "no", 220, #D03030, 0, #D03030);//
-	bPopup[3] = new Button(0, 0, "cyan", 220, Config.defaultCyanTeamColor, 0, #804035);
-	bPopup[4] = new Button(0, 0, "magenta", 220, Config.defaultMagentaTeamColor, 0, Config.defaultMagentaTeamColor);
+	bPopup[3] = new Button(0, 0, "Left", 220, #008000, 0, #000090);
+	bPopup[4] = new Button(0, 0, "Rigth", 220, #008000, 0, #900000);
 	bPopup[5] = new Button(0, 0, "1", 220, #6D9C75, 0, #6D9C75); bPopup[5].setdim(80, 48);
 	bPopup[6] = new Button(0, 0, "2", 220, #6D9C75, 0, #6D9C75); bPopup[6].setdim(80, 48);
 	bPopup[7] = new Button(0, 0, "3", 220, #6D9C75, 0, #6D9C75); bPopup[7].setdim(80, 48);

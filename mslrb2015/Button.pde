@@ -135,7 +135,7 @@ class Button {
 				this.bStatus="normal";
 				if(StateMachine.setpiece && this.Label == Teamcmds[6]) {
 					StateMachine.ResetSetpiece();
-					send_to_basestation(cCommcmds[1], "", -1);
+					send_to_basestation(cCommcmds[1],"",-1);
 				}
 			}
 			else this.bStatus="active";

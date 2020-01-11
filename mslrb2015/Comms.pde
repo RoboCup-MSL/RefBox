@@ -12,31 +12,31 @@ public static void serverEvent(MyServer whichServer, Client whichClient) {
 
 // Client authentication
 public static void clientValidation(MyServer whichServer, Client whichClient) {
-  try{
-    // BASESTATION CLIENTS AUTH
-    if (whichServer.equals(BaseStationServer)) {
-      if (!Popup.isEnabled()) {
-        if(setteamfromip(whichClient.ip()))
-        connectingClient = whichClient; // Accept client!
-        else
-        {
-          // Invalid team
-          Log.logMessage("Invalid team " + whichClient.ip());
-          send_to_basestation(COMM_RESET,"",-1);
-          whichClient.stop();
-        }
-      } else {
-        Log.logMessage("ERR Another team connecting");
-        //whichClient.write(COMM_RESET);
+	try{
+		// BASESTATION CLIENTS AUTH
+		if (whichServer.equals(BaseStationServer)) {
+			if (!Popup.isEnabled()) {
+				if(setteamfromip(whichClient.ip()))
+				connectingClient = whichClient; // Accept client!
+				else
+				{
+					// Invalid team
+					Log.logMessage("Invalid team " + whichClient.ip());
+					send_to_basestation(COMM_RESET,"",-1);
+					whichClient.stop();
+				}
+			} else {
+				Log.logMessage("ERR Another team connecting");
+				//whichClient.write(COMM_RESET);
         send_to_basestation(COMM_RESET,"",-1);
-        whichClient.stop();
-      }
-    }
-    // REMOTE CLIENTS AUTH
-    else if (mslRemote != null && mslRemote.server != null && whichServer.equals(mslRemote.server)) {
-      
-    }
-  }catch(Exception e){}
+				whichClient.stop();
+			}
+		}
+		// REMOTE CLIENTS AUTH
+		else if (mslRemote != null && mslRemote.server != null && whichServer.equals(mslRemote.server)) {
+			
+		}
+	}catch(Exception e){}
 }
 
 
@@ -51,10 +51,10 @@ public static void send_to_basestation(String c, String teamIP, int robotID){
     }
     String send = jsonObject.toString() + "\0";
     System.out.println(send);
-    BaseStationServer.write(send);
+	  BaseStationServer.write(send);
 
-    Log.logactions(send);
-    mslRemote.setLastCommand(send);      // Update MSL remote module with last command sent to basestations
+	  Log.logactions(send);
+	  mslRemote.setLastCommand(send);      // Update MSL remote module with last command sent to basestations
 
 }
 
@@ -72,16 +72,16 @@ public static void event_message_v2(ButtonsEnum btn, boolean on)
   if(btn.isCyan()) t = teamA;
   if(btn.isMagenta()) t = teamB;
 
-  if(cmd != null && msg != null)
-  {
-    send_event_v2(cmd, msg, t);
-  }
-  //println("Command: " + cmd);
+	if(cmd != null && msg != null)
+	{
+		send_event_v2(cmd, msg, t);
+	}
+	//println("Command: " + cmd);
 }
 
 public static void send_event_v2(String cmd, String msg, Team t)
 {
-  String teamIP, teamName;
+	String teamIP, teamName;
 
   if( t == null)
   {
@@ -91,9 +91,9 @@ public static void send_event_v2(String cmd, String msg, Team t)
     teamIP = t.multicastIP;
     teamName = t.team;
   }
-  send_to_basestation(cmd,teamIP,-1);  //send to basestatin
-  scoreClients.update_tEvent(cmd, msg, teamName); //send to referee client
-  mslRemote.update_tEvent(cmd, msg, t); //remote command
+	send_to_basestation(cmd,teamIP,-1);  //send to basestatin
+	scoreClients.update_tEvent(cmd, msg, teamName); //send to referee client
+	mslRemote.update_tEvent(cmd, msg, t); //remote command
 }
 
 public static boolean setteamfromip(String s) {
@@ -107,29 +107,29 @@ public static boolean setteamfromip(String s) {
 
   //println("Client IP: " + clientipstr);
 
-  for (TableRow row : teamstable.rows()) {
-    String saddr = row.getString("UnicastAddr");
-    if (saddr.equals(clientipstr)) {
-      println("Team " + row.getString("Team") + " connected (" + row.getString("shortname8") + "/" + row.getString("longame24") + ")");
-      teamselect=row;
-      
-      boolean noTeamA = teamA.connectedClient == null || !teamA.connectedClient.active();
-      boolean noTeamB = teamB.connectedClient == null || !teamB.connectedClient.active();
-      
-      if(StateMachine.GetCurrentGameState() == GameStateEnum.GS_PREGAME || (noTeamA || noTeamB)) // In pre-game or if lost all connections, ask for the color
-      {
-        Popup.show(PopupTypeEnum.POPUP_TEAMSELECTION, "Team: "+row.getString("Team")+"\nSelect color or press ESC to cancel",3, 0, 4, 16, 380, 200);
-        return true;  
-      }
-      else
-      {
-        Log.logMessage("ERR No more connections allowed (Attempt from " + s + ")");
-        return false;
-      }
-    }
-  }
-  Log.logMessage("ERR Unknteam (Attempt from " + s + ")");
-  return false;
+	for (TableRow row : teamstable.rows()) {
+		String saddr = row.getString("UnicastAddr");
+		if (saddr.equals(clientipstr)) {
+			println("Team " + row.getString("Team") + " connected (" + row.getString("shortname8") + "/" + row.getString("longame24") + ")");
+			teamselect=row;
+			
+			boolean noTeamA = teamA.connectedClient == null || !teamA.connectedClient.active();
+			boolean noTeamB = teamB.connectedClient == null || !teamB.connectedClient.active();
+			
+			if(StateMachine.GetCurrentGameState() == GameStateEnum.GS_PREGAME || (noTeamA || noTeamB)) // In pre-game or if lost all connections, ask for the color
+			{
+				Popup.show(PopupTypeEnum.POPUP_TEAMSELECTION, "Team: "+row.getString("Team")+"\nSelect color or press ESC to cancel",3, 0, 4, 16, 380, 200);
+				return true;	
+			}
+			else
+			{
+				Log.logMessage("ERR No more connections allowed (Attempt from " + s + ")");
+				return false;
+			}
+		}
+	}
+	Log.logMessage("ERR Unknteam (Attempt from " + s + ")");
+	return false;
 }
 
 public static void checkBasestationsMessages()
@@ -355,34 +355,34 @@ public static final String COMM_SUBSTITUTION = "SUBSTITUTION";
 
 public static StringDict Description;
 void comms_initDescriptionDictionary() {
-  Description = new StringDict();
-  Description.set(COMM_STOP, "STOP");
-  Description.set(COMM_START, "START");
-  Description.set(COMM_DROP_BALL, "Drop Ball");
-  Description.set(COMM_HALF_TIME, "Halftime");
-  Description.set(COMM_END_GAME, "End Game");
-  Description.set(COMM_GAMEOVER, "Game Over");
-  Description.set(COMM_RESET, "Reset Game");
-  Description.set(COMM_WELCOME, "Welcome");
-  Description.set(COMM_TESTMODE_ON, "Test Mode on");
-  Description.set(COMM_TESTMODE_OFF, "Test Mode off");
-  Description.set(COMM_FIRST_HALF, "1st half");
-  Description.set(COMM_SECOND_HALF, "2nd half");
-  Description.set(COMM_FIRST_HALF_OVERTIME, "Overtime 1st half");
-  Description.set(COMM_SECOND_HALF_OVERTIME, "Overtime 2nd half");
-  Description.set(COMM_PARK, "Park");
+	Description = new StringDict();
+	Description.set(COMM_STOP, "STOP");
+	Description.set(COMM_START, "START");
+	Description.set(COMM_DROP_BALL, "Drop Ball");
+	Description.set(COMM_HALF_TIME, "Halftime");
+	Description.set(COMM_END_GAME, "End Game");
+	Description.set(COMM_GAMEOVER, "Game Over");
+	Description.set(COMM_RESET, "Reset Game");
+	Description.set(COMM_WELCOME, "Welcome");
+	Description.set(COMM_TESTMODE_ON, "Test Mode on");
+	Description.set(COMM_TESTMODE_OFF, "Test Mode off");
+	Description.set(COMM_FIRST_HALF, "1st half");
+	Description.set(COMM_SECOND_HALF, "2nd half");
+	Description.set(COMM_FIRST_HALF_OVERTIME, "Overtime 1st half");
+	Description.set(COMM_SECOND_HALF_OVERTIME, "Overtime 2nd half");
+	Description.set(COMM_PARK, "Park");
   Description.set(COMM_SUBSTITUTION, "Substitution");
 
-  Description.set(COMM_KICKOFF,       "Kickoff");
-  Description.set(COMM_FREEKICK,      "Freekick");
-  Description.set(COMM_GOALKICK,      "Goalkick");
-  Description.set(COMM_THROWIN,       "Throw In");
-  Description.set(COMM_CORNER,        "Corner");
-  Description.set(COMM_PENALTY,       "Penalty Kick");
-  Description.set(COMM_GOAL,          "Goal+");
-  Description.set(COMM_SUBGOAL,       "Goal-");
-  Description.set(COMM_REPAIR_OUT,    "Repair Out");
-  Description.set(COMM_RED_CARD,      "Red Card");
-  Description.set(COMM_YELLOW_CARD,   "Yellow Card");
-  Description.set(COMM_DOUBLE_YELLOW, "Double Yellow");
+	Description.set(COMM_KICKOFF,       "Kickoff");
+	Description.set(COMM_FREEKICK,      "Freekick");
+	Description.set(COMM_GOALKICK,      "Goalkick");
+	Description.set(COMM_THROWIN,       "Throw In");
+	Description.set(COMM_CORNER,        "Corner");
+	Description.set(COMM_PENALTY,       "Penalty Kick");
+	Description.set(COMM_GOAL,          "Goal+");
+	Description.set(COMM_SUBGOAL,       "Goal-");
+	Description.set(COMM_REPAIR_OUT,    "Repair Out");
+	Description.set(COMM_RED_CARD,      "Red Card");
+	Description.set(COMM_YELLOW_CARD,   "Yellow Card");
+	Description.set(COMM_DOUBLE_YELLOW, "Double Yellow");
 }

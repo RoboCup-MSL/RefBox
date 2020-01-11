@@ -3,7 +3,7 @@ class Team {
 	String longName;  //max 24 chars
   String team;
 	String unicastIP, multicastIP;
-	color c=(#000000);
+	color colorTeam=(#000000);
 	boolean isCyan;  //default: cyan@left
 	boolean newYellowCard, newRedCard, newRepair, newSubstitute, newDoubleYellow, newPenaltyKick, newGoal; // Pending commands, effective only on gamestate change
 	int Score, RedCardCount, YellowCardCount, DoubleYellowCardCount, PenaltyCount;
@@ -21,7 +21,7 @@ class Team {
 	boolean firstWorldState;
 	
 	Team(color c, boolean uileftside) {
-		this.c=c;
+		this.colorTeam=colorTeam;
 		this.isCyan=uileftside;
 		//robots
 		float x=0, y=64; 
@@ -40,11 +40,15 @@ class Team {
 		if (this.isCyan) {
 			this.shortName=Config.defaultCyanTeamShortName;
 			this.longName=Config.defaultCyanTeamLongName;
+      		this.team=Config.defaultCyanTeam;
 		}
 		else {
 			this.shortName=Config.defaultMagentaTeamShortName;
 			this.longName=Config.defaultMagentaTeamLongName;
+     		 this.team=Config.defaultMagentaTeam;
 		}
+    	this.unicastIP="172.16.0.0"; 		//reset unicastIP for generic IP
+    	this.multicastIP = "224.16.32.0"; 	//reset multicastIP for generic IP
 	}
 
 	void logWorldstate(String teamWorldstate, int ageMs){
@@ -106,6 +110,7 @@ class Team {
 	void teamConnected(TableRow teamselect){
 		shortName=teamselect.getString("shortname8");
 		longName=teamselect.getString("longame24");
+    team=teamselect.getString("Team");
 		unicastIP = teamselect.getString("UnicastAddr");
 		multicastIP = teamselect.getString("MulticastAddr");
 
@@ -114,7 +119,7 @@ class Team {
 		BaseStationServer.disconnect(connectedClient);
 
 		connectedClient = connectingClient;
-		connectingClient.write(COMM_WELCOME);
+		send_to_basestation(COMM_WELCOME,multicastIP,-1);
 		connectingClient = null;
 
 		if(this.logFile == null || this.logFileOut == null)
@@ -351,7 +356,7 @@ class Team {
 		}    
 
 		for (int i=0; i<5; i++)
-		r[i].updateUI(c,isCyan);
+		r[i].updateUI(colorTeam,isCyan);
 
 		textAlign(LEFT, BOTTOM);
 		textFont(debugFont);
