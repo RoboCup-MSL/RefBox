@@ -10,8 +10,8 @@ import processing.net.*;
 import krister.Ess.*;
 import org.json.*;
 
-public static final String MSG_VERSION="1.5.0";
-public static final String MSG_VERSION_MSG="(RoboCup 2019)";
+public static final String MSG_VERSION="1.5.1 beta";
+public static final String MSG_VERSION_MSG="(RoboCup 2020)";
 public static final String MSG_WINDOWTITLE="RoboCup MSL RefBox 2015 - "+MSG_VERSION+" "+MSG_VERSION_MSG;
 public static final String MSG_HALFTIME="End Current Part ?";
 public static final String MSG_RESET="Reset Game ?";
