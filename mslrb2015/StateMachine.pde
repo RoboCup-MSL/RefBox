@@ -14,6 +14,8 @@ static class StateMachine
 
 	public static boolean firstKickoffCyan = true;
 
+  public static boolean validInput = true;
+
 	public static void Update(ButtonsEnum click_btn, boolean on) //If on==True then active
 	{
 		btnCurrent = click_btn;
@@ -47,6 +49,7 @@ static class StateMachine
 						Popup.show(PopupTypeEnum.POPUP_WAIT, MSG_WAIT, 0, 0, 0, 24, 380, 100);
 						return;
 					} //<>// //<>//
+          Popup.close();
 					break;
 				}
 				
@@ -66,6 +69,7 @@ static class StateMachine
 						else
 						send_event_v2(cCommcmds[CMDID_COMMON_HALFTIME], Commcmds[CMDID_COMMON_HALFTIME], null, -1);            
 					}
+          Popup.close();
 					break;
 				}
 				
@@ -82,7 +86,8 @@ static class StateMachine
 					}
 					
 					if(t != null)
-					t.teamConnected(teamselect);          
+					t.teamConnected(teamselect);
+          Popup.close();          
 					break;
 				}
 				
@@ -91,6 +96,7 @@ static class StateMachine
 					if(Popup.getResponse().equals("1")) teamA.nOfRepairs = 1; 
 					if(Popup.getResponse().equals("2")) teamA.nOfRepairs = 2;
 					if(Popup.getResponse().equals("3")) teamA.nOfRepairs = 3;
+          Popup.close();
 					break;
 				}
 				
@@ -99,6 +105,7 @@ static class StateMachine
 					if(Popup.getResponse().equals("1")) teamB.nOfRepairs = 1; 
 					if(Popup.getResponse().equals("2")) teamB.nOfRepairs = 2;
 					if(Popup.getResponse().equals("3")) teamB.nOfRepairs = 3;
+          Popup.close();
 					break;
 				}
 
@@ -107,32 +114,45 @@ static class StateMachine
           if (Popup.getResponse().equals("Apply")) {
             for (int t = 0; t < tBox.length; t++)
             {
-              if (tBox[t].value != "0") {
-                if (t < 3) {
-                  if(!teamA.newSubstitution) teamA.newSubstitution = true;
-                  println(tBox[t].value);
-                  teamA.substitute(int(tBox[t].value));
-                }
-                else {
-                  if (!teamB.newSubstitution) teamB.newSubstitution = true; 
-                  println(tBox[t].value);
-                  teamB.substitute(int(tBox[t].value));
-                }
+              if (tBox[t].checkInput() == false) {
+                validInput = false;
+                break;
               }
-              tBox[t].value = "0";
-              tBox[t].hide();
+              validInput = true;
             }
-            if (teamA.newSubstitution || teamB.newSubstitution) {
-              SetPieceDelay.startTimer(Config.substitutionMaxTime_ms);
-              println ("Substitution timer: " + Config.substitutionMaxTime_ms);
-            }
-          } else if (Popup.getResponse().equals("Cancel")) {
+            if (validInput) {
+              for (int t = 0; t < tBox.length; t++)
+              {
+                if (tBox[t].value != "0") {
+                  if (t < 3) {
+                    if(!teamA.newSubstitution) teamA.newSubstitution = true;
+                    teamA.substitute(int(tBox[t].value));
+                  }
+                  else {
+                    if (!teamB.newSubstitution) teamB.newSubstitution = true;
+                    teamB.substitute(int(tBox[t].value));
+                  }
+                }
+                tBox[t].value = "0";
+                tBox[t].hide();
+              }
+              if (teamA.newSubstitution || teamB.newSubstitution) {
+                SetPieceDelay.startTimer(Config.substitutionMaxTime_ms);
+                println ("Substitution timer (s): " + Config.substitutionMaxTime_ms/1000);
+              }
+              Popup.close();
+            }            
+          }
+          else if (Popup.getResponse().equals("Cancel")) {
             for (int t = 0; t < tBox.length; t++)
             {
               tBox[t].value = "0";
               tBox[t].hide();
             }
+            validInput = true;
+            Popup.close();
           }
+          break;
         }
         
       case POPUP_CONFIG:
@@ -147,12 +167,12 @@ static class StateMachine
                 //bSlider[i].enable();
             }
           }
+          Popup.close();
           break;
         }
       }
       
 			needUpdate = false;
-			Popup.close();
 			return;
 		}
 		

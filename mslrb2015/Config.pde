@@ -12,7 +12,6 @@ static class Config
 
 	// Rules
 	public static int repairPenalty_ms = 20000;                      //@mbc default value reajusted according to rules
-  public static int substitutePenalty_ms = 30000;                  // TODO: 30 seconds okay?
 	public static int doubleYellowPenalty_ms = 90000;                //@mbc default value reajusted according to rules
 	public static int setPieceMaxTime_ms = 7000;
   public static int substitutionMaxTime_ms = 20000;
@@ -125,9 +124,6 @@ static class Config
 					// Rules
 					if(rules.has("repairPenalty_ms"))
 					repairPenalty_ms = rules.getInt("repairPenalty_ms");
-					
-          if(rules.has("substitutePenalty_ms"))
-          substitutePenalty_ms = rules.getInt("substitutePenalty_ms");
 
 					if(rules.has("doubleYellowPenalty_ms"))
 					doubleYellowPenalty_ms = rules.getInt("doubleYellowPenalty_ms");
@@ -220,7 +216,7 @@ static class Config
 		// Rules
 		println( "### Rules ###" );
 		println( "repairPenalty_ms             : " + repairPenalty_ms);
-    println( "substituePenalty_ms          : " + substitutePenalty_ms);
+    println( "substitutionMaxTime_ms       : " + substitutionMaxTime_ms);
 		println( "doubleYellowPenalty_ms       : " + doubleYellowPenalty_ms);
 		println();
 		// Appearance

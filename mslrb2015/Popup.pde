@@ -195,6 +195,10 @@ static class Popup
       mainApplet.text( "Robot number", mainApplet.width/4, mainApplet.height/2 - 100);
       mainApplet.text( "Robot number", mainApplet.width/4*3, mainApplet.height/2 - 100);
       mainApplet.fill(220);
+      if (!StateMachine.validInput) {
+        mainApplet.fill(#E03030);    // Red card color
+        mainApplet.text("Invalid robot number! Please enter values between 0 and 99", mainApplet.width/2, mainApplet.height/2 + 150, 220, 1200);
+      }
     }
 		else {
 			mainApplet.text( message, mainApplet.width/2, mainApplet.height/2 - 50);

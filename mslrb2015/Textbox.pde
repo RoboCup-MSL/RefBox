@@ -32,6 +32,14 @@ class Textbox {
     text(value, x - width/2 + 8, y);
   }
   
+  boolean checkInput() {
+    char[] input = value.toCharArray();
+    if (input.length > 2) return false;    // If input is more than 2 numbers
+    for (int i = 0; i < input.length; i++) {
+      if (input[i] < 48 || input[i] > 57) return false;    // ASCII values of 0 (48) and 99 (57)
+    } return true;
+  }
+  
   boolean mouseover() {
     if ( mouseX>(x - width/2) && mouseX<(x + width/2) && mouseY>(y - height/2) && mouseY<(y + height/2) ) return true;
     return false;

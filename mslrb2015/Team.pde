@@ -167,7 +167,7 @@ class Team {
 
   //*******************************************************************
   void substitute_timer_start(int subCount) {
-    r[subCount].SubstituteTimer.startTimer(Config.substitutePenalty_ms);
+    r[subCount].SubstituteTimer.startTimer(Config.substitutionMaxTime_ms);
   }
 
 	//*******************************************************************
