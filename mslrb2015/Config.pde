@@ -28,11 +28,13 @@ static class Config
 	public static String defaultCyanTeamShortName = "Team";
 	public static String defaultCyanTeamLongName = "Cyan";
   public static String defaultCyanTeam = "TeamCyan";
-	public static color defaultCyanTeamColor = #00ffff;
+	public static color defaultCyanTeamColor = #007BA7;
+  public static color defaultCyanBackgroundColor = #04486B;
 	public static String defaultMagentaTeamShortName = "Team";
 	public static String defaultMagentaTeamLongName = "Magenta";
   public static String defaultMagentaTeam = "TeamMagenta";
-	public static color defaultMagentaTeamColor  = #ff00ff;
+	public static color defaultMagentaTeamColor = #DA70D6;
+  public static color defaultMagentaBackgroundColor = #812F6D;
 
 	// Sounds
 	public static String sounds_maxTime = "";

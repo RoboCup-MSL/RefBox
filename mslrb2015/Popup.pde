@@ -112,9 +112,20 @@ static class Popup
 		mainApplet.rect(mainApplet.width/2 + 6, mainApplet.height/2 + 6,  popUpWidth, popUpHeight, 12);		
 
 		mainApplet.strokeWeight(2);
-		mainApplet.fill(63, 72, 204); mainApplet.stroke(220, 220, 220);
+		mainApplet.fill(63, 72, 204);
+    mainApplet.stroke(220, 220, 220);
 		mainApplet.rect(mainApplet.width/2, mainApplet.height/2, popUpWidth, popUpHeight, 12);		
 		
+    if (type == PopupTypeEnum.POPUP_SUBS) {
+      mainApplet.fill(Config.defaultCyanBackgroundColor);
+      mainApplet.rect(mainApplet.width/2 - popUpWidth/3, mainApplet.height/2, popUpWidth/3, popUpHeight, 12);
+      mainApplet.fill(Config.defaultMagentaBackgroundColor);
+      mainApplet.rect(mainApplet.width/2 + popUpWidth/3, mainApplet.height/2, popUpWidth/3, popUpHeight, 12);
+      mainApplet.fill(200);
+      mainApplet.rect(mainApplet.width/4, mainApplet.height/2 - 100, 140, 24);
+      mainApplet.rect(mainApplet.width/4*3, mainApplet.height/2 - 100, 140, 24);
+    }
+
 		int hw = 0;
 		if (bw1 > 0) hw = bw1 / 2;
 		else if (bw2 > 0) hw = bw2 / 2;
@@ -130,7 +141,7 @@ static class Popup
         bPopup[b1].setxy(leftOffset, mainApplet.height/2 + 85);
       }
       else if (type == PopupTypeEnum.POPUP_SUBS) {
-        bPopup[b1].setxy(leftOffset, mainApplet.height/2 + 240);
+        bPopup[b1].setxy(leftOffset + delta/2 - 20, mainApplet.height/2 + 240);
       }
 			else {
 				bPopup[b1].setxy(leftOffset, mainApplet.height/2+40);
@@ -139,7 +150,7 @@ static class Popup
 		}
 		if (bPopup[b2].isEnabled()) {
       if (type == PopupTypeEnum.POPUP_SUBS) {
-        bPopup[b2].setxy(leftOffset, mainApplet.height/2 + 240);
+        bPopup[b2].setxy(leftOffset - delta/2 + 20, mainApplet.height/2 + 240);
       }
       else {
 			bPopup[b2].setxy(leftOffset, mainApplet.height/2+40);
@@ -175,7 +186,15 @@ static class Popup
       mainApplet.text( message, mainApplet.width/2, mainApplet.height/2 - 90);
     }
     else if (type == PopupTypeEnum.POPUP_SUBS) {
-      mainApplet.text( message, mainApplet.width/2, mainApplet.height/2 - 220);
+      mainApplet.text( message, mainApplet.width/2, mainApplet.height/2 - 150);
+      mainApplet.textSize(1.2*fontSize);
+      mainApplet.text( "Team A", popUpWidth/4, mainApplet.height/2 - 220);
+      mainApplet.text( "Team B", mainApplet.width - popUpWidth/4, mainApplet.height/2 - 220);
+      mainApplet.fill(0);
+      mainApplet.textSize(0.8*fontSize);
+      mainApplet.text( "Robot number", mainApplet.width/4, mainApplet.height/2 - 100);
+      mainApplet.text( "Robot number", mainApplet.width/4*3, mainApplet.height/2 - 100);
+      mainApplet.fill(220);
     }
 		else {
 			mainApplet.text( message, mainApplet.width/2, mainApplet.height/2 - 50);
