@@ -364,7 +364,7 @@ void initGui()
 	bPopup[1] = new Button(0, 0, "yes", 220, #129003, 0, #129003);
 	bPopup[2] = new Button(0, 0, "no", 220, #D03030, 0, #D03030);//
 	bPopup[3] = new Button(0, 0, "Left", 220, #008000, 0, #000090);
-	bPopup[4] = new Button(0, 0, "Rigth", 220, #008000, 0, #900000);
+	bPopup[4] = new Button(0, 0, "Right", 220, #008000, 0, #900000);
 	bPopup[5] = new Button(0, 0, "1", 220, #6D9C75, 0, #6D9C75); bPopup[5].setdim(80, 48);
 	bPopup[6] = new Button(0, 0, "2", 220, #6D9C75, 0, #6D9C75); bPopup[6].setdim(80, 48);
 	bPopup[7] = new Button(0, 0, "3", 220, #6D9C75, 0, #6D9C75); bPopup[7].setdim(80, 48);
