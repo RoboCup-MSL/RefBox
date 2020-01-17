@@ -74,10 +74,10 @@ static class StateMachine
 					Team t = null;
 					if(Popup.getResponse().equals("Left"))
 					{
-						Log.logMessage("Connection from " + connectingClient.ip() + " accepted - Leht");
+						Log.logMessage("Connection from " + connectingClient.ip() + " accepted - Left");
 						t = teamA;
 					}else{
-						Log.logMessage("Connection from " + connectingClient.ip() + " accepted - Rigth");
+						Log.logMessage("Connection from " + connectingClient.ip() + " accepted - Right");
 						t = teamB;
 					}
 					
