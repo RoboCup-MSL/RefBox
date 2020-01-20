@@ -42,9 +42,9 @@ static class StateMachine
 						send_event_v2(cCommcmds[CMDID_COMMON_RESET], Commcmds[CMDID_COMMON_RESET], null);
 						Popup.close();
 						gsCurrent = GameStateEnum.GS_RESET;            // Game over
-						needUpdate = true;
+						needUpdate = true;						
 						reset();
-						Popup.show(PopupTypeEnum.POPUP_WAIT, MSG_WAIT, 0, 0, 0, 24, 380, 100);
+						//Popup.show(PopupTypeEnum.POPUP_WAIT, MSG_WAIT, 0, 0, 0, 24, 380, 100);
 						return;
 					} //<>// //<>//
 					break;
