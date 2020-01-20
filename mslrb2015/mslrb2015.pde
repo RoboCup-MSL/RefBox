@@ -10,7 +10,7 @@ import processing.net.*;
 import krister.Ess.*;
 import org.json.*;
 
-public static final String MSG_VERSION="1.5.1 beta";
+public static final String MSG_VERSION="2.0 beta(Json)";
 public static final String MSG_VERSION_MSG="(RoboCup 2020)";
 public static final String MSG_WINDOWTITLE="RoboCup MSL RefBox 2015 - "+MSG_VERSION+" "+MSG_VERSION_MSG;
 public static final String MSG_HALFTIME="End Current Part ?";
@@ -221,17 +221,17 @@ void draw() {
 		bTeamBcmds[i].update();
 	}
   
-  //Special case: what if the same team connects twice to RefBox
-  if(teamA.team == teamB.team)
-  {
-      teamA.team =  teamA.team +" A";
-      teamA.longName = teamA.longName+" A";
-      teamA.multicastIP += ":1";
-  }
-  if(teamA.multicastIP == teamB.multicastIP)
-  {
-      teamA.multicastIP += ":1";
-  }
+	//Special case: what if the same team connects twice to RefBox
+	if(teamA.team == teamB.team)
+	{
+	  teamA.team =  teamA.team +" A";
+	  teamA.longName = teamA.longName+" A";
+	  teamA.multicastIP += ":1";
+	}
+	if(teamA.multicastIP == teamB.multicastIP)
+	{
+	  teamA.multicastIP += ":1";
+	}
 
 	teamA.updateUI();
 	teamB.updateUI();

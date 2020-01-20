@@ -117,20 +117,7 @@ public static boolean setteamfromip(String s) {
 			
 			boolean noTeamA = teamA.connectedClient == null || !teamA.connectedClient.active();
 			boolean noTeamB = teamB.connectedClient == null || !teamB.connectedClient.active();
-			
-			// REVER O CÓDIGO SEGUINTE @mbc
-			/*
-			if(StateMachine.GetCurrentGameState() == GameStateEnum.GS_PREGAME || (noTeamA || noTeamB)) // In pre-game or if lost all connections, ask for the color
-			{
-				Popup.show(PopupTypeEnum.POPUP_TEAMSELECTION, "Team: "+row.getString("Team")+"\nSelect side or press ESC to cancel",3, 0, 4, 16, 380, 200);
-				return true;	
-			}
-			else
-			{
-				Log.logMessage("ERR No more connections allowed (Attempt from " + s + ")");
-				return false;
-			}
-			*/
+
 						
 			if(noTeamA && noTeamB) // No team connected. Ask for side
 			{
@@ -139,32 +126,27 @@ public static boolean setteamfromip(String s) {
 			}
 			else if (noTeamA)
 			{
-				if (teamB.isLeft == true)
-					Log.logMessage("Connection from " + connectingClient.ip() + " accepted - Right");
-				else
-					Log.logMessage("Connection from " + connectingClient.ip() + " accepted - Left");
-				t = teamA;
-				t.teamConnected(teamselect);
+				Popup.show(PopupTypeEnum.POPUP_TEAMSELECTION, "Team: "+row.getString("Team")+"\nwill be selected as Left",8, 0, 0, 20, 380, 200);
+				return true;
 			}
 			else if (noTeamB)
 			{
-				if (teamA.isLeft == true)
-					Log.logMessage("Connection from " + connectingClient.ip() + " accepted - Right");
-				else
-					Log.logMessage("Connection from " + connectingClient.ip() + " accepted - Left");
-				t = teamB;
-				t.teamConnected(teamselect);
+				Popup.show(PopupTypeEnum.POPUP_TEAMSELECTION, "Team: "+row.getString("Team")+"\nwill be selected as Right",8, 0, 0, 20, 380, 200);
+				return true;
 			}
-			else if (StateMachine.GetCurrentGameState() == GameStateEnum.GS_PREGAME)
+			else if (StateMachine.GetCurrentGameState() == GameStateEnum.GS_PREGAME) 
 			{
-				//Popup.show(PopupTypeEnum.POPUP_TEAMSELECTION, "Team: "+row.getString("Team")+"\nSelect side or press ESC to cancel",3, 0, 4, 20, 380, 200);
-				//return true;							
+				// This else exists for teams that reconnect with a diferent IP
+				// when they were previously connected. This only happens in pre-game
+				Popup.show(PopupTypeEnum.POPUP_TEAMSELECTION, "Team: "+row.getString("Team")+"\nSelect side or press ESC to cancel",3, 0, 4, 20, 380, 200);
+				return true;							
 			}
 			else
 			{
 				Log.logMessage("ERR No more connections allowed (Attempt from " + s + ")");
 				return false;
 			}
+			
 		}
 	}
 	Log.logMessage("ERR Unknteam (Attempt from " + s + ")");

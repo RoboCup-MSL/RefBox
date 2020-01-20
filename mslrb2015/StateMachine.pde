@@ -72,7 +72,21 @@ static class StateMachine
 			case POPUP_TEAMSELECTION:
 				{
 					Team t = null;
-					if(Popup.getResponse().equals("Left"))
+					if(Popup.getResponse().equals("OK"))
+					{
+						if(teamA.connectedClient == null || !teamA.connectedClient.active())
+						{
+							Log.logMessage("Connection from " + connectingClient.ip() + " accepted - Left");
+							t = teamA;
+						}
+						else
+						{
+							Log.logMessage("Connection from " + connectingClient.ip() + " accepted - Left");
+							t = teamB;
+						}
+							
+					}
+					else if(Popup.getResponse().equals("Left"))
 					{
 						Log.logMessage("Connection from " + connectingClient.ip() + " accepted - Left");
 						t = teamA;

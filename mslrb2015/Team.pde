@@ -113,7 +113,7 @@ class Team {
 
 
 		if(connectedClient != null)
-		BaseStationServer.disconnect(connectedClient);
+			BaseStationServer.disconnect(connectedClient);
 
 		connectedClient = connectingClient;
 		send_to_basestation(COMM_WELCOME,multicastIP,-1);
