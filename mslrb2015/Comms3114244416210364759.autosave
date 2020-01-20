@@ -69,8 +69,8 @@ public static void event_message_v2(ButtonsEnum btn, boolean on)
 	}
 
 	Team t = null;
-	if(btn.isLeft()) t = teamA;
-	if(btn.isRight()) t = teamB;
+	if(btn.isCyan()) t = teamA;
+	if(btn.isMagenta()) t = teamB;
 
 	if(cmd != null && msg != null)
 	{
@@ -102,15 +102,13 @@ public static boolean setteamfromip(String s) {
 
 	if (!s.equals("0:0:0:0:0:0:0:1")) {
 		iptokens=split(s,'.');
-		if (iptokens!=null) clientipstr=iptokens[0]+"."+iptokens[1]+"."+iptokens[2]+".*"; // Create clientipstr from received IP tokens
+		if (iptokens!=null) clientipstr=iptokens[0]+"."+iptokens[1]+"."+iptokens[2]+".*";
 	}
 
 	//println("Client IP: " + clientipstr);
 
 	for (TableRow row : teamstable.rows()) {
 		String saddr = row.getString("UnicastAddr");
-		Team t = null;
-		
 		if (saddr.equals(clientipstr)) {
 			println("Team " + row.getString("Team") + " connected (" + row.getString("shortname8") + "/" + row.getString("longame24") + ")");
 			teamselect=row;
@@ -118,47 +116,10 @@ public static boolean setteamfromip(String s) {
 			boolean noTeamA = teamA.connectedClient == null || !teamA.connectedClient.active();
 			boolean noTeamB = teamB.connectedClient == null || !teamB.connectedClient.active();
 			
-			// REVER O CÓDIGO SEGUINTE @mbc
-			/*
 			if(StateMachine.GetCurrentGameState() == GameStateEnum.GS_PREGAME || (noTeamA || noTeamB)) // In pre-game or if lost all connections, ask for the color
 			{
 				Popup.show(PopupTypeEnum.POPUP_TEAMSELECTION, "Team: "+row.getString("Team")+"\nSelect side or press ESC to cancel",3, 0, 4, 16, 380, 200);
 				return true;	
-			}
-			else
-			{
-				Log.logMessage("ERR No more connections allowed (Attempt from " + s + ")");
-				return false;
-			}
-			*/
-						
-			if(noTeamA && noTeamB) // No team connected. Ask for side
-			{
-				Popup.show(PopupTypeEnum.POPUP_TEAMSELECTION, "Team: "+row.getString("Team")+"\nSelect side or press ESC to cancel",3, 0, 4, 20, 380, 200);
-				return true;				
-			}
-			else if (noTeamA)
-			{
-				if (teamB.isLeft == true)
-					Log.logMessage("Connection from " + connectingClient.ip() + " accepted - Right");
-				else
-					Log.logMessage("Connection from " + connectingClient.ip() + " accepted - Left");
-				t = teamA;
-				t.teamConnected(teamselect);
-			}
-			else if (noTeamB)
-			{
-				if (teamA.isLeft == true)
-					Log.logMessage("Connection from " + connectingClient.ip() + " accepted - Right");
-				else
-					Log.logMessage("Connection from " + connectingClient.ip() + " accepted - Left");
-				t = teamB;
-				t.teamConnected(teamselect);
-			}
-			else if (StateMachine.GetCurrentGameState() == GameStateEnum.GS_PREGAME)
-			{
-				Popup.show(PopupTypeEnum.POPUP_TEAMSELECTION, "Team: "+row.getString("Team")+"\nSelect side or press ESC to cancel",3, 0, 4, 20, 380, 200);
-				return true;							
 			}
 			else
 			{

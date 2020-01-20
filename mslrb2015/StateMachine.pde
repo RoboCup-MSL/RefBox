@@ -82,7 +82,7 @@ static class StateMachine
 					}
 					
 					if(t != null)
-					t.teamConnected(teamselect);          
+						t.teamConnected(teamselect);          
 					break;
 				}
 				
@@ -115,7 +115,7 @@ static class StateMachine
 			
 			if(btnCurrent.isGoal())
 			{
-				if(btnCurrent.isCyan()) teamA.Score+=add;
+				if(btnCurrent.isLeft()) teamA.Score+=add;
 				else teamB.Score+=add;
 			}
 			else if(btnCurrent.isReset())
@@ -132,7 +132,7 @@ static class StateMachine
 			}
 			else if(btnCurrent.isRepair())
 			{
-				if(btnCurrent.isCyan()){
+				if(btnCurrent.isLeft()){
 					teamA.newRepair=btnOn;
 					if (btnOn) {
 						i = teamA.numberOfPlayingRobots() - 2;
@@ -157,7 +157,7 @@ static class StateMachine
 			}
 			else if(btnCurrent.isRed())
 			{
-				if(btnCurrent.isCyan())
+				if(btnCurrent.isLeft())
 				teamA.newRedCard=btnOn;
 				else
 				teamB.newRedCard=btnOn;
@@ -165,7 +165,7 @@ static class StateMachine
 			else if(btnCurrent.isYellow())
 			{
 				Team t = teamA;
-				if(!btnCurrent.isCyan())
+				if(!btnCurrent.isLeft())
 				t = teamB;
 				
 				if (t.YellowCardCount==1)
@@ -230,7 +230,7 @@ static class StateMachine
 			case GS_GAMESTOP_H3:
 			case GS_GAMESTOP_H4:
 				if(btnCurrent.isSetPiece())
-				SetSetpiece(btnCurrent.isCyan(), btnCurrent);
+				SetSetpiece(btnCurrent.isLeft(), btnCurrent);
 				else if(btnCurrent.isStart()){
 					nextGS = SwitchRunningStopped();
 				}
@@ -259,7 +259,7 @@ static class StateMachine
 				
 			case GS_PENALTIES:
 				if(btnCurrent.isSetPiece())                       // Kick Off either, Penalty either, DropBall
-				SetSetpiece(btnCurrent.isCyan(), btnCurrent);
+				SetSetpiece(btnCurrent.isLeft(), btnCurrent);
 				else if(btnCurrent.isStop()) {
 					ResetSetpiece();
 					SetPieceDelay.resetStopWatch();

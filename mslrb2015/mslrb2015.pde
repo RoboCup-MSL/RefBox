@@ -103,6 +103,17 @@ such as images and fonts as the program starts.
 **************************************************************************************************************************/
 void setup() {
 	mainApplet = this;
+	PrintWriter output;
+	
+	String[] fontList = PFont.list();
+	int n = fontList.length;
+	output = createWriter("fonts.txt");
+	for (int i = 0; i < n; i++) //<>//
+	{
+		output.println(fontList[i]);	
+	}
+	output.flush(); // Writes the remaining data to the file
+	output.close(); // Finishes the file
 
 	backgroundImage = loadImage("img/bg_normal.png");
 	size(1000, 680);

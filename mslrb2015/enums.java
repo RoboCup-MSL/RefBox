@@ -64,13 +64,13 @@ enum ButtonsEnum
 	}
 
 	//******************************************************************************************************
-	public boolean isCyan()
+	public boolean isLeft()
 	{
 		return value >= BTN_C_KICKOFF.value && value <= BTN_C_YELLOW.value;
 	}
 
 	//******************************************************************************************************
-	public boolean isMagenta()
+	public boolean isRight()
 	{
 		return value >= BTN_M_KICKOFF.value && value <= BTN_M_YELLOW.value;
 	}
