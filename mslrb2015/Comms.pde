@@ -157,8 +157,8 @@ public static boolean setteamfromip(String s) {
 			}
 			else if (StateMachine.GetCurrentGameState() == GameStateEnum.GS_PREGAME)
 			{
-				Popup.show(PopupTypeEnum.POPUP_TEAMSELECTION, "Team: "+row.getString("Team")+"\nSelect side or press ESC to cancel",3, 0, 4, 20, 380, 200);
-				return true;							
+				//Popup.show(PopupTypeEnum.POPUP_TEAMSELECTION, "Team: "+row.getString("Team")+"\nSelect side or press ESC to cancel",3, 0, 4, 20, 380, 200);
+				//return true;							
 			}
 			else
 			{
