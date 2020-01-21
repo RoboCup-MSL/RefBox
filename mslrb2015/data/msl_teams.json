@@ -301,45 +301,45 @@
 		"MulticastAddr": "224.16.32.74"
 	},
 	{
-		"longame24": "n.a.",
+		"longame24": "RV-Infinity",
 		"UnicastAddr": "172.16.75.*",
-		"Team": "n.a.",
-		"shortname8": "n.a.",
+		"Team": "RV-Infinity",
+		"shortname8": "Infinity",
 		"MulticastAddr": "224.16.32.75"
 	},
 	{
-		"longame24": "n.a.",
+		"longame24": "ARES",
 		"UnicastAddr": "172.16.76.*",
-		"Team": "n.a.",
-		"shortname8": "n.a.",
+		"Team": "ARES",
+		"shortname8": "ARES",
 		"MulticastAddr": "224.16.32.76"
 	},
 	{
-		"longame24": "n.a.",
+		"longame24": "Lushan",
 		"UnicastAddr": "172.16.77.*",
-		"Team": "n.a.",
-		"shortname8": "n.a.",
+		"Team": "Lushan",
+		"shortname8": "Lushan",
 		"MulticastAddr": "224.16.32.77"
 	},
 	{
-		"longame24": "n.a.",
+		"longame24": "CS Rob",
 		"UnicastAddr": "172.16.78.*",
-		"Team": "n.a.",
-		"shortname8": "n.a.",
+		"Team": "CS Rob",
+		"shortname8": "CS Rob",
 		"MulticastAddr": "224.16.32.78"
 	},
 	{
-		"longame24": "n.a.",
+		"longame24": "Robot Club Toulonnais",
 		"UnicastAddr": "172.16.79.*",
-		"Team": "n.a.",
-		"shortname8": "n.a.",
+		"Team": "Robot Club Toulonnais",
+		"shortname8": "RCToulon",
 		"MulticastAddr": "224.16.32.79"
 	},
 	{
-		"longame24": "n.a.",
+		"longame24": "IRIS",
 		"UnicastAddr": "172.16.80.*",
-		"Team": "n.a.",
-		"shortname8": "n.a.",
+		"Team": "IRIS",
+		"shortname8": "IRIS",
 		"MulticastAddr": "224.16.32.80"
 	},
 	{

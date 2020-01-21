@@ -1,11 +1,11 @@
 class Team {
 	String shortName;  //max 8 chars
 	String longName;  //max 24 chars
-  String team;
+	String team;
 	String unicastIP, multicastIP;
 	color colorTeam=(#000000);
-	boolean isCyan;  //default: cyan@left
-	boolean newYellowCard, newRedCard, newRepair, newSubstitution, newDoubleYellow, newPenaltyKick, newGoal; // Pending commands, effective only on gamestate change
+	boolean isLeft;  //default: cyan@left
+  boolean newYellowCard, newRedCard, newRepair, newSubstitution, newDoubleYellow, newPenaltyKick, newGoal; // Pending commands, effective only on gamestate change
 	int Score, RedCardCount, YellowCardCount, DoubleYellowCardCount, PenaltyCount;
 	public int RepairCount;
 	public int nOfRepairs;
@@ -21,7 +21,7 @@ class Team {
 	
 	Team(color c, boolean uileftside) {
 		this.colorTeam=colorTeam;
-		this.isCyan=uileftside;
+		this.isLeft=uileftside;
 		//robots
 		float x=0, y=64; 
 		r[0]=new Robot(x, y);
@@ -36,7 +36,7 @@ class Team {
 	//===================================
 
 	void resetname(){
-		if (this.isCyan) {
+		if (this.isLeft) {
 			this.shortName=Config.defaultCyanTeamShortName;
 			this.longName=Config.defaultCyanTeamLongName;
       		this.team=Config.defaultCyanTeam;
@@ -99,7 +99,7 @@ class Team {
 		r[i].reset();
 
 		if(this.connectedClient != null && this.connectedClient.active())
-		this.connectedClient.stop();
+			this.connectedClient.stop();
 		this.connectedClient = null;
 		this.firstWorldState = true;
 	}
@@ -108,13 +108,13 @@ class Team {
 	void teamConnected(TableRow teamselect){
 		shortName=teamselect.getString("shortname8");
 		longName=teamselect.getString("longame24");
-    team=teamselect.getString("Team");
+		team=teamselect.getString("Team");
 		unicastIP = teamselect.getString("UnicastAddr");
 		multicastIP = teamselect.getString("MulticastAddr");
 
 
 		if(connectedClient != null)
-		BaseStationServer.disconnect(connectedClient);
+			BaseStationServer.disconnect(connectedClient);
 
 		connectedClient = connectingClient;
 		send_to_basestation(COMM_WELCOME,multicastIP,-1);
@@ -122,7 +122,7 @@ class Team {
 
 		if(this.logFile == null || this.logFileOut == null)
 		{
-			this.logFile = new File(mainApplet.dataPath("tmp/" + Log.getTimedName() + "." + (isCyan?"A":"B") + ".msl"));
+			this.logFile = new File(mainApplet.dataPath("tmp/" + Log.getTimedName() + "." + (isLeft?"A":"B") + ".msl"));
 			try{
 				this.logFileOut = new PrintWriter(new BufferedWriter(new FileWriter(logFile, true)));
 			}catch(IOException e){ }
@@ -135,7 +135,7 @@ class Team {
 	void repair_timer_start(int rpCount) { 
 		r[rpCount].RepairTimer.startTimer(Config.repairPenalty_ms);
 
-		if (isCyan)
+		if (isLeft)
 		println("Repair Cyan "+(rpCount+1)+" started!");
 		else
 		println("Repair Magenta "+(rpCount+1)+" started!");
@@ -157,7 +157,7 @@ class Team {
 			{
 				r[rpCount].RepairTimer.resetStopWatch();
 				RepairCount--;
-				println("Repair OUT: "+shortName+":"+(rpCount+1)+" @"+(isCyan?"left":"right"));
+				println("Repair OUT: "+shortName+":"+(rpCount+1)+" @"+(isLeft?"left":"right"));
 				r[rpCount].setState("play");
 			}
 		}
@@ -173,7 +173,7 @@ class Team {
 	//*******************************************************************
 	public void double_yellow_timer_start(int rpCount) {
 		r[rpCount].DoubleYellowTimer.startTimer(Config.doubleYellowPenalty_ms);
-		if (isCyan)
+		if (isLeft)
 		println("Double Yellow Cyan "+(rpCount+1)+" started!");
 		else
 		println("Double Yellow Magenta "+(rpCount+1)+" started!");
@@ -187,7 +187,7 @@ class Team {
 			{
 				r[rpCount].DoubleYellowTimer.resetStopWatch();
 				DoubleYellowCardCount--;
-				println("Double Yellow end: "+shortName+":"+(rpCount+1)+" @"+(isCyan?"left":"right"));
+				println("Double Yellow end: "+shortName+":"+(rpCount+1)+" @"+(isLeft?"left":"right"));
 				r[rpCount].setState("play");
 			}
 		}
@@ -209,7 +209,7 @@ class Team {
 //				}
 				this.nOfRepairs--;
 			}
-			if(this.isCyan) event_message_v2(ButtonsEnum.BTN_C_REPAIR, true);
+			if(this.isLeft) event_message_v2(ButtonsEnum.BTN_C_REPAIR, true);
 			else event_message_v2(ButtonsEnum.BTN_M_REPAIR, true);
 			this.newRepair = false;
 			this.nOfRepairs = 1;
@@ -221,7 +221,7 @@ class Team {
 			this.newYellowCard = false;
 
 			// Hack: send command only on game change
-			if(this.isCyan) event_message_v2(ButtonsEnum.BTN_C_YELLOW, true);
+			if(this.isLeft) event_message_v2(ButtonsEnum.BTN_C_YELLOW, true);
 			else event_message_v2(ButtonsEnum.BTN_M_YELLOW, true);
 		}
 
@@ -232,7 +232,7 @@ class Team {
 				this.r[i].setState("red");	  
 
 				// Hack: send command only on game change
-				if(this.isCyan) event_message_v2(ButtonsEnum.BTN_C_RED, true);
+				if(this.isLeft) event_message_v2(ButtonsEnum.BTN_C_RED, true);
 				else event_message_v2(ButtonsEnum.BTN_M_RED, true);
 			}
 			this.newRedCard = false;
@@ -247,8 +247,9 @@ class Team {
 				this.DoubleYellowCardCount++;
 				this.YellowCardCount = 0;
 
-				if(this.isCyan) send_event_v2(""+COMM_DOUBLE_YELLOW, "Double Yellow", this, -1);
+				if(this.isLeft) send_event_v2(""+COMM_DOUBLE_YELLOW, "Double Yellow", this, -1);
 				else send_event_v2(""+COMM_DOUBLE_YELLOW, "Double Yellow", this, -1);    // TODO: Same as line above
+
 			}
 			this.newDoubleYellow = false;
 		}
@@ -301,11 +302,11 @@ class Team {
 
 		textFont(teamFont);
 		textAlign(CENTER, CENTER);    
-		if (isCyan) text(sn, 163, 50);
+		if (isLeft) text(sn, 163, 50);
 		else text(sn, 837, 50);
 
 		textFont(panelFont);
-		if (isCyan) text(ln, 163, 90);
+		if (isLeft) text(ln, 163, 90);
 		else text(ln, 837, 90);
 
 		for (int i=0; i < r.length; i++) {
@@ -323,14 +324,14 @@ class Team {
 		}    
 
 		for (int i=0; i<5; i++)
-		r[i].updateUI(colorTeam,isCyan);
+		r[i].updateUI(colorTeam,isLeft);
 
 		textAlign(LEFT, BOTTOM);
 		textFont(debugFont);
 		fill(#ffff00);
 		textLeading(20);
 		String ts="Goals."+this.Score+" Penalty:"+this.PenaltyCount+"\nYellow:"+this.YellowCardCount+" Red:"+this.RedCardCount+"\nRepair:"+this.RepairCount+" 2xYellow:"+this.DoubleYellowCardCount;
-		if (isCyan) text(ts, 40, height-18);
+		if (isLeft) text(ts, 40, height-18);
 		else text(ts, width - 190, height-18);
 	}
 

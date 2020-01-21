@@ -68,9 +68,9 @@ public static void event_message_v2(ButtonsEnum btn, boolean on)
     msg = buttonFromEnum(btn).msg_off;
   }
 
-  Team t = null;
-  if(btn.isCyan()) t = teamA;
-  if(btn.isMagenta()) t = teamB;
+	Team t = null;
+	if(btn.isLeft()) t = teamA;
+	if(btn.isRight()) t = teamB;
 
 	if(cmd != null && msg != null)
 	{
@@ -100,32 +100,53 @@ public static boolean setteamfromip(String s) {
   String clientipstr="127.0.0.*";
   String[] iptokens;
 
-  if (!s.equals("0:0:0:0:0:0:0:1")) {
-    iptokens=split(s,'.');
-    if (iptokens!=null) clientipstr=iptokens[0]+"."+iptokens[1]+"."+iptokens[2]+".*";
-  }
+	if (!s.equals("0:0:0:0:0:0:0:1")) {
+		iptokens=split(s,'.');
+		if (iptokens!=null) clientipstr=iptokens[0]+"."+iptokens[1]+"."+iptokens[2]+".*"; // Create clientipstr from received IP tokens
+	}
 
   //println("Client IP: " + clientipstr);
 
 	for (TableRow row : teamstable.rows()) {
 		String saddr = row.getString("UnicastAddr");
+		Team t = null;
+		
 		if (saddr.equals(clientipstr)) {
 			println("Team " + row.getString("Team") + " connected (" + row.getString("shortname8") + "/" + row.getString("longame24") + ")");
 			teamselect=row;
 			
 			boolean noTeamA = teamA.connectedClient == null || !teamA.connectedClient.active();
 			boolean noTeamB = teamB.connectedClient == null || !teamB.connectedClient.active();
-			
-			if(StateMachine.GetCurrentGameState() == GameStateEnum.GS_PREGAME || (noTeamA || noTeamB)) // In pre-game or if lost all connections, ask for the color
+
+						
+			if(noTeamA && noTeamB) // No team connected. Ask for side
 			{
-				Popup.show(PopupTypeEnum.POPUP_TEAMSELECTION, "Team: "+row.getString("Team")+"\nSelect color or press ESC to cancel",3, 0, 4, 16, 380, 200);
-				return true;	
+				Popup.show(PopupTypeEnum.POPUP_TEAMSELECTION, "Team: "+row.getString("Team")+"\nSelect side or press ESC to cancel",3, 0, 4, 20, 380, 200);
+				return true;				
+			}
+			else if (noTeamA)
+			{
+				Popup.show(PopupTypeEnum.POPUP_TEAMSELECTION, "Team: "+row.getString("Team")+"\nwill be selected as Left",8, 0, 0, 20, 380, 200);
+				return true;
+			}
+			else if (noTeamB)
+			{
+				Popup.show(PopupTypeEnum.POPUP_TEAMSELECTION, "Team: "+row.getString("Team")+"\nwill be selected as Right",8, 0, 0, 20, 380, 200);
+				return true;
+			}
+			else if (StateMachine.GetCurrentGameState() == GameStateEnum.GS_PREGAME) 
+			{
+				// This else exists for teams that reconnect with a diferent IP
+				// when they were previously connected. This only happens in pre-game
+				Popup.show(PopupTypeEnum.POPUP_TEAMSELECTION, "Team: "+row.getString("Team")+"\nSelect side or press ESC to cancel",3, 0, 4, 20, 380, 200);
+				return true;							
 			}
 			else
 			{
 				Log.logMessage("ERR No more connections allowed (Attempt from " + s + ")");
 				return false;
 			}
+			
 		}
 	}
 	Log.logMessage("ERR Unknteam (Attempt from " + s + ")");

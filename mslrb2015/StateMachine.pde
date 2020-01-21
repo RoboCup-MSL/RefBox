@@ -44,9 +44,9 @@ static class StateMachine
 						send_event_v2(cCommcmds[CMDID_COMMON_RESET], Commcmds[CMDID_COMMON_RESET], null, -1);
 						Popup.close();
 						gsCurrent = GameStateEnum.GS_RESET;            // Game over
-						needUpdate = true;
+						needUpdate = true;						
 						reset();
-						Popup.show(PopupTypeEnum.POPUP_WAIT, MSG_WAIT, 0, 0, 0, 24, 380, 100);
+						//Popup.show(PopupTypeEnum.POPUP_WAIT, MSG_WAIT, 0, 0, 0, 24, 380, 100);
 						return;
 					} //<>// //<>//
           Popup.close();
@@ -76,17 +76,32 @@ static class StateMachine
 			case POPUP_TEAMSELECTION:
 				{
 					Team t = null;
-					if(Popup.getResponse().equals("Left"))
+					if(Popup.getResponse().equals("OK"))
 					{
-						Log.logMessage("Connection from " + connectingClient.ip() + " accepted - Leht");
+						if(teamA.connectedClient == null || !teamA.connectedClient.active())
+						{
+							Log.logMessage("Connection from " + connectingClient.ip() + " accepted - Left");
+							t = teamA;
+						}
+						else
+						{
+							Log.logMessage("Connection from " + connectingClient.ip() + " accepted - Left");
+							t = teamB;
+						}
+							
+					}
+					else if(Popup.getResponse().equals("Left"))
+					{
+						Log.logMessage("Connection from " + connectingClient.ip() + " accepted - Left");
 						t = teamA;
 					}else{
-						Log.logMessage("Connection from " + connectingClient.ip() + " accepted - Rigth");
+						Log.logMessage("Connection from " + connectingClient.ip() + " accepted - Right");
 						t = teamB;
 					}
 					
 					if(t != null)
-					t.teamConnected(teamselect);
+					  t.teamConnected(teamselect);
+
           Popup.close();          
 					break;
 				}
@@ -184,7 +199,7 @@ static class StateMachine
 			
 			if(btnCurrent.isGoal())
 			{
-				if(btnCurrent.isCyan()) teamA.Score+=add;
+				if(btnCurrent.isLeft()) teamA.Score+=add;
 				else teamB.Score+=add;
 			}
 			else if(btnCurrent.isReset())
@@ -201,7 +216,7 @@ static class StateMachine
 			}
 			else if(btnCurrent.isRepair())
 			{
-				if(btnCurrent.isCyan()){
+				if(btnCurrent.isLeft()){
 					teamA.newRepair=btnOn;
 					if (btnOn) {
 						i = teamA.numberOfPlayingRobots() - 2;
@@ -226,7 +241,7 @@ static class StateMachine
 			}
 			else if(btnCurrent.isRed())
 			{
-				if(btnCurrent.isCyan())
+				if(btnCurrent.isLeft())
 				teamA.newRedCard=btnOn;
 				else
 				teamB.newRedCard=btnOn;
@@ -234,7 +249,7 @@ static class StateMachine
 			else if(btnCurrent.isYellow())
 			{
 				Team t = teamA;
-				if(!btnCurrent.isCyan())
+				if(!btnCurrent.isLeft())
 				t = teamB;
 				
 				if (t.YellowCardCount==1)
@@ -323,7 +338,7 @@ static class StateMachine
 			case GS_GAMESTOP_H3:
 			case GS_GAMESTOP_H4:
 				if(btnCurrent.isSetPiece())
-				SetSetpiece(btnCurrent.isCyan(), btnCurrent);
+				SetSetpiece(btnCurrent.isLeft(), btnCurrent);
 				else if(btnCurrent.isStart()){
 					nextGS = SwitchRunningStopped();
 				}
@@ -352,7 +367,7 @@ static class StateMachine
 				
 			case GS_PENALTIES:
 				if(btnCurrent.isSetPiece())                       // Kick Off either, Penalty either, DropBall
-				SetSetpiece(btnCurrent.isCyan(), btnCurrent);
+				SetSetpiece(btnCurrent.isLeft(), btnCurrent);
 				else if(btnCurrent.isStop()) {
 					ResetSetpiece();
 					SetPieceDelay.resetStopWatch();
