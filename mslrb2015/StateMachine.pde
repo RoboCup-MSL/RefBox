@@ -13,6 +13,7 @@ static class StateMachine
 	public static ButtonsEnum setpiece_button = null;
 
 	public static boolean firstKickoffCyan = true;
+	private static boolean done = true;
 
 	public static void Update(ButtonsEnum click_btn, boolean on) //If on==True then active
 	{
@@ -27,6 +28,7 @@ static class StateMachine
 	//************************************************************************
 	private static void StateMachineRefresh()
 	{
+		done = false;	// This boolean blocks access to the StateMachine by main draw() function while something is in course				
 		GameStateEnum nextGS = GameStateEnum.newInstance(gsCurrent);
 		GameStateEnum saveGS = GameStateEnum.newInstance(gsCurrent);
 		
@@ -41,10 +43,14 @@ static class StateMachine
 					{
 						send_event_v2(cCommcmds[CMDID_COMMON_RESET], Commcmds[CMDID_COMMON_RESET], null);
 						Popup.close();
-						gsCurrent = GameStateEnum.GS_RESET;            // Game over
-						needUpdate = true;						
-						reset();
-						//Popup.show(PopupTypeEnum.POPUP_WAIT, MSG_WAIT, 0, 0, 0, 24, 380, 100);
+						btnCurrent = ButtonsEnum.BTN_ILLEGAL;		// Clear up current button, just in case
+						mainApplet.redraw();						// redraw screen to turn off Reset Popup
+						
+						// Show wait popup - this will be reset when a new pre-game starts
+						Popup.show(PopupTypeEnum.POPUP_WAIT, MSG_WAIT, 0, 0, 0, 24, 380, 100);
+						gsCurrent = GameStateEnum.GS_RESET;         // Force Reset state
+						needUpdate = true;							// and enforce update of the state machine
+						done = true;
 						return;
 					} //<>// //<>//
 					break;
@@ -62,9 +68,9 @@ static class StateMachine
 						SetPieceDelay.stopTimer();
 
 						if (bCommoncmds[CMDID_COMMON_HALFTIME].Label.equals("End Game"))
-						send_event_v2(cCommcmds[CMDID_COMMON_ENDGAME], Commcmds[CMDID_COMMON_ENDGAME], null);
+							send_event_v2(cCommcmds[CMDID_COMMON_ENDGAME], Commcmds[CMDID_COMMON_ENDGAME], null);
 						else
-						send_event_v2(cCommcmds[CMDID_COMMON_HALFTIME], Commcmds[CMDID_COMMON_HALFTIME], null);            
+							send_event_v2(cCommcmds[CMDID_COMMON_HALFTIME], Commcmds[CMDID_COMMON_HALFTIME], null);            
 					}
 					break;
 				}
@@ -118,6 +124,7 @@ static class StateMachine
 			}      
 			needUpdate = false;
 			Popup.close();
+			done = true;
 			return;
 		}
 		
@@ -127,6 +134,7 @@ static class StateMachine
 			int add = (btnOn ? +1 : -1);
 			int i;
 			
+			needUpdate = false;			// Clear flag at the begining so that internal code can turno it ON again
 			if(btnCurrent.isGoal())
 			{
 				if(btnCurrent.isLeft()) teamA.Score+=add;
@@ -136,12 +144,14 @@ static class StateMachine
 			{
 				Popup.show(PopupTypeEnum.POPUP_RESET, MSG_RESET, 1, 0, 2, 24, 380, 200);
 				needUpdate = false;
+				done = true;
 				return;
 			}
 			else if(btnCurrent.isEndPart())
 			{
 				Popup.show(PopupTypeEnum.POPUP_ENDPART, MSG_HALFTIME, 1, 0, 2, 24, 380, 200);
 				needUpdate = false;
+				done = true;
 				return;
 			}
 			else if(btnCurrent.isRepair())
@@ -298,9 +308,12 @@ static class StateMachine
 			case GS_ENDGAME:
 				break;
 				
-			case GS_RESET:
+			case GS_RESET:			// Resets the game and return to force a new StateMachine Update
+				reset();
 				saveData();
-				break;
+				needUpdate = true;
+				done = true;
+				return;
 			}
 			
 			if(nextGS != null)        //What to do when there is a new game state
@@ -314,11 +327,11 @@ static class StateMachine
 					teamA.checkflags();
 					teamB.checkflags();
 				}
-			}
-			
+			}		
 			btnPrev = btnCurrent;      
-			needUpdate = false;
+
 		}
+		done = true;
 	}
 
 	//************************************************************************
@@ -413,7 +426,6 @@ static class StateMachine
 	public static void reset()
 	{
 		try {
-			send_to_basestation("" + COMM_RESET,"",-1);
 			buttonFromEnum(ButtonsEnum.BTN_PARK).disable();
 			btnCurrent = ButtonsEnum.BTN_ILLEGAL;
 			btnPrev = ButtonsEnum.BTN_ILLEGAL;
@@ -450,6 +462,7 @@ static class StateMachine
 	//************************************************************************
 	// 
 	//************************************************************************
+
 	public static boolean isHalf()
 	{
 		return is1stHalf() || is2ndHalf() || is3rdHalf() || is4thHalf();
@@ -484,12 +497,19 @@ static class StateMachine
 	{
 		return gsCurrent == GameStateEnum.GS_HALFTIME || gsCurrent == GameStateEnum.GS_OVERTIME || gsCurrent == GameStateEnum.GS_HALFTIME_OVERTIME || gsCurrent == GameStateEnum.GS_GAMESTOP_H4 || gsCurrent == GameStateEnum.GS_PENALTIES;
 	}
-
-}
+	
+	public static boolean isDone()
+	{
+		return done;
+	}
 
 //************************************************************************
 // 
 //************************************************************************
-void StateMachineCheck() {
-	StateMachine.StateMachineRefresh();
 }
+
+void StateMachineCheck() {
+	if (StateMachine.isDone() == true) StateMachine.StateMachineRefresh();
+}
+
+
