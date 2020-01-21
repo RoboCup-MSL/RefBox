@@ -26,6 +26,8 @@ void RefreshButonStatus1() {
 			buttonFromEnum(ButtonsEnum.BTN_RESET).disable();
 			buttonFromEnum(ButtonsEnum.BTN_START).enable();
 			buttonFromEnum(ButtonsEnum.BTN_STOP).activate();
+      buttonFromEnum(ButtonsEnum.BTN_CONFIG).activate();
+
 		}else{
 			buttonFromEnum(ButtonsEnum.BTN_C_KICKOFF).enable();
 			buttonFromEnum(ButtonsEnum.BTN_M_KICKOFF).enable();
@@ -33,6 +35,10 @@ void RefreshButonStatus1() {
 			buttonFromEnum(ButtonsEnum.BTN_START).disable();
 			buttonFromEnum(ButtonsEnum.BTN_STOP).activate();
 			buttonFromEnum(ButtonsEnum.BTN_RESET).activate();
+
+//public static final int CMDID_COMMON_SUBS = 6;
+      //buttonFromEnum(ButtonsEnum.BTN_CONFIG).activate();
+        bCommoncmds[CMDID_COMMON_CONFIG].activate();
 		}
 		
 
@@ -149,11 +155,13 @@ void RefreshButonStatus1() {
 	// The switches are enabled only on pre-game
 	if(StateMachine.GetCurrentGameState() != GameStateEnum.GS_PREGAME)
 	{
-		for(int i = 0; i < bSlider.length; i++)
-		bSlider[i].disable();
+		for(int i = 0; i < bSlider.length; i++) {
+		//bSlider[i].disable();
+    }
 	}else{
-		for(int i = 0; i < bSlider.length; i++)
-		bSlider[i].enable();
+		for(int i = 0; i < bSlider.length; i++) {
+		//bSlider[i].enable();
+    }
 	}
 
 	// Update End Part / End Game button
@@ -212,6 +220,7 @@ void refreshbutton_game_stopped()
 			bTeamAcmds[CMDID_TEAM_GOAL].enable();
 			bTeamBcmds[CMDID_TEAM_GOAL].enable();
 			buttonCSTARTdisable();            // Turn OFF START button  
+        bCommoncmds[CMDID_COMMON_SUBS].enable();
 		}
 		else
 		{

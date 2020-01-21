@@ -1,5 +1,15 @@
 // Processing mouse'event
 void mousePressed() {
+  
+  for (int i=0; i<tBox.length; i++) {
+    if (tBox[i].mouseover()) {
+      tBox[i].clicked();
+    }
+    else {
+      tBox[i].unclicked();
+    }
+  }
+  
 	if (!Popup.isEnabled()) {
 		//sliders
 		boolean refreshslider = false;
@@ -46,6 +56,16 @@ void mousePressed() {
 	}
 	else {//POPUP
 		Popup.check(true);
+    boolean refreshslider = false;
+    int pos = -1;
+    for (int i=0; i<4; i++)
+    if (bSlider[i].mouseover()) { bSlider[i].toogle(); refreshslider=true; pos=i; break;}
+        if (refreshslider) {    
+      setbooleansfrombsliders();
+      //if (pos==0) screenlog("Testmode "+(TESTMODE?"enabled":"disabled"));
+      if (pos==1) Log.screenlog("Log "+(Log.enable?"enabled":"disabled"));
+      if (pos==2) Log.screenlog("Remote "+(REMOTECONTROLENABLE?"enabled":"disabled"));
+    }
 	}
 }
 
@@ -66,7 +86,22 @@ void mouseMoved() {
 
 // Processing key'event
 void keyPressed() {
-
+  
+  // TODO: only accept numbers for textbox value
+  for (int i=0; i<tBox.length; i++) {
+    if (tBox[i].clickedLast && tBox[i].visible) {
+      if (key == BACKSPACE && tBox[i].value.length() > 1) {
+        tBox[i].value = tBox[i].value.substring(0, tBox[i].value.length() - 1);
+      }
+      else if (key == BACKSPACE && tBox[i].value.length() == 1) {
+        tBox[i].value = "0";
+      }
+      else {
+        tBox[i].value += key;
+      }
+      String number = tBox[i].value;
+    }
+  }
 	if (key == ESC){
 		key = 0; 		//disable quit on ESC
 		// Close popup

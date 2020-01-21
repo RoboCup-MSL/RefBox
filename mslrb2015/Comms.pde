@@ -1,13 +1,13 @@
 // New accepted connections
 public static void serverEvent(MyServer whichServer, Client whichClient) {
-	try {
-		if (whichServer.equals(BaseStationServer)) {
-			Log.logMessage("New BaseStation @ "+whichClient.ip());
-		}
-		else if (mslRemote != null && mslRemote.server != null && whichServer != null && whichServer.equals(mslRemote.server)) {
-			Log.logMessage("New Remote @ " + whichClient.ip());
-		}
-	}catch(Exception e){}
+  try {
+    if (whichServer.equals(BaseStationServer)) {
+      Log.logMessage("New BaseStation @ "+whichClient.ip());
+    }
+    else if (mslRemote != null && mslRemote.server != null && whichServer != null && whichServer.equals(mslRemote.server)) {
+      Log.logMessage("New Remote @ " + whichClient.ip());
+    }
+  }catch(Exception e){}
 }
 
 // Client authentication
@@ -60,13 +60,13 @@ public static void send_to_basestation(String c, String teamIP, int robotID){
 
 public static void event_message_v2(ButtonsEnum btn, boolean on)
 {
-	String cmd = buttonFromEnum(btn).cmd;
-	String msg = buttonFromEnum(btn).msg;
-	if(!on)
-	{
-		cmd = buttonFromEnum(btn).cmd_off;
-		msg = buttonFromEnum(btn).msg_off;
-	}
+  String cmd = buttonFromEnum(btn).cmd;
+  String msg = buttonFromEnum(btn).msg;
+  if(!on)
+  {
+    cmd = buttonFromEnum(btn).cmd_off;
+    msg = buttonFromEnum(btn).msg_off;
+  }
 
 	Team t = null;
 	if(btn.isLeft()) t = teamA;
@@ -74,12 +74,12 @@ public static void event_message_v2(ButtonsEnum btn, boolean on)
 
 	if(cmd != null && msg != null)
 	{
-		send_event_v2(cmd, msg, t);
+		send_event_v2(cmd, msg, t, -1);
 	}
 	//println("Command: " + cmd);
 }
 
-public static void send_event_v2(String cmd, String msg, Team t)
+public static void send_event_v2(String cmd, String msg, Team t, int robotID)
 {
 	String teamIP, teamName;
 
@@ -91,21 +91,21 @@ public static void send_event_v2(String cmd, String msg, Team t)
     teamIP = t.multicastIP;
     teamName = t.team;
   }
-	send_to_basestation(cmd,teamIP,-1);  //send to basestatin
+	send_to_basestation(cmd, teamIP, robotID);  //send to basestation
 	scoreClients.update_tEvent(cmd, msg, teamName); //send to referee client
 	mslRemote.update_tEvent(cmd, msg, t); //remote command
 }
 
 public static boolean setteamfromip(String s) {
-	String clientipstr="127.0.0.*";
-	String[] iptokens;
+  String clientipstr="127.0.0.*";
+  String[] iptokens;
 
 	if (!s.equals("0:0:0:0:0:0:0:1")) {
 		iptokens=split(s,'.');
 		if (iptokens!=null) clientipstr=iptokens[0]+"."+iptokens[1]+"."+iptokens[2]+".*"; // Create clientipstr from received IP tokens
 	}
 
-	//println("Client IP: " + clientipstr);
+  //println("Client IP: " + clientipstr);
 
 	for (TableRow row : teamstable.rows()) {
 		String saddr = row.getString("UnicastAddr");
@@ -155,175 +155,175 @@ public static boolean setteamfromip(String s) {
 
 public static void checkBasestationsMessages()
 {
-	try
-	{
-		// Get the next available client
-		Client thisClient = BaseStationServer.available();
-		// If the client is not null, and says something, display what it said
-		if (thisClient !=null) {
-			
-			Team t = null;
-			int team = -1; // 0=A, 1=B
-			if(teamA != null && teamA.connectedClient == thisClient)
-			t=teamA;
-			else if(teamB != null && teamB.connectedClient == thisClient)
-			t=teamB;
-			else{
-				if(thisClient != connectingClient)
-				println("NON TEAM MESSAGE RECEIVED FROM " + thisClient.ip());
-				return;
-			}
-			String whatClientSaid = new String(thisClient.readBytes());
-			if (whatClientSaid != null) 
-			while(whatClientSaid.length() !=0){
-				//println(whatClientSaid);
-				int idx = whatClientSaid.indexOf('\0');
-				//println(whatClientSaid.length()+"\t"+ idx);
-				if(idx!=-1){
-					if(idx!=0)
-					{  
-						t.wsBuffer+= whatClientSaid.substring(0,idx);
-						if(idx < whatClientSaid.length())
-						whatClientSaid = whatClientSaid.substring(idx+1);
-						else
-						whatClientSaid = "";
-					}else{
-						if(whatClientSaid.length() == 1)
-						whatClientSaid = "";
-						else
-						whatClientSaid = whatClientSaid.substring(1);
-					}
-					
-					// JSON Validation
-					boolean ok = true;
-					int ageMs = 0;
-					String dummyFieldString;
-					org.json.JSONArray dummyFieldJsonArray;
-					try // Check for malformed JSON
-					{
-						t.worldstate_json = new org.json.JSONObject(t.wsBuffer);
-					} catch(JSONException e) {
-						String errorMsg = "ERROR malformed JSON (team=" + t.shortName + ") : " + t.wsBuffer;
-						println(errorMsg);
-						ok = false;
-					}
-					
-					if(ok)
-					{
-						try // Check for "type" key
-						{
-							String type = t.worldstate_json.getString("type");
-							
-							// type must be "worldstate"
-							if(!type.equals("worldstate"))
-							{
-								String errorMsg = "ERROR key \"type\" is not \"worldstate\" (team=" + t.shortName + ") : " + t.wsBuffer;
-								println(errorMsg);
-								ok = false;
-							}
-						} catch(JSONException e) {
-							String errorMsg = "ERROR missing key \"type\" (team=" + t.shortName + ") : " + t.wsBuffer;
-							println(errorMsg);
-							ok = false;
-						}
-					}
-					
-					if(ok)
-					{
-						try // Check for "ageMs" key
-						{
-							ageMs = t.worldstate_json.getInt("ageMs");
-						} catch(JSONException e) {
-							String errorMsg = "WS-ERROR missing key \"ageMs\" (team=" + t.shortName + ") : " + t.wsBuffer;
-							println(errorMsg);
-							ok = false;
-						}
-					}
-					
-					if(ok)
-					{
-						try // Check for "teamName" key
-						{
-							dummyFieldString = t.worldstate_json.getString("teamName");
-						} catch(JSONException e) {
-							String errorMsg = "WS-ERROR missing key \"teamName\" (team=" + t.shortName + ") : " + t.wsBuffer;
-							println(errorMsg);
-							ok = false;
-						}
-					}
-					
-					if(ok)
-					{
-						try // Check for "intention" key
-						{
-							dummyFieldString = t.worldstate_json.getString("intention");
-						} catch(JSONException e) {
-							String errorMsg = "WS-ERROR missing key \"intention\" (team=" + t.shortName + ") : " + t.wsBuffer;
-							println(errorMsg);
-							ok = false;
-						}
-					}
-					
-					if(ok)
-					{
-						try // Check for "robots" key
-						{
-							dummyFieldJsonArray = t.worldstate_json.getJSONArray("robots");
-						} catch(JSONException e) {
-							String errorMsg = "WS-ERROR key \"robots\" is missing or is not array (team=" + t.shortName + ") : " + t.wsBuffer;
-							println(errorMsg);
-							ok = false;
-						}
-					}
-					
-					if(ok)
-					{
-						try // Check for "balls" key
-						{
-							dummyFieldJsonArray = t.worldstate_json.getJSONArray("balls");
-						} catch(JSONException e) {
-							String errorMsg = "WS-ERROR key \"balls\" is missing or is not array (team=" + t.shortName + ") : " + t.wsBuffer;
-							println(errorMsg);
-							ok = false;
-						}
-					}
-					
-					if(ok)
-					{
-						try // Check for "obstacles" key
-						{
-							dummyFieldJsonArray = t.worldstate_json.getJSONArray("obstacles");
-						} catch(JSONException e) {
-							String errorMsg = "WS-ERROR key \"obstacles\" is missing or is not array (team=" + t.shortName + ") : " + t.wsBuffer;
-							println(errorMsg);
-							ok = false;
-						}
-					}
-					
-					if(ok)
-					{
-						t.logWorldstate(t.wsBuffer,ageMs);
-					}
-					t.wsBuffer="";      
-					//println("NEW message");
-				}else{
-					t.wsBuffer+= whatClientSaid;
-					break;
-				}
-				//println("MESSAGE from " + thisClient.ip() + ": " + whatClientSaid);
-				
-				// Avoid filling RAM with buffering (for example team is not sending the '\0' character)
-				if(t.wsBuffer.length() > 100000) {
-					t.wsBuffer = "";
-					String errorMsg = "ERROR JSON not terminated with '\\0' (team=" + t.shortName + ")";
-					println(errorMsg);
-				}
-			}
-			
-			
-		}
-	}catch(Exception e){
-	}
+  try
+  {
+    // Get the next available client
+    Client thisClient = BaseStationServer.available();
+    // If the client is not null, and says something, display what it said
+    if (thisClient !=null) {
+      
+      Team t = null;
+      int team = -1; // 0=A, 1=B
+      if(teamA != null && teamA.connectedClient == thisClient)
+      t=teamA;
+      else if(teamB != null && teamB.connectedClient == thisClient)
+      t=teamB;
+      else{
+        if(thisClient != connectingClient)
+        println("NON TEAM MESSAGE RECEIVED FROM " + thisClient.ip());
+        return;
+      }
+      String whatClientSaid = new String(thisClient.readBytes());
+      if (whatClientSaid != null) 
+      while(whatClientSaid.length() !=0){
+        //println(whatClientSaid);
+        int idx = whatClientSaid.indexOf('\0');
+        //println(whatClientSaid.length()+"\t"+ idx);
+        if(idx!=-1){
+          if(idx!=0)
+          {  
+            t.wsBuffer+= whatClientSaid.substring(0,idx);
+            if(idx < whatClientSaid.length())
+            whatClientSaid = whatClientSaid.substring(idx+1);
+            else
+            whatClientSaid = "";
+          }else{
+            if(whatClientSaid.length() == 1)
+            whatClientSaid = "";
+            else
+            whatClientSaid = whatClientSaid.substring(1);
+          }
+          
+          // JSON Validation
+          boolean ok = true;
+          int ageMs = 0;
+          String dummyFieldString;
+          org.json.JSONArray dummyFieldJsonArray;
+          try // Check for malformed JSON
+          {
+            t.worldstate_json = new org.json.JSONObject(t.wsBuffer);
+          } catch(JSONException e) {
+            String errorMsg = "ERROR malformed JSON (team=" + t.shortName + ") : " + t.wsBuffer;
+            println(errorMsg);
+            ok = false;
+          }
+          
+          if(ok)
+          {
+            try // Check for "type" key
+            {
+              String type = t.worldstate_json.getString("type");
+              
+              // type must be "worldstate"
+              if(!type.equals("worldstate"))
+              {
+                String errorMsg = "ERROR key \"type\" is not \"worldstate\" (team=" + t.shortName + ") : " + t.wsBuffer;
+                println(errorMsg);
+                ok = false;
+              }
+            } catch(JSONException e) {
+              String errorMsg = "ERROR missing key \"type\" (team=" + t.shortName + ") : " + t.wsBuffer;
+              println(errorMsg);
+              ok = false;
+            }
+          }
+          
+          if(ok)
+          {
+            try // Check for "ageMs" key
+            {
+              ageMs = t.worldstate_json.getInt("ageMs");
+            } catch(JSONException e) {
+              String errorMsg = "WS-ERROR missing key \"ageMs\" (team=" + t.shortName + ") : " + t.wsBuffer;
+              println(errorMsg);
+              ok = false;
+            }
+          }
+          
+          if(ok)
+          {
+            try // Check for "teamName" key
+            {
+              dummyFieldString = t.worldstate_json.getString("teamName");
+            } catch(JSONException e) {
+              String errorMsg = "WS-ERROR missing key \"teamName\" (team=" + t.shortName + ") : " + t.wsBuffer;
+              println(errorMsg);
+              ok = false;
+            }
+          }
+          
+          if(ok)
+          {
+            try // Check for "intention" key
+            {
+              dummyFieldString = t.worldstate_json.getString("intention");
+            } catch(JSONException e) {
+              String errorMsg = "WS-ERROR missing key \"intention\" (team=" + t.shortName + ") : " + t.wsBuffer;
+              println(errorMsg);
+              ok = false;
+            }
+          }
+          
+          if(ok)
+          {
+            try // Check for "robots" key
+            {
+              dummyFieldJsonArray = t.worldstate_json.getJSONArray("robots");
+            } catch(JSONException e) {
+              String errorMsg = "WS-ERROR key \"robots\" is missing or is not array (team=" + t.shortName + ") : " + t.wsBuffer;
+              println(errorMsg);
+              ok = false;
+            }
+          }
+          
+          if(ok)
+          {
+            try // Check for "balls" key
+            {
+              dummyFieldJsonArray = t.worldstate_json.getJSONArray("balls");
+            } catch(JSONException e) {
+              String errorMsg = "WS-ERROR key \"balls\" is missing or is not array (team=" + t.shortName + ") : " + t.wsBuffer;
+              println(errorMsg);
+              ok = false;
+            }
+          }
+          
+          if(ok)
+          {
+            try // Check for "obstacles" key
+            {
+              dummyFieldJsonArray = t.worldstate_json.getJSONArray("obstacles");
+            } catch(JSONException e) {
+              String errorMsg = "WS-ERROR key \"obstacles\" is missing or is not array (team=" + t.shortName + ") : " + t.wsBuffer;
+              println(errorMsg);
+              ok = false;
+            }
+          }
+          
+          if(ok)
+          {
+            t.logWorldstate(t.wsBuffer,ageMs);
+          }
+          t.wsBuffer="";      
+          //println("NEW message");
+        }else{
+          t.wsBuffer+= whatClientSaid;
+          break;
+        }
+        //println("MESSAGE from " + thisClient.ip() + ": " + whatClientSaid);
+        
+        // Avoid filling RAM with buffering (for example team is not sending the '\0' character)
+        if(t.wsBuffer.length() > 100000) {
+          t.wsBuffer = "";
+          String errorMsg = "ERROR JSON not terminated with '\\0' (team=" + t.shortName + ")";
+          println(errorMsg);
+        }
+      }
+      
+      
+    }
+  }catch(Exception e){
+  }
 }
 
 // -------------------------

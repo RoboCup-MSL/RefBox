@@ -12,30 +12,32 @@ enum ButtonsEnum
 	BTN_PARK(3),
 	BTN_ENDPART(4),
 	BTN_RESET(5),
+  BTN_SUBS(6),
+  BTN_CONFIG(7),
 
-	BTN_C_KICKOFF(6),
-	BTN_C_FREEKICK(7),
-	BTN_C_GOALKICK(8),
-	BTN_C_THROWIN(9),
-	BTN_C_CORNER(10),
-	BTN_C_PENALTY(11),
+	BTN_C_KICKOFF(8),
+	BTN_C_FREEKICK(9),
+	BTN_C_GOALKICK(10),
+	BTN_C_THROWIN(11),
+	BTN_C_CORNER(12),
+	BTN_C_PENALTY(13),
 
-	BTN_C_GOAL(12),
-	BTN_C_REPAIR(13),
-	BTN_C_RED(14),
-	BTN_C_YELLOW(15),
+	BTN_C_GOAL(14),
+	BTN_C_REPAIR(15),
+	BTN_C_RED(16),
+	BTN_C_YELLOW(17),
 
-	BTN_M_KICKOFF(16),
-	BTN_M_FREEKICK(17),
-	BTN_M_GOALKICK(18),
-	BTN_M_THROWIN(19),
-	BTN_M_CORNER(20),
-	BTN_M_PENALTY(21),
+	BTN_M_KICKOFF(18),
+	BTN_M_FREEKICK(19),
+	BTN_M_GOALKICK(20),
+	BTN_M_THROWIN(21),
+	BTN_M_CORNER(22),
+	BTN_M_PENALTY(23),
 
-	BTN_M_GOAL(22),
-	BTN_M_REPAIR(23),
-	BTN_M_RED(24),
-	BTN_M_YELLOW(25),
+	BTN_M_GOAL(24),
+	BTN_M_REPAIR(25),
+	BTN_M_RED(26),
+	BTN_M_YELLOW(27),
 
 	BTN_ILLEGAL(99);
 
@@ -121,6 +123,18 @@ enum ButtonsEnum
 	public boolean isRed()
 	{
 		return value == BTN_C_RED.value || value == BTN_M_RED.value;
+	}
+
+	//******************************************************************************************************
+	public boolean isSubs()
+	{
+		return value == BTN_SUBS.value;
+	}
+
+	//******************************************************************************************************
+	public boolean isConfig()
+	{
+		return value == BTN_CONFIG.value;
 	}
 
 	public static final ButtonsEnum[] items = ButtonsEnum.values();
@@ -232,6 +246,8 @@ enum PopupTypeEnum
 	POPUP_REPAIRR(4),
 	POPUP_HELP(5),
 	POPUP_WAIT(6),
+  POPUP_SUBS(7),
+	POPUP_CONFIG(8),
 
 	POPUP_ILLEGAL(99);
 

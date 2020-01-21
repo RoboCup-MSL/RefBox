@@ -5,7 +5,7 @@ class Team {
 	String unicastIP, multicastIP;
 	color colorTeam=(#000000);
 	boolean isLeft;  //default: cyan@left
-	boolean newYellowCard, newRedCard, newRepair, newDoubleYellow, newPenaltyKick, newGoal; // Pending commands, effective only on gamestate change
+  boolean newYellowCard, newRedCard, newRepair, newSubstitution, newDoubleYellow, newPenaltyKick, newGoal; // Pending commands, effective only on gamestate change
 	int Score, RedCardCount, YellowCardCount, DoubleYellowCardCount, PenaltyCount;
 	public int RepairCount;
 	public int nOfRepairs;
@@ -92,6 +92,7 @@ class Team {
 		this.newYellowCard=false;
 		this.newRedCard=false;
 		this.newRepair=false;
+    this.newSubstitution=false;
 		this.newDoubleYellow=false;
 		this.newPenaltyKick=false;
 		for (int i=0; i<5; i++)
@@ -164,6 +165,11 @@ class Team {
 		r[rpCount].setState("play");	
 	}
 
+  //*******************************************************************
+  void substitute_timer_start(int subCount) {
+    r[subCount].SubstituteTimer.startTimer(Config.substitutionMaxTime_ms);
+  }
+
 	//*******************************************************************
 	public void double_yellow_timer_start(int rpCount) {
 		r[rpCount].DoubleYellowTimer.startTimer(Config.doubleYellowPenalty_ms);
@@ -195,17 +201,17 @@ class Team {
 		if (this.newRepair) {
 			while (this.nOfRepairs > 0) {
 				for (i = 0; i < 3; i++) if (this.r[i].state == "play") break;
-				if (i < 3) {
+//				if (i < 3) { TODO: What's the point of this?
 					this.repair_timer_start(i);
 					this.RepairCount++;
 					this.r[i].setState("repair");	  
 					// Hack: send command only on game change
-				}
-				this.nOfRepairs --;
+//				}
+				this.nOfRepairs--;
 			}
 			if(this.isLeft) event_message_v2(ButtonsEnum.BTN_C_REPAIR, true);
 			else event_message_v2(ButtonsEnum.BTN_M_REPAIR, true);
-			this.newRepair=false;
+			this.newRepair = false;
 			this.nOfRepairs = 1;
 		}
 
@@ -241,8 +247,9 @@ class Team {
 				this.DoubleYellowCardCount++;
 				this.YellowCardCount = 0;
 
-				if(this.isLeft) send_event_v2(""+COMM_DOUBLE_YELLOW, "Double Yellow", this);
-				else send_event_v2(""+COMM_DOUBLE_YELLOW, "Double Yellow", this);
+				if(this.isLeft) send_event_v2(""+COMM_DOUBLE_YELLOW, "Double Yellow", this, -1);
+				else send_event_v2(""+COMM_DOUBLE_YELLOW, "Double Yellow", this, -1);    // TODO: Same as line above
+
 			}
 			this.newDoubleYellow = false;
 		}
@@ -253,6 +260,19 @@ class Team {
 		}
 	}
 
+  //*******************************************************************
+  void substitute(int robotID) {    
+    for (int i = 0; i < r.length; i++) {
+      if (this.r[i].state.equals("play") || this.r[i].state.equals("yellow")) {    // only robots that are in play can substitute
+      send_event_v2(""+COMM_SUBSTITUTION, "substituting", this, robotID);
+      this.substitute_timer_start(i);
+      println("substituting robot " + i + " (on field) for robot " + robotID + " (outside field)");
+      break;
+      }
+    }
+  }
+
+  //*******************************************************************
 	public int numberOfPlayingRobots()
 	{
 		int i, count;
@@ -262,8 +282,6 @@ class Team {
 	}
 
 	//*******************************************************************
-	//*******************************************************************
-
 	void updateUI() {
 		if(connectedClient != null && !connectedClient.active())
 		{
@@ -291,8 +309,9 @@ class Team {
 		if (isLeft) text(ln, 163, 90);
 		else text(ln, 837, 90);
 
-		for (int i=0; i < 4; i++) {
+		for (int i=0; i < r.length; i++) {
 			r[i].RepairTimer.updateStopWatch();
+      r[i].SubstituteTimer.updateStopWatch();
 			r[i].DoubleYellowTimer.updateStopWatch();
 		}
 

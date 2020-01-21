@@ -14,6 +14,7 @@ static class Config
 	public static int repairPenalty_ms = 20000;                      //@mbc default value reajusted according to rules
 	public static int doubleYellowPenalty_ms = 90000;                //@mbc default value reajusted according to rules
 	public static int setPieceMaxTime_ms = 7000;
+  public static int substitutionMaxTime_ms = 20000;
 
 	// Appearance
 	public static int maxShortName = 8;
@@ -26,11 +27,13 @@ static class Config
 	public static String defaultCyanTeamShortName = "Team";
 	public static String defaultCyanTeamLongName = "Cyan";
   public static String defaultCyanTeam = "TeamCyan";
-	public static color defaultCyanTeamColor = #00ffff;
+	public static color defaultCyanTeamColor = #007BA7;
+  public static color defaultCyanBackgroundColor = #04486B;
 	public static String defaultMagentaTeamShortName = "Team";
 	public static String defaultMagentaTeamLongName = "Magenta";
   public static String defaultMagentaTeam = "TeamMagenta";
-	public static color defaultMagentaTeamColor  = #ff00ff;
+	public static color defaultMagentaTeamColor = #DA70D6;
+  public static color defaultMagentaBackgroundColor = #812F6D;
 
 	// Sounds
 	public static String sounds_maxTime = "";
@@ -121,12 +124,15 @@ static class Config
 					// Rules
 					if(rules.has("repairPenalty_ms"))
 					repairPenalty_ms = rules.getInt("repairPenalty_ms");
-					
+
 					if(rules.has("doubleYellowPenalty_ms"))
 					doubleYellowPenalty_ms = rules.getInt("doubleYellowPenalty_ms");
 					
 					if(rules.has("setPieceMaxTime_ms"))
 					setPieceMaxTime_ms = rules.getInt("setPieceMaxTime_ms");
+
+          if(rules.has("substitutionMaxTime_ms"))
+          substitutionMaxTime_ms = rules.getInt("substitutionMaxTime_ms");
 					
 					// ----
 					// Appearance
@@ -210,6 +216,7 @@ static class Config
 		// Rules
 		println( "### Rules ###" );
 		println( "repairPenalty_ms             : " + repairPenalty_ms);
+    println( "substitutionMaxTime_ms       : " + substitutionMaxTime_ms);
 		println( "doubleYellowPenalty_ms       : " + doubleYellowPenalty_ms);
 		println();
 		// Appearance

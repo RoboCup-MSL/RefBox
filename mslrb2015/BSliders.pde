@@ -44,7 +44,7 @@ class BSliders {
 	}
 
 	void toogle() {
-		if (this.enabled) this.on=!on;  
+		if (this.enabled) this.on=!this.on;  
 	}
 
 	void enable() {
