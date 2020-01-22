@@ -72,7 +72,6 @@ public static boolean TESTMODE=false, stopsplittimer=true, VOICECOACH=false, REM
 public static char LastKickOff='.';
 public static String[] Last5cmds= { ".", ".", ".", ".", "." };
 public static String LogFileName;
-public static String lastaction=".";
 public static String gametime = "", gameruntime = "";
 
 //GUI

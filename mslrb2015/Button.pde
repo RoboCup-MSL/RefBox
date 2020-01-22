@@ -194,7 +194,7 @@ void buttonEvent(char group, int pos) {
 	if (group=='C')
 	{
 		clickedButton = ButtonsEnum.items[pos];
-    System.out.println(clickedButton);
+		System.out.println(clickedButton);
 		clickBtn = buttonFromEnum(clickedButton);
 		if(clickBtn.isEnabled())
 		clickBtn.toggle();
@@ -220,7 +220,7 @@ void buttonEvent(char group, int pos) {
 		clickedButton = null;
 	}
 
-  System.out.println("..." + clickedButton);
+	System.out.println("..." + clickedButton);
 
 	if(clickedButton != null)        // A button has been clicked
 	{
