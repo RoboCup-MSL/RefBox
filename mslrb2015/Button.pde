@@ -11,16 +11,16 @@ class Button {
 	int ccm = 0;
 	color cstroke, cfill, cstrokeactive, cfillactive;
 
-	public String msg = null; // long name for the command
-	public String msg_off = null;
-	public String cmd = null; // command (usually a char)
-	public String cmd_off = null;
+	String msg = null; // long name for the command
+	String msg_off = null;
+	String cmd = null; // command 
+  String cmd_off = null;
 
 	// c1 > stroke color (-1 > no stroke)
 	// c2 > fill collor (-1 > no fill)
 	// c3 > stroke color when active (-1 > no stroke)
 	// c4 > fill collor when active (-1 > no fill)
-	Button(float x, float y, String Label, color c1, color c2, color c3, color c4) { 
+	Button(float x, float y, String Label, color c1, color c2, color c3, color c4, String cmd, String msg,String cmd_off, String msg_off) { 
 		this.x=x;
 		this.y=y;
 		this.Label=Label;
@@ -30,6 +30,11 @@ class Button {
 		this.cfill=c2;
 		this.cstrokeactive=c3;
 		this.cfillactive=c4;
+    this.cmd=cmd;
+    this.msg=msg;
+    this.cmd_off=cmd_off;
+    this.msg_off=msg;
+    
 	}
 
 	void update() {
@@ -133,9 +138,9 @@ class Button {
 		if (this.isEnabled()) {
 			if ( this.isActive() ){
 				this.bStatus="normal";
-				if(StateMachine.setpiece && this.Label == Teamcmds[6]) {
+				if(StateMachine.setpiece && this.Label == COMM_GOAL) {
 					StateMachine.ResetSetpiece();
-					send_to_basestation(cCommcmds[1],"",-1);
+					send_to_basestation(COMM_STOP,"",-1);
 				}
 			}
 			else this.bStatus="active";

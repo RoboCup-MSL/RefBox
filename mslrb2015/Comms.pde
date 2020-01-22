@@ -352,6 +352,7 @@ public static final String COMM_FIRST_HALF_OVERTIME = "FIRST_HALF_OVERTIME";  //
 public static final String COMM_SECOND_HALF_OVERTIME = "SECOND_HALF_OVERTIME";  //NEW 2015CAMBADA: 
 public static final String COMM_HALF_TIME = "HALF_TIME";
 public static final String COMM_END_GAME = "END_GAME";    //ends 2nd part, may go into overtime
+public static final String COMM_END_PART = "END_PART";    //ends 2nd part, may go into overtime
 public static final String COMM_GAMEOVER = "GAMEOVER";  //NEW 2015CAMBADA: Game Over
 public static final String COMM_PARK = "PARK";
 
@@ -369,7 +370,7 @@ public static final String COMM_PENALTY = "PENALTY";
 public static final String COMM_DROP_BALL = "DROP_BALL";
 
 // repair Commands
-public static final String COMM_REPAIR_OUT = "REPAIR_OUT";
+public static final String COMM_REPAIR = "REPAIR";
 public static final String COMM_SUBSTITUTION = "SUBSTITUTION";
 
 //free: 056789 iIfFHlmMnqQwxX
@@ -383,6 +384,7 @@ void comms_initDescriptionDictionary() {
 	Description.set(COMM_DROP_BALL, "Drop Ball");
 	Description.set(COMM_HALF_TIME, "Halftime");
 	Description.set(COMM_END_GAME, "End Game");
+	Description.set(COMM_END_PART, "End Part");
 	Description.set(COMM_GAMEOVER, "Game Over");
 	Description.set(COMM_RESET, "Reset Game");
 	Description.set(COMM_WELCOME, "Welcome");
@@ -403,7 +405,7 @@ void comms_initDescriptionDictionary() {
 	Description.set(COMM_PENALTY,       "Penalty Kick");
 	Description.set(COMM_GOAL,          "Goal+");
 	Description.set(COMM_SUBGOAL,       "Goal-");
-	Description.set(COMM_REPAIR_OUT,    "Repair Out");
+	Description.set(COMM_REPAIR,    "Repair");
 	Description.set(COMM_RED_CARD,      "Red Card");
 	Description.set(COMM_YELLOW_CARD,   "Yellow Card");
 	Description.set(COMM_DOUBLE_YELLOW, "Double Yellow");

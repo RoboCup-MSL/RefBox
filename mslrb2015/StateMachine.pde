@@ -49,7 +49,7 @@ static class StateMachine
 				{
 					if(Popup.getResponse().equals("yes"))
 					{
-						send_event_v2(cCommcmds[CMDID_COMMON_RESET], Commcmds[CMDID_COMMON_RESET], null, -1);
+						send_event_v2(COMM_RESET, Description.get(COMM_RESET), null, -1);
 						Popup.close();
 						btnCurrent = ButtonsEnum.BTN_ILLEGAL;		// Clear up current button, just in case
 						mainApplet.redraw();						// redraw screen to turn off Reset Popup
@@ -76,10 +76,10 @@ static class StateMachine
 						SetPieceDelay.resetStopWatch();
 						SetPieceDelay.stopTimer();
 
-						if (bCommoncmds[CMDID_COMMON_HALFTIME].Label.equals("End Game"))
-						  send_event_v2(cCommcmds[CMDID_COMMON_ENDGAME], Commcmds[CMDID_COMMON_ENDGAME], null, -1);
+						if (COMM_HALF_TIME.equals("End Game"))
+						  send_event_v2(COMM_END_GAME, Description.get(COMM_END_GAME), null, -1);
 						else
-						  send_event_v2(cCommcmds[CMDID_COMMON_HALFTIME], Commcmds[CMDID_COMMON_HALFTIME], null, -1);            
+						  send_event_v2(COMM_HALF_TIME, Description.get(COMM_HALF_TIME), null, -1);            
 					}
 					Popup.close();
 					break;
