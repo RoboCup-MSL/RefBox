@@ -140,7 +140,7 @@ class Button {
 				this.bStatus="normal";
 				if(StateMachine.setpiece && this.Label == COMM_GOAL) {
 					StateMachine.ResetSetpiece();
-					send_to_basestation(COMM_STOP,"",-1);
+            send_event_v2(COMM_STOP, COMM_STOP, null,-1);
 				}
 			}
 			else this.bStatus="active";

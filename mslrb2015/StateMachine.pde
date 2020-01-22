@@ -322,10 +322,10 @@ static class StateMachine
 					nextGS = SwitchRunningStopped();
 					switch(nextGS)
 					{
-					case GS_GAMEON_H1: send_to_basestation(COMM_FIRST_HALF + "","",-1); break;
-					case GS_GAMEON_H2: send_to_basestation(COMM_SECOND_HALF + "","",-1); break;
-					case GS_GAMEON_H3: send_to_basestation(COMM_FIRST_HALF_OVERTIME + "","",-1); break;
-					case GS_GAMEON_H4: send_to_basestation(COMM_SECOND_HALF_OVERTIME + "","",-1); break;
+					case GS_GAMEON_H1: send_event_v2(COMM_FIRST_HALF,COMM_FIRST_HALF,null,-1); break;
+					case GS_GAMEON_H2: send_event_v2(COMM_SECOND_HALF,COMM_SECOND_HALF,null,-1); break;
+					case GS_GAMEON_H3: send_event_v2(COMM_FIRST_HALF_OVERTIME,COMM_FIRST_HALF_OVERTIME, null,-1); break;
+					case GS_GAMEON_H4: send_event_v2(COMM_SECOND_HALF_OVERTIME,COMM_SECOND_HALF_OVERTIME,null,-1); break;
 					}
 				}
 				else if(btnCurrent == ButtonsEnum.BTN_STOP)

@@ -22,13 +22,13 @@ public static void clientValidation(MyServer whichServer, Client whichClient) {
 				{
 					// Invalid team
 					Log.logMessage("Invalid team " + whichClient.ip());
-					send_to_basestation(COMM_RESET,"",-1);
+					send_event_v2(COMM_RESET,COMM_RESET,null,-1);
 					whichClient.stop();
 				}
 			} else {
 				Log.logMessage("ERR Another team connecting");
 				//whichClient.write(COMM_RESET);
-        send_to_basestation(COMM_RESET,"",-1);
+        send_event_v2(COMM_RESET,COMM_RESET,null,-1);
 				whichClient.stop();
 			}
 		}
