@@ -33,6 +33,7 @@ public static final int CMDID_TEAM_GOAL = 6;
 public static final int CMDID_TEAM_REPAIR_OUT = 7;
 public static final int CMDID_TEAM_REDCARD = 8;
 public static final int CMDID_TEAM_YELLOWCARD = 9;
+
 public static final int CMDID_COMMON_START = 0;
 public static final int CMDID_COMMON_STOP = 1;
 public static final int CMDID_COMMON_DROP_BALL = 2;
@@ -100,18 +101,18 @@ such as images and fonts as the program starts.
 **************************************************************************************************************************/
 void setup() {
 	mainApplet = this;
-	PrintWriter output;
+	//PrintWriter output;
 	
-	// Get system fonts list and write it to fonts.txt
-	String[] fontList = PFont.list();
-	int n = fontList.length;
-	output = createWriter("fonts.txt");
-	for (int i = 0; i < n; i++) //<>//
-	{
-		output.println(fontList[i]);	
-	}
-	output.flush(); // Writes the remaining data to the file
-	output.close(); // Finishes the file
+	//// Get system fonts list and write it to fonts.txt
+	//String[] fontList = PFont.list();
+	//int n = fontList.length;
+	//output = createWriter("fonts.txt");
+	//for (int i = 0; i < n; i++) //<>//
+	//{
+	//	output.println(fontList[i]);	
+	//}
+	//output.flush(); // Writes the remaining data to the file
+	//output.close(); // Finishes the file
 
 	backgroundImage = loadImage("img/bg_normal.png");
 	size(1000, 680);
