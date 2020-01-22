@@ -6,7 +6,7 @@
 import processing.net.*;
 import org.json.*;
 
-public static final String MSG_VERSION="1.2.0";
+public static final String MSG_VERSION="1.3.0";
 public static final String MSG_VERSION_MSG="";
 public static final String MSG_WINDOWTITLE="RoboCup MSL Referee Client - "+MSG_VERSION+" "+MSG_VERSION_MSG;
 
@@ -15,8 +15,8 @@ public static final int appFrameRate = 15;
 public static String[] Teamcmds= { "KickOff", "FreeKick", "GoalKick", "Throw In", "Corner", "Penalty", "Goal", "Repair", "Red", "Yellow" };
 public static String[] Commcmds= { "START", "STOP", "DropBall", "Park", "End Part",  "RESET", "EndGame" };
 
-public static final String[] cCTeamcmds= { "K", "F", "G", "T", "C", "P", "A", "O", "R", "Y" };
-public static final String[] cMTeamcmds= { "k", "f", "g", "t", "c", "p", "a", "o", "r", "y" };
+public static final String[] cTeamcmds= { "KICKOFF", "FREEKICK", "GOALKICK", "THROWIN", "CORNER", "PENALTY", "GOAL", "REPAIR", "RED_CARD", "YELLOW_CARD" };
+
 public static final int CMDID_TEAM_KICKOFF = 0;
 public static final int CMDID_TEAM_FREEKICK = 1;
 public static final int CMDID_TEAM_GOALKICK = 2;
@@ -28,7 +28,7 @@ public static final int CMDID_TEAM_REPAIR_OUT = 7;
 public static final int CMDID_TEAM_REDCARD = 8;
 public static final int CMDID_TEAM_YELLOWCARD = 9;
 
-public static final String[] cCommcmds= { "s", "S", "N", "L", "h", "Z" };  
+public static String[] cCommcmds= { "START", "STOP", "DROP_BALL", "PARK", "END_PART", "RESET", "END_GAME" };
 public static final int CMDID_COMMON_START = 0;
 public static final int CMDID_COMMON_STOP = 1;
 public static final int CMDID_COMMON_DROP_BALL = 2;
@@ -50,6 +50,7 @@ public static String gametime = "", gameruntime = "";
 public static String currentGameStateString = "Stop";
 public static String lastCommandCode = "";
 public static String lastCommandDescription = "";
+public static String lastCommandTeam = "";
 public static int lastConnectionAttempt = 0;
 public static int nConnAttempts = 0;
 public static int gameState = 0;
@@ -112,131 +113,7 @@ void setup() {
  **************************************************************************************************************************/
 void draw() {
   
-  /*
-  if(myClient == null || !myClient.active()) {
-    if(myClient == null || millis() - lastConnectionAttempt > 1000)
-    {
-      myClient = new Client(this, Config.scoreServerHost, Config.scoreServerPort);
-      lastConnectionAttempt = millis();
-      nConnAttempts++;
-      for(int i = 0; i < 5; i++)
-        Last5cmds[i] = ".";
-      teamA.reset();
-      teamB.reset();
-      lastCommandCode = ".";
-      lastCommandDescription = "";
-    }
-  }else{
-    if (myClient.available() > 0) { 
-      String whatClientSaid = new String(myClient.readBytes());
-      if(whatClientSaid != null)
-        while(whatClientSaid.length() != 0)
-        {
-          nConnAttempts = 0;
-          
-          int idx = whatClientSaid.indexOf('\0');
-          if(idx == -1) { // Terminator not found
-            msgBuffer += whatClientSaid;
-            break;
-          }else{ // Terminator found
-            if(idx != 0)
-            {
-              msgBuffer += whatClientSaid.substring(0,idx);
-              if(idx < whatClientSaid.length())
-                whatClientSaid = whatClientSaid.substring(idx+1);
-              else
-                whatClientSaid = "";
-            }else{
-              if(whatClientSaid.length() == 1)
-                whatClientSaid = "";
-              else
-                whatClientSaid = whatClientSaid.substring(1);
-            }
-            
-            // Validate message
-            boolean ok = true;
-            org.json.JSONObject root = null;
-            org.json.JSONObject jsonA = null;
-            org.json.JSONObject jsonB = null;
-            
-            try // Check for malformed JSON
-            {
-              root = new org.json.JSONObject(msgBuffer);
-            } catch(JSONException e) {
-              String errorMsg = "ERROR malformed JSON : " + msgBuffer;
-              println(errorMsg);
-              ok = false;
-            }
-            
-            if(ok && root.has("type") && root.optString("type","").equals("event")) // event type messages
-            {
-              String eventCode = root.optString("eventCode","");
-              if(Description.hasKey(eventCode))
-              {
-                String desc = Description.get(eventCode);
-                Log.logactions(eventCode);
-                lastCommandCode = eventCode;
-                lastCommandDescription = desc;
-              }
-            }else if(ok && root.has("type") && root.optString("type","").equals("teams")){
-            
-              if(ok)
-              {
-                try // Check for worldstate
-                {
-                  jsonA = root.getJSONObject("teamA");
-                  jsonB = root.getJSONObject("teamB");
-                } catch(JSONException e) {
-                  String errorMsg = "ERROR No worldstate from teams : " + msgBuffer;
-                  println(errorMsg);
-                  ok = false;
-                }
-              }
-              
-              if(ok && root != null && jsonA != null && jsonB != null)
-              {
-                // Global
-                currentGameStateString = root.optString("gameStateString");
-                gametime = root.optString("gameTime", gametime);
-                gameruntime = root.optString("gameRunTime", gameruntime);
-                gameState = root.optInt("gameState", gameState);
-                
-                // Team A
-                teamA.shortName = jsonA.optString("shortName", teamA.shortName);
-                teamA.longName = jsonA.optString("longName", teamA.longName);
-                teamA.Score = jsonA.optInt("score", teamA.Score);
-                if(jsonA.has("robotState")) {
-                  for(int i = 0; i < 5; i++) {
-                    org.json.JSONArray state = jsonA.getJSONArray("robotState");
-                    teamA.r[i].state = state.optString(i, teamA.r[i].state);
-                    
-                    org.json.JSONArray waitTime = jsonA.getJSONArray("robotWaitTime");
-                    teamA.r[i].waittime = waitTime.optInt(i, teamA.r[i].waittime);
-                  }
-                }
-                
-                // Team B
-                teamB.shortName = jsonB.optString("shortName", teamB.shortName);
-                teamB.longName = jsonB.optString("longName", teamB.longName);
-                teamB.Score = jsonB.optInt("score", teamB.Score);
-                if(jsonB.has("robotState")) {
-                  for(int i = 0; i < 5; i++) {
-                    org.json.JSONArray state = jsonB.getJSONArray("robotState");
-                    teamB.r[i].state = state.optString(i, teamB.r[i].state);
-                    org.json.JSONArray waitTime = jsonB.getJSONArray("robotWaitTime");
-                    teamB.r[i].waittime = waitTime.optInt(i, teamB.r[i].waittime);
-                  }
-                }
-              }
-            
-            } // end "teams" type
-            msgBuffer = ""; // Clean buffer
-          }
-        }
-    }
-  }
-  */
-  
+ 
   background(backgroundImage);
   
 //    ctr ++;
@@ -281,36 +158,36 @@ void draw() {
   }else*/{
     PImage img = null;
     String imageName = "";
-    if(lastCommandCode.equals("S")) imageName = "stop";
+    if(lastCommandCode.equals(COMM_STOP)) imageName = "stop";
     if(imageName.length() > 0 && new File(dataPath("img/"+imageName+".png")).exists() && (img = loadImage("img/"+imageName+".png")) != null)
     {
       imageMode(CENTER);
       image(img, width/2, height/2 + 45, 230, 230);
     }else{
-      fill(255);
+      fill(#E0F000);
       String description = lastCommandDescription;
       if(description.contains("START"))
+      {
         fill(#28C700);
-      else if(description.contains("MAGENTA"))
-      {
-        fill(teamB.c);
-        description = description.replace(" MAGENTA","\nMAGENTA");
-      }else if(description.contains("CYAN"))
-      {
-        fill(teamA.c);
-        description = description.replace(" CYAN","\nCYAN");
       }
-      textFont(teamFont);
+      
+      textFont(teamFont, 60);
+      
+      //command
       textAlign(CENTER, CENTER);
-      text(description, width/2, height/2 + 45);
-      println("Desc: " + description);
+      text(description, width/2, height/2 + 10);
+      //team dest command
+      textFont(teamFont, 35);
+      textAlign(CENTER, CENTER-5);
+      text(lastCommandTeam, width/2, height/2 + 100);
+      //println("Desc: " + description);
     }
   }
 }
 
 void receive(byte[] data, String HOST_IP, int PORT_RX){
   String whatClientSaid = new String(data);
-  
+  //System.out.println(whatClientSaid);
   while(whatClientSaid.length() != 0)
   {
     nConnAttempts = 0;
@@ -351,13 +228,16 @@ void receive(byte[] data, String HOST_IP, int PORT_RX){
       
       if(ok && root.has("type") && root.optString("type","").equals("event")) // event type messages
       {
-        String eventCode = root.optString("eventCode","");
+         String eventCode = root.optString("eventCode","");
+         String eventDesc = root.optString("eventDesc","");
+         String teamName = root.optString("team","");
+        
         if(Description.hasKey(eventCode))
         {
-          String desc = Description.get(eventCode);
-          Log.logactions(eventCode);
+          Log.logactions(eventCode, teamName);
           lastCommandCode = eventCode;
-          lastCommandDescription = desc;
+          lastCommandDescription = eventDesc;
+          lastCommandTeam = teamName;
         }
       }else if(ok && root.has("type") && root.optString("type","").equals("teams")){
       
@@ -381,7 +261,6 @@ void receive(byte[] data, String HOST_IP, int PORT_RX){
           gametime = root.optString("gameTime", gametime);
           gameruntime = root.optString("gameRunTime", gameruntime);
           gameState = root.optInt("gameState", gameState);
-          
           // Team A
           teamA.shortName = jsonA.optString("shortName", teamA.shortName);
           teamA.longName = jsonA.optString("longName", teamA.longName);

@@ -13,6 +13,9 @@ static class StateMachine
 	public static ButtonsEnum setpiece_button = null;
 
 	public static boolean firstKickoffCyan = true;
+	private static boolean done = true;
+
+  public static boolean validInput = true;
 
 	public static void Update(ButtonsEnum click_btn, boolean on) //If on==True then active
 	{
@@ -27,6 +30,7 @@ static class StateMachine
 	//************************************************************************
 	private static void StateMachineRefresh()
 	{
+		done = false;	// This boolean blocks access to the StateMachine by main draw() function while something is in course				
 		GameStateEnum nextGS = GameStateEnum.newInstance(gsCurrent);
 		GameStateEnum saveGS = GameStateEnum.newInstance(gsCurrent);
 		
@@ -35,18 +39,29 @@ static class StateMachine
 		{
 			switch(Popup.getType())
 			{
+			case POPUP_HELP:
+				{
+					Popup.close();
+					break;
+				}
+
 			case POPUP_RESET:
 				{
 					if(Popup.getResponse().equals("yes"))
 					{
-						send_event_v2(cCommcmds[CMDID_COMMON_RESET], Commcmds[CMDID_COMMON_RESET], null);
+						send_event_v2(cCommcmds[CMDID_COMMON_RESET], Commcmds[CMDID_COMMON_RESET], null, -1);
 						Popup.close();
-						gsCurrent = GameStateEnum.GS_RESET;            // Game over
-						needUpdate = true;
-						reset();
+						btnCurrent = ButtonsEnum.BTN_ILLEGAL;		// Clear up current button, just in case
+						mainApplet.redraw();						// redraw screen to turn off Reset Popup
+						
+						// Show wait popup - this will be reset when a new pre-game starts
 						Popup.show(PopupTypeEnum.POPUP_WAIT, MSG_WAIT, 0, 0, 0, 24, 380, 100);
+						gsCurrent = GameStateEnum.GS_RESET;         // Force Reset state
+						needUpdate = true;							// and enforce update of the state machine
+						done = true;
 						return;
-					} //<>//
+					} //<>// //<>//
+					Popup.close();
 					break;
 				}
 				
@@ -62,27 +77,44 @@ static class StateMachine
 						SetPieceDelay.stopTimer();
 
 						if (bCommoncmds[CMDID_COMMON_HALFTIME].Label.equals("End Game"))
-						send_event_v2(cCommcmds[CMDID_COMMON_ENDGAME], Commcmds[CMDID_COMMON_ENDGAME], null);
+						  send_event_v2(cCommcmds[CMDID_COMMON_ENDGAME], Commcmds[CMDID_COMMON_ENDGAME], null, -1);
 						else
-						send_event_v2(cCommcmds[CMDID_COMMON_HALFTIME], Commcmds[CMDID_COMMON_HALFTIME], null);            
+						  send_event_v2(cCommcmds[CMDID_COMMON_HALFTIME], Commcmds[CMDID_COMMON_HALFTIME], null, -1);            
 					}
+					Popup.close();
 					break;
 				}
 				
 			case POPUP_TEAMSELECTION:
 				{
 					Team t = null;
-					if(Popup.getResponse().equals("cyan"))
+					if(Popup.getResponse().equals("OK"))
 					{
-						Log.logMessage("Connection from " + connectingClient.ip() + " accepted - Cyan");
+						if(teamA.connectedClient == null || !teamA.connectedClient.active())
+						{
+							Log.logMessage("Connection from " + connectingClient.ip() + " accepted - Left");
+							t = teamA;
+						}
+						else
+						{
+							Log.logMessage("Connection from " + connectingClient.ip() + " accepted - Left");
+							t = teamB;
+						}
+							
+					}
+					else if(Popup.getResponse().equals("Left"))
+					{
+						Log.logMessage("Connection from " + connectingClient.ip() + " accepted - Left");
 						t = teamA;
 					}else{
-						Log.logMessage("Connection from " + connectingClient.ip() + " accepted - Magenta");
+						Log.logMessage("Connection from " + connectingClient.ip() + " accepted - Right");
 						t = teamB;
 					}
 					
 					if(t != null)
-					t.teamConnected(teamselect);          
+					  t.teamConnected(teamselect);
+
+					Popup.close();          
 					break;
 				}
 				
@@ -91,6 +123,7 @@ static class StateMachine
 					if(Popup.getResponse().equals("1")) teamA.nOfRepairs = 1; 
 					if(Popup.getResponse().equals("2")) teamA.nOfRepairs = 2;
 					if(Popup.getResponse().equals("3")) teamA.nOfRepairs = 3;
+					Popup.close();
 					break;
 				}
 				
@@ -99,11 +132,75 @@ static class StateMachine
 					if(Popup.getResponse().equals("1")) teamB.nOfRepairs = 1; 
 					if(Popup.getResponse().equals("2")) teamB.nOfRepairs = 2;
 					if(Popup.getResponse().equals("3")) teamB.nOfRepairs = 3;
+					Popup.close();
 					break;
 				}
-			}      
+
+      case POPUP_SUBS:
+        {
+          if (Popup.getResponse().equals("Apply")) {
+            for (int t = 0; t < tBox.length; t++)
+            {
+              if (tBox[t].checkInput() == false) {
+                validInput = false;
+                break;
+              }
+              validInput = true;
+            }
+            if (validInput) {
+              for (int t = 0; t < tBox.length; t++)
+              {
+                if (tBox[t].value != "0") {
+                  if (t < 3) {
+                    if(!teamA.newSubstitution) teamA.newSubstitution = true;
+                    teamA.substitute(int(tBox[t].value));
+                  }
+                  else {
+                    if (!teamB.newSubstitution) teamB.newSubstitution = true;
+                    teamB.substitute(int(tBox[t].value));
+                  }
+                }
+                tBox[t].value = "0";
+                tBox[t].hide();
+              }
+              if (teamA.newSubstitution || teamB.newSubstitution) {
+                SetPieceDelay.startTimer(Config.substitutionMaxTime_ms);
+                println ("Substitution timer (s): " + Config.substitutionMaxTime_ms/1000);
+              }
+              Popup.close();
+            }            
+          }
+          else if (Popup.getResponse().equals("Cancel")) {
+            for (int t = 0; t < tBox.length; t++)
+            {
+              tBox[t].value = "0";
+              tBox[t].hide();
+            }
+            validInput = true;
+            Popup.close();
+          }
+          break;
+        }
+        
+      case POPUP_CONFIG:
+        {
+          for (int s = 0; s < bSlider.length; s++)
+          {
+            bSlider[s].disable();
+            if(StateMachine.GetCurrentGameState() != GameStateEnum.GS_PREGAME)
+            {
+                //bSlider[i].disable();
+            }else{
+                //bSlider[i].enable();
+            }
+          }
+          Popup.close();
+          break;
+        }
+      }
+      
 			needUpdate = false;
-			Popup.close();
+			done = true;
 			return;
 		}
 		
@@ -113,26 +210,29 @@ static class StateMachine
 			int add = (btnOn ? +1 : -1);
 			int i;
 			
+			needUpdate = false;			// Clear flag at the begining so that internal code can turno it ON again
 			if(btnCurrent.isGoal())
 			{
-				if(btnCurrent.isCyan()) teamA.Score+=add;
+				if(btnCurrent.isLeft()) teamA.Score+=add;
 				else teamB.Score+=add;
 			}
 			else if(btnCurrent.isReset())
 			{
 				Popup.show(PopupTypeEnum.POPUP_RESET, MSG_RESET, 1, 0, 2, 24, 380, 200);
 				needUpdate = false;
+				done = true;
 				return;
 			}
 			else if(btnCurrent.isEndPart())
 			{
 				Popup.show(PopupTypeEnum.POPUP_ENDPART, MSG_HALFTIME, 1, 0, 2, 24, 380, 200);
 				needUpdate = false;
+				done = true;
 				return;
 			}
 			else if(btnCurrent.isRepair())
 			{
-				if(btnCurrent.isCyan()){
+				if(btnCurrent.isLeft()){
 					teamA.newRepair=btnOn;
 					if (btnOn) {
 						i = teamA.numberOfPlayingRobots() - 2;
@@ -157,7 +257,7 @@ static class StateMachine
 			}
 			else if(btnCurrent.isRed())
 			{
-				if(btnCurrent.isCyan())
+				if(btnCurrent.isLeft())
 				teamA.newRedCard=btnOn;
 				else
 				teamB.newRedCard=btnOn;
@@ -165,7 +265,7 @@ static class StateMachine
 			else if(btnCurrent.isYellow())
 			{
 				Team t = teamA;
-				if(!btnCurrent.isCyan())
+				if(!btnCurrent.isLeft())
 				t = teamB;
 				
 				if (t.YellowCardCount==1)
@@ -175,10 +275,34 @@ static class StateMachine
 			}
 			else if(btnCurrent.isStop())
 			{
+  //println(12);
 				SetPieceDelay.resetStopWatch();
 				SetPieceDelay.stopTimer();
 				forceKickoff = false; 
 			}
+      else if(btnCurrent.isSubs())
+      {
+          Popup.show(PopupTypeEnum.POPUP_SUBS, MSG_SUBS, 9, 10, 0, 24, 840, 600);
+          for (int t = 0; t < tBox.length; t++)
+          {
+            tBox[t].show();
+          }
+          
+      }
+      else if(btnCurrent.isConfig())
+      {
+          Popup.show(PopupTypeEnum.POPUP_CONFIG, MSG_CONFIG, 8, 0, 0, 24, 380, 300);
+          for (int s = 0; s < bSlider.length; s++)
+          {
+            //bSlider[s].enable();
+            if(StateMachine.GetCurrentGameState() != GameStateEnum.GS_PREGAME)
+            {
+                bSlider[s].disable();
+            }else{
+                bSlider[s].enable();
+            }
+          }
+      }
 			
 			println ("Current: " + gsCurrent);
 			switch(gsCurrent)
@@ -198,10 +322,10 @@ static class StateMachine
 					nextGS = SwitchRunningStopped();
 					switch(nextGS)
 					{
-					case GS_GAMEON_H1: send_to_basestation(COMM_FIRST_HALF + ""); break;
-					case GS_GAMEON_H2: send_to_basestation(COMM_SECOND_HALF + ""); break;
-					case GS_GAMEON_H3: send_to_basestation(COMM_FIRST_HALF_OVERTIME + ""); break;
-					case GS_GAMEON_H4: send_to_basestation(COMM_SECOND_HALF_OVERTIME + ""); break;
+					case GS_GAMEON_H1: send_to_basestation(COMM_FIRST_HALF + "","",-1); break;
+					case GS_GAMEON_H2: send_to_basestation(COMM_SECOND_HALF + "","",-1); break;
+					case GS_GAMEON_H3: send_to_basestation(COMM_FIRST_HALF_OVERTIME + "","",-1); break;
+					case GS_GAMEON_H4: send_to_basestation(COMM_SECOND_HALF_OVERTIME + "","",-1); break;
 					}
 				}
 				else if(btnCurrent == ButtonsEnum.BTN_STOP)
@@ -230,7 +354,7 @@ static class StateMachine
 			case GS_GAMESTOP_H3:
 			case GS_GAMESTOP_H4:
 				if(btnCurrent.isSetPiece())
-				SetSetpiece(btnCurrent.isCyan(), btnCurrent);
+				SetSetpiece(btnCurrent.isLeft(), btnCurrent);
 				else if(btnCurrent.isStart()){
 					nextGS = SwitchRunningStopped();
 				}
@@ -259,7 +383,7 @@ static class StateMachine
 				
 			case GS_PENALTIES:
 				if(btnCurrent.isSetPiece())                       // Kick Off either, Penalty either, DropBall
-				SetSetpiece(btnCurrent.isCyan(), btnCurrent);
+				SetSetpiece(btnCurrent.isLeft(), btnCurrent);
 				else if(btnCurrent.isStop()) {
 					ResetSetpiece();
 					SetPieceDelay.resetStopWatch();
@@ -273,7 +397,7 @@ static class StateMachine
 				
 			case GS_PENALTIES_ON:
 				if(setpiece)
-				ResetSetpiece(); //<>//
+				ResetSetpiece(); //<>// //<>//
 				if(btnCurrent.isStop()){
 					SetPieceDelay.resetStopWatch();	
 					SetPieceDelay.stopTimer();			
@@ -284,9 +408,12 @@ static class StateMachine
 			case GS_ENDGAME:
 				break;
 				
-			case GS_RESET:
+			case GS_RESET:			// Resets the game and return to force a new StateMachine Update
+				reset();
 				saveData();
-				break;
+				needUpdate = true;
+				done = true;
+				return;
 			}
 			
 			if(nextGS != null)        //What to do when there is a new game state
@@ -300,11 +427,11 @@ static class StateMachine
 					teamA.checkflags();
 					teamB.checkflags();
 				}
-			}
-			
+			}		
 			btnPrev = btnCurrent;      
-			needUpdate = false;
+
 		}
+		done = true;
 	}
 
 	//************************************************************************
@@ -399,7 +526,6 @@ static class StateMachine
 	public static void reset()
 	{
 		try {
-			send_to_basestation("" + COMM_RESET);
 			buttonFromEnum(ButtonsEnum.BTN_PARK).disable();
 			btnCurrent = ButtonsEnum.BTN_ILLEGAL;
 			btnPrev = ButtonsEnum.BTN_ILLEGAL;
@@ -436,6 +562,7 @@ static class StateMachine
 	//************************************************************************
 	// 
 	//************************************************************************
+
 	public static boolean isHalf()
 	{
 		return is1stHalf() || is2ndHalf() || is3rdHalf() || is4thHalf();
@@ -470,13 +597,17 @@ static class StateMachine
 	{
 		return gsCurrent == GameStateEnum.GS_HALFTIME || gsCurrent == GameStateEnum.GS_OVERTIME || gsCurrent == GameStateEnum.GS_HALFTIME_OVERTIME || gsCurrent == GameStateEnum.GS_GAMESTOP_H4 || gsCurrent == GameStateEnum.GS_PENALTIES;
 	}
-
-}
+	
+	public static boolean isDone()
+	{
+		return done;
+	}
 
 //************************************************************************
 // 
 //************************************************************************
-void StateMachineCheck() {
-	StateMachine.StateMachineRefresh();
 }
 
+void StateMachineCheck() {
+	if (StateMachine.isDone() == true) StateMachine.StateMachineRefresh();
+}

@@ -17,7 +17,8 @@
 	{
 		"repairPenalty_ms": 20000,
 		"doubleYellowPenalty_ms": 90000,
-		"setPieceMaxTime_ms": 7000
+		"setPieceMaxTime_ms": 7000,
+		"substitutionMaxTime_ms": 20000
 	},
 	"appearance":
 	{
@@ -28,9 +29,11 @@
 		"robotRedCardColor": "#FF0000",
 		"defaultCyanTeamShortName": "TeamA",
 		"defaultCyanTeamLongName": "Disconnected",
+		"defaultCyanTeam": "Disconnected",
 		"defaultCyanTeamColor": "#007BA7",
 		"defaultMagentaTeamShortName": "TeamB",
 		"defaultMagentaTeamLongName": "Disconnected",
+		"defaultMagentaTeam": "Disconnected",
 		"defaultMagentaTeamColor": "#DA70D6"
 	},
 	"sounds":

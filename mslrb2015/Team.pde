@@ -1,10 +1,11 @@
 class Team {
 	String shortName;  //max 8 chars
 	String longName;  //max 24 chars
+	String team;
 	String unicastIP, multicastIP;
-	color c=(#000000);
-	boolean isCyan;  //default: cyan@left
-	boolean newYellowCard, newRedCard, newRepair, newDoubleYellow, newPenaltyKick, newGoal; // Pending commands, effective only on gamestate change
+	color colorTeam=(#000000);
+	boolean isLeft;  //default: cyan@left
+  boolean newYellowCard, newRedCard, newRepair, newSubstitution, newDoubleYellow, newPenaltyKick, newGoal; // Pending commands, effective only on gamestate change
 	int Score, RedCardCount, YellowCardCount, DoubleYellowCardCount, PenaltyCount;
 	public int RepairCount;
 	public int nOfRepairs;
@@ -19,8 +20,8 @@ class Team {
 	boolean firstWorldState;
 	
 	Team(color c, boolean uileftside) {
-		this.c=c;
-		this.isCyan=uileftside;
+		this.colorTeam=colorTeam;
+		this.isLeft=uileftside;
 		//robots
 		float x=0, y=64; 
 		r[0]=new Robot(x, y);
@@ -35,14 +36,18 @@ class Team {
 	//===================================
 
 	void resetname(){
-		if (this.isCyan) {
+		if (this.isLeft) {
 			this.shortName=Config.defaultCyanTeamShortName;
 			this.longName=Config.defaultCyanTeamLongName;
+      		this.team=Config.defaultCyanTeam;
 		}
 		else {
 			this.shortName=Config.defaultMagentaTeamShortName;
 			this.longName=Config.defaultMagentaTeamLongName;
+     		 this.team=Config.defaultMagentaTeam;
 		}
+    	this.unicastIP="172.16.0.0"; 		//reset unicastIP for generic IP
+    	this.multicastIP = "224.16.32.0"; 	//reset multicastIP for generic IP
 	}
 
 	void logWorldstate(String teamWorldstate, int ageMs){
@@ -87,13 +92,14 @@ class Team {
 		this.newYellowCard=false;
 		this.newRedCard=false;
 		this.newRepair=false;
+    this.newSubstitution=false;
 		this.newDoubleYellow=false;
 		this.newPenaltyKick=false;
 		for (int i=0; i<5; i++)
 		r[i].reset();
 
 		if(this.connectedClient != null && this.connectedClient.active())
-		this.connectedClient.stop();
+			this.connectedClient.stop();
 		this.connectedClient = null;
 		this.firstWorldState = true;
 	}
@@ -102,20 +108,21 @@ class Team {
 	void teamConnected(TableRow teamselect){
 		shortName=teamselect.getString("shortname8");
 		longName=teamselect.getString("longame24");
+		team=teamselect.getString("Team");
 		unicastIP = teamselect.getString("UnicastAddr");
 		multicastIP = teamselect.getString("MulticastAddr");
 
 
 		if(connectedClient != null)
-		BaseStationServer.disconnect(connectedClient);
+			BaseStationServer.disconnect(connectedClient);
 
 		connectedClient = connectingClient;
-		connectingClient.write(COMM_WELCOME);
+		send_to_basestation(COMM_WELCOME,multicastIP,-1);
 		connectingClient = null;
 
 		if(this.logFile == null || this.logFileOut == null)
 		{
-			this.logFile = new File(mainApplet.dataPath("tmp/" + Log.getTimedName() + "." + (isCyan?"A":"B") + ".msl"));
+			this.logFile = new File(mainApplet.dataPath("tmp/" + Log.getTimedName() + "." + (isLeft?"A":"B") + ".msl"));
 			try{
 				this.logFileOut = new PrintWriter(new BufferedWriter(new FileWriter(logFile, true)));
 			}catch(IOException e){ }
@@ -128,7 +135,7 @@ class Team {
 	void repair_timer_start(int rpCount) { 
 		r[rpCount].RepairTimer.startTimer(Config.repairPenalty_ms);
 
-		if (isCyan)
+		if (isLeft)
 		println("Repair Cyan "+(rpCount+1)+" started!");
 		else
 		println("Repair Magenta "+(rpCount+1)+" started!");
@@ -150,7 +157,7 @@ class Team {
 			{
 				r[rpCount].RepairTimer.resetStopWatch();
 				RepairCount--;
-				println("Repair OUT: "+shortName+":"+(rpCount+1)+" @"+(isCyan?"left":"right"));
+				println("Repair OUT: "+shortName+":"+(rpCount+1)+" @"+(isLeft?"left":"right"));
 				r[rpCount].setState("play");
 			}
 		}
@@ -158,10 +165,15 @@ class Team {
 		r[rpCount].setState("play");	
 	}
 
+  //*******************************************************************
+  void substitute_timer_start(int subCount) {
+    r[subCount].SubstituteTimer.startTimer(Config.substitutionMaxTime_ms);
+  }
+
 	//*******************************************************************
 	public void double_yellow_timer_start(int rpCount) {
 		r[rpCount].DoubleYellowTimer.startTimer(Config.doubleYellowPenalty_ms);
-		if (isCyan)
+		if (isLeft)
 		println("Double Yellow Cyan "+(rpCount+1)+" started!");
 		else
 		println("Double Yellow Magenta "+(rpCount+1)+" started!");
@@ -175,7 +187,7 @@ class Team {
 			{
 				r[rpCount].DoubleYellowTimer.resetStopWatch();
 				DoubleYellowCardCount--;
-				println("Double Yellow end: "+shortName+":"+(rpCount+1)+" @"+(isCyan?"left":"right"));
+				println("Double Yellow end: "+shortName+":"+(rpCount+1)+" @"+(isLeft?"left":"right"));
 				r[rpCount].setState("play");
 			}
 		}
@@ -189,17 +201,17 @@ class Team {
 		if (this.newRepair) {
 			while (this.nOfRepairs > 0) {
 				for (i = 0; i < 3; i++) if (this.r[i].state == "play") break;
-				if (i < 3) {
+//				if (i < 3) { TODO: What's the point of this?
 					this.repair_timer_start(i);
 					this.RepairCount++;
 					this.r[i].setState("repair");	  
 					// Hack: send command only on game change
-				}
-				this.nOfRepairs --;
+//				}
+				this.nOfRepairs--;
 			}
-			if(this.isCyan) event_message_v2(ButtonsEnum.BTN_C_REPAIR, true);
+			if(this.isLeft) event_message_v2(ButtonsEnum.BTN_C_REPAIR, true);
 			else event_message_v2(ButtonsEnum.BTN_M_REPAIR, true);
-			this.newRepair=false;
+			this.newRepair = false;
 			this.nOfRepairs = 1;
 		}
 
@@ -209,7 +221,7 @@ class Team {
 			this.newYellowCard = false;
 
 			// Hack: send command only on game change
-			if(this.isCyan) event_message_v2(ButtonsEnum.BTN_C_YELLOW, true);
+			if(this.isLeft) event_message_v2(ButtonsEnum.BTN_C_YELLOW, true);
 			else event_message_v2(ButtonsEnum.BTN_M_YELLOW, true);
 		}
 
@@ -220,7 +232,7 @@ class Team {
 				this.r[i].setState("red");	  
 
 				// Hack: send command only on game change
-				if(this.isCyan) event_message_v2(ButtonsEnum.BTN_C_RED, true);
+				if(this.isLeft) event_message_v2(ButtonsEnum.BTN_C_RED, true);
 				else event_message_v2(ButtonsEnum.BTN_M_RED, true);
 			}
 			this.newRedCard = false;
@@ -235,8 +247,9 @@ class Team {
 				this.DoubleYellowCardCount++;
 				this.YellowCardCount = 0;
 
-				if(this.isCyan) send_event_v2(""+COMM_DOUBLE_YELLOW_CYAN, "Double Yellow", this);
-				else send_event_v2(""+COMM_DOUBLE_YELLOW_MAGENTA, "Double Yellow", this);
+				if(this.isLeft) send_event_v2(""+COMM_DOUBLE_YELLOW, "Double Yellow", this, -1);
+				else send_event_v2(""+COMM_DOUBLE_YELLOW, "Double Yellow", this, -1);    // TODO: Same as line above
+
 			}
 			this.newDoubleYellow = false;
 		}
@@ -247,6 +260,19 @@ class Team {
 		}
 	}
 
+  //*******************************************************************
+  void substitute(int robotID) {    
+    for (int i = 0; i < r.length; i++) {
+      if (this.r[i].state.equals("play") || this.r[i].state.equals("yellow")) {    // only robots that are in play can substitute
+      send_event_v2(""+COMM_SUBSTITUTION, "substituting", this, robotID);
+      this.substitute_timer_start(i);
+      println("substituting robot " + i + " (on field) for robot " + robotID + " (outside field)");
+      break;
+      }
+    }
+  }
+
+  //*******************************************************************
 	public int numberOfPlayingRobots()
 	{
 		int i, count;
@@ -256,8 +282,6 @@ class Team {
 	}
 
 	//*******************************************************************
-	//*******************************************************************
-
 	void updateUI() {
 		if(connectedClient != null && !connectedClient.active())
 		{
@@ -278,15 +302,16 @@ class Team {
 
 		textFont(teamFont);
 		textAlign(CENTER, CENTER);    
-		if (isCyan) text(sn, 163, 50);
+		if (isLeft) text(sn, 163, 50);
 		else text(sn, 837, 50);
 
 		textFont(panelFont);
-		if (isCyan) text(ln, 163, 90);
+		if (isLeft) text(ln, 163, 90);
 		else text(ln, 837, 90);
 
-		for (int i=0; i < 4; i++) {
+		for (int i=0; i < r.length; i++) {
 			r[i].RepairTimer.updateStopWatch();
+      r[i].SubstituteTimer.updateStopWatch();
 			r[i].DoubleYellowTimer.updateStopWatch();
 		}
 
@@ -299,14 +324,14 @@ class Team {
 		}    
 
 		for (int i=0; i<5; i++)
-		r[i].updateUI(c,isCyan);
+		r[i].updateUI(colorTeam,isLeft);
 
 		textAlign(LEFT, BOTTOM);
 		textFont(debugFont);
 		fill(#ffff00);
 		textLeading(20);
 		String ts="Goals."+this.Score+" Penalty:"+this.PenaltyCount+"\nYellow:"+this.YellowCardCount+" Red:"+this.RedCardCount+"\nRepair:"+this.RepairCount+" 2xYellow:"+this.DoubleYellowCardCount;
-		if (isCyan) text(ts, 40, height-18);
+		if (isLeft) text(ts, 40, height-18);
 		else text(ts, width - 190, height-18);
 	}
 
