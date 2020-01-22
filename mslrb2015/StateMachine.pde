@@ -39,6 +39,12 @@ static class StateMachine
 		{
 			switch(Popup.getType())
 			{
+			case POPUP_HELP:
+				{
+					Popup.close();
+					break;
+				}
+
 			case POPUP_RESET:
 				{
 					if(Popup.getResponse().equals("yes"))
@@ -55,7 +61,7 @@ static class StateMachine
 						done = true;
 						return;
 					} //<>// //<>//
-          Popup.close();
+					Popup.close();
 					break;
 				}
 				
@@ -75,7 +81,7 @@ static class StateMachine
 						else
 						  send_event_v2(cCommcmds[CMDID_COMMON_HALFTIME], Commcmds[CMDID_COMMON_HALFTIME], null, -1);            
 					}
-          Popup.close();
+					Popup.close();
 					break;
 				}
 				
@@ -108,7 +114,7 @@ static class StateMachine
 					if(t != null)
 					  t.teamConnected(teamselect);
 
-          Popup.close();          
+					Popup.close();          
 					break;
 				}
 				
@@ -117,7 +123,7 @@ static class StateMachine
 					if(Popup.getResponse().equals("1")) teamA.nOfRepairs = 1; 
 					if(Popup.getResponse().equals("2")) teamA.nOfRepairs = 2;
 					if(Popup.getResponse().equals("3")) teamA.nOfRepairs = 3;
-          Popup.close();
+					Popup.close();
 					break;
 				}
 				
@@ -126,7 +132,7 @@ static class StateMachine
 					if(Popup.getResponse().equals("1")) teamB.nOfRepairs = 1; 
 					if(Popup.getResponse().equals("2")) teamB.nOfRepairs = 2;
 					if(Popup.getResponse().equals("3")) teamB.nOfRepairs = 3;
-          Popup.close();
+					Popup.close();
 					break;
 				}
 
