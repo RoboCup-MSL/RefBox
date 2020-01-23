@@ -33,7 +33,7 @@ class Button {
     this.cmd=cmd;
     this.msg=msg;
     this.cmd_off=cmd_off;
-    this.msg_off=msg;
+    this.msg_off=msg_off;
     
 	}
 
