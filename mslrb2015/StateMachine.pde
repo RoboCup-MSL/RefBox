@@ -15,7 +15,7 @@ static class StateMachine
 	public static boolean firstKickoffCyan = true;
 	private static boolean done = true;
 
-  public static boolean validInput = true;
+	public static boolean validInput = true;
 
 	public static void Update(ButtonsEnum click_btn, boolean on) //If on==True then active
 	{
@@ -77,9 +77,9 @@ static class StateMachine
 						SetPieceDelay.stopTimer();
 
 						if (COMM_HALF_TIME.equals("End Game"))
-						  send_event_v2(COMM_END_GAME, Description.get(COMM_END_GAME), null, -1);
+						send_event_v2(COMM_END_GAME, Description.get(COMM_END_GAME), null, -1);
 						else
-						  send_event_v2(COMM_HALF_TIME, Description.get(COMM_HALF_TIME), null, -1);            
+						send_event_v2(COMM_HALF_TIME, Description.get(COMM_HALF_TIME), null, -1);            
 					}
 					Popup.close();
 					break;
@@ -100,7 +100,7 @@ static class StateMachine
 							Log.logMessage("Connection from " + connectingClient.ip() + " accepted - Left");
 							t = teamB;
 						}
-							
+						
 					}
 					else if(Popup.getResponse().equals("Left"))
 					{
@@ -112,7 +112,7 @@ static class StateMachine
 					}
 					
 					if(t != null)
-					  t.teamConnected(teamselect);
+					t.teamConnected(teamselect);
 
 					Popup.close();          
 					break;
@@ -136,69 +136,69 @@ static class StateMachine
 					break;
 				}
 
-      case POPUP_SUBS:
-        {
-          if (Popup.getResponse().equals("Apply")) {
-            for (int t = 0; t < tBox.length; t++)
-            {
-              if (tBox[t].checkInput() == false) {
-                validInput = false;
-                break;
-              }
-              validInput = true;
-            }
-            if (validInput) {
-              for (int t = 0; t < tBox.length; t++)
-              {
-                if (tBox[t].value != "0") {
-                  if (t < 3) {
-                    if(!teamA.newSubstitution) teamA.newSubstitution = true;
-                    teamA.substitute(int(tBox[t].value));
-                  }
-                  else {
-                    if (!teamB.newSubstitution) teamB.newSubstitution = true;
-                    teamB.substitute(int(tBox[t].value));
-                  }
-                }
-                tBox[t].value = "0";
-                tBox[t].hide();
-              }
-              if (teamA.newSubstitution || teamB.newSubstitution) {
-                SetPieceDelay.startTimer(Config.substitutionMaxTime_ms);
-                println ("Substitution timer (s): " + Config.substitutionMaxTime_ms/1000);
-              }
-              Popup.close();
-            }            
-          }
-          else if (Popup.getResponse().equals("Cancel")) {
-            for (int t = 0; t < tBox.length; t++)
-            {
-              tBox[t].value = "0";
-              tBox[t].hide();
-            }
-            validInput = true;
-            Popup.close();
-          }
-          break;
-        }
-        
-      case POPUP_CONFIG:
-        {
-          for (int s = 0; s < bSlider.length; s++)
-          {
-            bSlider[s].disable();
-            if(StateMachine.GetCurrentGameState() != GameStateEnum.GS_PREGAME)
-            {
-                //bSlider[i].disable();
-            }else{
-                //bSlider[i].enable();
-            }
-          }
-          Popup.close();
-          break;
-        }
-      }
-      
+			case POPUP_SUBS:
+				{
+					if (Popup.getResponse().equals("Apply")) {
+						for (int t = 0; t < tBox.length; t++)
+						{
+							if (tBox[t].checkInput() == false) {
+								validInput = false;
+								break;
+							}
+							validInput = true;
+						}
+						if (validInput) {
+							for (int t = 0; t < tBox.length; t++)
+							{
+								if (tBox[t].value != "0") {
+									if (t < 3) {
+										if(!teamA.newSubstitution) teamA.newSubstitution = true;
+										teamA.substitute(int(tBox[t].value));
+									}
+									else {
+										if (!teamB.newSubstitution) teamB.newSubstitution = true;
+										teamB.substitute(int(tBox[t].value));
+									}
+								}
+								tBox[t].value = "0";
+								tBox[t].hide();
+							}
+							if (teamA.newSubstitution || teamB.newSubstitution) {
+								SetPieceDelay.startTimer(Config.substitutionMaxTime_ms);
+								println ("Substitution timer (s): " + Config.substitutionMaxTime_ms/1000);
+							}
+							Popup.close();
+						}            
+					}
+					else if (Popup.getResponse().equals("Cancel")) {
+						for (int t = 0; t < tBox.length; t++)
+						{
+							tBox[t].value = "0";
+							tBox[t].hide();
+						}
+						validInput = true;
+						Popup.close();
+					}
+					break;
+				}
+				
+			case POPUP_CONFIG:
+				{
+					for (int s = 0; s < bSlider.length; s++)
+					{
+						bSlider[s].disable();
+						if(StateMachine.GetCurrentGameState() != GameStateEnum.GS_PREGAME)
+						{
+							//bSlider[i].disable();
+						}else{
+							//bSlider[i].enable();
+						}
+					}
+					Popup.close();
+					break;
+				}
+			}
+			
 			needUpdate = false;
 			done = true;
 			return;
@@ -275,34 +275,34 @@ static class StateMachine
 			}
 			else if(btnCurrent.isStop())
 			{
-  //println(12);
+				//println(12);
 				SetPieceDelay.resetStopWatch();
 				SetPieceDelay.stopTimer();
 				forceKickoff = false; 
 			}
-      else if(btnCurrent.isSubs())
-      {
-          Popup.show(PopupTypeEnum.POPUP_SUBS, MSG_SUBS, 9, 10, 0, 24, 840, 600);
-          for (int t = 0; t < tBox.length; t++)
-          {
-            tBox[t].show();
-          }
-          
-      }
-      else if(btnCurrent.isConfig())
-      {
-          Popup.show(PopupTypeEnum.POPUP_CONFIG, MSG_CONFIG, 8, 0, 0, 24, 380, 300);
-          for (int s = 0; s < bSlider.length; s++)
-          {
-            //bSlider[s].enable();
-            if(StateMachine.GetCurrentGameState() != GameStateEnum.GS_PREGAME)
-            {
-                bSlider[s].disable();
-            }else{
-                bSlider[s].enable();
-            }
-          }
-      }
+			else if(btnCurrent.isSubs())
+			{
+				Popup.show(PopupTypeEnum.POPUP_SUBS, MSG_SUBS, 9, 10, 0, 24, 840, 600);
+				for (int t = 0; t < tBox.length; t++)
+				{
+					tBox[t].show();
+				}
+				
+			}
+			else if(btnCurrent.isConfig())
+			{
+				Popup.show(PopupTypeEnum.POPUP_CONFIG, MSG_CONFIG, 8, 0, 0, 24, 380, 300);
+				for (int s = 0; s < bSlider.length; s++)
+				{
+					//bSlider[s].enable();
+					if(StateMachine.GetCurrentGameState() != GameStateEnum.GS_PREGAME)
+					{
+						bSlider[s].disable();
+					}else{
+						bSlider[s].enable();
+					}
+				}
+			}
 			
 			println ("Current: " + gsCurrent);
 			switch(gsCurrent)
@@ -603,9 +603,9 @@ static class StateMachine
 		return done;
 	}
 
-//************************************************************************
-// 
-//************************************************************************
+	//************************************************************************
+	// 
+	//************************************************************************
 }
 
 void StateMachineCheck() {

@@ -62,27 +62,27 @@ static class Log
 
 	// Log action to both screen and logfile
 	public static void logactions(String cmd, String team, int robotID) {
-  
-        String temp = "";
-	     if(team.length() > 1)
-       {
-         temp = " => " +team;
-       }
+
+		String temp = "";
+		if(team.length() > 1)
+		{
+			temp = " => " +team;
+		}
 
 
-      String s1=Description.get(cmd);
-       String s2=System.currentTimeMillis()+","+gametime+"("+gameruntime+"),"+StateMachine.GetCurrentGameStateString()+","+ Description.get(cmd+"");
-       if(robotID != -1)
-       {
-         s1 += ":" + robotID;
-         s2 += ",robotID:" +robotID;
-       }
-       s1+=temp;
-		   s2 += "," + team;
+		String s1=Description.get(cmd);
+		String s2=System.currentTimeMillis()+","+gametime+"("+gameruntime+"),"+StateMachine.GetCurrentGameStateString()+","+ Description.get(cmd+"");
+		if(robotID != -1)
+		{
+			s1 += ":" + robotID;
+			s2 += ",robotID:" +robotID;
+		}
+		s1+=temp;
+		s2 += "," + team;
 
-  		screenlog(s1);
-  		if (Log.enable)
-        Log.appendTextToFile(LogFileName,s2);		
+		screenlog(s1);
+		if (Log.enable)
+		Log.appendTextToFile(LogFileName,s2);		
 	}
 
 	// Log message to both screen and logfile

@@ -5,7 +5,7 @@ void RefreshButonStatus1() {
 	{
 		// PRE-GAME
 	case GS_PREGAME:
-	//	if (Popup.isEnabled() && (Popup.getType().getValue() == 6)) Popup.close();
+		//	if (Popup.isEnabled() && (Popup.getType().getValue() == 6)) Popup.close();
 		if (Popup.isEnabled() && (Popup.getType() == PopupTypeEnum.POPUP_WAIT)) Popup.close();
 		
 		buttonAdisableAll(0);  //team A commands	
@@ -26,7 +26,7 @@ void RefreshButonStatus1() {
 			buttonFromEnum(ButtonsEnum.BTN_RESET).disable();
 			buttonFromEnum(ButtonsEnum.BTN_START).enable();
 			buttonFromEnum(ButtonsEnum.BTN_STOP).activate();
-      buttonFromEnum(ButtonsEnum.BTN_CONFIG).activate();
+			buttonFromEnum(ButtonsEnum.BTN_CONFIG).activate();
 
 		}else{
 			buttonFromEnum(ButtonsEnum.BTN_C_KICKOFF).enable();
@@ -36,9 +36,9 @@ void RefreshButonStatus1() {
 			buttonFromEnum(ButtonsEnum.BTN_STOP).activate();
 			buttonFromEnum(ButtonsEnum.BTN_RESET).activate();
 
-//public static final int CMDID_COMMON_SUBS = 6;
-      //buttonFromEnum(ButtonsEnum.BTN_CONFIG).activate();
-        bCommoncmds[CMDID_COMMON_CONFIG].activate();
+			//public static final int CMDID_COMMON_SUBS = 6;
+			//buttonFromEnum(ButtonsEnum.BTN_CONFIG).activate();
+			bCommoncmds[CMDID_COMMON_CONFIG].activate();
 		}
 		
 
@@ -156,12 +156,12 @@ void RefreshButonStatus1() {
 	if(StateMachine.GetCurrentGameState() != GameStateEnum.GS_PREGAME)
 	{
 		for(int i = 0; i < bSlider.length; i++) {
-		//bSlider[i].disable();
-    }
+			//bSlider[i].disable();
+		}
 	}else{
 		for(int i = 0; i < bSlider.length; i++) {
-		//bSlider[i].enable();
-    }
+			//bSlider[i].enable();
+		}
 	}
 
 	// Update End Part / End Game button
@@ -220,7 +220,7 @@ void refreshbutton_game_stopped()
 			bTeamAcmds[CMDID_TEAM_GOAL].enable();
 			bTeamBcmds[CMDID_TEAM_GOAL].enable();
 			buttonCSTARTdisable();            // Turn OFF START button  
-        bCommoncmds[CMDID_COMMON_SUBS].enable();
+			bCommoncmds[CMDID_COMMON_SUBS].enable();
 		}
 		else
 		{

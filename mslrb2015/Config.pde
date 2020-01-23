@@ -14,7 +14,7 @@ static class Config
 	public static int repairPenalty_ms = 20000;                      //@mbc default value reajusted according to rules
 	public static int doubleYellowPenalty_ms = 90000;                //@mbc default value reajusted according to rules
 	public static int setPieceMaxTime_ms = 7000;
-  public static int substitutionMaxTime_ms = 20000;
+	public static int substitutionMaxTime_ms = 20000;
 
 	// Appearance
 	public static int maxShortName = 8;
@@ -26,14 +26,14 @@ static class Config
 	public static color robotRedCardColor = #E03030;  //red
 	public static String defaultCyanTeamShortName = "Team";
 	public static String defaultCyanTeamLongName = "Cyan";
-  public static String defaultCyanTeam = "TeamCyan";
+	public static String defaultCyanTeam = "TeamCyan";
 	public static color defaultCyanTeamColor = #007BA7;
-  public static color defaultCyanBackgroundColor = #04486B;
+	public static color defaultCyanBackgroundColor = #04486B;
 	public static String defaultMagentaTeamShortName = "Team";
 	public static String defaultMagentaTeamLongName = "Magenta";
-  public static String defaultMagentaTeam = "TeamMagenta";
+	public static String defaultMagentaTeam = "TeamMagenta";
 	public static color defaultMagentaTeamColor = #DA70D6;
-  public static color defaultMagentaBackgroundColor = #812F6D;
+	public static color defaultMagentaBackgroundColor = #812F6D;
 
 	// Sounds
 	public static String sounds_maxTime = "";
@@ -131,8 +131,8 @@ static class Config
 					if(rules.has("setPieceMaxTime_ms"))
 					setPieceMaxTime_ms = rules.getInt("setPieceMaxTime_ms");
 
-          if(rules.has("substitutionMaxTime_ms"))
-          substitutionMaxTime_ms = rules.getInt("substitutionMaxTime_ms");
+					if(rules.has("substitutionMaxTime_ms"))
+					substitutionMaxTime_ms = rules.getInt("substitutionMaxTime_ms");
 					
 					// ----
 					// Appearance
@@ -163,8 +163,8 @@ static class Config
 					if(appearance.has("defaultCyanTeamLongName"))
 					defaultCyanTeamLongName = appearance.getString("defaultCyanTeamLongName");
 
-          if(appearance.has("defaultCyanTeam"))
-          defaultCyanTeam = appearance.getString("defaultCyanTeam");
+					if(appearance.has("defaultCyanTeam"))
+					defaultCyanTeam = appearance.getString("defaultCyanTeam");
 					
 					if(appearance.has("defaultCyanTeamColor"))
 					defaultCyanTeamColor = string2color(appearance.getString("defaultCyanTeamColor"));
@@ -176,8 +176,8 @@ static class Config
 					if(appearance.has("defaultMagentaTeamLongName"))
 					defaultMagentaTeamLongName = appearance.getString("defaultMagentaTeamLongName");
 
-           if(appearance.has("defaultMagentaTeam"))
-          defaultMagentaTeam = appearance.getString("defaultMagentaTeam");
+					if(appearance.has("defaultMagentaTeam"))
+					defaultMagentaTeam = appearance.getString("defaultMagentaTeam");
 					
 					if(appearance.has("defaultMagentaTeamColor"))
 					defaultMagentaTeamColor = string2color(appearance.getString("defaultMagentaTeamColor"));
@@ -216,7 +216,7 @@ static class Config
 		// Rules
 		println( "### Rules ###" );
 		println( "repairPenalty_ms             : " + repairPenalty_ms);
-    println( "substitutionMaxTime_ms       : " + substitutionMaxTime_ms);
+		println( "substitutionMaxTime_ms       : " + substitutionMaxTime_ms);
 		println( "doubleYellowPenalty_ms       : " + doubleYellowPenalty_ms);
 		println();
 		// Appearance
@@ -230,11 +230,11 @@ static class Config
 		println( "robotRedCardColor            : " + color2string(robotRedCardColor));
 		println( "defaultCyanTeamShortName     : " + defaultCyanTeamShortName);
 		println( "defaultCyanTeamLongName      : " + defaultCyanTeamLongName);
-    println( "defaultCyanTeam              : " + defaultCyanTeam);
+		println( "defaultCyanTeam              : " + defaultCyanTeam);
 		println( "defaultCyanTeamColor         : " + color2string( defaultCyanTeamColor));
 		println( "defaultMagentaTeamShortName  : " + defaultMagentaTeamShortName );
 		println( "defaultMagentaTeamLongName   : " + defaultMagentaTeamLongName );
-    println( "defaultCyanTeam              : " + defaultMagentaTeam);
+		println( "defaultCyanTeam              : " + defaultMagentaTeam);
 		println( "defaultMagentaTeamColor      : " + color2string( defaultMagentaTeamColor ));
 		// Sounds
 		println( "### Sounds ###" );

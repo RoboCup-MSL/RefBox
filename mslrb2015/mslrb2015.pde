@@ -218,17 +218,17 @@ void draw() {
 		bTeamAcmds[i].update();
 		bTeamBcmds[i].update();
 	}
-  
+
 	//Special case: what if the same team connects twice to RefBox
 	if(teamA.team == teamB.team)
 	{
-	  teamA.team =  teamA.team +" A";
-	  teamA.longName = teamA.longName+" A";
-	  teamA.multicastIP += ":1";
+		teamA.team =  teamA.team +" A";
+		teamA.longName = teamA.longName+" A";
+		teamA.multicastIP += ":1";
 	}
 	if(teamA.multicastIP == teamB.multicastIP)
 	{
-	  teamA.multicastIP += ":1";
+		teamA.multicastIP += ":1";
 	}
 
 	teamA.updateUI();
@@ -276,29 +276,29 @@ void draw() {
 		soundMaxTime.play();
 	}
 
-  StateMachineCheck(); // Check scheduled state change
+	StateMachineCheck(); // Check scheduled state change
 
 
-  if (Popup.isEnabled()) {
-    Popup.draw();
-  }
+	if (Popup.isEnabled()) {
+		Popup.draw();
+	}
 
-  for (int i = 0; i < bSlider.length; i++) {
-    if(bSlider[i].enabled){
-    //  println("slider" + i);
-      bSlider[i].update();
-    }
-  }  
-  
-  for (int i=0; i<tBox.length; i++) {
-    if (tBox[i].visible) {
-      tBox[i].update();
-    }
-  }
+	for (int i = 0; i < bSlider.length; i++) {
+		if(bSlider[i].enabled){
+			//  println("slider" + i);
+			bSlider[i].update();
+		}
+	}  
 
-  RefreshButonStatus1(); // Refresh buttons
-  
-  //==========================================
+	for (int i=0; i<tBox.length; i++) {
+		if (tBox[i].visible) {
+			tBox[i].update();
+		}
+	}
+
+	RefreshButonStatus1(); // Refresh buttons
+
+	//==========================================
 }
 
 /**************************************************************************************************************************
@@ -331,7 +331,7 @@ void exit() {
 void initGui()
 {
 
-		//common commands
+	//common commands
 	bCommoncmds[0] = new Button(435+130*(0%2), 275+0*35-35*(0%2), "START",#12FF03, -1, -1, #12FF03,COMM_START,Description.get(COMM_START),"",""); //Start  / green
 	bCommoncmds[1] = new Button(435+130*(1%2), 275+1*35-35*(1%2), "STOP", #E03020, -1, -1, #E03030,COMM_STOP,Description.get(COMM_STOP),"",""); //Stop  /red  #FC0303 
 	bCommoncmds[2] = new Button(435+130*(2%2), 275+2*35-35*(2%2), "DropBall", #C0C000, -1, 255, #C0C000,COMM_DROP_BALL,Description.get(COMM_DROP_BALL),"","");
@@ -387,28 +387,28 @@ void initGui()
 	bPopup[7].setdim(80, 48);
 	bPopup[8] = new Button(0, 0, "OK", 220, #6D9C75, 0, #6D9C75,"","","",""); 
 	bPopup[8].setdim(80, 48);
-  	bPopup[9] = new Button(0, 0, "Apply", 220, #6D9C75, 0, #6D9C75,"","","",""); 
+	bPopup[9] = new Button(0, 0, "Apply", 220, #6D9C75, 0, #6D9C75,"","","",""); 
 	bPopup[9].setdim(80, 48);
 	bPopup[10] = new Button(0, 0, "Cancel", 220, #6D9C75, 0, #6D9C75,"","","",""); 
 	bPopup[10].setdim(80, 48);
-  
+
 	for (int n = 0; n < popUpButtons; n++)
-		bPopup[n].disable();
+	bPopup[n].disable();
 	//bSlider[0]=new BSliders("Testmode",420,460,true, TESTMODE);
 	//bSlider[1]=new BSliders("Log",420+132,460,true, Log.enable);
 	//bSlider[2]=new BSliders("Remote",420,460+32,Config.remoteControlEnable, REMOTECONTROLENABLE);
 	//bSlider[3]=new BSliders("Coach",420+132,460+32,false, VOICECOACH);
-  bSlider[0]=new BSliders("Testmode",420,460-120,false, TESTMODE);
-  bSlider[1]=new BSliders("Log",420+132,460-120,false, Log.enable);
-  bSlider[2]=new BSliders("Remote",420,460+32-120,false, REMOTECONTROLENABLE);
-  bSlider[3]=new BSliders("Coach",420+132,460+32-120,false, VOICECOACH);
+	bSlider[0]=new BSliders("Testmode",420,460-120,false, TESTMODE);
+	bSlider[1]=new BSliders("Log",420+132,460-120,false, Log.enable);
+	bSlider[2]=new BSliders("Remote",420,460+32-120,false, REMOTECONTROLENABLE);
+	bSlider[3]=new BSliders("Coach",420+132,460+32-120,false, VOICECOACH);
 
-  tBox[0] = new Textbox(width/4, height/2 - 60, 100, 1, false);
-  tBox[1] = new Textbox(width/4, height/2, 100, 1, false);
-  tBox[2] = new Textbox(width/4, height/2 + 60, 100, 1, false);
-  tBox[3] = new Textbox(width/4*3, height/2 - 60, 100, 1, false);
-  tBox[4] = new Textbox(width/4*3, height/2, 100, 1, false);
-  tBox[5] = new Textbox(width/4*3, height/2 + 60, 100, 1, false);
+	tBox[0] = new Textbox(width/4, height/2 - 60, 100, 1, false);
+	tBox[1] = new Textbox(width/4, height/2, 100, 1, false);
+	tBox[2] = new Textbox(width/4, height/2 + 60, 100, 1, false);
+	tBox[3] = new Textbox(width/4*3, height/2 - 60, 100, 1, false);
+	tBox[4] = new Textbox(width/4*3, height/2, 100, 1, false);
+	tBox[5] = new Textbox(width/4*3, height/2 + 60, 100, 1, false);
 
 	textFont(debugFont);
 	fill(#ffffff);

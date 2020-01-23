@@ -14,7 +14,7 @@ class Button {
 	String msg = null; // long name for the command
 	String msg_off = null;
 	String cmd = null; // command 
-  String cmd_off = null;
+	String cmd_off = null;
 
 	// c1 > stroke color (-1 > no stroke)
 	// c2 > fill collor (-1 > no fill)
@@ -30,11 +30,11 @@ class Button {
 		this.cfill=c2;
 		this.cstrokeactive=c3;
 		this.cfillactive=c4;
-    this.cmd=cmd;
-    this.msg=msg;
-    this.cmd_off=cmd_off;
-    this.msg_off=msg_off;
-    
+		this.cmd=cmd;
+		this.msg=msg;
+		this.cmd_off=cmd_off;
+		this.msg_off=msg_off;
+		
 	}
 
 	void update() {
@@ -140,7 +140,7 @@ class Button {
 				this.bStatus="normal";
 				if(StateMachine.setpiece && this.Label == COMM_GOAL) {
 					StateMachine.ResetSetpiece();
-            send_event_v2(COMM_STOP, COMM_STOP, null,-1);
+					send_event_v2(COMM_STOP, COMM_STOP, null,-1);
 				}
 			}
 			else this.bStatus="active";
@@ -182,16 +182,16 @@ public static Button buttonFromEnum(ButtonsEnum btn)
 	if(btn.getValue() <= ButtonsEnum.BTN_M_YELLOW.getValue())
 	return bTeamBcmds[btn.getValue() - ButtonsEnum.BTN_M_KICKOFF.getValue()];
 
-  if(btn.getValue() <= ButtonsEnum.BTN_CONFIG.getValue())
-  return bCommoncmds[btn.getValue()];
-  
+	if(btn.getValue() <= ButtonsEnum.BTN_CONFIG.getValue())
+	return bCommoncmds[btn.getValue()];
+
 	return null;
 }
 
 //***********************************************************************
 //
 void buttonEvent(char group, int pos) {
-  System.out.println("group = " + group + " pos = " + pos);
+	System.out.println("group = " + group + " pos = " + pos);
 
 	ButtonsEnum clickedButton = null;
 	Button clickBtn = null;
