@@ -37,20 +37,23 @@ static class Log
       newLog = newLog.substring(0,40);
     Last5cmds[0]=newLog;
   }
-  
-  // Log action to both screen and logfile
-  public static void logactions(String c, String team) {
-    //year()+month()+hour()+minute()+second()+millis()
-      if(team.length() > 1)
+    // Log action to both screen and logfile
+  public static void logactions(String cmd, String team, int robotID) {
+
+       if(team.length() > 1)
        {
-         team = "=> " +team;
+         team = " => " +team;
        }
-      String s1=Description.get(c)+" "+team;
-    String s2=System.currentTimeMillis()+","+gametime+"("+gameruntime+"),"+currentGameStateString+","+s1+","+Description.get(c+"");
-    lastaction=c;
-    
-    screenlog(s1);
-    
+  
+
+      String s1=Description.get(cmd);
+       if(robotID != -1)
+       {
+         s1 += ":" + robotID;
+       }
+       s1+=team;
+
+      screenlog(s1);
   }
   
   // Log message to both screen and logfile

@@ -6,8 +6,8 @@
 import processing.net.*;
 import org.json.*;
 
-public static final String MSG_VERSION="1.3.0";
-public static final String MSG_VERSION_MSG="";
+public static final String MSG_VERSION="1.4.0";
+public static final String MSG_VERSION_MSG="Beta";
 public static final String MSG_WINDOWTITLE="RoboCup MSL Referee Client - "+MSG_VERSION+" "+MSG_VERSION_MSG;
 
 public static final int appFrameRate = 15;
@@ -38,7 +38,6 @@ public static final int CMDID_COMMON_RESET = 5;
 public static final int CMDID_COMMON_ENDGAME = 6;
 
 public static Team teamA,teamB;
-//Client myClient;
 UDP myUDPClient;
 String msgBuffer = "";
 
@@ -51,6 +50,7 @@ public static String currentGameStateString = "Stop";
 public static String lastCommandCode = "";
 public static String lastCommandDescription = "";
 public static String lastCommandTeam = "";
+public static int lastRobotID = -1;
 public static int lastConnectionAttempt = 0;
 public static int nConnAttempts = 0;
 public static int gameState = 0;
@@ -116,11 +116,12 @@ void draw() {
  
   background(backgroundImage);
   
-//    ctr ++;
-//    println ("Update : ", ctr);
+
   teamA.updateUI();
   teamB.updateUI();
   
+  
+  //refresh timer and score
   if(true)//myClient != null && myClient.active())
   {
     fill(255);
@@ -148,14 +149,7 @@ void draw() {
     //text("[ "+time+" ]     "+Server.ip()+" ["+scoreClients.clientCount()+"/"+BaseStationServer.clientCount+"]", width/2, 578);   
   }
   
-  // Show current situation in the middle
-  /*if(myClient == null || !myClient.active()) {
-    fill(255);
-    textFont(teamFont);
-    textSize(36);
-    textAlign(CENTER, CENTER);
-    text("Connecting to\n"+Config.scoreServerHost+"\n(" + nConnAttempts + ")", width/2, height/2 + 30);
-  }else*/{
+  //refresh command show 
     PImage img = null;
     String imageName = "";
     if(lastCommandCode.equals(COMM_STOP)) imageName = "stop";
@@ -180,12 +174,14 @@ void draw() {
       textFont(teamFont, 35);
       textAlign(CENTER, CENTER-5);
       text(lastCommandTeam, width/2, height/2 + 100);
-      //println("Desc: " + description);
+      if(lastRobotID != -1)
+      {
+        text("ID: "+ lastRobotID, width/2, height/2 + 150);
+      }
     }
   }
-}
 
-void receive(byte[] data, String HOST_IP, int PORT_RX){
+//receive message and get from json important information for referee Client
   String whatClientSaid = new String(data);
   //System.out.println(whatClientSaid);
   while(whatClientSaid.length() != 0)
@@ -225,19 +221,22 @@ void receive(byte[] data, String HOST_IP, int PORT_RX){
         println(errorMsg);
         ok = false;
       }
-      
       if(ok && root.has("type") && root.optString("type","").equals("event")) // event type messages
       {
          String eventCode = root.optString("eventCode","");
          String eventDesc = root.optString("eventDesc","");
          String teamName = root.optString("team","");
-        
+         lastRobotID = root.optInt("robotID",-1);
+          
+
+
         if(Description.hasKey(eventCode))
         {
-          Log.logactions(eventCode, teamName);
+          Log.logactions(eventCode, teamName, lastRobotID);
           lastCommandCode = eventCode;
           lastCommandDescription = eventDesc;
           lastCommandTeam = teamName;
+
         }
       }else if(ok && root.has("type") && root.optString("type","").equals("teams")){
       
