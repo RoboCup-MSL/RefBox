@@ -182,6 +182,7 @@ void draw() {
   }
 
 //receive message and get from json important information for referee Client
+void receive(byte[] data, String HOST_IP, int PORT_RX){
   String whatClientSaid = new String(data);
   //System.out.println(whatClientSaid);
   while(whatClientSaid.length() != 0)
