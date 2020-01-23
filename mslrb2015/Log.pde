@@ -61,14 +61,24 @@ static class Log
 	}
 
 	// Log action to both screen and logfile
-	public static void logactions(String cmd, String team) {
-
-	if(team.length() > 1)
+	public static void logactions(String cmd, String team, int robotID) {
+  
+        String temp = "";
+	     if(team.length() > 1)
        {
-         team = "=> " +team;
+         temp = " => " +team;
        }
-      String s1=Description.get(cmd)+" "+team;
-		  String s2=System.currentTimeMillis()+","+gametime+"("+gameruntime+"),"+StateMachine.GetCurrentGameStateString()+","+ Description.get(cmd+"") + "," + team;
+
+
+      String s1=Description.get(cmd);
+       String s2=System.currentTimeMillis()+","+gametime+"("+gameruntime+"),"+StateMachine.GetCurrentGameStateString()+","+ Description.get(cmd+"");
+       if(robotID != -1)
+       {
+         s1 += ":" + robotID;
+         s2 += ",robotID:" +robotID;
+       }
+       s1+=temp;
+		   s2 += "," + team;
 
   		screenlog(s1);
   		if (Log.enable)

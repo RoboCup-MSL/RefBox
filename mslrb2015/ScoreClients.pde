@@ -23,7 +23,7 @@ class ScoreClients
 		msg += "\"eventDesc\": \"" + eventDesc + "\",";
 		msg += "\"team\": \"" + team + "\"";
     if(robotID != -1)
-      msg += "\"robotID\": " + robotID ;
+      msg += ",\"robotID\": " + robotID ;
 		msg += "}";
 		msg += (char)0x00;
 		

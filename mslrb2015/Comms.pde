@@ -91,7 +91,7 @@ public static void send_event_v2(String cmd, String msg, Team t, int robotID)
 	scoreClients.update_tEvent(cmd, msg, teamName, robotID); //send to referee client
 	mslRemote.update_tEvent(cmd, msg, t); //remote command
 
-	Log.logactions(cmd, teamName);
+	Log.logactions(cmd, teamName, robotID);
 //	mslRemote.setLastCommand(send);      // Update MSL remote module with last command sent to basestations 
 										 // Look into command connection later
 
@@ -402,7 +402,7 @@ void comms_initDescriptionDictionary() {
 	Description.set(COMM_GOALKICK,      "Goalkick");
 	Description.set(COMM_THROWIN,       "Throw In");
 	Description.set(COMM_CORNER,        "Corner");
-	Description.set(COMM_PENALTY,       "Penalty Kick");
+	Description.set(COMM_PENALTY,       "Penalty");
 	Description.set(COMM_GOAL,          "Goal+");
 	Description.set(COMM_SUBGOAL,       "Goal-");
 	Description.set(COMM_REPAIR,    "Repair");
