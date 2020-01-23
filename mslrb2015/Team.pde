@@ -20,7 +20,7 @@ class Team {
 	boolean firstWorldState;
 	
 	Team(color c, boolean uileftside) {
-		this.colorTeam=colorTeam;
+		this.colorTeam=c;		//colorTeam;
 		this.isLeft=uileftside;
 		//robots
 		float x=0, y=64; 

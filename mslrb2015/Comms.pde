@@ -4,9 +4,9 @@ public static void serverEvent(MyServer whichServer, Client whichClient) {
 		if (whichServer.equals(BaseStationServer)) {
 			Log.logMessage("New BaseStation @ "+whichClient.ip());
 		}
-		else if (mslRemote != null && mslRemote.server != null && whichServer != null && whichServer.equals(mslRemote.server)) {
-			Log.logMessage("New Remote @ " + whichClient.ip());
-		}
+//		else if (mslRemote != null && mslRemote.server != null && whichServer != null && whichServer.equals(mslRemote.server)) {
+//			Log.logMessage("New Remote @ " + whichClient.ip());
+//		}
 	}catch(Exception e){}
 }
 
@@ -33,9 +33,9 @@ public static void clientValidation(MyServer whichServer, Client whichClient) {
 			}
 		}
 		// REMOTE CLIENTS AUTH
-		else if (mslRemote != null && mslRemote.server != null && whichServer.equals(mslRemote.server)) {
+		/*else if (mslRemote != null && mslRemote.server != null && whichServer.equals(mslRemote.server)) {
 			
-		}
+		} */
 	}catch(Exception e){}
 }
 
@@ -89,7 +89,7 @@ public static void send_event_v2(String cmd, String msg, Team t, int robotID)
 	}
 	send_to_basestation(cmd, teamIP, robotID);  //send to basestation
 	scoreClients.update_tEvent(cmd, msg, teamName, robotID); //send to referee client
-	mslRemote.update_tEvent(cmd, msg, t); //remote command
+	//mslRemote.update_tEvent(cmd, msg, t); //remote command
 
 	Log.logactions(cmd, teamName, robotID);
 	//	mslRemote.setLastCommand(send);      // Update MSL remote module with last command sent to basestations 

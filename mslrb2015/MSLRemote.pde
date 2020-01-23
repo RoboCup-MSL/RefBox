@@ -1,5 +1,12 @@
+/*
+This class definitions is kept in the project just for future purposes
+Someone implementing a remote crontol, such as an automatic referee can use this class 
+In the mslrb2015.pde file all lines referencing mslRemot should be uncommented
+*/
 class MSLRemote
 {
+/*	
+	
 	public MyServer server;
 	private String lastCommand = " ";
 
@@ -242,4 +249,5 @@ class MSLRemote
 			println("Invalid JSON received from MSL Remote.");
 		}
 	}
+*/
 }

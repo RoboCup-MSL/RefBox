@@ -112,24 +112,27 @@ void keyPressed() {
 		key = 0; 		
 		buttonEvent('C', ButtonsEnum.BTN_STOP.getValue());
 	}
-	if (key == CODED) {
-		if (keyCode == ALT) altK = true;
-		key = 0;
-	}
-	if (altK == true && (key == 'r' || key == 'R')){
-		key = 0;
-		buttonFromEnum(ButtonsEnum.BTN_RESET).enable();
-		buttonEvent('C', ButtonsEnum.BTN_RESET.getValue());		
-		buttonFromEnum(ButtonsEnum.BTN_RESET).disable();
-		buttonEvent('C', ButtonsEnum.BTN_STOP.getValue()); 
-	}
-	if (altK == true && (key == 'k' || key == 'K')){
-		key = 0;
-		forceKickoff = true;
-	}
-	if (key == 'H') {
-		key = 0;
-		Popup.show(PopupTypeEnum.POPUP_HELP, MSG_HELP, 8, 0, 0, 20, 440, 240);
+	
+	if (!Popup.isEnabled()) {  // Ignore remaining keys while PopUp is enabled
+		if (key == CODED) {
+			if (keyCode == ALT) altK = true;
+			key = 0;
+		}
+		if (altK == true && (key == 'r' || key == 'R')){
+			key = 0;
+			buttonFromEnum(ButtonsEnum.BTN_RESET).enable();
+			buttonEvent('C', ButtonsEnum.BTN_RESET.getValue());		
+			buttonFromEnum(ButtonsEnum.BTN_RESET).disable();
+			buttonEvent('C', ButtonsEnum.BTN_STOP.getValue()); 
+		}
+		if (altK == true && (key == 'k' || key == 'K')){
+			key = 0;
+			forceKickoff = true;
+		}
+		if (key == 'H') {
+			key = 0;
+			Popup.show(PopupTypeEnum.POPUP_HELP, MSG_HELP, 8, 0, 0, 20, 440, 240);
+		}
 	}
 	key = 0;
 
