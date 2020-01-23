@@ -88,7 +88,7 @@ public static void send_event_v2(String cmd, String msg, Team t, int robotID)
     teamName = t.team;
   }
 	send_to_basestation(cmd, teamIP, robotID);  //send to basestation
-	scoreClients.update_tEvent(cmd, msg, teamName); //send to referee client
+	scoreClients.update_tEvent(cmd, msg, teamName, robotID); //send to referee client
 	mslRemote.update_tEvent(cmd, msg, t); //remote command
 
 	Log.logactions(cmd, teamName);
