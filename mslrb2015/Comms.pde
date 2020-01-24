@@ -369,9 +369,10 @@ public static final String COMM_CORNER = "CORNER";
 public static final String COMM_PENALTY = "PENALTY";
 public static final String COMM_DROP_BALL = "DROP_BALL";
 
-// repair Commands
+// specific team Commands
 public static final String COMM_REPAIR = "REPAIR";
 public static final String COMM_SUBSTITUTION = "SUBSTITUTION";
+public static final String COMM_ISALIVE = "ISALIVE";
 
 //free: 056789 iIfFHlmMnqQwxX
 //------------------------------------------------------
@@ -396,6 +397,7 @@ void comms_initDescriptionDictionary() {
 	Description.set(COMM_SECOND_HALF_OVERTIME, "Overtime 2nd half");
 	Description.set(COMM_PARK, "Park");
 	Description.set(COMM_SUBSTITUTION, "Substitution");
+	Description.set(COMM_ISALIVE, "Is Alive");
 
 	Description.set(COMM_KICKOFF,       "Kickoff");
 	Description.set(COMM_FREEKICK,      "Freekick");

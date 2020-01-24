@@ -76,6 +76,9 @@ public static PVector offsetRight= new PVector(760, 180);
 public static PFont buttonFont, clockFont, panelFont, scoreFont, debugFont, teamFont, watermark;
 // public static PImage backgroundImage;
 public PImage backgroundImage;
+public PImage skullImage;
+public PImage skullImageOn;
+public PImage skullImageOff;
 public PImage rcfLogo;
 
 // Watches as timers
@@ -116,6 +119,9 @@ void setup() {
 	//output.close(); // Finishes the file
 
 	backgroundImage = loadImage("img/bg_normal.png");
+	skullImage = loadImage("img/smallSkull.jpg");
+	skullImageOn = loadImage("img/smallSkullON.jpg");
+	skullImageOff = loadImage("img/smallSkullOff.jpg");
 	size(1000, 680);
 
 	surface.setTitle(MSG_WINDOWTITLE); 

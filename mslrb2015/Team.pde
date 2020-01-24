@@ -23,12 +23,12 @@ class Team {
 		this.colorTeam=c;		//colorTeam;
 		this.isLeft=uileftside;
 		//robots
-		float x=0, y=64; 
+		float x=0, y=60; 					//64
 		r[0]=new Robot(x, y);
-		r[1]=new Robot(x+56, y);
-		r[2]=new Robot(x, y + 56);
-		r[3]=new Robot(x+56, y + 56);
-		r[4]=new Robot(x+28, y + 112);
+		r[1]=new Robot(x + 56, y);
+		r[2]=new Robot(x, y + 50);			//56
+		r[3]=new Robot(x + 56, y + 50);
+		r[4]=new Robot(x + 28, y + 100);	//112
 
 		this.reset();
 	}
@@ -324,7 +324,28 @@ class Team {
 		}    
 
 		for (int i=0; i<5; i++)
-		r[i].updateUI(colorTeam,isLeft);
+			r[i].updateUI(colorTeam,isLeft);
+		
+		//@mbc
+		float tx;
+		float ty;			
+		stroke(colorTeam); 
+		stroke(96);
+		strokeWeight(3);
+		color rcolor=230;
+		//fill(rcolor);
+		fill(194);
+		if (isLeft) {
+			tx=offsetLeft.x - 165 + 28;
+			ty=offsetLeft.y + 214;			
+		}
+		else {
+			tx=offsetRight.x + 106 + 28;
+			ty=offsetLeft.y + 214;			
+		}
+		ellipse(tx, ty, 42, 42);  
+		imageMode(CENTER);
+		image(skullImageOff, tx, ty, 26, 26);
 
 		textAlign(LEFT, BOTTOM);
 		textFont(debugFont);

@@ -1,40 +1,51 @@
 class Button {
 	float x; 
 	float y;
-	String bStatus;  // normal, active, disabled
-	Boolean HOVER;
-	String Label;
-	int bwidth=116; 
-	int bheight=48;
-	int hbwidth=bwidth/2; 
-	int hbheight=bheight/2;
-	int ccm = 0;
-	color cstroke, cfill, cstrokeactive, cfillactive;
+	String bStatus;  			// can be normal, active, disabled
+	Boolean HOVER;				// true when pointer is hover button
+	Boolean isCircle = false;	// true is button is circle
+	String Label;				// string to be writen in the button
+	int bwidth=116; 			// default button width
+	int bheight=48;				// default button height
+	int hbwidth=bwidth/2; 		// half of bwidth
+	int hbheight=bheight/2;		// half of bheight
+	color cstroke, cfill;		// stroke and fill default colors when button is in normal state
+	color cstrokeactive, cfillactive;	// stroke and fill default colors when button is in active state
 
-	String msg = null; // long name for the command
-	String msg_off = null;
-	String cmd = null; // command 
-	String cmd_off = null;
+	String cmd = null; 		// long name for the command 
+	String msg = null; 		// description of the command
+	String cmd_off = null;	// ID used in toogle buttons - applied when button is reset to passive state
+	String msg_off = null;	// description of the cmd_off - applied when button is reset to passive state
 
-	// c1 > stroke color (-1 > no stroke)
-	// c2 > fill collor (-1 > no fill)
-	// c3 > stroke color when active (-1 > no stroke)
-	// c4 > fill collor when active (-1 > no fill)
+/*
+	Button constructor
+	Parameters:
+		x > horizontal ccordinate of button in window
+		z > vertical ccordinate of button in window
+		Label > string to be writen in the button
+		c1 > stroke (outline) color (-1 > no stroke)
+		c2 > fill collor (-1 > no fill)
+		c3 > stroke (outline) color when active (-1 > no stroke)
+		c4 > fill collor when active (-1 > no fill)
+		cmd > string ID of the command (defined in Comms)
+		msg > string description of the command (defined in Comms)
+		cmd_off > string ID used in toogle buttons - applied when button is reset to passive state
+		msg_off > string description of cmd_off
+*/
 	Button(float x, float y, String Label, color c1, color c2, color c3, color c4, String cmd, String msg,String cmd_off, String msg_off) { 
-		this.x=x;
-		this.y=y;
-		this.Label=Label;
-		this.bStatus="disabled";
-		this.HOVER=false;
-		this.cstroke=c1;
-		this.cfill=c2;
-		this.cstrokeactive=c3;
-		this.cfillactive=c4;
-		this.cmd=cmd;
-		this.msg=msg;
-		this.cmd_off=cmd_off;
-		this.msg_off=msg_off;
-		
+		this.x = x;
+		this.y = y;
+		this.Label = Label;
+		this.bStatus = "disabled";
+		this.HOVER = false;
+		this.cstroke = c1;
+		this.cfill = c2;
+		this.cstrokeactive = c3;
+		this.cfillactive = c4;
+		this.cmd = cmd;
+		this.msg = msg;
+		this.cmd_off = cmd_off;
+		this.msg_off = msg_off;
 	}
 
 	void update() {
@@ -77,9 +88,6 @@ class Button {
 			stroke(96);
 		} 
 		rect(x, y, bwidth, bheight, 8);
-		if (HOVER) {
-			ccm++;
-		}
 
 		//  Text
 
@@ -147,7 +155,6 @@ class Button {
 		}
 	}
 
-
 	void setcolor(color c1, color c2, color c3, color c4) {
 		this.cstroke=c1;
 		this.cfill=c2;
@@ -167,6 +174,9 @@ class Button {
 		this.y=y;
 	}
 
+	void setIsCircle(boolean vv){    
+		isCircle = vv;
+	}
 }
 
 //***********************************************************************
@@ -238,7 +248,7 @@ void buttonEvent(char group, int pos) {
 		}
 		
 		// Special cases, that send only event message on game change (flags)
-		if( clickedButton.isYellow() || clickedButton.isRed() || clickedButton.isRepair() || clickedButton.isConfig() )
+		if( clickedButton.isYellow() || clickedButton.isRed() || clickedButton.isRepair() || clickedButton.isConfig() || clickedButton.isEndPart() || clickedButton.isReset())
 		{
 			// Do literally nothing...
 		}else{
