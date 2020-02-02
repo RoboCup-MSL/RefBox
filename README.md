@@ -1,7 +1,7 @@
 # RefBox2015
 Repository for the Referee-Box v2.0 (beta) and related tools.
 
-Thus version is still under testing and will start being used in the international MSL competitions during 2020
+This version is still under testing and will start being used in the international MSL competitions during 2020
 
 Downloads will be available soon on [Releases](https://github.com/RoboCup-MSL/RefBox2015/releases) page.
 
