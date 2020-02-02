@@ -12,32 +12,34 @@ enum ButtonsEnum
 	BTN_PARK(3),
 	BTN_ENDPART(4),
 	BTN_RESET(5),
-  BTN_SUBS(6),
-  BTN_CONFIG(7),
+	BTN_SUBS(6),
+	BTN_CONFIG(7),
 
-	BTN_C_KICKOFF(8),
-	BTN_C_FREEKICK(9),
-	BTN_C_GOALKICK(10),
-	BTN_C_THROWIN(11),
-	BTN_C_CORNER(12),
-	BTN_C_PENALTY(13),
+	BTN_L_KICKOFF(8),
+	BTN_L_FREEKICK(9),
+	BTN_L_GOALKICK(10),
+	BTN_L_THROWIN(11),
+	BTN_L_CORNER(12),
+	BTN_L_PENALTY(13),
+	BTN_L_ISALIVE(14),
+	
+	BTN_L_GOAL(15),
+	BTN_L_REPAIR(16),
+	BTN_L_RED(17),
+	BTN_L_YELLOW(18),
 
-	BTN_C_GOAL(14),
-	BTN_C_REPAIR(15),
-	BTN_C_RED(16),
-	BTN_C_YELLOW(17),
-
-	BTN_M_KICKOFF(18),
-	BTN_M_FREEKICK(19),
-	BTN_M_GOALKICK(20),
-	BTN_M_THROWIN(21),
-	BTN_M_CORNER(22),
-	BTN_M_PENALTY(23),
-
-	BTN_M_GOAL(24),
-	BTN_M_REPAIR(25),
-	BTN_M_RED(26),
-	BTN_M_YELLOW(27),
+	BTN_R_KICKOFF(19),
+	BTN_R_FREEKICK(20),
+	BTN_R_GOALKICK(21),
+	BTN_R_THROWIN(22),
+	BTN_R_CORNER(23),
+	BTN_R_PENALTY(24),
+	BTN_R_ISALIVE(25),
+	
+	BTN_R_GOAL(26),
+	BTN_R_REPAIR(27),
+	BTN_R_RED(28),
+	BTN_R_YELLOW(29),
 
 	BTN_ILLEGAL(99);
 
@@ -56,7 +58,8 @@ enum ButtonsEnum
 	//******************************************************************************************************
 	public boolean isSetPiece()
 	{
-		return (value >= BTN_C_KICKOFF.value && value <= BTN_C_PENALTY.value) || (value >= BTN_M_KICKOFF.value && value <= BTN_M_PENALTY.value) || value == BTN_DROPBALL.value;
+		return (value >= BTN_L_KICKOFF.value && value <= BTN_L_ISALIVE.value) || 
+				(value >= BTN_R_KICKOFF.value && value <= BTN_R_ISALIVE.value) || value == BTN_DROPBALL.value;
 	}
 
 	//******************************************************************************************************
@@ -68,13 +71,13 @@ enum ButtonsEnum
 	//******************************************************************************************************
 	public boolean isLeft()
 	{
-		return value >= BTN_C_KICKOFF.value && value <= BTN_C_YELLOW.value;
+		return value >= BTN_L_KICKOFF.value && value <= BTN_L_ISALIVE.value;
 	}
 
 	//******************************************************************************************************
 	public boolean isRight()
 	{
-		return value >= BTN_M_KICKOFF.value && value <= BTN_M_YELLOW.value;
+		return value >= BTN_R_KICKOFF.value && value <= BTN_R_ISALIVE.value;
 	}
 
 	//******************************************************************************************************
@@ -92,13 +95,13 @@ enum ButtonsEnum
 	//******************************************************************************************************
 	public boolean isGoal()
 	{
-		return value == BTN_C_GOAL.value || value == BTN_M_GOAL.value;
+		return value == BTN_L_GOAL.value || value == BTN_R_GOAL.value;
 	}
 
 	//******************************************************************************************************
 	public boolean isRepair()
 	{
-		return value == BTN_C_REPAIR.value || value == BTN_M_REPAIR.value;
+		return value == BTN_L_REPAIR.value || value == BTN_R_REPAIR.value;
 	}
 
 	//******************************************************************************************************
@@ -116,19 +119,25 @@ enum ButtonsEnum
 	//******************************************************************************************************
 	public boolean isYellow()
 	{
-		return value == BTN_C_YELLOW.value || value == BTN_M_YELLOW.value;
+		return value == BTN_L_YELLOW.value || value == BTN_R_YELLOW.value;
 	}
 
 	//******************************************************************************************************
 	public boolean isRed()
 	{
-		return value == BTN_C_RED.value || value == BTN_M_RED.value;
+		return value == BTN_L_RED.value || value == BTN_R_RED.value;
 	}
 
 	//******************************************************************************************************
 	public boolean isSubs()
 	{
 		return value == BTN_SUBS.value;
+	}
+
+	//******************************************************************************************************
+	public boolean isAlive()
+	{
+		return value == BTN_L_ISALIVE.value || value == BTN_R_ISALIVE.value;
 	}
 
 	//******************************************************************************************************
@@ -148,31 +157,31 @@ enum ButtonsEnum
 
 enum GameStateEnum
 {
-	GS_PREGAME(0),            // Period from start until first Kickoff Start 
+	GS_PREGAME(0),            	// Period from start until first Kickoff Start 
 
-	GS_GAMESTOP_H1(1),        // Game stopped during first half
-	GS_GAMEON_H1(2),          // Game on during first half
+	GS_GAMESTOP_H1(1),        	// Game stopped during first half
+	GS_GAMEON_H1(2),          	// Game on during first half
 
-	GS_HALFTIME(3),            // First half time
+	GS_HALFTIME(3),            	// First half time
 
-	GS_GAMESTOP_H2(4),        // Game stopped during second half
-	GS_GAMEON_H2(5),          // Game on during second half
+	GS_GAMESTOP_H2(4),        	// Game stopped during second half
+	GS_GAMEON_H2(5),          	// Game on during second half
 
-	GS_OVERTIME(6),            // Game end (ready for overtime)
+	GS_OVERTIME(6),            	// Game end (ready for overtime)
 
-	GS_GAMESTOP_H3(7),        // Game stopped during first half of overtime
-	GS_GAMEON_H3(8),          // Game on during first half of overtime
+	GS_GAMESTOP_H3(7),        	// Game stopped during first half of overtime
+	GS_GAMEON_H3(8),			// Game on during first half of overtime
 
-	GS_HALFTIME_OVERTIME(9),  // First half time of oertime
+	GS_HALFTIME_OVERTIME(9),	// First half time of oertime
 
-	GS_GAMESTOP_H4(10),        // Game stopped during second half of overtime
-	GS_GAMEON_H4(11),          // Game on during second half of overtime
+	GS_GAMESTOP_H4(10),        	// Game stopped during second half of overtime
+	GS_GAMEON_H4(11),          	// Game on during second half of overtime
 
-	GS_PENALTIES(12),          // Penalties period on mbc????
-	GS_PENALTIES_ON(13),       // Penalties period on mbc????
-	GS_ENDGAME(14),            // Game over
-	GS_FORCE_ENDGAME(15),            // Game over
-	GS_RESET(16),              // Reset Game
+	GS_PENALTIES(12),          	// Penalties period on mbc????
+	GS_PENALTIES_ON(13),       	// Penalties period on mbc????
+	GS_ENDGAME(14),            	// Game over
+	GS_FORCE_ENDGAME(15),      	// Game over
+	GS_RESET(16),              	// Reset Game
 
 	GS_ILLEGAL(99);
 
@@ -246,9 +255,10 @@ enum PopupTypeEnum
 	POPUP_REPAIRR(4),
 	POPUP_HELP(5),
 	POPUP_WAIT(6),
-  POPUP_SUBS(7),
+	POPUP_SUBS(7),
 	POPUP_CONFIG(8),
-
+	POPUP_ALIVE(9),
+	
 	POPUP_ILLEGAL(99);
 
 	private final int value;

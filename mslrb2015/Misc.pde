@@ -28,9 +28,9 @@ void setbackground() {
 	float offsety=112;
 	float m=0.3;
 
-	//top cyan
+	//top left
 	strokeWeight(2);
-	fill(Config.defaultCyanTeamColor); 
+	fill(Config.defaultLeftTeamColor); 
 	stroke(0);
 	beginShape();
 	vertex(0, 0);
@@ -39,9 +39,9 @@ void setbackground() {
 	vertex(offsetx, 0);
 	endShape();
 
-	//top magenta
+	//top right
 	strokeWeight(2);
-	fill(Config.defaultMagentaTeamColor); 
+	fill(Config.defaultRightTeamColor); 
 	stroke(0);
 	beginShape();
 	vertex(width, 0);

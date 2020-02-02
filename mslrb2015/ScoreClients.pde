@@ -15,13 +15,15 @@ class ScoreClients
 	}
 
 	// Sends an "event" type update message to the clients
-	public void update_tEvent(String eventCode, String eventDesc, String team)
+	public void update_tEvent(String eventCode, String eventDesc, String team, int robotID)
 	{
 		String msg = "{";
 		msg += "\"type\": \"event\",";
 		msg += "\"eventCode\": \"" + eventCode + "\",";
 		msg += "\"eventDesc\": \"" + eventDesc + "\",";
 		msg += "\"team\": \"" + team + "\"";
+		if(robotID != -1)
+		msg += ",\"robotID\": " + robotID ;
 		msg += "}";
 		msg += (char)0x00;
 		

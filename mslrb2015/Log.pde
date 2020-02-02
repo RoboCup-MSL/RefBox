@@ -61,26 +61,28 @@ static class Log
 	}
 
 	// Log action to both screen and logfile
-	public static void logactions(String c) {
-    JSONObject jsonObject = JSONObject.parse(c);
+	public static void logactions(String cmd, String team, int robotID) {
 
-    if (jsonObject != null) 
-    {
-      String cmd = jsonObject.getString("command");
-      String team = jsonObject.getString("targetTeam");
-      if(team.length() > 1)
-       {
-         team = "=> " +team;
-       }
-      String s1=Description.get(cmd)+" "+team;
-		  String s2=System.currentTimeMillis()+","+gametime+"("+gameruntime+"),"+StateMachine.GetCurrentGameStateString()+","+c+","+Description.get(c+"");
-		  lastaction=c;
+		String temp = "";
+		if(team.length() > 1)
+		{
+			temp = " => " +team;
+		}
 
-  		screenlog(s1);
-  		if (Log.enable)
-        Log.appendTextToFile(LogFileName,s2);
-    }
-		
+
+		String s1=Description.get(cmd);
+		String s2=System.currentTimeMillis()+","+gametime+"("+gameruntime+"),"+StateMachine.GetCurrentGameStateString()+","+ Description.get(cmd+"");
+		if(robotID != -1)
+		{
+			s1 += ":" + robotID;
+			s2 += ",robotID:" +robotID;
+		}
+		s1+=temp;
+		s2 += "," + team;
+
+		screenlog(s1);
+		if (Log.enable)
+		Log.appendTextToFile(LogFileName,s2);		
 	}
 
 	// Log message to both screen and logfile

@@ -1,5 +1,12 @@
+/*
+This class definitions is kept in the project just for future purposes
+Someone implementing a remote crontol, such as an automatic referee can use this class 
+In the mslrb2015.pde file all lines referencing mslRemot should be uncommented
+*/
 class MSLRemote
 {
+/*	
+	
 	public MyServer server;
 	private String lastCommand = " ";
 
@@ -23,7 +30,7 @@ class MSLRemote
 	private static final String COMMAND_GOALKICK_CYAN = "CG";
 	private static final String COMMAND_CORNER_CYAN = "CE";
 	private static final String COMMAND_PENALTY_CYAN = "CP";
-	private static final String COMMAND_SCORE_CYAN = "CL"; // append score 2 digits (e.g. "CL01" for cyan score = 1)
+	private static final String COMMAND_SCORE_CYAN = "CL"; // append score 2 digits (e.g. "CL01" for left score = 1)
 	private static final String COMMAND_YELLOW_CYAN = "CY1"; // robot 1
 	private static final String COMMAND_OUT_CYAN = "Co1"; // robot 1
 
@@ -33,7 +40,7 @@ class MSLRemote
 	private static final String COMMAND_GOALKICK_MAGENTA = "MG";
 	private static final String COMMAND_CORNER_MAGENTA = "ME";
 	private static final String COMMAND_PENALTY_MAGENTA = "MP";
-	private static final String COMMAND_SCORE_MAGENTA = "ML"; // append score 2 digits (e.g. "CL01" for cyan score = 1)
+	private static final String COMMAND_SCORE_MAGENTA = "ML"; // append score 2 digits (e.g. "CL01" for left score = 1)
 	private static final String COMMAND_YELLOW_MAGENTA = "MY1"; // robot 1
 	private static final String COMMAND_OUT_MAGENTA = "Mo1"; // robot 1
 
@@ -57,28 +64,28 @@ class MSLRemote
 
 	public String getEventCommand()
 	{
-		if(lastCommand.equals(cCommcmds[CMDID_COMMON_START]))
+		if(lastCommand.equals(COMM_START))
 		return COMMAND_START;
-		else if(lastCommand.equals(cCommcmds[CMDID_COMMON_STOP]))
+		else if(lastCommand.equals(COMM_STOP))
 		return COMMAND_STOP;
-		else if(lastCommand.equals(cCommcmds[CMDID_COMMON_DROP_BALL]))
+		else if(lastCommand.equals(COMM_DROP_BALL))
 		return COMMAND_DROPBALL;
-		else if(lastCommand.equals(cCommcmds[CMDID_COMMON_HALFTIME]))
+		else if(lastCommand.equals(COMM_HALF_TIME))
 		return COMMAND_ENDPART;
-		else if(lastCommand.equals(cCommcmds[CMDID_COMMON_RESET]))
+		else if(lastCommand.equals(COMM_RESET))
 		return COMMAND_RESET;
 		
-		else if(lastCommand.equals(cTeamcmds[CMDID_TEAM_KICKOFF]))
+		else if(lastCommand.equals(COMM_KICKOFF))
 		return COMMAND_KICK_OFF_CYAN;
-		else if(lastCommand.equals(cTeamcmds[CMDID_TEAM_FREEKICK]))
+		else if(lastCommand.equals(COMM_FREEKICK))
 		return COMMAND_FREEKICK_CYAN;
-		else if(lastCommand.equals(cTeamcmds[CMDID_TEAM_GOALKICK]))
+		else if(lastCommand.equals(COMM_GOALKICK))
 		return COMMAND_GOALKICK_CYAN;
-		else if(lastCommand.equals(cTeamcmds[CMDID_TEAM_THROWIN]))
+		else if(lastCommand.equals(COMM_THROWIN))
 		return COMMAND_THROW_IN_CYAN;
-		else if(lastCommand.equals(cTeamcmds[CMDID_TEAM_CORNER]))
+		else if(lastCommand.equals(COMM_CORNER))
 		return COMMAND_CORNER_CYAN;
-		else if(lastCommand.equals(cTeamcmds[CMDID_TEAM_PENALTY]))
+		else if(lastCommand.equals(COMM_PENALTY))
 		return COMMAND_PENALTY_CYAN;
 		
 		return "";
@@ -100,22 +107,22 @@ class MSLRemote
 		GameStateEnum gs = StateMachine.GetCurrentGameState(); 
 		
 		boolean kickoff = false;
-		boolean teamCyan = false;
+		boolean teamLeft = false;
 		
-		if(lastCommand == cTeamcmds[CMDID_TEAM_KICKOFF])
+		if(lastCommand == COMM_KICKOFF)
 		{
 			if(gs == GameStateEnum.GS_PREGAME || gs == GameStateEnum.GS_HALFTIME || gs == GameStateEnum.GS_HALFTIME_OVERTIME) // pre or halftime
 			{
 				kickoff = true;
-				if(lastCommand == cTeamcmds[CMDID_TEAM_KICKOFF])
-				teamCyan = true;
+				if(lastCommand == COMM_KICKOFF)
+				teamLeft = true;
 			}
-		}else if(lastCommand == cTeamcmds[CMDID_TEAM_FREEKICK]
-				|| lastCommand == cTeamcmds[CMDID_TEAM_GOALKICK]
-				|| lastCommand == cTeamcmds[CMDID_TEAM_THROWIN]
-				|| lastCommand == cTeamcmds[CMDID_TEAM_CORNER]
-				|| lastCommand == cTeamcmds[CMDID_TEAM_PENALTY]
-				|| lastCommand == cCommcmds[CMDID_COMMON_DROP_BALL])
+		}else if(lastCommand == COMM_FREEKICK
+				|| lastCommand == COMM_GOALKICK
+				|| lastCommand == COMM_THROWIN
+				|| lastCommand == COMM_CORNER
+				|| lastCommand == COMM_PENALTY
+				|| lastCommand == COMM_DROP_BALL)
 		return GAMESTATUS_SET_PLAY;
 
 		switch(gs)
@@ -123,7 +130,7 @@ class MSLRemote
 		case GS_PREGAME:
 			if(kickoff)
 			{
-				if(teamCyan)
+				if(teamLeft)
 				return GAMESTATUS_PRE_GAME_KICK_OFF_CYAN;
 				else
 				return GAMESTATUS_PRE_GAME_KICK_OFF_MAGENTA;
@@ -144,7 +151,7 @@ class MSLRemote
 		case GS_HALFTIME_OVERTIME:
 			if(kickoff)
 			{
-				if(teamCyan)
+				if(teamLeft)
 				return GAMESTATUS_HALF_KICK_OFF_CYAN;
 				else
 				return GAMESTATUS_HALF_KICK_OFF_MAGENTA;
@@ -242,4 +249,5 @@ class MSLRemote
 			println("Invalid JSON received from MSL Remote.");
 		}
 	}
+*/
 }

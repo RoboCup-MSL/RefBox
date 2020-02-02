@@ -5,7 +5,6 @@ void RefreshButonStatus1() {
 	{
 		// PRE-GAME
 	case GS_PREGAME:
-	//	if (Popup.isEnabled() && (Popup.getType().getValue() == 6)) Popup.close();
 		if (Popup.isEnabled() && (Popup.getType() == PopupTypeEnum.POPUP_WAIT)) Popup.close();
 		
 		buttonAdisableAll(0);  //team A commands	
@@ -14,31 +13,29 @@ void RefreshButonStatus1() {
 		
 		if(StateMachine.setpiece)
 		{
-			if(StateMachine.setpiece_cyan){
-				buttonFromEnum(ButtonsEnum.BTN_C_KICKOFF).activate();
-				buttonFromEnum(ButtonsEnum.BTN_M_KICKOFF).disable();
+			if(StateMachine.setpiece_left){
+				buttonFromEnum(ButtonsEnum.BTN_L_KICKOFF).activate();
+				buttonFromEnum(ButtonsEnum.BTN_R_KICKOFF).disable();
 
 			}else{
-				buttonFromEnum(ButtonsEnum.BTN_C_KICKOFF).disable();
-				buttonFromEnum(ButtonsEnum.BTN_M_KICKOFF).activate();
+				buttonFromEnum(ButtonsEnum.BTN_L_KICKOFF).disable();
+				buttonFromEnum(ButtonsEnum.BTN_R_KICKOFF).activate();
 			}
 			
 			buttonFromEnum(ButtonsEnum.BTN_RESET).disable();
 			buttonFromEnum(ButtonsEnum.BTN_START).enable();
 			buttonFromEnum(ButtonsEnum.BTN_STOP).activate();
-      buttonFromEnum(ButtonsEnum.BTN_CONFIG).activate();
+			buttonFromEnum(ButtonsEnum.BTN_CONFIG).disable();
 
 		}else{
-			buttonFromEnum(ButtonsEnum.BTN_C_KICKOFF).enable();
-			buttonFromEnum(ButtonsEnum.BTN_M_KICKOFF).enable();
+
+			buttonFromEnum(ButtonsEnum.BTN_L_KICKOFF).enable();
+			buttonFromEnum(ButtonsEnum.BTN_R_KICKOFF).enable();
 
 			buttonFromEnum(ButtonsEnum.BTN_START).disable();
 			buttonFromEnum(ButtonsEnum.BTN_STOP).activate();
 			buttonFromEnum(ButtonsEnum.BTN_RESET).activate();
-
-//public static final int CMDID_COMMON_SUBS = 6;
-      //buttonFromEnum(ButtonsEnum.BTN_CONFIG).activate();
-        bCommoncmds[CMDID_COMMON_CONFIG].activate();
+			buttonFromEnum(ButtonsEnum.BTN_CONFIG).activate();
 		}
 		
 
@@ -78,9 +75,9 @@ void RefreshButonStatus1() {
 		bTeamBcmds[CMDID_TEAM_GOAL].disable();		// Disable goal button if part ended with a goal
 
 		// Alternate Kick-Offs
-		boolean enableCyan = StateMachine.firstKickoffCyan;
+		boolean enableLeft = StateMachine.firstKickoffLeft;
 		if(StateMachine.GetCurrentGameState() == GameStateEnum.GS_HALFTIME || StateMachine.GetCurrentGameState() == GameStateEnum.GS_HALFTIME_OVERTIME)
-		enableCyan = !enableCyan;
+		enableLeft = !enableLeft;
 
 		if(StateMachine.setpiece)
 		{
@@ -90,13 +87,13 @@ void RefreshButonStatus1() {
 			buttonFromEnum(ButtonsEnum.BTN_PARK).disable();
 			buttonFromEnum(ButtonsEnum.BTN_RESET).disable();
 		}else{
-			if(enableCyan)
+			if(enableLeft)
 			{
-				buttonFromEnum(ButtonsEnum.BTN_C_KICKOFF).enable();
-				buttonFromEnum(ButtonsEnum.BTN_M_KICKOFF).disable();
+				buttonFromEnum(ButtonsEnum.BTN_L_KICKOFF).enable();
+				buttonFromEnum(ButtonsEnum.BTN_R_KICKOFF).disable();
 			}else{
-				buttonFromEnum(ButtonsEnum.BTN_C_KICKOFF).disable();
-				buttonFromEnum(ButtonsEnum.BTN_M_KICKOFF).enable();
+				buttonFromEnum(ButtonsEnum.BTN_L_KICKOFF).disable();
+				buttonFromEnum(ButtonsEnum.BTN_R_KICKOFF).enable();
 			}        
 			buttonFromEnum(ButtonsEnum.BTN_START).disable();
 			buttonFromEnum(ButtonsEnum.BTN_STOP).activate();
@@ -156,12 +153,12 @@ void RefreshButonStatus1() {
 	if(StateMachine.GetCurrentGameState() != GameStateEnum.GS_PREGAME)
 	{
 		for(int i = 0; i < bSlider.length; i++) {
-		//bSlider[i].disable();
-    }
+			//bSlider[i].disable();
+		}
 	}else{
 		for(int i = 0; i < bSlider.length; i++) {
-		//bSlider[i].enable();
-    }
+			//bSlider[i].enable();
+		}
 	}
 
 	// Update End Part / End Game button
@@ -191,7 +188,6 @@ void refreshbutton_game_on()
 //
 void refreshbutton_game_stopped()
 {
-
 	if(bTeamAcmds[CMDID_TEAM_GOAL].isActive()) {
 		buttonAdisable();
 		buttonBdisable();
@@ -219,8 +215,8 @@ void refreshbutton_game_stopped()
 			bCommoncmds[CMDID_COMMON_RESET].disable();  
 			bTeamAcmds[CMDID_TEAM_GOAL].enable();
 			bTeamBcmds[CMDID_TEAM_GOAL].enable();
+			bCommoncmds[CMDID_COMMON_SUBS].enable();
 			buttonCSTARTdisable();            // Turn OFF START button  
-        bCommoncmds[CMDID_COMMON_SUBS].enable();
 		}
 		else
 		{
@@ -231,10 +227,10 @@ void refreshbutton_game_stopped()
 		for(int i = CMDID_TEAM_REPAIR_OUT; i <= CMDID_TEAM_YELLOWCARD; i++)
 		{
 			if(!bTeamAcmds[i].isActive())
-			bTeamAcmds[i].enable();
+				bTeamAcmds[i].enable();
 
 			if(!bTeamBcmds[i].isActive())
-			bTeamBcmds[i].enable();
+				bTeamBcmds[i].enable();
 		}  
 	}
 	buttonCSTOPactivate();            // Turn ON STOP button
@@ -248,17 +244,23 @@ void refreshbutton_game_stopped()
 //*********************************************************************
 void buttonA_setpieces_en()
 {
-	for (int i=CMDID_TEAM_FREEKICK; i <= CMDID_TEAM_PENALTY; i++)
-	bTeamAcmds[i].enable();
-	if (forceKickoff == true) bTeamAcmds[CMDID_TEAM_KICKOFF].enable();
+	for (int i=CMDID_TEAM_FREEKICK; i <= CMDID_TEAM_ISALIVE; i++)
+		bTeamAcmds[i].enable();
+	if (forceKickoff == true) 
+		bTeamAcmds[CMDID_TEAM_KICKOFF].enable();
+	else
+		bTeamAcmds[CMDID_TEAM_KICKOFF].disable();
 }
 
 //*********************************************************************
 void buttonB_setpieces_en()
 {
-	for (int i=CMDID_TEAM_FREEKICK; i <= CMDID_TEAM_PENALTY; i++)
+	for (int i=CMDID_TEAM_FREEKICK; i <= CMDID_TEAM_ISALIVE; i++)
 	bTeamBcmds[i].enable();
-	if (forceKickoff == true) bTeamBcmds[CMDID_TEAM_KICKOFF].enable();
+	if (forceKickoff == true) 
+		bTeamBcmds[CMDID_TEAM_KICKOFF].enable();
+	else
+		bTeamBcmds[CMDID_TEAM_KICKOFF].disable();
 }
 
 //*********************************************************************

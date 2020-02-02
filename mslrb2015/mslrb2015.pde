@@ -1,4 +1,5 @@
 //<>//
+//<>//
 /* ==================================
 MSL RefBox 2015 (Processing 3)
 	LMFerreira
@@ -20,13 +21,9 @@ public static final String MSG_SUBS="Substitute Players";
 public static final String MSG_WAIT="Please WAIT! Compressing files.";
 public static final String MSG_CONFIG="Configurations";
 public static String MSG_HELP="SHORT CUT KEYS:";
+public static final String MSG_ISALIVE="Command under development";
 
 public static final int appFrameRate = 25;
-
-public static String[] Teamcmds= { "KickOff", "FreeKick", "GoalKick", "Throw In", "Corner", "Penalty", "Goal", "Repair", "Red", "Yellow" };
-public static String[] Commcmds= { "START", "STOP", "DropBall", "Park", "End Part",  "RESET", "Substitute", "Config", "EndGame" };
-
-public static final String[] cTeamcmds= { "KICKOFF", "FREEKICK", "GOALKICK", "THROWIN", "CORNER", "PENALTY", "GOAL", "REPAIR", "RED_CARD", "YELLOW_CARD" };
 
 public static final int CMDID_TEAM_KICKOFF = 0;
 public static final int CMDID_TEAM_FREEKICK = 1;
@@ -34,12 +31,12 @@ public static final int CMDID_TEAM_GOALKICK = 2;
 public static final int CMDID_TEAM_THROWIN = 3;
 public static final int CMDID_TEAM_CORNER = 4;
 public static final int CMDID_TEAM_PENALTY = 5;
-public static final int CMDID_TEAM_GOAL = 6;
-public static final int CMDID_TEAM_REPAIR_OUT = 7;
-public static final int CMDID_TEAM_REDCARD = 8;
-public static final int CMDID_TEAM_YELLOWCARD = 9;
-
-public static String[] cCommcmds= { "START", "STOP", "DROP_BALL", "PARK", "END_PART", "RESET", "SUBSTITUTE", "CONFIG", "END_GAME" };
+public static final int CMDID_TEAM_ISALIVE = 6;
+public static final int CMDID_TEAM_GOAL = 7;
+public static final int CMDID_TEAM_REPAIR_OUT = 8;
+public static final int CMDID_TEAM_REDCARD = 9;
+public static final int CMDID_TEAM_YELLOWCARD = 10;
+public static final int CMDID_TEAM_LENGHT = 11;
 
 public static final int CMDID_COMMON_START = 0;
 public static final int CMDID_COMMON_STOP = 1;
@@ -49,17 +46,17 @@ public static final int CMDID_COMMON_HALFTIME = 4;
 public static final int CMDID_COMMON_RESET = 5;
 public static final int CMDID_COMMON_SUBS = 6;
 public static final int CMDID_COMMON_CONFIG = 7;
-public static final int CMDID_COMMON_ENDGAME = 8;
+public static final int CMDID_COMMON_LENGHT = 8;
 
 public static ScoreClients scoreClients = null;
-public static MSLRemote mslRemote = null;
+//public static MSLRemote mslRemote = null;
 public static MyServer BaseStationServer;
 public static Client connectingClient = null;
 
 public static Team teamA,teamB;
-public static Button[] bTeamAcmds = new Button[CMDID_TEAM_YELLOWCARD + 1];
-public static Button[] bTeamBcmds = new Button[CMDID_TEAM_YELLOWCARD + 1];
-public static Button[] bCommoncmds = new Button[CMDID_COMMON_CONFIG + 1];
+public static Button[] bTeamAcmds = new Button[CMDID_TEAM_LENGHT];
+public static Button[] bTeamBcmds = new Button[CMDID_TEAM_LENGHT];
+public static Button[] bCommoncmds = new Button[CMDID_COMMON_LENGHT];
 public static BSliders[] bSlider = new BSliders[4];
 public static Textbox[] tBox = new Textbox[6];
 public static String previousNameTeamA, previousNameTeamB;
@@ -72,7 +69,6 @@ public static boolean TESTMODE=false, stopsplittimer=true, VOICECOACH=false, REM
 public static char LastKickOff='.';
 public static String[] Last5cmds= { ".", ".", ".", ".", "." };
 public static String LogFileName;
-public static String lastaction=".";
 public static String gametime = "", gameruntime = "";
 
 //GUI
@@ -81,8 +77,14 @@ public static Button[] bPopup = new Button[popUpButtons];	// button 0 is reserve
 public static PVector offsetLeft= new PVector(230, 180);
 public static PVector offsetRight= new PVector(760, 180);
 public static PFont buttonFont, clockFont, panelFont, scoreFont, debugFont, teamFont, watermark;
+
 // public static PImage backgroundImage;
 public PImage backgroundImage;
+public static PImage skullImage;
+public static PImage skullImageOff;
+public static PImage skullImageOver;
+public static PImage skullImageLeft;
+public static PImage skullImageRight;
 public PImage rcfLogo;
 
 // Watches as timers
@@ -109,20 +111,25 @@ such as images and fonts as the program starts.
 **************************************************************************************************************************/
 void setup() {
 	mainApplet = this;
-	PrintWriter output;
+	//PrintWriter output;
 	
-	// Get system fonts list and write it to fonts.txt
-	String[] fontList = PFont.list();
-	int n = fontList.length;
-	output = createWriter("fonts.txt");
-	for (int i = 0; i < n; i++) //<>//
-	{
-		output.println(fontList[i]);	
-	}
-	output.flush(); // Writes the remaining data to the file
-	output.close(); // Finishes the file
+	//// Get system fonts list and write it to fonts.txt
+	//String[] fontList = PFont.list();
+	//int n = fontList.length;
+	//output = createWriter("fonts.txt");
+	//for (int i = 0; i < n; i++) //<>//
+	//{
+	//	output.println(fontList[i]);	
+	//}
+	//output.flush(); // Writes the remaining data to the file
+	//output.close(); // Finishes the file
 
 	backgroundImage = loadImage("img/bg_normal.png");
+	skullImage = loadImage("img/Skullsmall.png");
+	skullImageOff = loadImage("img/smallSkullOff.png");
+	skullImageOver = loadImage("img/SkullsmallOver.png");;
+	skullImageLeft = loadImage("img/smallSkullLeft.png");;
+	skullImageRight = loadImage("img/smallSkullRight.png");;
 	size(1000, 680);
 
 	surface.setTitle(MSG_WINDOWTITLE); 
@@ -145,10 +152,10 @@ void setup() {
 
 	scoreClients = new ScoreClients(this);        // Load score clients server
 	BaseStationServer = new MyServer(this, Config.basestationServerPort); // Load basestations server
-	mslRemote = new MSLRemote(this, Config.remoteServerPort);             // Load module for MSL remote control
+//	mslRemote = new MSLRemote(this, Config.remoteServerPort);             // Load module for MSL remote control
 
-	teamA = new Team(Config.defaultCyanTeamColor,true);                   // Initialize Cyan team (Team A)
-	teamB = new Team(Config.defaultMagentaTeamColor,false);               // Initialize Magenta team (Team B)
+	teamA = new Team(Config.defaultLeftTeamColor,true);                   // Initialize Left team (Team A)
+	teamB = new Team(Config.defaultRightTeamColor,false);               // Initialize Right team (Team B)
 	teamstable = new TeamTableBuilder("msl_teams.json").build();          // Load teams table
 
 	//==============================================
@@ -216,7 +223,8 @@ void draw() {
 	if ( (t-updateScoreClientslasttime) >= Config.scoreClientsUpdatePeriod_ms ) scoreClients.update_tTeams(gametime,gameruntime);
 
 	//verifyremotecontrol();
-	mslRemote.checkMessages();
+	//mslRemote.checkMessages();
+	
 	checkBasestationsMessages();
 
 	for (int i = 0; i < bCommoncmds.length; i++)
@@ -226,17 +234,17 @@ void draw() {
 		bTeamAcmds[i].update();
 		bTeamBcmds[i].update();
 	}
-  
+
 	//Special case: what if the same team connects twice to RefBox
 	if(teamA.team == teamB.team)
 	{
-	  teamA.team =  teamA.team +" A";
-	  teamA.longName = teamA.longName+" A";
-	  teamA.multicastIP += ":1";
+		teamA.team =  teamA.team +" A";
+		teamA.longName = teamA.longName+" A";
+		teamA.multicastIP += ":1";
 	}
 	if(teamA.multicastIP == teamB.multicastIP)
 	{
-	  teamA.multicastIP += ":1";
+		teamA.multicastIP += ":1";
 	}
 
 	teamA.updateUI();
@@ -284,29 +292,29 @@ void draw() {
 		soundMaxTime.play();
 	}
 
-  StateMachineCheck(); // Check scheduled state change
+	StateMachineCheck(); // Check scheduled state change
 
 
-  if (Popup.isEnabled()) {
-    Popup.draw();
-  }
+	if (Popup.isEnabled()) {
+		Popup.draw();
+	}
 
-  for (int i = 0; i < bSlider.length; i++) {
-    if(bSlider[i].enabled){
-    //  println("slider" + i);
-      bSlider[i].update();
-    }
-  }  
-  
-  for (int i=0; i<tBox.length; i++) {
-    if (tBox[i].visible) {
-      tBox[i].update();
-    }
-  }
+	for (int i = 0; i < bSlider.length; i++) {
+		if(bSlider[i].enabled){
+			//  println("slider" + i);
+			bSlider[i].update();
+		}
+	}  
 
-  RefreshButonStatus1(); // Refresh buttons
-  
-  //==========================================
+	for (int i=0; i<tBox.length; i++) {
+		if (tBox[i].visible) {
+			tBox[i].update();
+		}
+	}
+
+	RefreshButonStatus1(); // Refresh buttons
+
+	//==========================================
 }
 
 /**************************************************************************************************************************
@@ -331,94 +339,104 @@ void exit() {
 	// Stop all servers
 	scoreClients.stopServer();
 	BaseStationServer.stop();
-	mslRemote.stopServer();
+	//mslRemote.stopServer();
 
 	super.exit();
 }
 
 void initGui()
 {
+
 	//common commands
-	for (int i=0; i < bCommoncmds.length; i++){
-		bCommoncmds[i] = new Button(435+130*(i%2), 275+i*35-35*(i%2), Commcmds[i], #C0C000, -1, 255, #C0C000);
-
-		// End part and reset need confirmation popup (don't send message right away)
-		if(i <= CMDID_COMMON_PARKING) {
-			bCommoncmds[i].cmd = "" + cCommcmds[i];
-			bCommoncmds[i].msg = "" + Commcmds[i];
-		}
-	}
-	bCommoncmds[0].setcolor(#12FF03, -1, -1, #12FF03);  //Start  / green
-	bCommoncmds[1].setcolor(#E03020, -1, -1, #E03030);  //Stop  /red  #FC0303 
-
-	for (int i=0; i<6; i++) {
-		bTeamAcmds[i] = new Button(offsetLeft.x, offsetLeft.y+70*i, Teamcmds[i], 255, -1, 255, Config.defaultCyanTeamColor);
-		bTeamAcmds[i].cmd = "" + cTeamcmds[i];
-		bTeamAcmds[i].msg = Teamcmds[i];
-
-		bTeamBcmds[i] = new Button(offsetRight.x, offsetRight.y+70*i, Teamcmds[i], 255, -1, 255, Config.defaultMagentaTeamColor);
-		bTeamBcmds[i].cmd = "" + cTeamcmds[i];
-		bTeamBcmds[i].msg = Teamcmds[i];
-	}
-
-	bTeamAcmds[6] = new Button(offsetLeft.x-135, offsetLeft.y, Teamcmds[6], Config.defaultCyanTeamColor, -1, 255, Config.defaultCyanTeamColor);   // Goal A
-	bTeamAcmds[7] = new Button(offsetLeft.x-135, offsetLeft.y+70*4, Teamcmds[7], Config.defaultCyanTeamColor, -1, 255, Config.defaultCyanTeamColor); // Repair A
-	bTeamAcmds[8] = new Button(offsetLeft.x-162, offsetLeft.y+70*5, "", #FC0303, #810303, 255, #FC0303);  //red card A
-	bTeamAcmds[9] = new Button(offsetLeft.x-105, offsetLeft.y+70*5, "", #FEFF00, #808100, 255, #FEFF00);  //yellow card A
-
-	bTeamBcmds[6] = new Button(offsetRight.x+135, offsetRight.y, Teamcmds[6], Config.defaultMagentaTeamColor, -1, 255, Config.defaultMagentaTeamColor);  //Goal B
-	bTeamBcmds[7] = new Button(offsetRight.x+135, offsetRight.y+70*4, Teamcmds[7], Config.defaultMagentaTeamColor, -1, 255, Config.defaultMagentaTeamColor);//Repair B
-	bTeamBcmds[8] = new Button(offsetRight.x+162, offsetRight.y+70*5, "", #FC0303, #810303, 255, #FC0303);  //red card B
-	bTeamBcmds[9] = new Button(offsetRight.x+105, offsetRight.y+70*5, "", #FEFF00, #808100, 255, #FEFF00);  //yellow card B
-
-	for (int i = 6; i < 10; i++) {
-		bTeamAcmds[i].cmd = "" + cTeamcmds[i];
-		bTeamAcmds[i].msg = Teamcmds[i];
-		bTeamBcmds[i].cmd = "" + cTeamcmds[i];
-		bTeamBcmds[i].msg = Teamcmds[i];
-	}
-
-	// OFF-state goal button (subtract goal)
-	bTeamAcmds[6].msg_off = "Goal-";
-	bTeamAcmds[6].cmd_off = "" + COMM_SUBGOAL;
-	bTeamBcmds[6].msg_off = "Goal-";
-	bTeamBcmds[6].cmd_off = "" + COMM_SUBGOAL;
+	bCommoncmds[0] = new Button(435+130*(0%2), 275+0*35-35*(0%2), "START",#12FF03, -1, -1, #12FF03,COMM_START,Description.get(COMM_START),"",""); //Start  / green
+	bCommoncmds[1] = new Button(435+130*(1%2), 275+1*35-35*(1%2), "STOP", #E03020, -1, -1, #E03030,COMM_STOP,Description.get(COMM_STOP),"",""); //Stop  /red  #FC0303 
+	bCommoncmds[2] = new Button(435+130*(2%2), 275+2*35-35*(2%2), "DropBall", #C0C000, -1, 255, #C0C000,COMM_DROP_BALL,Description.get(COMM_DROP_BALL),"","");
+	bCommoncmds[3] = new Button(435+130*(3%2), 275+3*35-35*(3%2),"Park", #C0C000, -1, 255, #C0C000,COMM_PARK,Description.get(COMM_PARK),"","");
+	bCommoncmds[4] = new Button(435+130*(4%2), 275+4*35-35*(4%2), "End Part", #C0C000, -1, 255, #C0C000,COMM_END_PART,Description.get(COMM_END_PART),"","");
+	bCommoncmds[5] = new Button(435+130*(5%2), 275+5*35-35*(5%2), "RESET", #C0C000, -1, 255, #C0C000,COMM_RESET,Description.get(COMM_RESET),"","");
+	bCommoncmds[6] = new Button(435+130*(6%2), 275+6*35-35*(6%2), "Substitute", #C0C000, -1, 255, #C0C000,COMM_SUBSTITUTION,Description.get(COMM_SUBSTITUTION),"","");
+	bCommoncmds[7] = new Button(435+130*(7%2), 275+7*35-35*(7%2),  "CONFIG", #C0C000, -1, 255, #C0C000,"","","","");
 
 
-	bTeamAcmds[8].setdim(32, 48); 
-	bTeamAcmds[9].setdim(32, 48); 
-	bTeamBcmds[8].setdim(32, 48);  //red C resize
-	bTeamBcmds[9].setdim(32, 48);  //yellow C resize
+	//TEAM commands
 
-	bPopup[0] = new Button(0, 0, "", 0, 0, 0, 0);
-	bPopup[1] = new Button(0, 0, "yes", 220, #129003, 0, #129003);
-	bPopup[2] = new Button(0, 0, "no", 220, #D03030, 0, #D03030);//
-	bPopup[3] = new Button(0, 0, "Left", 220, #008000, 0, #000090);
-	bPopup[4] = new Button(0, 0, "Right", 220, #008000, 0, #900000);
-	bPopup[5] = new Button(0, 0, "1", 220, #6D9C75, 0, #6D9C75); bPopup[5].setdim(80, 48);
-	bPopup[6] = new Button(0, 0, "2", 220, #6D9C75, 0, #6D9C75); bPopup[6].setdim(80, 48);
-	bPopup[7] = new Button(0, 0, "3", 220, #6D9C75, 0, #6D9C75); bPopup[7].setdim(80, 48);
-	bPopup[8] = new Button(0, 0, "OK", 220, #6D9C75, 0, #6D9C75); bPopup[8].setdim(80, 48);
-  bPopup[9] = new Button(0, 0, "Apply", 220, #6D9C75, 0, #6D9C75); bPopup[9].setdim(80, 48);
-  bPopup[10] = new Button(0, 0, "Cancel", 220, #6D9C75, 0, #6D9C75); bPopup[10].setdim(80, 48);
-  
+	bTeamAcmds[0] = new Button(offsetLeft.x, offsetLeft.y+70*0, "KickOff" , 255, -1, 255, Config.defaultLeftTeamColor,COMM_KICKOFF,Description.get(COMM_KICKOFF),"","");
+	bTeamAcmds[1] = new Button(offsetLeft.x, offsetLeft.y+70*1, "FreeKick", 255, -1, 255, Config.defaultLeftTeamColor,COMM_FREEKICK,Description.get(COMM_FREEKICK),"","");
+	bTeamAcmds[2] = new Button(offsetLeft.x, offsetLeft.y+70*2, "GoalKick", 255, -1, 255, Config.defaultLeftTeamColor,COMM_GOALKICK,Description.get(COMM_GOALKICK),"","");
+	bTeamAcmds[3] = new Button(offsetLeft.x, offsetLeft.y+70*3, "Throw In", 255, -1, 255, Config.defaultLeftTeamColor,COMM_THROWIN,Description.get(COMM_THROWIN),"","");
+	bTeamAcmds[4] = new Button(offsetLeft.x, offsetLeft.y+70*4, "Corner"  , 255, -1, 255, Config.defaultLeftTeamColor,COMM_CORNER,Description.get(COMM_CORNER),"","");
+	bTeamAcmds[5] = new Button(offsetLeft.x, offsetLeft.y+70*5, "Penalty" , 255, -1, 255, Config.defaultLeftTeamColor,COMM_PENALTY,Description.get(COMM_PENALTY),"","");
+	bTeamAcmds[6] = new Button(offsetLeft.x-137, offsetLeft.y+218,  "", 255, -1, 255, Config.defaultLeftTeamColor,COMM_ISALIVE,Description.get(COMM_ISALIVE),"",""); //Is alive A
+	bTeamAcmds[7] = new Button(offsetLeft.x-135, offsetLeft.y, "GOAL", Config.defaultLeftTeamColor, -1, 255, Config.defaultLeftTeamColor,COMM_GOAL, Description.get(COMM_GOAL), COMM_SUBGOAL,Description.get(COMM_SUBGOAL));   // Goal A
+	bTeamAcmds[8] = new Button(offsetLeft.x-135, offsetLeft.y+70*4,  "REPAIR", Config.defaultLeftTeamColor, -1, 255, Config.defaultLeftTeamColor,COMM_REPAIR,Description.get(COMM_REPAIR),"",""); // Repair A
+	bTeamAcmds[9] = new Button(offsetLeft.x-162, offsetLeft.y+70*5, "", #FC0303, #810303, 255, #FC0303, COMM_RED_CARD, Description.get(COMM_RED_CARD), "","");  //red card A
+	bTeamAcmds[10] = new Button(offsetLeft.x-105, offsetLeft.y+70*5, "", #FEFF00, #808100, 255, #FEFF00, COMM_YELLOW_CARD, Description.get(COMM_YELLOW_CARD), "","");  //yellow card A
+
+	//resize button card
+	bTeamAcmds[9].setdim(32, 48); //red card resize
+	bTeamAcmds[10].setdim(32, 48); //yellow card resize
+
+	// Set Is Alive button
+	bTeamAcmds[6].setdim(42, 42); //is alive resize
+	bTeamAcmds[6].setIsCircle(true);
+	bTeamAcmds[6].setImages(skullImageOff, skullImage, skullImageOver, skullImageLeft);
+
+	bTeamBcmds[0] = new Button(offsetRight.x, offsetRight.y+70*0, "KickOff" , 255, -1, 255, Config.defaultRightTeamColor, COMM_KICKOFF,Description.get(COMM_KICKOFF),"","");
+	bTeamBcmds[1] = new Button(offsetRight.x, offsetRight.y+70*1, "FreeKick", 255, -1, 255, Config.defaultRightTeamColor, COMM_FREEKICK,Description.get(COMM_FREEKICK),"","");
+	bTeamBcmds[2] = new Button(offsetRight.x, offsetRight.y+70*2, "GoalKick", 255, -1, 255, Config.defaultRightTeamColor, COMM_GOALKICK,Description.get(COMM_GOALKICK),"","");
+	bTeamBcmds[3] = new Button(offsetRight.x, offsetRight.y+70*3, "Throw In", 255, -1, 255, Config.defaultRightTeamColor, COMM_THROWIN,Description.get(COMM_THROWIN),"","");
+	bTeamBcmds[4] = new Button(offsetRight.x, offsetRight.y+70*4, "Corner"  , 255, -1, 255, Config.defaultRightTeamColor, COMM_CORNER,Description.get(COMM_CORNER),"","");
+	bTeamBcmds[5] = new Button(offsetRight.x, offsetRight.y+70*5, "Penalty" , 255, -1, 255, Config.defaultRightTeamColor, COMM_PENALTY,Description.get(COMM_PENALTY),"","");
+	bTeamBcmds[6] = new Button(offsetRight.x+134, offsetRight.y+218, "", 255, -1, 255, Config.defaultRightTeamColor, COMM_ISALIVE,Description.get(COMM_ISALIVE),"","");//Is alive B
+	bTeamBcmds[7] = new Button(offsetRight.x+135, offsetRight.y, "GOAL", Config.defaultRightTeamColor, -1, 255, Config.defaultRightTeamColor, COMM_GOAL, Description.get(COMM_GOAL), COMM_SUBGOAL,Description.get(COMM_SUBGOAL) );  //Goal B
+	bTeamBcmds[8] = new Button(offsetRight.x+135, offsetRight.y+70*4, "REPAIR", Config.defaultRightTeamColor, -1, 255, Config.defaultRightTeamColor,COMM_REPAIR,Description.get(COMM_REPAIR),"","");//Repair B
+	bTeamBcmds[9] = new Button(offsetRight.x+162, offsetRight.y+70*5, "", #FC0303, #810303, 255, #FC0303, COMM_RED_CARD, Description.get(COMM_RED_CARD), "","");  //red card B
+	bTeamBcmds[10] = new Button(offsetRight.x+105, offsetRight.y+70*5, "", #FEFF00, #808100, 255, #FEFF00, COMM_YELLOW_CARD, Description.get(COMM_YELLOW_CARD), "","");  //yellow card B
+
+	//resize button card
+	bTeamBcmds[9].setdim(32, 48);  //red card resize
+	bTeamBcmds[10].setdim(32, 48);  //yellow card resize
+	
+	// Set Is Alive button
+	bTeamBcmds[6].setdim(42, 42); //is alive resize
+	bTeamBcmds[6].setIsCircle(true);
+	bTeamBcmds[6].setImages(skullImageOff, skullImage, skullImageOver, skullImageRight);
+
+	bPopup[0] = new Button(0, 0, "", 0, 0, 0, 0,"","","","");
+	bPopup[1] = new Button(0, 0, "yes", 220, #129003, 0, #129003,"","","","");
+	bPopup[2] = new Button(0, 0, "no", 220, #D03030, 0, #D03030,"","","","");//
+	bPopup[3] = new Button(0, 0, "Left", 220, #008000, 0, #000090,"","","","");
+	bPopup[4] = new Button(0, 0, "Right", 220, #008000, 0, #900000,"","","","");
+	bPopup[5] = new Button(0, 0, "1", 220, #6D9C75, 0, #6D9C75,"","","",""); 
+	bPopup[5].setdim(80, 48);
+	bPopup[6] = new Button(0, 0, "2", 220, #6D9C75, 0, #6D9C75,"","","",""); 
+	bPopup[6].setdim(80, 48);
+	bPopup[7] = new Button(0, 0, "3", 220, #6D9C75, 0, #6D9C75,"","","",""); 
+	bPopup[7].setdim(80, 48);
+	bPopup[8] = new Button(0, 0, "OK", 220, #6D9C75, 0, #6D9C75,"","","",""); 
+	bPopup[8].setdim(80, 48);
+	bPopup[9] = new Button(0, 0, "Apply", 220, #6D9C75, 0, #6D9C75,"","","",""); 
+	bPopup[9].setdim(80, 48);
+	bPopup[10] = new Button(0, 0, "Cancel", 220, #6D9C75, 0, #6D9C75,"","","",""); 
+	bPopup[10].setdim(80, 48);
+
 	for (int n = 0; n < popUpButtons; n++)
-	bPopup[n].disable();
+		bPopup[n].disable();
 	//bSlider[0]=new BSliders("Testmode",420,460,true, TESTMODE);
 	//bSlider[1]=new BSliders("Log",420+132,460,true, Log.enable);
 	//bSlider[2]=new BSliders("Remote",420,460+32,Config.remoteControlEnable, REMOTECONTROLENABLE);
 	//bSlider[3]=new BSliders("Coach",420+132,460+32,false, VOICECOACH);
-  bSlider[0]=new BSliders("Testmode",420,460-120,false, TESTMODE);
-  bSlider[1]=new BSliders("Log",420+132,460-120,false, Log.enable);
-  bSlider[2]=new BSliders("Remote",420,460+32-120,false, REMOTECONTROLENABLE);
-  bSlider[3]=new BSliders("Coach",420+132,460+32-120,false, VOICECOACH);
+	bSlider[0]=new BSliders("Testmode",420,460-120,false, TESTMODE);
+	bSlider[1]=new BSliders("Log",420+132,460-120,false, Log.enable);
+	bSlider[2]=new BSliders("Remote",420,460+32-120,false, REMOTECONTROLENABLE);
+	bSlider[3]=new BSliders("Coach",420+132,460+32-120,false, VOICECOACH);
 
-  tBox[0] = new Textbox(width/4, height/2 - 60, 100, 1, false);
-  tBox[1] = new Textbox(width/4, height/2, 100, 1, false);
-  tBox[2] = new Textbox(width/4, height/2 + 60, 100, 1, false);
-  tBox[3] = new Textbox(width/4*3, height/2 - 60, 100, 1, false);
-  tBox[4] = new Textbox(width/4*3, height/2, 100, 1, false);
-  tBox[5] = new Textbox(width/4*3, height/2 + 60, 100, 1, false);
+	tBox[0] = new Textbox(width/4, height/2 - 60, 100, 1, false);
+	tBox[1] = new Textbox(width/4, height/2, 100, 1, false);
+	tBox[2] = new Textbox(width/4, height/2 + 60, 100, 1, false);
+	tBox[3] = new Textbox(width/4*3, height/2 - 60, 100, 1, false);
+	tBox[4] = new Textbox(width/4*3, height/2, 100, 1, false);
+	tBox[5] = new Textbox(width/4*3, height/2 + 60, 100, 1, false);
 
 	textFont(debugFont);
 	fill(#ffffff);
