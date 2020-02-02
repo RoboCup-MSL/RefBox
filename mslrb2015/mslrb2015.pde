@@ -21,6 +21,7 @@ public static final String MSG_SUBS="Substitute Players";
 public static final String MSG_WAIT="Please WAIT! Compressing files.";
 public static final String MSG_CONFIG="Configurations";
 public static String MSG_HELP="SHORT CUT KEYS:";
+public static final String MSG_ISALIVE="Command under development";
 
 public static final int appFrameRate = 25;
 
@@ -30,10 +31,12 @@ public static final int CMDID_TEAM_GOALKICK = 2;
 public static final int CMDID_TEAM_THROWIN = 3;
 public static final int CMDID_TEAM_CORNER = 4;
 public static final int CMDID_TEAM_PENALTY = 5;
-public static final int CMDID_TEAM_GOAL = 6;
-public static final int CMDID_TEAM_REPAIR_OUT = 7;
-public static final int CMDID_TEAM_REDCARD = 8;
-public static final int CMDID_TEAM_YELLOWCARD = 9;
+public static final int CMDID_TEAM_ISALIVE = 6;
+public static final int CMDID_TEAM_GOAL = 7;
+public static final int CMDID_TEAM_REPAIR_OUT = 8;
+public static final int CMDID_TEAM_REDCARD = 9;
+public static final int CMDID_TEAM_YELLOWCARD = 10;
+public static final int CMDID_TEAM_LENGHT = 11;
 
 public static final int CMDID_COMMON_START = 0;
 public static final int CMDID_COMMON_STOP = 1;
@@ -43,7 +46,7 @@ public static final int CMDID_COMMON_HALFTIME = 4;
 public static final int CMDID_COMMON_RESET = 5;
 public static final int CMDID_COMMON_SUBS = 6;
 public static final int CMDID_COMMON_CONFIG = 7;
-public static final int CMDID_COMMON_ENDGAME = 8;
+public static final int CMDID_COMMON_LENGHT = 8;
 
 public static ScoreClients scoreClients = null;
 //public static MSLRemote mslRemote = null;
@@ -51,9 +54,9 @@ public static MyServer BaseStationServer;
 public static Client connectingClient = null;
 
 public static Team teamA,teamB;
-public static Button[] bTeamAcmds = new Button[CMDID_TEAM_YELLOWCARD + 1];
-public static Button[] bTeamBcmds = new Button[CMDID_TEAM_YELLOWCARD + 1];
-public static Button[] bCommoncmds = new Button[CMDID_COMMON_CONFIG + 1];
+public static Button[] bTeamAcmds = new Button[CMDID_TEAM_LENGHT];
+public static Button[] bTeamBcmds = new Button[CMDID_TEAM_LENGHT];
+public static Button[] bCommoncmds = new Button[CMDID_COMMON_LENGHT];
 public static BSliders[] bSlider = new BSliders[4];
 public static Textbox[] tBox = new Textbox[6];
 public static String previousNameTeamA, previousNameTeamB;
@@ -74,11 +77,14 @@ public static Button[] bPopup = new Button[popUpButtons];	// button 0 is reserve
 public static PVector offsetLeft= new PVector(230, 180);
 public static PVector offsetRight= new PVector(760, 180);
 public static PFont buttonFont, clockFont, panelFont, scoreFont, debugFont, teamFont, watermark;
+
 // public static PImage backgroundImage;
 public PImage backgroundImage;
-public PImage skullImage;
-public PImage skullImageOn;
-public PImage skullImageOff;
+public static PImage skullImage;
+public static PImage skullImageOff;
+public static PImage skullImageOver;
+public static PImage skullImageLeft;
+public static PImage skullImageRight;
 public PImage rcfLogo;
 
 // Watches as timers
@@ -119,9 +125,11 @@ void setup() {
 	//output.close(); // Finishes the file
 
 	backgroundImage = loadImage("img/bg_normal.png");
-	skullImage = loadImage("img/smallSkull.jpg");
-	skullImageOn = loadImage("img/smallSkullON.jpg");
-	skullImageOff = loadImage("img/smallSkullOff.jpg");
+	skullImage = loadImage("img/Skullsmall.png");
+	skullImageOff = loadImage("img/smallSkullOff.png");
+	skullImageOver = loadImage("img/SkullsmallOver.png");;
+	skullImageLeft = loadImage("img/smallSkullLeft.png");;
+	skullImageRight = loadImage("img/smallSkullRight.png");;
 	size(1000, 680);
 
 	surface.setTitle(MSG_WINDOWTITLE); 
@@ -146,8 +154,8 @@ void setup() {
 	BaseStationServer = new MyServer(this, Config.basestationServerPort); // Load basestations server
 //	mslRemote = new MSLRemote(this, Config.remoteServerPort);             // Load module for MSL remote control
 
-	teamA = new Team(Config.defaultCyanTeamColor,true);                   // Initialize Cyan team (Team A)
-	teamB = new Team(Config.defaultMagentaTeamColor,false);               // Initialize Magenta team (Team B)
+	teamA = new Team(Config.defaultLeftTeamColor,true);                   // Initialize Left team (Team A)
+	teamB = new Team(Config.defaultRightTeamColor,false);               // Initialize Right team (Team B)
 	teamstable = new TeamTableBuilder("msl_teams.json").build();          // Load teams table
 
 	//==============================================
@@ -352,35 +360,47 @@ void initGui()
 
 	//TEAM commands
 
-	bTeamAcmds[0] = new Button(offsetLeft.x, offsetLeft.y+70*0, "KickOff" , 255, -1, 255, Config.defaultCyanTeamColor,COMM_KICKOFF,Description.get(COMM_KICKOFF),"","");
-	bTeamAcmds[1] = new Button(offsetLeft.x, offsetLeft.y+70*1, "FreeKick", 255, -1, 255, Config.defaultCyanTeamColor,COMM_FREEKICK,Description.get(COMM_FREEKICK),"","");
-	bTeamAcmds[2] = new Button(offsetLeft.x, offsetLeft.y+70*2, "GoalKick", 255, -1, 255, Config.defaultCyanTeamColor,COMM_GOALKICK,Description.get(COMM_GOALKICK),"","");
-	bTeamAcmds[3] = new Button(offsetLeft.x, offsetLeft.y+70*3, "Throw In", 255, -1, 255, Config.defaultCyanTeamColor,COMM_THROWIN,Description.get(COMM_THROWIN),"","");
-	bTeamAcmds[4] = new Button(offsetLeft.x, offsetLeft.y+70*4, "Corner"  , 255, -1, 255, Config.defaultCyanTeamColor,COMM_CORNER,Description.get(COMM_CORNER),"","");
-	bTeamAcmds[5] = new Button(offsetLeft.x, offsetLeft.y+70*5, "Penalty" , 255, -1, 255, Config.defaultCyanTeamColor,COMM_PENALTY,Description.get(COMM_PENALTY),"","");
-	bTeamAcmds[6] = new Button(offsetLeft.x-135, offsetLeft.y, "GOAL", Config.defaultCyanTeamColor, -1, 255, Config.defaultCyanTeamColor,COMM_GOAL, Description.get(COMM_GOAL), COMM_SUBGOAL,Description.get(COMM_SUBGOAL));   // Goal A
-	bTeamAcmds[7] = new Button(offsetLeft.x-135, offsetLeft.y+70*4,  "REPAIR", Config.defaultCyanTeamColor, -1, 255, Config.defaultCyanTeamColor,COMM_REPAIR,Description.get(COMM_REPAIR),"",""); // Repair A
-	bTeamAcmds[8] = new Button(offsetLeft.x-162, offsetLeft.y+70*5, "", #FC0303, #810303, 255, #FC0303, COMM_RED_CARD, Description.get(COMM_RED_CARD), "","");  //red card A
-	bTeamAcmds[9] = new Button(offsetLeft.x-105, offsetLeft.y+70*5, "", #FEFF00, #808100, 255, #FEFF00, COMM_YELLOW_CARD, Description.get(COMM_YELLOW_CARD), "","");  //yellow card A
+	bTeamAcmds[0] = new Button(offsetLeft.x, offsetLeft.y+70*0, "KickOff" , 255, -1, 255, Config.defaultLeftTeamColor,COMM_KICKOFF,Description.get(COMM_KICKOFF),"","");
+	bTeamAcmds[1] = new Button(offsetLeft.x, offsetLeft.y+70*1, "FreeKick", 255, -1, 255, Config.defaultLeftTeamColor,COMM_FREEKICK,Description.get(COMM_FREEKICK),"","");
+	bTeamAcmds[2] = new Button(offsetLeft.x, offsetLeft.y+70*2, "GoalKick", 255, -1, 255, Config.defaultLeftTeamColor,COMM_GOALKICK,Description.get(COMM_GOALKICK),"","");
+	bTeamAcmds[3] = new Button(offsetLeft.x, offsetLeft.y+70*3, "Throw In", 255, -1, 255, Config.defaultLeftTeamColor,COMM_THROWIN,Description.get(COMM_THROWIN),"","");
+	bTeamAcmds[4] = new Button(offsetLeft.x, offsetLeft.y+70*4, "Corner"  , 255, -1, 255, Config.defaultLeftTeamColor,COMM_CORNER,Description.get(COMM_CORNER),"","");
+	bTeamAcmds[5] = new Button(offsetLeft.x, offsetLeft.y+70*5, "Penalty" , 255, -1, 255, Config.defaultLeftTeamColor,COMM_PENALTY,Description.get(COMM_PENALTY),"","");
+	bTeamAcmds[6] = new Button(offsetLeft.x-137, offsetLeft.y+218,  "", 255, -1, 255, Config.defaultLeftTeamColor,COMM_ISALIVE,Description.get(COMM_ISALIVE),"",""); //Is alive A
+	bTeamAcmds[7] = new Button(offsetLeft.x-135, offsetLeft.y, "GOAL", Config.defaultLeftTeamColor, -1, 255, Config.defaultLeftTeamColor,COMM_GOAL, Description.get(COMM_GOAL), COMM_SUBGOAL,Description.get(COMM_SUBGOAL));   // Goal A
+	bTeamAcmds[8] = new Button(offsetLeft.x-135, offsetLeft.y+70*4,  "REPAIR", Config.defaultLeftTeamColor, -1, 255, Config.defaultLeftTeamColor,COMM_REPAIR,Description.get(COMM_REPAIR),"",""); // Repair A
+	bTeamAcmds[9] = new Button(offsetLeft.x-162, offsetLeft.y+70*5, "", #FC0303, #810303, 255, #FC0303, COMM_RED_CARD, Description.get(COMM_RED_CARD), "","");  //red card A
+	bTeamAcmds[10] = new Button(offsetLeft.x-105, offsetLeft.y+70*5, "", #FEFF00, #808100, 255, #FEFF00, COMM_YELLOW_CARD, Description.get(COMM_YELLOW_CARD), "","");  //yellow card A
 
 	//resize button card
-	bTeamAcmds[8].setdim(32, 48); //red card resize
-	bTeamAcmds[9].setdim(32, 48); //yellow card resize
+	bTeamAcmds[9].setdim(32, 48); //red card resize
+	bTeamAcmds[10].setdim(32, 48); //yellow card resize
 
-	bTeamBcmds[0] = new Button(offsetRight.x, offsetRight.y+70*0, "KickOff" , 255, -1, 255, Config.defaultMagentaTeamColor, COMM_KICKOFF,Description.get(COMM_KICKOFF),"","");
-	bTeamBcmds[1] = new Button(offsetRight.x, offsetRight.y+70*1, "FreeKick", 255, -1, 255, Config.defaultMagentaTeamColor, COMM_FREEKICK,Description.get(COMM_FREEKICK),"","");
-	bTeamBcmds[2] = new Button(offsetRight.x, offsetRight.y+70*2, "GoalKick", 255, -1, 255, Config.defaultMagentaTeamColor, COMM_GOALKICK,Description.get(COMM_GOALKICK),"","");
-	bTeamBcmds[3] = new Button(offsetRight.x, offsetRight.y+70*3, "Throw In", 255, -1, 255, Config.defaultMagentaTeamColor, COMM_THROWIN,Description.get(COMM_THROWIN),"","");
-	bTeamBcmds[4] = new Button(offsetRight.x, offsetRight.y+70*4, "Corner"  , 255, -1, 255, Config.defaultMagentaTeamColor, COMM_CORNER,Description.get(COMM_CORNER),"","");
-	bTeamBcmds[5] = new Button(offsetRight.x, offsetRight.y+70*5, "Penalty" , 255, -1, 255, Config.defaultMagentaTeamColor, COMM_PENALTY,Description.get(COMM_PENALTY),"","");
-	bTeamBcmds[6] = new Button(offsetRight.x+135, offsetRight.y, "GOAL", Config.defaultMagentaTeamColor, -1, 255, Config.defaultMagentaTeamColor, COMM_GOAL, Description.get(COMM_GOAL), COMM_SUBGOAL,Description.get(COMM_SUBGOAL) );  //Goal B
-	bTeamBcmds[7] = new Button(offsetRight.x+135, offsetRight.y+70*4, "REPAIR", Config.defaultMagentaTeamColor, -1, 255, Config.defaultMagentaTeamColor,COMM_REPAIR,Description.get(COMM_REPAIR),"","");//Repair B
-	bTeamBcmds[8] = new Button(offsetRight.x+162, offsetRight.y+70*5, "", #FC0303, #810303, 255, #FC0303, COMM_RED_CARD, Description.get(COMM_RED_CARD), "","");  //red card B
-	bTeamBcmds[9] = new Button(offsetRight.x+105, offsetRight.y+70*5, "", #FEFF00, #808100, 255, #FEFF00, COMM_YELLOW_CARD, Description.get(COMM_YELLOW_CARD), "","");  //yellow card B
+	// Set Is Alive button
+	bTeamAcmds[6].setdim(42, 42); //is alive resize
+	bTeamAcmds[6].setIsCircle(true);
+	bTeamAcmds[6].setImages(skullImageOff, skullImage, skullImageOver, skullImageLeft);
+
+	bTeamBcmds[0] = new Button(offsetRight.x, offsetRight.y+70*0, "KickOff" , 255, -1, 255, Config.defaultRightTeamColor, COMM_KICKOFF,Description.get(COMM_KICKOFF),"","");
+	bTeamBcmds[1] = new Button(offsetRight.x, offsetRight.y+70*1, "FreeKick", 255, -1, 255, Config.defaultRightTeamColor, COMM_FREEKICK,Description.get(COMM_FREEKICK),"","");
+	bTeamBcmds[2] = new Button(offsetRight.x, offsetRight.y+70*2, "GoalKick", 255, -1, 255, Config.defaultRightTeamColor, COMM_GOALKICK,Description.get(COMM_GOALKICK),"","");
+	bTeamBcmds[3] = new Button(offsetRight.x, offsetRight.y+70*3, "Throw In", 255, -1, 255, Config.defaultRightTeamColor, COMM_THROWIN,Description.get(COMM_THROWIN),"","");
+	bTeamBcmds[4] = new Button(offsetRight.x, offsetRight.y+70*4, "Corner"  , 255, -1, 255, Config.defaultRightTeamColor, COMM_CORNER,Description.get(COMM_CORNER),"","");
+	bTeamBcmds[5] = new Button(offsetRight.x, offsetRight.y+70*5, "Penalty" , 255, -1, 255, Config.defaultRightTeamColor, COMM_PENALTY,Description.get(COMM_PENALTY),"","");
+	bTeamBcmds[6] = new Button(offsetRight.x+134, offsetRight.y+218, "", 255, -1, 255, Config.defaultRightTeamColor, COMM_ISALIVE,Description.get(COMM_ISALIVE),"","");//Is alive B
+	bTeamBcmds[7] = new Button(offsetRight.x+135, offsetRight.y, "GOAL", Config.defaultRightTeamColor, -1, 255, Config.defaultRightTeamColor, COMM_GOAL, Description.get(COMM_GOAL), COMM_SUBGOAL,Description.get(COMM_SUBGOAL) );  //Goal B
+	bTeamBcmds[8] = new Button(offsetRight.x+135, offsetRight.y+70*4, "REPAIR", Config.defaultRightTeamColor, -1, 255, Config.defaultRightTeamColor,COMM_REPAIR,Description.get(COMM_REPAIR),"","");//Repair B
+	bTeamBcmds[9] = new Button(offsetRight.x+162, offsetRight.y+70*5, "", #FC0303, #810303, 255, #FC0303, COMM_RED_CARD, Description.get(COMM_RED_CARD), "","");  //red card B
+	bTeamBcmds[10] = new Button(offsetRight.x+105, offsetRight.y+70*5, "", #FEFF00, #808100, 255, #FEFF00, COMM_YELLOW_CARD, Description.get(COMM_YELLOW_CARD), "","");  //yellow card B
 
 	//resize button card
-	bTeamBcmds[8].setdim(32, 48);  //red card resize
-	bTeamBcmds[9].setdim(32, 48);  //yellow card resize
+	bTeamBcmds[9].setdim(32, 48);  //red card resize
+	bTeamBcmds[10].setdim(32, 48);  //yellow card resize
+	
+	// Set Is Alive button
+	bTeamBcmds[6].setdim(42, 42); //is alive resize
+	bTeamBcmds[6].setIsCircle(true);
+	bTeamBcmds[6].setImages(skullImageOff, skullImage, skullImageOver, skullImageRight);
 
 	bPopup[0] = new Button(0, 0, "", 0, 0, 0, 0,"","","","");
 	bPopup[1] = new Button(0, 0, "yes", 220, #129003, 0, #129003,"","","","");
@@ -401,7 +421,7 @@ void initGui()
 	bPopup[10].setdim(80, 48);
 
 	for (int n = 0; n < popUpButtons; n++)
-	bPopup[n].disable();
+		bPopup[n].disable();
 	//bSlider[0]=new BSliders("Testmode",420,460,true, TESTMODE);
 	//bSlider[1]=new BSliders("Log",420+132,460,true, Log.enable);
 	//bSlider[2]=new BSliders("Remote",420,460+32,Config.remoteControlEnable, REMOTECONTROLENABLE);

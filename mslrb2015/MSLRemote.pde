@@ -30,7 +30,7 @@ class MSLRemote
 	private static final String COMMAND_GOALKICK_CYAN = "CG";
 	private static final String COMMAND_CORNER_CYAN = "CE";
 	private static final String COMMAND_PENALTY_CYAN = "CP";
-	private static final String COMMAND_SCORE_CYAN = "CL"; // append score 2 digits (e.g. "CL01" for cyan score = 1)
+	private static final String COMMAND_SCORE_CYAN = "CL"; // append score 2 digits (e.g. "CL01" for left score = 1)
 	private static final String COMMAND_YELLOW_CYAN = "CY1"; // robot 1
 	private static final String COMMAND_OUT_CYAN = "Co1"; // robot 1
 
@@ -40,7 +40,7 @@ class MSLRemote
 	private static final String COMMAND_GOALKICK_MAGENTA = "MG";
 	private static final String COMMAND_CORNER_MAGENTA = "ME";
 	private static final String COMMAND_PENALTY_MAGENTA = "MP";
-	private static final String COMMAND_SCORE_MAGENTA = "ML"; // append score 2 digits (e.g. "CL01" for cyan score = 1)
+	private static final String COMMAND_SCORE_MAGENTA = "ML"; // append score 2 digits (e.g. "CL01" for left score = 1)
 	private static final String COMMAND_YELLOW_MAGENTA = "MY1"; // robot 1
 	private static final String COMMAND_OUT_MAGENTA = "Mo1"; // robot 1
 
@@ -107,7 +107,7 @@ class MSLRemote
 		GameStateEnum gs = StateMachine.GetCurrentGameState(); 
 		
 		boolean kickoff = false;
-		boolean teamCyan = false;
+		boolean teamLeft = false;
 		
 		if(lastCommand == COMM_KICKOFF)
 		{
@@ -115,7 +115,7 @@ class MSLRemote
 			{
 				kickoff = true;
 				if(lastCommand == COMM_KICKOFF)
-				teamCyan = true;
+				teamLeft = true;
 			}
 		}else if(lastCommand == COMM_FREEKICK
 				|| lastCommand == COMM_GOALKICK
@@ -130,7 +130,7 @@ class MSLRemote
 		case GS_PREGAME:
 			if(kickoff)
 			{
-				if(teamCyan)
+				if(teamLeft)
 				return GAMESTATUS_PRE_GAME_KICK_OFF_CYAN;
 				else
 				return GAMESTATUS_PRE_GAME_KICK_OFF_MAGENTA;
@@ -151,7 +151,7 @@ class MSLRemote
 		case GS_HALFTIME_OVERTIME:
 			if(kickoff)
 			{
-				if(teamCyan)
+				if(teamLeft)
 				return GAMESTATUS_HALF_KICK_OFF_CYAN;
 				else
 				return GAMESTATUS_HALF_KICK_OFF_MAGENTA;

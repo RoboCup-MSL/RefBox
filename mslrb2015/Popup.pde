@@ -104,7 +104,6 @@ static class Popup
 	}
 
 	public static void draw() {
-		//println("draw pop up"); 
 		mainApplet.rectMode(CENTER);
 
 		mainApplet.noStroke();
@@ -117,9 +116,9 @@ static class Popup
 		mainApplet.rect(mainApplet.width/2, mainApplet.height/2, popUpWidth, popUpHeight, 12);		
 		
 		if (type == PopupTypeEnum.POPUP_SUBS) {
-			mainApplet.fill(Config.defaultCyanBackgroundColor);
+			mainApplet.fill(Config.defaultLeftBackgroundColor);
 			mainApplet.rect(mainApplet.width/2 - popUpWidth/3, mainApplet.height/2, popUpWidth/3, popUpHeight, 12);
-			mainApplet.fill(Config.defaultMagentaBackgroundColor);
+			mainApplet.fill(Config.defaultRightBackgroundColor);
 			mainApplet.rect(mainApplet.width/2 + popUpWidth/3, mainApplet.height/2, popUpWidth/3, popUpHeight, 12);
 			mainApplet.fill(200);
 			mainApplet.rect(mainApplet.width/4, mainApplet.height/2 - 100, 140, 24);

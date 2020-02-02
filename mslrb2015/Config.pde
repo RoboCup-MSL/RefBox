@@ -19,21 +19,25 @@ static class Config
 	// Appearance
 	public static int maxShortName = 8;
 	public static int maxLongName = 24;
-	public static color robotPlayColor = #E8FFD8;  //white (very light-green)
-	public static color robotRepairColor = #24287B;  //blue
-	public static color robotYellowCardColor = #FEFF0F;  //yellow  
-	public static color robotDoubleYellowCardColor = #707000;  //doubleyellow
-	public static color robotRedCardColor = #E03030;  //red
-	public static String defaultCyanTeamShortName = "Team";
-	public static String defaultCyanTeamLongName = "Cyan";
-	public static String defaultCyanTeam = "TeamCyan";
-	public static color defaultCyanTeamColor = #007BA7;
-	public static color defaultCyanBackgroundColor = #04486B;
-	public static String defaultMagentaTeamShortName = "Team";
-	public static String defaultMagentaTeamLongName = "Magenta";
-	public static String defaultMagentaTeam = "TeamMagenta";
-	public static color defaultMagentaTeamColor = #DA70D6;
-	public static color defaultMagentaBackgroundColor = #812F6D;
+	public static color backgroundColor = #38342f;
+	public static color disableColor = #606060;
+	
+	public static color robotPlayColor = #E8FFD8;  				//white (very light-green)
+	public static color robotRepairColor = #24287B;  			//blue
+	public static color robotYellowCardColor = #FEFF0F;  		//yellow  
+	public static color robotDoubleYellowCardColor = #707000;   //doubleyellow
+	public static color robotRedCardColor = #E03030;  			//red
+	public static color defaultLeftTeamColor = #007BA7;
+	public static color defaultLeftBackgroundColor = #04486B;
+	public static color defaultRightTeamColor = #C240BC;
+	public static color defaultRightBackgroundColor = #812F6D;
+
+	public static String defaultLeftTeamShortName = "Team";
+	public static String defaultLeftTeamLongName = "Left";
+	public static String defaultLeftTeam = "TeamLeft";
+	public static String defaultRightTeamShortName = "Team";
+	public static String defaultRightTeamLongName = "Right";
+	public static String defaultRightTeam = "TeamRight";
 
 	// Sounds
 	public static String sounds_maxTime = "";
@@ -115,8 +119,6 @@ static class Config
 					if(networking.has("basestationServerPort"))
 					basestationServerPort = networking.getInt("basestationServerPort");
 					
-
-					
 					if(networking.has("remoteControlEnable"))
 					remoteControlEnable = networking.getBoolean("remoteControlEnable");
 					
@@ -157,30 +159,30 @@ static class Config
 					if(appearance.has("robotRedCardColor"))
 					robotRedCardColor = string2color(appearance.getString("robotRedCardColor"));
 					
-					if(appearance.has("defaultCyanTeamShortName"))
-					defaultCyanTeamShortName = appearance.getString("defaultCyanTeamShortName");
+					if(appearance.has("defaultLeftTeamShortName"))
+					defaultLeftTeamShortName = appearance.getString("defaultLeftTeamShortName");
 
-					if(appearance.has("defaultCyanTeamLongName"))
-					defaultCyanTeamLongName = appearance.getString("defaultCyanTeamLongName");
+					if(appearance.has("defaultLeftTeamLongName"))
+					defaultLeftTeamLongName = appearance.getString("defaultLeftTeamLongName");
 
-					if(appearance.has("defaultCyanTeam"))
-					defaultCyanTeam = appearance.getString("defaultCyanTeam");
+					if(appearance.has("defaultLeftTeam"))
+					defaultLeftTeam = appearance.getString("defaultLeftTeam");
 					
-					if(appearance.has("defaultCyanTeamColor"))
-					defaultCyanTeamColor = string2color(appearance.getString("defaultCyanTeamColor"));
+					if(appearance.has("defaultLeftTeamColor"))
+					defaultLeftTeamColor = string2color(appearance.getString("defaultLeftTeamColor"));
 
 					
-					if(appearance.has("defaultMagentaTeamShortName"))
-					defaultMagentaTeamShortName = appearance.getString("defaultMagentaTeamShortName");
+					if(appearance.has("defaultRightTeamShortName"))
+					defaultRightTeamShortName = appearance.getString("defaultRightTeamShortName");
 
-					if(appearance.has("defaultMagentaTeamLongName"))
-					defaultMagentaTeamLongName = appearance.getString("defaultMagentaTeamLongName");
+					if(appearance.has("defaultRightTeamLongName"))
+					defaultRightTeamLongName = appearance.getString("defaultRightTeamLongName");
 
-					if(appearance.has("defaultMagentaTeam"))
-					defaultMagentaTeam = appearance.getString("defaultMagentaTeam");
+					if(appearance.has("defaultRightTeam"))
+					defaultRightTeam = appearance.getString("defaultRightTeam");
 					
-					if(appearance.has("defaultMagentaTeamColor"))
-					defaultMagentaTeamColor = string2color(appearance.getString("defaultMagentaTeamColor"));
+					if(appearance.has("defaultRightTeamColor"))
+					defaultRightTeamColor = string2color(appearance.getString("defaultRightTeamColor"));
 					
 					// ----
 					// Sounds
@@ -228,14 +230,14 @@ static class Config
 		println( "robotYellowCardColor         : " + color2string(robotYellowCardColor));  
 		println( "robotDoubleYellowCardColor   : " + color2string(robotDoubleYellowCardColor));
 		println( "robotRedCardColor            : " + color2string(robotRedCardColor));
-		println( "defaultCyanTeamShortName     : " + defaultCyanTeamShortName);
-		println( "defaultCyanTeamLongName      : " + defaultCyanTeamLongName);
-		println( "defaultCyanTeam              : " + defaultCyanTeam);
-		println( "defaultCyanTeamColor         : " + color2string( defaultCyanTeamColor));
-		println( "defaultMagentaTeamShortName  : " + defaultMagentaTeamShortName );
-		println( "defaultMagentaTeamLongName   : " + defaultMagentaTeamLongName );
-		println( "defaultCyanTeam              : " + defaultMagentaTeam);
-		println( "defaultMagentaTeamColor      : " + color2string( defaultMagentaTeamColor ));
+		println( "defaultLeftTeamShortName     : " + defaultLeftTeamShortName);
+		println( "defaultLeftTeamLongName      : " + defaultLeftTeamLongName);
+		println( "defaultLeftTeam              : " + defaultLeftTeam);
+		println( "defaultLeftTeamColor         : " + color2string( defaultLeftTeamColor));
+		println( "defaultRightTeamShortName  : " + defaultRightTeamShortName );
+		println( "defaultRightTeamLongName   : " + defaultRightTeamLongName );
+		println( "defaultLeftTeam              : " + defaultRightTeam);
+		println( "defaultRightTeamColor      : " + color2string( defaultRightTeamColor ));
 		// Sounds
 		println( "### Sounds ###" );
 		println( "sounds_maxTime                 : " + sounds_maxTime);

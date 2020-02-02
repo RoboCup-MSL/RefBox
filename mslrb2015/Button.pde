@@ -1,15 +1,21 @@
+//import processing.net.*;
+
 class Button {
 	float x; 
 	float y;
-	String bStatus;  			// can be normal, active, disabled
+	String bStatus;  			// can be enabled, active, disabled
+	PImage butImageOff = null;	// If there is an image to display when button OFF 
+	PImage butImageON = null;	// If there is an image to display when button ON 
+	PImage butImageOver = null;	// If there is an image to display when button ON and cursor is over 
+	PImage butImageAtive = null;	// If there is an image to display when button Active 
 	Boolean HOVER;				// true when pointer is hover button
 	Boolean isCircle = false;	// true is button is circle
 	String Label;				// string to be writen in the button
 	int bwidth=116; 			// default button width
 	int bheight=48;				// default button height
-	int hbwidth=bwidth/2; 		// half of bwidth
+	int hbwidth=bwidth/2; 		// half printof bwidth
 	int hbheight=bheight/2;		// half of bheight
-	color cstroke, cfill;		// stroke and fill default colors when button is in normal state
+	color cstroke, cfill;		// stroke and fill default colors when button is in ON state
 	color cstrokeactive, cfillactive;	// stroke and fill default colors when button is in active state
 
 	String cmd = null; 		// long name for the command 
@@ -54,59 +60,100 @@ class Button {
 		textFont(buttonFont);
 		strokeWeight(2);
 
-		int offset = 4;
-		int cround = 8;
-		if (this.isEnabled()) {
-			if (this.isActive()) {
-				noStroke();
-				if (HOVER && cfillactive != -1) {
-					fill(cfillactive, 100);
-					rect(x+offset, y+offset, bwidth, bheight, cround);
+		if (isCircle == false) {	
+			int offset = 4;
+			int cround = 8;
+			if (this.isEnabled()) {
+				if (this.isActive()) {
+					noStroke();
+					if (HOVER && cfillactive != -1) {
+						fill(cfillactive, 100);
+						rect(x+offset, y+offset, bwidth, bheight, cround);
+					}
+					if (cfillactive==-1) noFill(); 
+					else fill(cfillactive);
+
+				} else {  //not active, no hover
+					if (HOVER && cfill != -1) {
+						noStroke();
+						if (cstroke!= -1) {
+							offset += 3;  
+							cround += 2;
+						}
+						fill(cfill, 130);
+						rect(x+offset, y+offset, bwidth, bheight, cround);
+					}
+
+					if (cstroke==-1) noStroke(); 
+					else stroke(cstroke);
+
+					if (cfill==-1) noFill(); 
+					else fill(cfill);
+				}	
+			} else { //disabled
+				fill(0, 8);
+				stroke(96);
+			} 
+			rect(x, y, bwidth, bheight, 8);
+
+			//  Text
+
+			if (this.isEnabled()) {
+				if (this.isActive()) {
+					if (cstrokeactive == -1) fill(255); 
+					else fill(cstrokeactive);
+				} 
+				else {  //not active, no hover
+					if (HOVER && cstroke != -1 && cfill == -1) {
+						fill(cstroke, 100);
+						text(Label, x+4, y+2);			
+					}
+					if (cstroke==-1) noFill(); 
+					else fill(cstroke);
 				}
+			} else fill(96); //disabled  
+			text(Label, x, y-2);//-4  , y-2
+		}
+		else{
+
+			if (this.isActive()) {
+				stroke(cstrokeactive); 
+				strokeWeight(3);
 				if (cfillactive==-1) noFill(); 
 				else fill(cfillactive);
-
-			} else {  //not active, no hover
-				if (HOVER && cfill != -1) {
-					noStroke();
-					if (cstroke!= -1) {
-						offset += 3;  
-						cround += 2;
-					}
-					fill(cfill, 130);
-					rect(x+offset, y+offset, bwidth, bheight, cround);
+				ellipse(this.x, this.y, 42, 42);  
+				imageMode(CENTER);
+				image(butImageAtive, this.x, this.y, 26, 26);
+			}
+			else if (this.isEnabled()){
+				if ((HOVER) && butImageOver != null) {
+					stroke(cstroke); 
+					strokeWeight(3);
+					if (cfill==-1) noFill(); 
+					else fill(cfill);
+					ellipse(this.x, this.y, 42, 42);  
+					imageMode(CENTER);
+					image(butImageOver, this.x, this.y, 26, 26);					
+				} else {
+					stroke(cstroke); 
+					strokeWeight(3);
+					if (cfill==-1) noFill(); 
+					else fill(cfill);
+					ellipse(this.x, this.y, 42, 42);  
+					imageMode(CENTER);
+					image(butImageON, this.x, this.y, 26, 26);
 				}
-
-				if (cstroke==-1) noStroke(); 
-				else stroke(cstroke);
-
+			}
+			else {
+				stroke(96);
+				strokeWeight(3);
 				if (cfill==-1) noFill(); 
 				else fill(cfill);
-			}	
-		} else { //disabled
-			fill(0, 8);
-			stroke(96);
-		} 
-		rect(x, y, bwidth, bheight, 8);
-
-		//  Text
-
-		if (this.isEnabled()) {
-			if (this.isActive()) {
-				if (cstrokeactive == -1) fill(255); 
-				else fill(cstrokeactive);
-			} 
-			else {  //not active, no hover
-				if (HOVER && cstroke != -1 && cfill == -1) {
-					fill(cstroke, 100);
-					text(Label, x+4, y+2);			
-				}
-				if (cstroke==-1) noFill(); 
-				else fill(cstroke);
+				ellipse(this.x, this.y, 42, 42);  
+				imageMode(CENTER);
+				image(butImageOff, this.x, this.y, 26, 26);
 			}
-		} else fill(96); //disabled  
-
-		text(Label, x, y-2);//-4  , y-2
+		}
 	}
 
 	void checkhover() {
@@ -134,7 +181,7 @@ class Button {
 	}
 
 	void enable() {
-		this.bStatus="normal";
+		this.bStatus="enabled";
 	}
 
 	void disable() {
@@ -145,7 +192,7 @@ class Button {
 	public void toggle() {
 		if (this.isEnabled()) {
 			if ( this.isActive() ){
-				this.bStatus="normal";
+				this.bStatus="enabled";
 				if(StateMachine.setpiece && this.Label == COMM_GOAL) {
 					StateMachine.ResetSetpiece();
 					send_event_v2(COMM_STOP, COMM_STOP, null,-1);
@@ -177,6 +224,13 @@ class Button {
 	void setIsCircle(boolean vv){    
 		isCircle = vv;
 	}
+	
+	void setImages(PImage im1, PImage im2, PImage im3, PImage im4){
+		butImageOff = im1;
+		butImageON = im2;
+		butImageOver = im3;
+		butImageAtive = im4;		
+	}
 }
 
 //***********************************************************************
@@ -186,14 +240,14 @@ public static Button buttonFromEnum(ButtonsEnum btn)
 	if(btn.getValue() <= ButtonsEnum.BTN_CONFIG.getValue())
 	return bCommoncmds[btn.getValue()];
 
-	if(btn.getValue() <= ButtonsEnum.BTN_C_YELLOW.getValue())
-	return bTeamAcmds[btn.getValue() - ButtonsEnum.BTN_C_KICKOFF.getValue()];
+	if(btn.getValue() <= ButtonsEnum.BTN_L_YELLOW.getValue())
+	return bTeamAcmds[btn.getValue() - ButtonsEnum.BTN_L_KICKOFF.getValue()];
 
-	if(btn.getValue() <= ButtonsEnum.BTN_M_YELLOW.getValue())
-	return bTeamBcmds[btn.getValue() - ButtonsEnum.BTN_M_KICKOFF.getValue()];
+	if(btn.getValue() <= ButtonsEnum.BTN_R_YELLOW.getValue())
+	return bTeamBcmds[btn.getValue() - ButtonsEnum.BTN_R_KICKOFF.getValue()];
 
-	if(btn.getValue() <= ButtonsEnum.BTN_CONFIG.getValue())
-	return bCommoncmds[btn.getValue()];
+//	if(btn.getValue() <= ButtonsEnum.BTN_CONFIG.getValue())
+//	return bCommoncmds[btn.getValue()];
 
 	return null;
 }
@@ -201,8 +255,8 @@ public static Button buttonFromEnum(ButtonsEnum btn)
 //***********************************************************************
 //
 void buttonEvent(char group, int pos) {
+	
 	System.out.println("group = " + group + " pos = " + pos);
-
 	ButtonsEnum clickedButton = null;
 	Button clickBtn = null;
 
@@ -211,27 +265,27 @@ void buttonEvent(char group, int pos) {
 		clickedButton = ButtonsEnum.items[pos];
 		clickBtn = buttonFromEnum(clickedButton);
 		if(clickBtn.isEnabled())
-		clickBtn.toggle();
+			clickBtn.toggle();
 		else
-		clickedButton = null;
+			clickedButton = null;
 	}
 	else if (group=='A')
 	{
-		clickedButton = ButtonsEnum.items[pos + ButtonsEnum.BTN_C_KICKOFF.getValue()];
+		clickedButton = ButtonsEnum.items[pos + ButtonsEnum.BTN_L_KICKOFF.getValue()];
 		clickBtn = buttonFromEnum(clickedButton);
 		if(clickBtn.isEnabled())
-		clickBtn.toggle();
+			clickBtn.toggle();
 		else
-		clickedButton = null;
+			clickedButton = null;
 	}
 	else if (group=='B')
 	{
-		clickedButton = ButtonsEnum.items[pos + ButtonsEnum.BTN_M_KICKOFF.getValue()];
+		clickedButton = ButtonsEnum.items[pos + ButtonsEnum.BTN_R_KICKOFF.getValue()];
 		clickBtn = buttonFromEnum(clickedButton);
 		if(clickBtn.isEnabled())
-		clickBtn.toggle();
+			clickBtn.toggle();
 		else
-		clickedButton = null;
+			clickedButton = null;
 	}
 
 	System.out.println("..." + clickedButton);
@@ -248,7 +302,8 @@ void buttonEvent(char group, int pos) {
 		}
 		
 		// Special cases, that send only event message on game change (flags)
-		if( clickedButton.isYellow() || clickedButton.isRed() || clickedButton.isRepair() || clickedButton.isConfig() || clickedButton.isEndPart() || clickedButton.isReset())
+		if( clickedButton.isYellow() || clickedButton.isRed() || clickedButton.isRepair() || clickedButton.isConfig() || 
+			clickedButton.isEndPart() || clickedButton.isReset() || clickedButton.isAlive())
 		{
 			// Do literally nothing...
 		}else{

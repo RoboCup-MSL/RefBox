@@ -9,10 +9,10 @@ static class StateMachine
 	private static GameStateEnum gsPrev = GameStateEnum.GS_ILLEGAL;
 
 	public static boolean setpiece = false;
-	public static boolean setpiece_cyan = false;
+	public static boolean setpiece_left = false;
 	public static ButtonsEnum setpiece_button = null;
 
-	public static boolean firstKickoffCyan = true;
+	public static boolean firstKickoffLeft = true;
 	private static boolean done = true;
 
 	public static boolean validInput = true;
@@ -42,6 +42,14 @@ static class StateMachine
 			case POPUP_HELP:
 				{
 					Popup.close();
+					break;
+				}
+
+			case POPUP_ALIVE:
+				{
+					Popup.close();
+					buttonFromEnum(ButtonsEnum.BTN_START).disable();
+					setpiece = false;
 					break;
 				}
 
@@ -210,7 +218,7 @@ static class StateMachine
 			int add = (btnOn ? +1 : -1);
 			int i;
 			
-			needUpdate = false;			// Clear flag at the begining so that internal code can turno it ON again
+			needUpdate = false;			// Clear flag at the begining so that internal code can turn it ON again
 			if(btnCurrent.isGoal())
 			{
 				if(btnCurrent.isLeft()) teamA.Score+=add;
@@ -219,17 +227,22 @@ static class StateMachine
 			else if(btnCurrent.isReset())
 			{
 				Popup.show(PopupTypeEnum.POPUP_RESET, MSG_RESET, 1, 0, 2, 24, 380, 200);
-				needUpdate = false;
 				done = true;
 				return;
 			}
 			else if(btnCurrent.isEndPart())
 			{
 				Popup.show(PopupTypeEnum.POPUP_ENDPART, MSG_HALFTIME, 1, 0, 2, 24, 380, 200);
-				needUpdate = false;
 				done = true;
 				return;
 			}
+			else if(btnCurrent.isAlive())
+			{
+				Popup.show(PopupTypeEnum.POPUP_ALIVE, MSG_ISALIVE, 0, 8, 0, 24, 380, 200);
+//				done = true;
+//				return;
+			}
+			
 			else if(btnCurrent.isRepair())
 			{
 				if(btnCurrent.isLeft()){
@@ -275,7 +288,6 @@ static class StateMachine
 			}
 			else if(btnCurrent.isStop())
 			{
-				//println(12);
 				SetPieceDelay.resetStopWatch();
 				SetPieceDelay.stopTimer();
 				forceKickoff = false; 
@@ -333,17 +345,17 @@ static class StateMachine
 					if(setpiece)
 					ResetSetpiece();
 				}
-				else if(btnCurrent == ButtonsEnum.BTN_C_KICKOFF)
+				else if(btnCurrent == ButtonsEnum.BTN_L_KICKOFF)
 				{
 					// Save first kickoff
 					if(gsCurrent == GameStateEnum.GS_PREGAME)
-					firstKickoffCyan = true;
+					firstKickoffLeft = true;
 					SetSetpiece(true, btnCurrent);
 				}
-				else if(btnCurrent == ButtonsEnum.BTN_M_KICKOFF)
+				else if(btnCurrent == ButtonsEnum.BTN_R_KICKOFF)
 				{
 					if(gsCurrent == GameStateEnum.GS_PREGAME)
-					firstKickoffCyan = false;
+					firstKickoffLeft = false;
 					SetSetpiece(false, btnCurrent);
 				}
 				
@@ -353,8 +365,10 @@ static class StateMachine
 			case GS_GAMESTOP_H2:
 			case GS_GAMESTOP_H3:
 			case GS_GAMESTOP_H4:
-				if(btnCurrent.isSetPiece())
-				SetSetpiece(btnCurrent.isLeft(), btnCurrent);
+				if(btnCurrent.isSetPiece()){
+					SetSetpiece(btnCurrent.isLeft(), btnCurrent);
+					println("Set piece ON");
+				}
 				else if(btnCurrent.isStart()){
 					nextGS = SwitchRunningStopped();
 				}
@@ -364,8 +378,12 @@ static class StateMachine
 					SetPieceDelay.resetStopWatch();
 					SetPieceDelay.stopTimer();
 				}
-				else if(btnCurrent.isEndPart())
-				nextGS = SwitchGamePart();
+				else if(btnCurrent.isEndPart()){
+					nextGS = SwitchGamePart();
+				}
+				else {
+					println("Set piece not ON");
+				}
 				break;
 				
 			case GS_GAMEON_H1:
@@ -494,10 +512,11 @@ static class StateMachine
 	//************************************************************************
 	// 
 	//************************************************************************
-	private static void SetSetpiece(boolean cyan, ButtonsEnum btn)
+	private static void SetSetpiece(boolean left, ButtonsEnum btn)
 	{
+		println("SetPiece ON");
 		setpiece = true;
-		setpiece_cyan = cyan;
+		setpiece_left = left;
 		setpiece_button = btn;
 	}
 

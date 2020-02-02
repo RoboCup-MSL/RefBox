@@ -72,9 +72,15 @@ public static void event_message_v2(ButtonsEnum btn, boolean on)
 	{
 		send_event_v2(cmd, msg, t, -1);
 	}
-	//println("Command: " + cmd);
 }
-
+/*
+	Method send_event_v2()
+	Parameters:
+		cmd > string with message to send to basestations, scoreClients and Log
+		msg > string with description message to send to scoreclients @mbc (check if needed)
+		t > id of the team. If null, message is to both teams
+		robotID > ID number of the target robot. (-1) means no robot
+*/
 public static void send_event_v2(String cmd, String msg, Team t, int robotID)
 {
 	String teamIP, teamName;
@@ -105,8 +111,6 @@ public static boolean setteamfromip(String s) {
 		iptokens=split(s,'.');
 		if (iptokens!=null) clientipstr=iptokens[0]+"."+iptokens[1]+"."+iptokens[2]+".*"; // Create clientipstr from received IP tokens
 	}
-
-	//println("Client IP: " + clientipstr);
 
 	for (TableRow row : teamstable.rows()) {
 		String saddr = row.getString("UnicastAddr");
@@ -177,9 +181,7 @@ public static void checkBasestationsMessages()
 			String whatClientSaid = new String(thisClient.readBytes());
 			if (whatClientSaid != null) 
 			while(whatClientSaid.length() !=0){
-				//println(whatClientSaid);
 				int idx = whatClientSaid.indexOf('\0');
-				//println(whatClientSaid.length()+"\t"+ idx);
 				if(idx!=-1){
 					if(idx!=0)
 					{  
@@ -306,12 +308,10 @@ public static void checkBasestationsMessages()
 						t.logWorldstate(t.wsBuffer,ageMs);
 					}
 					t.wsBuffer="";      
-					//println("NEW message");
 				}else{
 					t.wsBuffer+= whatClientSaid;
 					break;
 				}
-				//println("MESSAGE from " + thisClient.ip() + ": " + whatClientSaid);
 				
 				// Avoid filling RAM with buffering (for example team is not sending the '\0' character)
 				if(t.wsBuffer.length() > 100000) {
@@ -372,7 +372,7 @@ public static final String COMM_DROP_BALL = "DROP_BALL";
 // specific team Commands
 public static final String COMM_REPAIR = "REPAIR";
 public static final String COMM_SUBSTITUTION = "SUBSTITUTION";
-public static final String COMM_ISALIVE = "ISALIVE";
+public static final String COMM_ISALIVE = "IS_ALIVE";
 
 //free: 056789 iIfFHlmMnqQwxX
 //------------------------------------------------------

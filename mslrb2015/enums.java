@@ -15,31 +15,31 @@ enum ButtonsEnum
 	BTN_SUBS(6),
 	BTN_CONFIG(7),
 
-	BTN_C_KICKOFF(8),
-	BTN_C_FREEKICK(9),
-	BTN_C_GOALKICK(10),
-	BTN_C_THROWIN(11),
-	BTN_C_CORNER(12),
-	BTN_C_PENALTY(13),
+	BTN_L_KICKOFF(8),
+	BTN_L_FREEKICK(9),
+	BTN_L_GOALKICK(10),
+	BTN_L_THROWIN(11),
+	BTN_L_CORNER(12),
+	BTN_L_PENALTY(13),
+	BTN_L_ISALIVE(14),
+	
+	BTN_L_GOAL(15),
+	BTN_L_REPAIR(16),
+	BTN_L_RED(17),
+	BTN_L_YELLOW(18),
 
-	BTN_C_GOAL(14),
-	BTN_C_REPAIR(15),
-	BTN_C_RED(16),
-	BTN_C_YELLOW(17),
-	BTN_C_ISALIVE(18),
-
-	BTN_M_KICKOFF(19),
-	BTN_M_FREEKICK(20),
-	BTN_M_GOALKICK(21),
-	BTN_M_THROWIN(21),
-	BTN_M_CORNER(23),
-	BTN_M_PENALTY(24),
-
-	BTN_M_GOAL(25),
-	BTN_M_REPAIR(26),
-	BTN_M_RED(27),
-	BTN_M_YELLOW(28),
-	BTN_M_ISALIVE(29),
+	BTN_R_KICKOFF(19),
+	BTN_R_FREEKICK(20),
+	BTN_R_GOALKICK(21),
+	BTN_R_THROWIN(22),
+	BTN_R_CORNER(23),
+	BTN_R_PENALTY(24),
+	BTN_R_ISALIVE(25),
+	
+	BTN_R_GOAL(26),
+	BTN_R_REPAIR(27),
+	BTN_R_RED(28),
+	BTN_R_YELLOW(29),
 
 	BTN_ILLEGAL(99);
 
@@ -58,7 +58,8 @@ enum ButtonsEnum
 	//******************************************************************************************************
 	public boolean isSetPiece()
 	{
-		return (value >= BTN_C_KICKOFF.value && value <= BTN_C_PENALTY.value) || (value >= BTN_M_KICKOFF.value && value <= BTN_M_PENALTY.value) || value == BTN_DROPBALL.value;
+		return (value >= BTN_L_KICKOFF.value && value <= BTN_L_ISALIVE.value) || 
+				(value >= BTN_R_KICKOFF.value && value <= BTN_R_ISALIVE.value) || value == BTN_DROPBALL.value;
 	}
 
 	//******************************************************************************************************
@@ -70,13 +71,13 @@ enum ButtonsEnum
 	//******************************************************************************************************
 	public boolean isLeft()
 	{
-		return value >= BTN_C_KICKOFF.value && value <= BTN_C_ISALIVE.value;
+		return value >= BTN_L_KICKOFF.value && value <= BTN_L_ISALIVE.value;
 	}
 
 	//******************************************************************************************************
 	public boolean isRight()
 	{
-		return value >= BTN_M_KICKOFF.value && value <= BTN_M_ISALIVE.value;
+		return value >= BTN_R_KICKOFF.value && value <= BTN_R_ISALIVE.value;
 	}
 
 	//******************************************************************************************************
@@ -94,13 +95,13 @@ enum ButtonsEnum
 	//******************************************************************************************************
 	public boolean isGoal()
 	{
-		return value == BTN_C_GOAL.value || value == BTN_M_GOAL.value;
+		return value == BTN_L_GOAL.value || value == BTN_R_GOAL.value;
 	}
 
 	//******************************************************************************************************
 	public boolean isRepair()
 	{
-		return value == BTN_C_REPAIR.value || value == BTN_M_REPAIR.value;
+		return value == BTN_L_REPAIR.value || value == BTN_R_REPAIR.value;
 	}
 
 	//******************************************************************************************************
@@ -118,13 +119,13 @@ enum ButtonsEnum
 	//******************************************************************************************************
 	public boolean isYellow()
 	{
-		return value == BTN_C_YELLOW.value || value == BTN_M_YELLOW.value;
+		return value == BTN_L_YELLOW.value || value == BTN_R_YELLOW.value;
 	}
 
 	//******************************************************************************************************
 	public boolean isRed()
 	{
-		return value == BTN_C_RED.value || value == BTN_M_RED.value;
+		return value == BTN_L_RED.value || value == BTN_R_RED.value;
 	}
 
 	//******************************************************************************************************
@@ -136,7 +137,7 @@ enum ButtonsEnum
 	//******************************************************************************************************
 	public boolean isAlive()
 	{
-		return value == BTN_C_ISALIVE.value || value == BTN_M_ISALIVE.value;
+		return value == BTN_L_ISALIVE.value || value == BTN_R_ISALIVE.value;
 	}
 
 	//******************************************************************************************************
@@ -256,7 +257,8 @@ enum PopupTypeEnum
 	POPUP_WAIT(6),
 	POPUP_SUBS(7),
 	POPUP_CONFIG(8),
-
+	POPUP_ALIVE(9),
+	
 	POPUP_ILLEGAL(99);
 
 	private final int value;
