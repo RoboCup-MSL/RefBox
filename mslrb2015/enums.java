@@ -71,7 +71,7 @@ enum ButtonsEnum
 	//******************************************************************************************************
 	public boolean isLeft()
 	{
-		return value >= BTN_L_KICKOFF.value && value <= BTN_L_ISALIVE.value;
+		return value >= BTN_L_KICKOFF.value && value <= BTN_L_YELLOW.value;
 	}
 
 	//******************************************************************************************************

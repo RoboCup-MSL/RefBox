@@ -271,9 +271,9 @@ static class StateMachine
 			else if(btnCurrent.isRed())
 			{
 				if(btnCurrent.isLeft())
-				teamA.newRedCard=btnOn;
+					teamA.newRedCard=btnOn;
 				else
-				teamB.newRedCard=btnOn;
+					teamB.newRedCard=btnOn;
 			}
 			else if(btnCurrent.isYellow())
 			{
@@ -282,9 +282,9 @@ static class StateMachine
 				t = teamB;
 				
 				if (t.YellowCardCount==1)
-				t.newDoubleYellow = btnOn;
+					t.newDoubleYellow = btnOn;
 				else
-				t.newYellowCard = btnOn;
+					t.newYellowCard = btnOn;
 			}
 			else if(btnCurrent.isStop())
 			{
