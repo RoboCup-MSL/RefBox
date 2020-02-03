@@ -77,7 +77,7 @@ enum ButtonsEnum
 	//******************************************************************************************************
 	public boolean isRight()
 	{
-		return value >= BTN_R_KICKOFF.value && value <= BTN_R_ISALIVE.value;
+		return value >= BTN_R_KICKOFF.value && value <= BTN_R_YELLOW.value;
 	}
 
 	//******************************************************************************************************
