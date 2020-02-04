@@ -221,8 +221,10 @@ static class StateMachine
 			needUpdate = false;			// Clear flag at the begining so that internal code can turn it ON again
 			if(btnCurrent.isGoal())
 			{
-				if(btnCurrent.isLeft()) teamA.Score+=add;
-				else teamB.Score+=add;
+				if(btnCurrent.isLeft()) 
+					teamA.Score+=add;
+				else 
+					teamB.Score+=add;
 			}
 			else if(btnCurrent.isReset())
 			{
@@ -249,11 +251,11 @@ static class StateMachine
 					teamA.newRepair=btnOn;
 					if (btnOn) {
 						i = teamA.numberOfPlayingRobots() - 2;
-						println (i);
+							println (i);
 						if (i == 3)
-						Popup.show(PopupTypeEnum.POPUP_REPAIRL, MSG_REPAIR, 5, 6, 7, 24, 380, 200);
+							Popup.show(PopupTypeEnum.POPUP_REPAIRL, MSG_REPAIR, 5, 6, 7, 24, 380, 200);
 						else if(i == 2)
-						Popup.show(PopupTypeEnum.POPUP_REPAIRL, MSG_REPAIR, 5, 6, 0, 24, 380, 200);		  
+							Popup.show(PopupTypeEnum.POPUP_REPAIRL, MSG_REPAIR, 5, 6, 0, 24, 380, 200);		  
 					}
 				}
 				else {
@@ -278,8 +280,7 @@ static class StateMachine
 			else if(btnCurrent.isYellow())
 			{
 				Team t = teamA;
-				if(!btnCurrent.isLeft())
-				t = teamB;
+				if(!btnCurrent.isLeft()) t = teamB;
 				
 				if (t.YellowCardCount==1)
 					t.newDoubleYellow = btnOn;
@@ -401,16 +402,16 @@ static class StateMachine
 				
 			case GS_PENALTIES:
 				if(btnCurrent.isSetPiece())                       // Kick Off either, Penalty either, DropBall
-				SetSetpiece(btnCurrent.isLeft(), btnCurrent);
+					SetSetpiece(btnCurrent.isLeft(), btnCurrent);
 				else if(btnCurrent.isStop()) {
 					ResetSetpiece();
 					SetPieceDelay.resetStopWatch();
 					SetPieceDelay.stopTimer();
 				}
 				else if(btnCurrent.isEndPart())
-				nextGS = SwitchGamePart();
+					nextGS = SwitchGamePart();
 				else if(btnCurrent.isStart())
-				nextGS = SwitchRunningStopped();
+					nextGS = SwitchRunningStopped();
 				break;
 				
 			case GS_PENALTIES_ON:

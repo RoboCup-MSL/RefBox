@@ -29,11 +29,11 @@
 		"robotRedCardColor": "#FF0000",
 		"defaultLeftTeamShortName": "TeamA",
 		"defaultLeftTeamLongName": "TeamA Disconnected",
-		"defaultLeftTeam": "TeamA N.C.",
+		"defaultLeftTeam": "TeamA Disconnected",
 		"defaultLeftTeamColor": "#007BA7",
 		"defaultRightTeamShortName": "TeamB",
 		"defaultRightTeamLongName": "TeamB Disconnected",
-		"defaultRightTeam": "TeamB N.C.",
+		"defaultRightTeam": "TeamB Disconnected",
 		"defaultRightTeamColor": "#C240BC"
 	},
 	"sounds":

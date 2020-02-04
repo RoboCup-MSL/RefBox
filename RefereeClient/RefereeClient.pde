@@ -60,6 +60,26 @@ public static PVector offsetLeft= new PVector(250, 160);
 public static PVector offsetRight= new PVector(610, 160);
 public static PFont buttonFont, clockFont, panelFont, scoreFont, debugFont, teamFont, watermark;
 public static PImage backgroundImage;
+public static PImage stop;
+public static PImage playOn;
+public static PImage preGame;
+public static PImage halfTime;
+public static PImage gameOver;
+public static PImage substitution;
+public static PImage kickOffLeft;
+public static PImage goalKickLeft;
+public static PImage throwInLeft;
+public static PImage freeKickLeft;
+public static PImage cornerKickLeft;
+public static PImage penaltyKickLeft;
+public static PImage kickOffRight;
+public static PImage throwInRight;
+public static PImage goalKickRight;
+public static PImage freeKickRight;
+public static PImage cornerKickRight;
+public static PImage penaltyKickRight;
+public static PImage dropBall;
+
 
 public static PApplet mainApplet = null;
 
@@ -77,8 +97,27 @@ void setup() {
 	size(1000, 680);
 
 	backgroundImage = loadImage("img/bg_normal.png");
+	stop = loadImage("img/stop.png");
+	playOn = loadImage("img/PlayOn.png");
+	preGame = loadImage("img/PreGame.png");
+	halfTime = loadImage("img/HalfTime.png");
+	gameOver = loadImage("img/GameOver.png");
+	substitution = loadImage("img/Substitution.png");
+	kickOffLeft = loadImage("img/KickOffLeft.png");
+	goalKickLeft = loadImage("img/GoalKickLeft.png");
+	throwInLeft = loadImage("img/ThrowInLeft.png");
+	freeKickLeft = loadImage("img/FreeKickLeft.png");
+	cornerKickLeft = loadImage("img/CornerKickLeft.png");
+	penaltyKickLeft = loadImage("img/PenaltyLeft.png");
+	kickOffRight = loadImage("img/KickOffRight.png");
+	throwInRight = loadImage("img/ThrowInRight.png");
+	goalKickRight = loadImage("img/GoalKickRight.png");
+	freeKickRight = loadImage("img/FreeKickRight.png");
+	cornerKickRight = loadImage("img/CornerKickRight.png");
+	penaltyKickRight = loadImage("img/PenaltyRight.png");
+	dropBall = loadImage("img/DropBall.png");
 
-	frame.setTitle(MSG_WINDOWTITLE); 
+	surface.setTitle(MSG_WINDOWTITLE); 
 	clockFont = createFont("fonts/LCDM.TTF", 64, false);
 	scoreFont = createFont("fonts/LED.ttf", 40, false);
 	buttonFont=loadFont("fonts/Futura-CondensedExtraBold-24.vlw");
@@ -90,6 +129,7 @@ void setup() {
 	//==============================================
 	//=== Modules Initialization
 	Config.Load(this, "config.json");                                     // Load config file
+
 	Log.init(this);                                                       // Init Log module
 	comms_initDescriptionDictionary();                                    // Initializes the dictionary for communications with the basestations 
 
@@ -152,12 +192,97 @@ void draw() {
 	//refresh command show 
 	PImage img = null;
 	String imageName = "";
-	if(lastCommandCode.equals(COMM_STOP)) imageName = "stop";
-	if(imageName.length() > 0 && new File(dataPath("img/"+imageName+".png")).exists() && (img = loadImage("img/"+imageName+".png")) != null)
-	{
-		imageMode(CENTER);
-		image(img, width/2, height/2 + 45, 230, 230);
-	}else{
+	imageMode(CENTER);
+	textFont(teamFont, 30);
+	textAlign(CENTER, CENTER-5);
+	if(lastCommandCode.equals(COMM_STOP)){
+		image(stop, width/2, height/2 + 45, 230, 230);		
+	}
+	else if (lastCommandCode.equals(COMM_START)) {
+		image(playOn, width/2, height/2 + 45, 230, 230);		
+	}
+	else if (lastCommandCode.equals(COMM_DROP_BALL)) {
+		image(dropBall, width/2, height/2 + 45, 230, 230);		
+	}
+	else if (lastCommandCode.equals(COMM_HALF_TIME)) {
+		image(halfTime, width/2, height/2 + 45, 230, 230);		
+	}
+	else if (lastCommandCode.equals(COMM_END_GAME)) {
+		image(gameOver, width/2, height/2 + 45, 230, 230);		
+	}
+	else if (lastCommandCode.equals(COMM_SUBSTITUTION)) {
+		image(substitution, width/2, height/2 + 45, 230, 230);		
+	}
+	else if (lastCommandCode.equals(COMM_RESET)) {
+		image(preGame, width/2, height/2 + 45, 230, 230);		
+	}
+	else if (lastCommandCode.equals(COMM_KICKOFF)) {
+		if (teamA.longName.equals(lastCommandTeam)){ //<>//
+			image(kickOffLeft, width/2, height/2 + 25, 230, 230);		
+		}
+		else {
+			image(kickOffRight, width/2, height/2 + 25, 230, 230);					
+		}
+		text(lastCommandTeam, width/2, height/2 + 175);
+	}
+	else if (lastCommandCode.equals(COMM_FREEKICK)) {
+		if (teamA.longName.equals(lastCommandTeam)){ //<>//
+			image(freeKickLeft, width/2, height/2 + 25, 230, 230);		
+		}
+		else {
+			image(freeKickRight, width/2, height/2 + 25, 230, 230);					
+		}
+		text(lastCommandTeam, width/2, height/2 + 175);
+	}	
+	else if (lastCommandCode.equals(COMM_GOALKICK)) {
+		if (teamA.longName.equals(lastCommandTeam)){ //<>//
+			image(goalKickLeft, width/2, height/2 + 25, 230, 230);		
+		}
+		else {
+			image(goalKickRight, width/2, height/2 + 25, 230, 230);					
+		}
+		text(lastCommandTeam, width/2, height/2 + 175);
+	}	
+	else if (lastCommandCode.equals(COMM_THROWIN)) {
+		if (teamA.longName.equals(lastCommandTeam)){ //<>//
+			image(throwInLeft, width/2, height/2 + 25, 230, 230);		
+		}
+		else {
+			image(throwInRight, width/2, height/2 + 25, 230, 230);					
+		}
+		text(lastCommandTeam, width/2, height/2 + 175);
+	}	
+	else if (lastCommandCode.equals(COMM_CORNER)) {
+		if (teamA.longName.equals(lastCommandTeam)){ //<>//
+			image(cornerKickLeft, width/2, height/2 + 25, 230, 230);		
+		}
+		else {
+			image(cornerKickRight, width/2, height/2 + 25, 230, 230);					
+		}
+		text(lastCommandTeam, width/2, height/2 + 175);
+	}	
+	else if (lastCommandCode.equals(COMM_PENALTY)) {
+		if (teamA.longName.equals(lastCommandTeam)){ //<>//
+			image(penaltyKickLeft, width/2, height/2 + 25, 230, 230);		
+		}
+		else {
+			image(penaltyKickRight, width/2, height/2 + 25, 230, 230);					
+		}
+		text(lastCommandTeam, width/2, height/2 + 175);
+	}	
+
+/*
+	Description.set(COMM_END_PART, "End Part");
+	Description.set(COMM_GAMEOVER, "Game Over");
+	Description.set(COMM_WELCOME, "Welcome");
+	Description.set(COMM_FIRST_HALF, "1st half");
+	Description.set(COMM_SECOND_HALF, "2nd half");
+	Description.set(COMM_FIRST_HALF_OVERTIME, "Overtime 1st half");
+	Description.set(COMM_SECOND_HALF_OVERTIME, "Overtime 2nd half");
+	Description.set(COMM_PARK, "Park");
+	Description.set(COMM_ISALIVE, "Is Alive");
+*/	
+	else{
 		fill(#E0F000);
 		String description = lastCommandDescription;
 		if(description.contains("START"))
@@ -178,7 +303,7 @@ void draw() {
 		{
 			text("ID: "+ lastRobotID, width/2, height/2 + 150);
 		}
-	}
+	} 
 }
 
 //receive message and get from json important information for referee Client
