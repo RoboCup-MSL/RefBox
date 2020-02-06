@@ -37,6 +37,7 @@ static class StateMachine
 		// Check popup response when popup is ON
 		if(Popup.hasNewResponse())
 		{
+			needUpdate = false;
 			switch(Popup.getType())
 			{
 			case POPUP_HELP:
@@ -83,15 +84,32 @@ static class StateMachine
 						playTimeWatch.resetStopWatch();
 						SetPieceDelay.resetStopWatch();
 						SetPieceDelay.stopTimer();
-
-						if (COMM_HALF_TIME.equals("End Game"))
-						send_event_v2(COMM_END_GAME, Description.get(COMM_END_GAME), null, -1);
-						else
-						send_event_v2(COMM_HALF_TIME, Description.get(COMM_HALF_TIME), null, -1);            
+						switch(gsCurrent)
+						{
+							case GS_HALFTIME:
+							case GS_HALFTIME_OVERTIME:
+								send_event_v2(COMM_HALF_TIME, Description.get(COMM_HALF_TIME), null, -1);
+								break;
+							case GS_OVERTIME:
+								if (bCommoncmds[CMDID_COMMON_HALFTIME].Label == "Game Over"){
+									send_event_v2(COMM_GAMEOVER, Description.get(COMM_GAMEOVER), null, -1);
+									gsCurrent = GameStateEnum.GS_ENDGAME;
+									break;
+								} else{
+									send_event_v2(COMM_END_GAME, Description.get(COMM_END_GAME), null, -1);
+								}
+							case GS_PENALTIES:
+								break;
+							case GS_ENDGAME:
+								send_event_v2(COMM_GAMEOVER, Description.get(COMM_GAMEOVER), null, -1);
+								break;
+						}					
 					}
+					btnCurrent = ButtonsEnum.BTN_ILLEGAL;		// Clear up current button, just in case
 					Popup.close();
-					break;
+					needUpdate = true;
 				}
+				break;
 				
 			case POPUP_TEAMSELECTION:
 				{
@@ -207,7 +225,6 @@ static class StateMachine
 				}
 			}
 			
-			needUpdate = false;
 			done = true;
 			return;
 		}
@@ -416,7 +433,7 @@ static class StateMachine
 				
 			case GS_PENALTIES_ON:
 				if(setpiece)
-				ResetSetpiece(); //<>// //<>//
+					ResetSetpiece(); //<>// //<>//
 				if(btnCurrent.isStop()){
 					SetPieceDelay.resetStopWatch();	
 					SetPieceDelay.stopTimer();			
@@ -467,7 +484,7 @@ static class StateMachine
 		case GS_PENALTIES: return GameStateEnum.GS_ENDGAME;
 		}
 		
-		return null;
+		return gsCurrent;
 	}
 
 	//************************************************************************
@@ -494,9 +511,10 @@ static class StateMachine
 		case GS_HALFTIME_OVERTIME:
 		case GS_GAMESTOP_H4:
 			return GameStateEnum.GS_GAMEON_H4;
-			
-		case GS_PENALTIES: return GameStateEnum.GS_PENALTIES_ON;
-		case GS_PENALTIES_ON: return GameStateEnum.GS_PENALTIES;
+		case GS_PENALTIES:
+			return GameStateEnum.GS_PENALTIES_ON;
+		case GS_PENALTIES_ON:
+			return GameStateEnum.GS_PENALTIES;
 		}
 		
 		return null;

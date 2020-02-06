@@ -303,7 +303,7 @@ void buttonEvent(char group, int pos) {
 		
 		// Special cases, that send only event message on game change (flags)
 		if( clickedButton.isYellow() || clickedButton.isRed() || clickedButton.isRepair() || clickedButton.isConfig() || 
-			clickedButton.isEndPart() || clickedButton.isReset() || clickedButton.isAlive())
+			clickedButton.isEndPart() || clickedButton.isReset() || clickedButton.isAlive() || clickedButton.isSubs())
 		{
 			// Do literally nothing...
 		}else{

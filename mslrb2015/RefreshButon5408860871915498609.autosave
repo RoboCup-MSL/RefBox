@@ -132,9 +132,15 @@ void RefreshButonStatus1() {
 			break;
 			
 		case GS_ENDGAME:
-			buttonAdisableAll(-1);  //disabke team A commands
-			buttonBdisableAll(-1);  //disable team B commands
-			buttonCdisable();      //disable common commands	
+			buttonAdisableAll(0);  //team A commands
+			buttonBdisableAll(0);  //team B commands
+			buttonCdisable();      //common commands
+			
+//			bCommoncmds[CMDID_COMMON_DROP_BALL].disable();
+//			bCommoncmds[CMDID_COMMON_SUBS].disable();
+//			bCommoncmds[CMDID_COMMON_HALFTIME].disable();
+//			bCommoncmds[CMDID_COMMON_CONFIG].disable();
+			
 			bCommoncmds[CMDID_COMMON_RESET].activate();
 			bCommoncmds[CMDID_COMMON_PARKING].activate();
 			buttonCSTARTdisable();
