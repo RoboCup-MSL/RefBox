@@ -13,10 +13,10 @@
 		"robotDoubleYellowCardColor": "#707000",
 		"robotRedCardColor": "#E01010",
 		"defaultCyanTeamShortName": "***",
-		"defaultCyanTeamLongName": "Disconnected",
+		"defaultCyanTeamLongName": "TeamA Disconnected",
 		"defaultCyanTeamColor": "#007BA7",
 		"defaultMagentaTeamShortName": "***",
-		"defaultMagentaTeamLongName": "Disconnected",
+		"defaultMagentaTeamLongName": "TeamB Disconnected",
 		"defaultMagentaTeamColor": "#DA70D6"
 	}
 }

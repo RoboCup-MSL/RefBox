@@ -129,7 +129,7 @@ class ScoreClients
 	{
 		// Write message to all clients
 		for(int i = 0; i < clientCount(); i++)
-		scoreClients.get(i).send(message, Config.scoreClientHosts.get(i), Config.scoreClientPorts.get(i));
+			scoreClients.get(i).send(message, Config.scoreClientHosts.get(i), Config.scoreClientPorts.get(i));
 	}
 
 }

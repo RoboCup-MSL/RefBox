@@ -172,13 +172,13 @@ enum GameStateEnum
 	GS_GAMESTOP_H3(7),        	// Game stopped during first half of overtime
 	GS_GAMEON_H3(8),			// Game on during first half of overtime
 
-	GS_HALFTIME_OVERTIME(9),	// First half time of oertime
+	GS_HALFTIME_OVERTIME(9),	// First half time of overtime
 
 	GS_GAMESTOP_H4(10),        	// Game stopped during second half of overtime
 	GS_GAMEON_H4(11),          	// Game on during second half of overtime
 
-	GS_PENALTIES(12),          	// Penalties period on mbc????
-	GS_PENALTIES_ON(13),       	// Penalties period on mbc????
+	GS_PENALTIES(12),          	// Penalties shoot out period on - setpiece OFF
+	GS_PENALTIES_ON(13),       	// Penalties shoot out period on - setpiece ON
 	GS_ENDGAME(14),            	// Game over
 	GS_FORCE_ENDGAME(15),      	// Game over
 	GS_RESET(16),              	// Reset Game
