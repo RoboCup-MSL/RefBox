@@ -65,7 +65,9 @@ public static PImage playOn;
 public static PImage preGame;
 public static PImage halfTime;
 public static PImage gameOver;
-public static PImage substitution;
+public static PImage endGame;
+public static PImage substitutionLeft;
+public static PImage substitutionRight;
 public static PImage kickOffLeft;
 public static PImage goalKickLeft;
 public static PImage throwInLeft;
@@ -79,6 +81,8 @@ public static PImage freeKickRight;
 public static PImage cornerKickRight;
 public static PImage penaltyKickRight;
 public static PImage dropBall;
+public static PImage isAliveLeft;
+public static PImage isAliveRight;
 
 
 public static PApplet mainApplet = null;
@@ -102,7 +106,9 @@ void setup() {
 	preGame = loadImage("img/PreGame.png");
 	halfTime = loadImage("img/HalfTime.png");
 	gameOver = loadImage("img/GameOver.png");
-	substitution = loadImage("img/Substitution.png");
+	endGame = loadImage("img/EndGame.png");
+	substitutionLeft = loadImage("img/SubstitutionLeft.png");
+	substitutionRight = loadImage("img/SubstitutionRight.png");
 	kickOffLeft = loadImage("img/KickOffLeft.png");
 	goalKickLeft = loadImage("img/GoalKickLeft.png");
 	throwInLeft = loadImage("img/ThrowInLeft.png");
@@ -116,7 +122,9 @@ void setup() {
 	cornerKickRight = loadImage("img/CornerKickRight.png");
 	penaltyKickRight = loadImage("img/PenaltyRight.png");
 	dropBall = loadImage("img/DropBall.png");
-
+	isAliveLeft = loadImage("img/IsAliveLeft.png");
+	isAliveRight = loadImage("img/IsAliveRight.png");
+	
 	surface.setTitle(MSG_WINDOWTITLE); 
 	clockFont = createFont("fonts/LCDM.TTF", 64, false);
 	scoreFont = createFont("fonts/LED.ttf", 40, false);
@@ -208,17 +216,17 @@ void draw() {
 		image(halfTime, width/2, height/2 + 45, 230, 230);		
 	}
 	else if (lastCommandCode.equals(COMM_END_GAME)) {
-		image(gameOver, width/2, height/2 + 45, 230, 230);		
+		image(endGame, width/2, height/2 + 45, 230, 230);		
 	}
-	else if (lastCommandCode.equals(COMM_SUBSTITUTION)) {
-		image(substitution, width/2, height/2 + 45, 230, 230);		
+	else if (lastCommandCode.equals(COMM_GAMEOVER)) {
+		image(gameOver, width/2, height/2 + 45, 230, 230);		
 	}
 	else if (lastCommandCode.equals(COMM_RESET)) {
 		image(preGame, width/2, height/2 + 45, 230, 230);		
 	}
 	else if (lastCommandCode.equals(COMM_KICKOFF)) {
 		if (teamA.longName.equals(lastCommandTeam)){ //<>//
-			image(kickOffLeft, width/2, height/2 + 25, 230, 230);		
+			image(kickOffLeft, width/2, height/2 + 25, 230, 230);		 //<>//
 		}
 		else {
 			image(kickOffRight, width/2, height/2 + 25, 230, 230);					
@@ -227,7 +235,7 @@ void draw() {
 	}
 	else if (lastCommandCode.equals(COMM_FREEKICK)) {
 		if (teamA.longName.equals(lastCommandTeam)){ //<>//
-			image(freeKickLeft, width/2, height/2 + 25, 230, 230);		
+			image(freeKickLeft, width/2, height/2 + 25, 230, 230);		 //<>//
 		}
 		else {
 			image(freeKickRight, width/2, height/2 + 25, 230, 230);					
@@ -236,7 +244,7 @@ void draw() {
 	}	
 	else if (lastCommandCode.equals(COMM_GOALKICK)) {
 		if (teamA.longName.equals(lastCommandTeam)){ //<>//
-			image(goalKickLeft, width/2, height/2 + 25, 230, 230);		
+			image(goalKickLeft, width/2, height/2 + 25, 230, 230);		 //<>//
 		}
 		else {
 			image(goalKickRight, width/2, height/2 + 25, 230, 230);					
@@ -245,7 +253,7 @@ void draw() {
 	}	
 	else if (lastCommandCode.equals(COMM_THROWIN)) {
 		if (teamA.longName.equals(lastCommandTeam)){ //<>//
-			image(throwInLeft, width/2, height/2 + 25, 230, 230);		
+			image(throwInLeft, width/2, height/2 + 25, 230, 230);		 //<>//
 		}
 		else {
 			image(throwInRight, width/2, height/2 + 25, 230, 230);					
@@ -254,7 +262,7 @@ void draw() {
 	}	
 	else if (lastCommandCode.equals(COMM_CORNER)) {
 		if (teamA.longName.equals(lastCommandTeam)){ //<>//
-			image(cornerKickLeft, width/2, height/2 + 25, 230, 230);		
+			image(cornerKickLeft, width/2, height/2 + 25, 230, 230);		 //<>//
 		}
 		else {
 			image(cornerKickRight, width/2, height/2 + 25, 230, 230);					
@@ -263,24 +271,39 @@ void draw() {
 	}	
 	else if (lastCommandCode.equals(COMM_PENALTY)) {
 		if (teamA.longName.equals(lastCommandTeam)){ //<>//
-			image(penaltyKickLeft, width/2, height/2 + 25, 230, 230);		
+			image(penaltyKickLeft, width/2, height/2 + 25, 230, 230);		 //<>//
 		}
 		else {
 			image(penaltyKickRight, width/2, height/2 + 25, 230, 230);					
 		}
 		text(lastCommandTeam, width/2, height/2 + 175);
 	}	
+	else if (lastCommandCode.equals(COMM_SUBSTITUTION)) {
+		if (teamA.longName.equals(lastCommandTeam)){ //<>//
+			image(substitutionLeft, width/2, height/2 + 25, 230, 230);		 //<>//
+		}
+		else {
+			image(substitutionRight, width/2, height/2 + 25, 230, 230);
+		}
+		text("ID: "+ lastRobotID, width/2, height/2 + 175);
+	}
+	else if (lastCommandCode.equals(COMM_ISALIVE)) {
+		if (teamA.longName.equals(lastCommandTeam)){ //<>//
+			image(isAliveLeft, width/2, height/2 + 25, 230, 230);		
+		}
+		else {
+			image(isAliveRight, width/2, height/2 + 25, 230, 230);					
+		}
+		text("ID: "+ lastRobotID, width/2, height/2 + 175);
 
+	}	
 /*
-	Description.set(COMM_END_PART, "End Part");
-	Description.set(COMM_GAMEOVER, "Game Over");
 	Description.set(COMM_WELCOME, "Welcome");
 	Description.set(COMM_FIRST_HALF, "1st half");
 	Description.set(COMM_SECOND_HALF, "2nd half");
 	Description.set(COMM_FIRST_HALF_OVERTIME, "Overtime 1st half");
 	Description.set(COMM_SECOND_HALF_OVERTIME, "Overtime 2nd half");
 	Description.set(COMM_PARK, "Park");
-	Description.set(COMM_ISALIVE, "Is Alive");
 */	
 	else{
 		fill(#E0F000);
@@ -296,7 +319,8 @@ void draw() {
 		textAlign(CENTER, CENTER);
 		text(description, width/2, height/2 + 10);
 		//team dest command
-		textFont(teamFont, 35);
+
+		textFont(teamFont, 30);
 		textAlign(CENTER, CENTER-5);
 		text(lastCommandTeam, width/2, height/2 + 100);
 		if(lastRobotID != -1)
