@@ -21,7 +21,7 @@ public static final String MSG_SUBS="Substitute Players";
 public static final String MSG_WAIT="Please WAIT! Compressing files.";
 public static final String MSG_CONFIG="Configurations";
 public static String MSG_HELP="SHORT CUT KEYS:";
-public static final String MSG_ISALIVE="Command under development";
+public static final String MSG_ISALIVE="Is Alive Proof Command";
 
 public static final int appFrameRate = 25;
 
@@ -53,12 +53,13 @@ public static ScoreClients scoreClients = null;
 public static MyServer BaseStationServer;
 public static Client connectingClient = null;
 
-public static Team teamA,teamB;
+public static Team teamA, teamB, cTeam;
 public static Button[] bTeamAcmds = new Button[CMDID_TEAM_LENGHT];
 public static Button[] bTeamBcmds = new Button[CMDID_TEAM_LENGHT];
 public static Button[] bCommoncmds = new Button[CMDID_COMMON_LENGHT];
 public static BSliders[] bSlider = new BSliders[4];
 public static Textbox[] tBox = new Textbox[6];
+public static Textbox tBoxIsAlive; 
 public static String previousNameTeamA, previousNameTeamB;
 
 public static Table teamstable;
@@ -76,7 +77,7 @@ public static final int popUpButtons = 11;					// Currently defined number of Po
 public static Button[] bPopup = new Button[popUpButtons];	// button 0 is reserved.
 public static PVector offsetLeft= new PVector(230, 180);
 public static PVector offsetRight= new PVector(760, 180);
-public static PFont buttonFont, clockFont, panelFont, scoreFont, debugFont, teamFont, watermark;
+public static PFont buttonFont, clockFont, panelFont, scoreFont, debugFont, teamFont, textFont;
 
 // public static PImage backgroundImage;
 public PImage backgroundImage;
@@ -90,7 +91,9 @@ public PImage rcfLogo;
 // Watches as timers
 public static StopWatch mainWatch;            // Main watch allways running. Reseted @end-of-parts and end-halfs
 public static StopWatch playTimeWatch;        // Actual played time. Reseted @end-of-parts and end-halfs
-public static StopWatch SetPieceDelay;        // Timer for measuring set piece restart
+public static StopWatch setPieceDelay;        // Timer for measuring set piece restart
+public static StopWatch blinkTab;        	  // Timer for blinkking tab in textBoxes
+public static boolean blinkStatus = false;	  // Defines if bertical tab should be show\
 
 // Sounds
 public static AudioChannel soundMaxTime;
@@ -139,7 +142,7 @@ void setup() {
 	teamFont=loadFont("fonts/Futura-CondensedExtraBold-52.vlw");
 	panelFont=loadFont("fonts/Futura-CondensedExtraBold-20.vlw");
 	debugFont=loadFont("fonts/Monaco-14.vlw");
-	watermark=createFont("Arial", 112, false);
+	textFont=createFont("Arial", 22, true);
 
 	createDir(mainApplet.dataPath("tmp/"));
 	createDir(mainApplet.dataPath("logs/"));
@@ -152,7 +155,7 @@ void setup() {
 
 	scoreClients = new ScoreClients(this);        // Load score clients server
 	BaseStationServer = new MyServer(this, Config.basestationServerPort); // Load basestations server
-//	mslRemote = new MSLRemote(this, Config.remoteServerPort);             // Load module for MSL remote control
+	//	mslRemote = new MSLRemote(this, Config.remoteServerPort);             // Load module for MSL remote control
 
 	teamA = new Team(Config.defaultLeftTeamColor,true);                   // Initialize Left team (Team A)
 	teamB = new Team(Config.defaultRightTeamColor,false);               // Initialize Right team (Team B)
@@ -171,8 +174,11 @@ void setup() {
 	playTimeWatch.resetStopWatch();
 	playTimeWatch.startSW();
 
-	SetPieceDelay = new StopWatch(true, 0, true, false);
+	setPieceDelay = new StopWatch(true, 0, true, false);
 	
+	blinkTab = new StopWatch(true, 0, true, false);
+	blinkTab.startTimer(Config.blinkTime_ms);
+
 	frameRate(appFrameRate);
 
 	MSG_HELP += "\nSpaceTab > Force STOP action";
@@ -210,10 +216,16 @@ void draw() {
 	// Update Timers and Watches
 	mainWatch.updateStopWatch();
 	playTimeWatch.updateStopWatch();
-	SetPieceDelay.updateStopWatch();
+	setPieceDelay.updateStopWatch();
+	blinkTab.updateStopWatch();
 
 	long t1 = mainWatch.getTimeSec();
 	long t2 = playTimeWatch.getTimeSec();
+	long t3 = blinkTab.getTimeMs();	
+	if (t3 == 0){
+		blinkTab.startTimer(Config.blinkTime_ms);
+		blinkStatus = !blinkStatus;
+	}
 
 	gametime = nf(int(t1/60), 2)+":"+nf(int(t1%60), 2);
 	gameruntime = nf(int(t2/60), 2)+":"+nf(int(t2%60), 2);
@@ -285,9 +297,9 @@ void draw() {
 
 	//==========================================
 
-	if(SetPieceDelay.getStatus() && SetPieceDelay.getTimeMs() == 0)
+	if(setPieceDelay.getStatus() && setPieceDelay.getTimeMs() == 0)
 	{
-		SetPieceDelay.stopTimer();
+		setPieceDelay.stopTimer();
 		soundMaxTime.cue(0);
 		soundMaxTime.play();
 	}
@@ -311,6 +323,8 @@ void draw() {
 			tBox[i].update();
 		}
 	}
+	
+	if (tBoxIsAlive.visible) tBoxIsAlive.update();
 
 	RefreshButonStatus1(); // Refresh buttons
 
@@ -416,12 +430,12 @@ void initGui()
 	bPopup[8] = new Button(0, 0, "OK", 220, #6D9C75, 0, #6D9C75,"","","",""); 
 	bPopup[8].setdim(80, 48);
 	bPopup[9] = new Button(0, 0, "Apply", 220, #6D9C75, 0, #6D9C75,"","","",""); 
-	bPopup[9].setdim(80, 48);
+	bPopup[9].setdim(90, 48);
 	bPopup[10] = new Button(0, 0, "Cancel", 220, #6D9C75, 0, #6D9C75,"","","",""); 
-	bPopup[10].setdim(80, 48);
+	bPopup[10].setdim(90, 48);
 
 	for (int n = 0; n < popUpButtons; n++)
-		bPopup[n].disable();
+	bPopup[n].disable();
 	//bSlider[0]=new BSliders("Testmode",420,460,true, TESTMODE);
 	//bSlider[1]=new BSliders("Log",420+132,460,true, Log.enable);
 	//bSlider[2]=new BSliders("Remote",420,460+32,Config.remoteControlEnable, REMOTECONTROLENABLE);
@@ -431,12 +445,13 @@ void initGui()
 	bSlider[2]=new BSliders("Remote",420,460+32-120,false, REMOTECONTROLENABLE);
 	bSlider[3]=new BSliders("Coach",420+132,460+32-120,false, VOICECOACH);
 
-	tBox[0] = new Textbox(width/4, height/2 - 60, 100, 1, false);
-	tBox[1] = new Textbox(width/4, height/2, 100, 1, false);
-	tBox[2] = new Textbox(width/4, height/2 + 60, 100, 1, false);
-	tBox[3] = new Textbox(width/4*3, height/2 - 60, 100, 1, false);
-	tBox[4] = new Textbox(width/4*3, height/2, 100, 1, false);
-	tBox[5] = new Textbox(width/4*3, height/2 + 60, 100, 1, false);
+	tBox[0] = new Textbox(width/4 +24, height/2 + 5, 100, 1, false);
+	tBox[1] = new Textbox(width/4*3 -24, height/2 + 5, 100, 1, false);
+	tBox[2] = new Textbox(width/4 + 24, height/2 + 55, 100, 1, false);
+	tBox[3] = new Textbox(width/4*3 - 24, height/2 + 55, 100, 1, false);
+	tBox[4] = new Textbox(width/4 + 24, height/2 + 105, 100, 1, false);
+	tBox[5] = new Textbox(width/4*3 - 24, height/2 + 105, 100, 1, false);
+	tBoxIsAlive = new Textbox(width / 2 + 80, height/2 + 8, 100, 1, false);
 
 	textFont(debugFont);
 	fill(#ffffff);

@@ -297,7 +297,7 @@ void buttonEvent(char group, int pos) {
 		StateMachine.Update(clickedButton, btnOn);
 		
 		if(soundMaxTime != null && clickedButton.isStart()) {
-			SetPieceDelay.startTimer(Config.setPieceMaxTime_ms);
+			setPieceDelay.startTimer(Config.setPieceMaxTime_ms);
 			println ("Millis: " + Config.setPieceMaxTime_ms); 
 		}
 		

@@ -1,6 +1,8 @@
+
 class Textbox {
 	float x, y, width, height;
-	String value = "0";
+//	String value = "0";
+	String value = "";
 	boolean visible;
 	boolean clickedLast = false;
 
@@ -13,24 +15,57 @@ class Textbox {
 	}
 
 	void update() {
+		if (value.length() > 2) {
+			value = value.substring(0, 2);
+		}
 		rectMode(CENTER);
 		textAlign(LEFT, CENTER);
-		textFont(buttonFont);
+//		textFont(buttonFont);
+		textFont(textFont);
 		strokeWeight(2);
-		if (clickedLast) {
-			fill(100);   
+		stroke(255);
+		if (clickedLast){
+			fill(210);   
 			rect(x, y, width, height);
+			stroke(100);
+			line(x - width/2, y + height/2, x - width/2, y - height/2);
+			stroke(70);
+			line(x - width/2, y - height/2, x + width/2, y - height/2);
+			stroke(220);
+			line(x + width/2, y - height/2, x + width/2, y + height/2);
+			stroke(250);
+			line(x + width/2, y + height/2, x - width/2, y + height/2);			
 		}
 		else {
-			fill(255);   
-			rect(x, y, width, height);
+			fill(120);   
+			rect(x, y, width, height);	
+			stroke(50);
+			line(x - width/2, y + height/2, x - width/2, y - height/2);
+			stroke(20);
+			line(x - width/2, y - height/2, x + width/2, y - height/2);
+			stroke(170);
+			line(x + width/2, y - height/2, x + width/2, y + height/2);
+			stroke(200);
+			line(x + width/2, y + height/2, x - width/2, y + height/2);			
 		}
 		fill(1);
-		if (value.charAt(0) == '0' && value.length() > 1) {
-			value = value.substring(1, value.length());
+		text(value, x - width/2 + 6, y - 2);
+		if (clickedLast) {
+			strokeWeight(1);
+			if (blinkStatus == true){
+				stroke(0);
+			}
+			else
+			{
+				stroke(210);			
+			}
+			float a = textAscent() * 1;  // Calc ascent
+			float cw = textWidth(value);
+			float xOffset = x - width/2 + 6 + cw;
+			line (xOffset, y + (a * 0.5), xOffset, y - (a * 0.5));			
 		}
-		text(value, x - width/2 + 8, y);
 	}
+	
 
 	boolean checkInput() {
 		char[] input = value.toCharArray();

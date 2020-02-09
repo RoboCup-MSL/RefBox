@@ -262,6 +262,11 @@ class Team {
 
 	//*******************************************************************
 	void substitute(int robotID) {    
+		if (robotID > 0){
+			send_event_v2(""+COMM_SUBSTITUTION, "substituting", this, robotID);
+			println("substituting robot " + robotID + " (on field) for robot (outside field)");
+		}
+/* @mbc Robot IDs are virtual [0 to 4] and corresponds to each of the circles in the interface
 		for (int i = 0; i < r.length; i++) {
 			if (this.r[i].state.equals("play") || this.r[i].state.equals("yellow")) {    // only robots that are in play can substitute
 				send_event_v2(""+COMM_SUBSTITUTION, "substituting", this, robotID);
@@ -269,9 +274,9 @@ class Team {
 				println("substituting robot " + i + " (on field) for robot " + robotID + " (outside field)");
 				break;
 			}
-		}
+		}  */
 	}
-
+	
 	//*******************************************************************
 	public int numberOfPlayingRobots()
 	{
@@ -326,27 +331,6 @@ class Team {
 		for (int i=0; i<5; i++)
 			r[i].updateUI(colorTeam,isLeft);
 		
-		//@mbc
-/*		float tx;
-		float ty;			
-		stroke(colorTeam); 
-		stroke(96);
-		strokeWeight(3);
-		color rcolor=230;
-		//fill(rcolor);
-		fill(194);
-		if (isLeft) {
-			tx=offsetLeft.x - 165 + 28;
-			ty=offsetLeft.y + 218;			
-		}
-		else {
-			tx=offsetRight.x + 106 + 28;
-			ty=offsetLeft.y + 218;			
-		}
-		ellipse(tx, ty, 42, 42);  
-		imageMode(CENTER);
-		image(skullImageOff, tx, ty, 26, 26);
-*/
 		textAlign(LEFT, BOTTOM);
 		textFont(debugFont);
 		fill(#ffff00);

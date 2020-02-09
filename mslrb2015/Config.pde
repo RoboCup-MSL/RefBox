@@ -39,8 +39,9 @@ static class Config
 	public static String defaultRightTeamLongName = "Right";
 	public static String defaultRightTeam = "TeamRight";
 
-	// Sounds
+	// Sounds & others
 	public static String sounds_maxTime = "";
+	public static int blinkTime_ms = 500;
 
 	public static void Load(PApplet parent, String filename)
 	{

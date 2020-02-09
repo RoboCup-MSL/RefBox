@@ -48,7 +48,13 @@ static class StateMachine
 
 			case POPUP_ALIVE:
 				{
+					if (Popup.getResponse().equals("OK") && tBoxIsAlive.value.length() > 0) {
+						int rid = int(tBoxIsAlive.value);
+						if (rid > 0) send_event_v2(""+COMM_ISALIVE, Description.get(COMM_ISALIVE), cTeam, rid);
+					}
 					Popup.close();
+					tBoxIsAlive.hide();
+					tBoxIsAlive.value = "";
 					buttonFromEnum(ButtonsEnum.BTN_START).disable();
 					setpiece = false;
 					break;
@@ -82,8 +88,8 @@ static class StateMachine
 						gsPrev = saveGS;
 						mainWatch.resetStopWatch();
 						playTimeWatch.resetStopWatch();
-						SetPieceDelay.resetStopWatch();
-						SetPieceDelay.stopTimer();
+						setPieceDelay.resetStopWatch();
+						setPieceDelay.stopTimer();
 						switch(gsCurrent)
 						{
 							case GS_HALFTIME:
@@ -176,8 +182,8 @@ static class StateMachine
 						if (validInput) {
 							for (int t = 0; t < tBox.length; t++)
 							{
-								if (tBox[t].value != "0") {
-									if (t < 3) {
+								if (tBox[t].value.length() > 0) {
+									if (t % 2 == 0) {
 										if(!teamA.newSubstitution) teamA.newSubstitution = true;
 										teamA.substitute(int(tBox[t].value));
 									}
@@ -186,11 +192,11 @@ static class StateMachine
 										teamB.substitute(int(tBox[t].value));
 									}
 								}
-								tBox[t].value = "0";
+								tBox[t].value = "";
 								tBox[t].hide();
 							}
 							if (teamA.newSubstitution || teamB.newSubstitution) {
-								SetPieceDelay.startTimer(Config.substitutionMaxTime_ms);
+								setPieceDelay.startTimer(Config.substitutionMaxTime_ms);
 								println ("Substitution timer (s): " + Config.substitutionMaxTime_ms/1000);
 							}
 							Popup.close();
@@ -199,7 +205,7 @@ static class StateMachine
 					else if (Popup.getResponse().equals("Cancel")) {
 						for (int t = 0; t < tBox.length; t++)
 						{
-							tBox[t].value = "0";
+							tBox[t].value = "";
 							tBox[t].hide();
 						}
 						validInput = true;
@@ -257,7 +263,13 @@ static class StateMachine
 			}
 			else if(btnCurrent.isAlive())
 			{
-				Popup.show(PopupTypeEnum.POPUP_ALIVE, MSG_ISALIVE, 0, 8, 0, 24, 380, 200);
+				if(btnCurrent.isLeft())
+					cTeam = teamA;
+				else
+					cTeam = teamB;
+				Popup.show(PopupTypeEnum.POPUP_ALIVE, MSG_ISALIVE, 8, 10, 0, 24, 380, 230);
+				tBoxIsAlive.show();
+				tBoxIsAlive.clicked();
 //				done = true;
 //				return;
 			}
@@ -306,18 +318,18 @@ static class StateMachine
 			}
 			else if(btnCurrent.isStop())
 			{
-				SetPieceDelay.resetStopWatch();
-				SetPieceDelay.stopTimer();
+				setPieceDelay.resetStopWatch();
+				setPieceDelay.stopTimer();
 				forceKickoff = false; 
 			}
 			else if(btnCurrent.isSubs())
 			{
-				Popup.show(PopupTypeEnum.POPUP_SUBS, MSG_SUBS, 9, 10, 0, 24, 840, 600);
+				Popup.show(PopupTypeEnum.POPUP_SUBS, MSG_SUBS, 9, 10, 0, 24, 680, 320);
 				for (int t = 0; t < tBox.length; t++)
 				{
 					tBox[t].show();
 				}
-				
+				tBox[0].clicked();
 			}
 			else if(btnCurrent.isConfig())
 			{
@@ -347,8 +359,8 @@ static class StateMachine
 				{
 					mainWatch.resetStopWatch();
 					playTimeWatch.resetStopWatch(); 
-					SetPieceDelay.resetStopWatch();	
-					SetPieceDelay.stopTimer();			
+					setPieceDelay.resetStopWatch();	
+					setPieceDelay.stopTimer();			
 					nextGS = SwitchRunningStopped();
 					switch(nextGS)
 					{
@@ -393,8 +405,8 @@ static class StateMachine
 				else if(btnCurrent.isStop()) 
 				{
 					ResetSetpiece();
-					SetPieceDelay.resetStopWatch();
-					SetPieceDelay.stopTimer();
+					setPieceDelay.resetStopWatch();
+					setPieceDelay.stopTimer();
 				}
 				else if(btnCurrent.isEndPart()){
 					nextGS = SwitchGamePart();
@@ -422,8 +434,8 @@ static class StateMachine
 					SetSetpiece(btnCurrent.isLeft(), btnCurrent);
 				else if(btnCurrent.isStop()) {
 					ResetSetpiece();
-					SetPieceDelay.resetStopWatch();
-					SetPieceDelay.stopTimer();
+					setPieceDelay.resetStopWatch();
+					setPieceDelay.stopTimer();
 				}
 				else if(btnCurrent.isEndPart())
 					nextGS = SwitchGamePart();
@@ -435,8 +447,8 @@ static class StateMachine
 				if(setpiece)
 					ResetSetpiece(); //<>// //<>//
 				if(btnCurrent.isStop()){
-					SetPieceDelay.resetStopWatch();	
-					SetPieceDelay.stopTimer();			
+					setPieceDelay.resetStopWatch();	
+					setPieceDelay.stopTimer();			
 					nextGS = SwitchRunningStopped();
 				}
 				break;
@@ -576,8 +588,8 @@ static class StateMachine
 			teamB.resetname();        
 			mainWatch.resetStopWatch();
 			playTimeWatch.resetStopWatch();
-			SetPieceDelay.resetStopWatch();
-			SetPieceDelay.stopTimer();
+			setPieceDelay.resetStopWatch();
+			setPieceDelay.stopTimer();
 		} catch(Exception e) {}
 	}
 
