@@ -179,6 +179,35 @@ static class StateMachine
 							}
 							validInput = true;
 						}
+						if (validInput == true){
+							for (int t = 0; t < (tBox.length - 2); t++)
+							{
+								for (int j = t+1; j < tBox.length; j++)
+								{
+									if (t % 2 == 0){
+										if (j % 2 == 0){
+											if (tBox[t].value.length() > 0 && tBox[j].value.length() > 0) {
+												if (int(tBox[t].value) == int(tBox[j].value)){
+													validInput = false;
+													break;									
+												}
+											}
+										}
+									} else {
+										if (j % 2 == 1){
+											if (tBox[t].value.length() > 0 && tBox[j].value.length() > 0) {
+												if (int(tBox[t].value) == int(tBox[j].value)){
+													validInput = false;
+													break;									
+												}
+											}										
+										}								
+									}								
+								}
+								if (validInput == false) break;
+							}
+						}
+
 						if (validInput) {
 							for (int t = 0; t < tBox.length; t++)
 							{
@@ -200,7 +229,10 @@ static class StateMachine
 								println ("Substitution timer (s): " + Config.substitutionMaxTime_ms/1000);
 							}
 							Popup.close();
-						}            
+						}
+						else{
+							break;
+						}
 					}
 					else if (Popup.getResponse().equals("Cancel")) {
 						for (int t = 0; t < tBox.length; t++)
@@ -324,12 +356,26 @@ static class StateMachine
 			}
 			else if(btnCurrent.isSubs())
 			{
-				Popup.show(PopupTypeEnum.POPUP_SUBS, MSG_SUBS, 9, 10, 0, 24, 680, 320);
-				for (int t = 0; t < tBox.length; t++)
-				{
-					tBox[t].show();
+				if ((teamA.nOfSubstitutions + teamB.nOfSubstitutions) < 6) {
+					Popup.show(PopupTypeEnum.POPUP_SUBS, MSG_SUBS, 9, 10, 0, 24, 680, 320);
+					for (int t = 0; t < tBox.length; t++)
+					{	
+						if (t % 2 == 0){
+							if ((t / 2) < (3 - teamA.nOfSubstitutions)){
+								tBox[t].show();
+							}
+						}
+						else {
+							if ((t / 2) < (3 - teamB.nOfSubstitutions)){
+								tBox[t].show();
+							}
+						}
+					}
+					if (teamA.nOfSubstitutions < 3) 
+						tBox[0].clicked();				
+					else
+						tBox[1].clicked();
 				}
-				tBox[0].clicked();
 			}
 			else if(btnCurrent.isConfig())
 			{
@@ -421,7 +467,7 @@ static class StateMachine
 			case GS_GAMEON_H3:
 			case GS_GAMEON_H4:
 				if(setpiece)
-				ResetSetpiece();
+					ResetSetpiece();
 				
 				if(btnCurrent == ButtonsEnum.BTN_STOP)		// Button stop pressed
 				{

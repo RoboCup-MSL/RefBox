@@ -72,7 +72,8 @@ class Textbox {
 		if (input.length > 2) return false;    // If input is more than 2 numbers
 		for (int i = 0; i < input.length; i++) {
 			if (input[i] < 48 || input[i] > 57) return false;    // ASCII values of 0 (48) and 99 (57)
-		} return true;
+		} 
+		return true;
 	}
 
 	boolean mouseover() {

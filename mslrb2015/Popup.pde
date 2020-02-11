@@ -206,7 +206,7 @@ static class Popup
 			mainApplet.fill(220);
 			if (!StateMachine.validInput) {
 				mainApplet.fill(#E03030);    // Red card color
-				mainApplet.text("Invalid robot number! Please enter values between 0 and 99", mainApplet.width/2, mainApplet.height/2 + 150, 220, 1200);
+				mainApplet.text("Duplicate robot numbers! Please check that!", mainApplet.width/2, mainApplet.height/2, 220, 1200);
 			}
 		}
 		else if (type == PopupTypeEnum.POPUP_ALIVE) {

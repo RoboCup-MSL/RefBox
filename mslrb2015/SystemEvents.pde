@@ -2,7 +2,7 @@
 void mousePressed() {
 
 	for (int i=0; i<tBox.length; i++) {
-		if (tBox[i].mouseover()) {
+		if (tBox[i].mouseover() && tBox[i].visible == true) {
 			tBox[i].clicked();
 		}
 		else {
@@ -100,7 +100,9 @@ void keyPressed() {
 			}
 			if (key == TAB){
 				tBox[i].unclicked();
-				if (++i >= tBox.length) i = 0;
+				do
+					if (++i >= tBox.length) i = 0;
+				while (tBox[i].visible == false);
 				tBox[i].clicked();
 				break;
 			}

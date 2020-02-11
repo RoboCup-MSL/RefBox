@@ -10,6 +10,7 @@ class Team {
 	public int RepairCount;
 	public int nOfRepairs;
 	int tableindex=0;
+	public int nOfSubstitutions;
 	org.json.JSONObject worldstate_json;
 	String wsBuffer;
 	Robot[] r=new Robot[5];
@@ -89,6 +90,7 @@ class Team {
 		this.YellowCardCount=0;
 		this.DoubleYellowCardCount=0;
 		this.PenaltyCount=0;
+		this.nOfSubstitutions = 0;
 		this.newYellowCard=false;
 		this.newRedCard=false;
 		this.newRepair=false;
@@ -264,7 +266,8 @@ class Team {
 	void substitute(int robotID) {    
 		if (robotID > 0){
 			send_event_v2(""+COMM_SUBSTITUTION, "substituting", this, robotID);
-			println("substituting robot " + robotID + " (on field) for robot (outside field)");
+			this.nOfSubstitutions++;
+			println("substituting robot " + robotID + " (on field) for robot (outside field) - " + nOfSubstitutions + " done.");
 		}
 /* @mbc Robot IDs are virtual [0 to 4] and corresponds to each of the circles in the interface
 		for (int i = 0; i < r.length; i++) {
