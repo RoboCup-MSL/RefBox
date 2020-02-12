@@ -2,7 +2,7 @@
 void mousePressed() {
 
 	for (int i=0; i<tBox.length; i++) {
-		if (tBox[i].mouseover()) {
+		if (tBox[i].mouseover() && tBox[i].visible == true) {
 			tBox[i].clicked();
 		}
 		else {
@@ -88,25 +88,57 @@ void mouseMoved() {
 void keyPressed() {
 
 	// TODO: only accept numbers for textbox value
-	for (int i=0; i<tBox.length; i++) {
+	for (int i = 0; i < tBox.length; i++) {
 		if (tBox[i].clickedLast && tBox[i].visible) {
-			if (key == BACKSPACE && tBox[i].value.length() > 1) {
-				tBox[i].value = tBox[i].value.substring(0, tBox[i].value.length() - 1);
+			if (key == BACKSPACE) {
+				if (tBox[i].value.length() > 1){
+					tBox[i].value = tBox[i].value.substring(0, tBox[i].value.length() - 1);
+				}
+				else {
+					tBox[i].value = "";
+				} 
 			}
-			else if (key == BACKSPACE && tBox[i].value.length() == 1) {
-				tBox[i].value = "0";
+			if (key == TAB){
+				tBox[i].unclicked();
+				do
+					if (++i >= tBox.length) i = 0;
+				while (tBox[i].visible == false);
+				tBox[i].clicked();
+				break;
 			}
-			else {
+			else if (key >= '0' && key <= '9') {
 				tBox[i].value += key;
 			}
-			String number = tBox[i].value;
 		}
 	}
+	if (tBoxIsAlive.visible) {
+		if (key == BACKSPACE) {
+			if (tBoxIsAlive.value.length() > 1){
+				tBoxIsAlive.value = tBoxIsAlive.value.substring(0, tBoxIsAlive.value.length() - 1);
+			}
+			else {
+				tBoxIsAlive.value = "";
+			} 
+		}
+		else if (key >= '0' && key <= '9') {
+			tBoxIsAlive.value += key;
+		}
+	}
+
+	
 	if (key == ESC){
 		key = 0; 		//disable quit on ESC
 		// Close popup
-		if(Popup.isEnabled()) 
-		Popup.close();
+		if(Popup.isEnabled()) {
+			for (int t = 0; t < tBox.length; t++)
+			{
+				tBox[t].value = "";
+				tBox[t].hide();
+			}
+			tBoxIsAlive.hide();
+			Popup.close();			
+		}
+			
 	}
 	if (key == 32){
 		key = 0; 		

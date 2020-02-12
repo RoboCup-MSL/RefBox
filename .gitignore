@@ -17,3 +17,6 @@ mslrb2015/fonts.txt
 mslrb2015/fonts.txt
 *.txt
 mslrb2015/C
+mslrb2015/RefBox
+RefereeClient/RefClientSession
+*.autosave

@@ -11,10 +11,10 @@ public class StopWatch {
 	
 	// StopWatch constructor
 	// Parameters:
+	//        isTimer - Bollean that, when true indicates that the stopWatch works as a Timer
 	//        startValue - expressed in seconds, can be greater or equal to zero
 	//        coT -a boolean that determines if time counting is continuous or stops during game stoppage time
 	//             see countOffTime
-	//      isTimer - Bollean that, when true indicates that the stopWatch works as a Timer
 	//        startUp - Boolean. If true the stopWatch starts imediatly
 	public StopWatch(boolean isTimer, long startValue, boolean cOT, boolean startUp) 
 	{

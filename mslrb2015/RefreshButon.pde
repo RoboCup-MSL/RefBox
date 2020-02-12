@@ -223,7 +223,10 @@ void refreshbutton_game_stopped()
 			bCommoncmds[CMDID_COMMON_RESET].disable();  
 			bTeamAcmds[CMDID_TEAM_GOAL].enable();
 			bTeamBcmds[CMDID_TEAM_GOAL].enable();
-			bCommoncmds[CMDID_COMMON_SUBS].enable();
+			if ((teamA.nOfSubstitutions + teamB.nOfSubstitutions) < 6) 
+				bCommoncmds[CMDID_COMMON_SUBS].enable();
+			else
+				bCommoncmds[CMDID_COMMON_SUBS].disable();
 			buttonCSTARTdisable();            // Turn OFF START button  
 		}
 		else

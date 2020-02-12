@@ -66,7 +66,7 @@ static class Popup
 	public static void close()
 	{
 		for (int n = 0; n < popUpButtons; n++)
-		bPopup[n].disable();
+			bPopup[n].disable();
 		enabled = false;
 		mainApplet.redraw();
 		
@@ -114,6 +114,13 @@ static class Popup
 		mainApplet.fill(63, 72, 204);
 		mainApplet.stroke(220, 220, 220);
 		mainApplet.rect(mainApplet.width/2, mainApplet.height/2, popUpWidth, popUpHeight, 12);		
+
+		int mwx = mainApplet.width/2;
+		int mwxOffset = popUpWidth / 3;
+		int hw = 0;
+		if (bw1 > 0) hw = bw1 / 2;
+		else if (bw2 > 0) hw = bw2 / 2;
+		else hw = bw3 / 2;
 		
 		if (type == PopupTypeEnum.POPUP_SUBS) {
 			mainApplet.fill(Config.defaultLeftBackgroundColor);
@@ -121,17 +128,13 @@ static class Popup
 			mainApplet.fill(Config.defaultRightBackgroundColor);
 			mainApplet.rect(mainApplet.width/2 + popUpWidth/3, mainApplet.height/2, popUpWidth/3, popUpHeight, 12);
 			mainApplet.fill(200);
-			mainApplet.rect(mainApplet.width/4, mainApplet.height/2 - 100, 140, 24);
-			mainApplet.rect(mainApplet.width/4*3, mainApplet.height/2 - 100, 140, 24);
+			mainApplet.rect(mwx - mwxOffset, mainApplet.height/2 - 40, 140, 24);
+			mainApplet.rect(mwx + mwxOffset, mainApplet.height/2 - 40, 140, 24);
 		}
-
-		int hw = 0;
-		if (bw1 > 0) hw = bw1 / 2;
-		else if (bw2 > 0) hw = bw2 / 2;
-		else hw = bw3 / 2;
 		
 		int delta = (popUpWidth - bw1 - bw2 - bw3) / (numOfButtons + 1);
 		int leftOffset = (mainApplet.width / 2 - popUpWidth / 2) + delta + hw;
+		
 		if (bPopup[b1].isEnabled()) {
 			if (type == PopupTypeEnum.POPUP_HELP) {
 				bPopup[b1].setxy(leftOffset, mainApplet.height/2+78);
@@ -140,7 +143,10 @@ static class Popup
 				bPopup[b1].setxy(leftOffset, mainApplet.height/2 + 85);
 			}
 			else if (type == PopupTypeEnum.POPUP_SUBS) {
-				bPopup[b1].setxy(leftOffset + delta/2 - 20, mainApplet.height/2 + 240);
+				bPopup[b1].setxy(mwx + 3 - mwxOffset / 4, mainApplet.height / 2 + popUpHeight  / 3);
+			}
+			else if (type == PopupTypeEnum.POPUP_ALIVE) {
+				bPopup[b1].setxy(mwx  - mwxOffset / 2, mainApplet.height / 2 + popUpHeight * 3 / 10 + 3);
 			}
 			else {
 				bPopup[b1].setxy(leftOffset, mainApplet.height/2+40);
@@ -149,7 +155,10 @@ static class Popup
 		}
 		if (bPopup[b2].isEnabled()) {
 			if (type == PopupTypeEnum.POPUP_SUBS) {
-				bPopup[b2].setxy(leftOffset - delta/2 + 20, mainApplet.height/2 + 240);
+				bPopup[b2].setxy(mwx - 3 + mwxOffset / 4, mainApplet.height / 2 + popUpHeight / 3);
+			}
+			else if (type == PopupTypeEnum.POPUP_ALIVE) {
+				bPopup[b2].setxy(mwx + mwxOffset / 2, mainApplet.height / 2 + popUpHeight * 3 / 10 + 3);
 			}
 			else {
 				bPopup[b2].setxy(leftOffset, mainApplet.height/2+40);
@@ -185,19 +194,26 @@ static class Popup
 			mainApplet.text( message, mainApplet.width/2, mainApplet.height/2 - 90);
 		}
 		else if (type == PopupTypeEnum.POPUP_SUBS) {
-			mainApplet.text( message, mainApplet.width/2, mainApplet.height/2 - 150);
+			
+			mainApplet.text( message, mainApplet.width/2, mainApplet.height/2 - 130);
 			mainApplet.textSize(1.2*fontSize);
-			mainApplet.text( "Team A", popUpWidth/4, mainApplet.height/2 - 220);
-			mainApplet.text( "Team B", mainApplet.width - popUpWidth/4, mainApplet.height/2 - 220);
+			mainApplet.text( teamA.shortName, mwx - mwxOffset, mainApplet.height/2 - 90);
+			mainApplet.text( teamB.shortName, mwx + mwxOffset, mainApplet.height/2 - 90);
 			mainApplet.fill(0);
 			mainApplet.textSize(0.8*fontSize);
-			mainApplet.text( "Robot number", mainApplet.width/4, mainApplet.height/2 - 100);
-			mainApplet.text( "Robot number", mainApplet.width/4*3, mainApplet.height/2 - 100);
+			mainApplet.text( "Robot number", mwx - mwxOffset, mainApplet.height/2 - 40);
+			mainApplet.text( "Robot number", mwx + mwxOffset, mainApplet.height/2 - 40);
 			mainApplet.fill(220);
 			if (!StateMachine.validInput) {
 				mainApplet.fill(#E03030);    // Red card color
-				mainApplet.text("Invalid robot number! Please enter values between 0 and 99", mainApplet.width/2, mainApplet.height/2 + 150, 220, 1200);
+				mainApplet.text("Duplicate robot numbers! Please check that!", mainApplet.width/2, mainApplet.height/2, 220, 1200);
 			}
+		}
+		else if (type == PopupTypeEnum.POPUP_ALIVE) {
+			mainApplet.text( cTeam.longName, mwx, mainApplet.height/2 - 40);
+			mainApplet.text( "Robot number:", mwx - 68, mainApplet.height/2 + 8);	
+			mainApplet.textSize(1.2*fontSize);
+			mainApplet.text( message, mainApplet.width/2, mainApplet.height/2 - 78);
 		}
 		else {
 			mainApplet.text( message, mainApplet.width/2, mainApplet.height/2 - 50);
