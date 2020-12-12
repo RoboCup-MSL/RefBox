@@ -2,19 +2,6 @@
  *  Uses the same JSON communication protocol as communication with base stations */
 static class AutoReferee
 {
-  private enum MessageTarget {
-    BOTH_TEAMS,
-    TEAM_A,
-    TEAM_B,
-    UNKNOWN
-  }
-  
-  private enum CommandHandling {
-    IGNORE, /* No state change + automatic referee cannot request this */
-    UPDATE_STATE, /* Update state, communication will be done in StateMachine */
-    UPDATE_SEND, /* Update state and send command to teams */
-  }
-  
   Client refereeClient;
   MyServer refereeServer = new MyServer(mainApplet, Config.autoRefereeServerPort);
   
@@ -26,10 +13,7 @@ static class AutoReferee
   MessageTarget targetTeam = MessageTarget.UNKNOWN;
 
   public void checkIncomingMessages() {
-    // Todo check if client is connecting
-    // Todo check if client is null
     refereeClient = refereeServer.available();
-    
     if (refereeClient == null) return;
     
     String msg = new String(refereeClient.readBytes());
@@ -178,4 +162,17 @@ static class AutoReferee
       // StateMachine handles sending these events
     }
   } //<>// //<>//
+}
+
+private enum MessageTarget {
+  BOTH_TEAMS,
+  TEAM_A,
+  TEAM_B,
+  UNKNOWN
+}
+
+private enum CommandHandling {
+  IGNORE, /* No state change + automatic referee cannot request this */
+  UPDATE_STATE, /* Update state, communication will be done in StateMachine */
+  UPDATE_SEND, /* Update state and send command to teams */
 }
