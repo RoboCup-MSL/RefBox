@@ -1,5 +1,3 @@
-//<>//
-//<>//
 /* ==================================
 MSL RefBox 2015 (Processing 3)
 	LMFerreira
@@ -234,8 +232,7 @@ void draw() {
 	long t=System.currentTimeMillis();
 	if ( (t-updateScoreClientslasttime) >= Config.scoreClientsUpdatePeriod_ms ) scoreClients.update_tTeams(gametime,gameruntime);
 
-	//verifyremotecontrol();
-	//mslRemote.checkMessages();
+	AutoReferee.checkIncomingMessages();
 	
 	checkBasestationsMessages();
 

@@ -374,31 +374,27 @@ public static final String COMM_REPAIR = "REPAIR";
 public static final String COMM_SUBSTITUTION = "SUBSTITUTION";
 public static final String COMM_ISALIVE = "IS_ALIVE";
 
-//free: 056789 iIfFHlmMnqQwxX
-//------------------------------------------------------
-
 public static StringDict Description;
 void comms_initDescriptionDictionary() {
 	Description = new StringDict();
-	Description.set(COMM_STOP, "STOP");
-	Description.set(COMM_START, "START");
-	Description.set(COMM_DROP_BALL, "Drop Ball");
-	Description.set(COMM_HALF_TIME, "Halftime");
-	Description.set(COMM_END_GAME, "End Game");
-	Description.set(COMM_END_PART, "End Part");
-	Description.set(COMM_GAMEOVER, "Game Over");
-	Description.set(COMM_RESET, "Reset Game");
-	Description.set(COMM_WELCOME, "Welcome");
-	Description.set(COMM_TESTMODE_ON, "Test Mode on");
-	Description.set(COMM_TESTMODE_OFF, "Test Mode off");
-	Description.set(COMM_FIRST_HALF, "1st half");
-	Description.set(COMM_SECOND_HALF, "2nd half");
+	Description.set(COMM_STOP,          "STOP");
+	Description.set(COMM_START,         "START");
+	Description.set(COMM_DROP_BALL,     "Drop Ball");
+	Description.set(COMM_HALF_TIME,     "Halftime");
+	Description.set(COMM_END_GAME,      "End Game");
+	Description.set(COMM_END_PART,      "End Part");
+	Description.set(COMM_GAMEOVER,      "Game Over");
+	Description.set(COMM_RESET,         "Reset Game");
+	Description.set(COMM_WELCOME,       "Welcome");
+	Description.set(COMM_TESTMODE_ON,   "Test Mode on");
+	Description.set(COMM_TESTMODE_OFF,  "Test Mode off");
+	Description.set(COMM_FIRST_HALF,    "1st half");
+	Description.set(COMM_SECOND_HALF,   "2nd half");
 	Description.set(COMM_FIRST_HALF_OVERTIME, "Overtime 1st half");
 	Description.set(COMM_SECOND_HALF_OVERTIME, "Overtime 2nd half");
-	Description.set(COMM_PARK, "Park");
-	Description.set(COMM_SUBSTITUTION, "Substitution");
-	Description.set(COMM_ISALIVE, "Is Alive");
-
+	Description.set(COMM_PARK,          "Park");
+	Description.set(COMM_SUBSTITUTION,  "Substitution");
+	Description.set(COMM_ISALIVE,       "Is Alive");
 	Description.set(COMM_KICKOFF,       "Kickoff");
 	Description.set(COMM_FREEKICK,      "Freekick");
 	Description.set(COMM_GOALKICK,      "Goalkick");
@@ -407,8 +403,9 @@ void comms_initDescriptionDictionary() {
 	Description.set(COMM_PENALTY,       "Penalty");
 	Description.set(COMM_GOAL,          "Goal+");
 	Description.set(COMM_SUBGOAL,       "Goal-");
-	Description.set(COMM_REPAIR,    "Repair");
+	Description.set(COMM_REPAIR,        "Repair");
 	Description.set(COMM_RED_CARD,      "Red Card");
 	Description.set(COMM_YELLOW_CARD,   "Yellow Card");
 	Description.set(COMM_DOUBLE_YELLOW, "Double Yellow");
+
 }

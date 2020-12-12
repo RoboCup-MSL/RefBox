@@ -8,6 +8,7 @@ static class Config
 	public static IntList scoreClientPorts = new IntList();
 	public static int remoteServerPort = 12345;
 	public static int basestationServerPort = 28097;
+  public static int autoRefereeServerPort = 28098;
 	public static boolean remoteControlEnable = false;
 
 	// Rules
@@ -119,6 +120,10 @@ static class Config
 					
 					if(networking.has("basestationServerPort"))
 					basestationServerPort = networking.getInt("basestationServerPort");
+
+          if (networking.has("autoRefereeServerPort")) {
+            autoRefereeServerPort = networking.getInt("autoRefereeServerPort");
+          }
 					
 					if(networking.has("remoteControlEnable"))
 					remoteControlEnable = networking.getBoolean("remoteControlEnable");
