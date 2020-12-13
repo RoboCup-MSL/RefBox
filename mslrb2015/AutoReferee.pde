@@ -16,54 +16,77 @@ static class AutoReferee
     refereeClient = refereeServer.available();
     if (refereeClient == null) return;
     
-    String msg = new String(refereeClient.readBytes());
+    String input = new String(refereeClient.readBytes());
+    String msg = "";
     
-    org.json.JSONObject command;
-    
-    try // Check for malformed JSON
-    {
-      command = new org.json.JSONObject(msg);
-    } catch(JSONException e) {
-      String errorMsg = "ERROR malformed JSON from Automatic Referee\n";
-      println(errorMsg);
-      return;
+    // There may be multiple messages, split and parse those
+    if (input == null) return;
+    while (input.length() !=0) {
+      int idx = input.indexOf('\0');
+      if(idx < 0) return;
+      
+      if (idx != 0) {
+        msg += input.substring(0, idx);
+        if (idx < msg.length()) {
+          input = input.substring(idx+1);
+        } else {
+          input = "";
+        }
+      } else {
+        if (input.length() == 1) {
+          input = "";
+        } else {
+          input = input.substring(1);
+        }
+      }
+
+      org.json.JSONObject command;
+      
+      try // Check for malformed JSON
+      {
+        command = new org.json.JSONObject(msg);
+      } catch(JSONException e) {
+        String errorMsg = "ERROR malformed JSON from Automatic Referee\n";
+        println(errorMsg);
+        return;
+      }
+      
+      // JSON is valid
+      try {
+        commandString = command.getString("command");
+        // Invalid commands are ignored by validateCommand()
+      } catch(JSONException e) {
+        println("Missing command in message from Automatic Referee");
+        return;
+      }
+      try {
+        teamString = command.getString("targetTeam");
+      } catch(JSONException e) {
+        println("Missing target team in message from Automatic Referee");
+        return;
+      }
+      try {
+        robotID = command.getInt("robotID");
+      } catch(JSONException e) { 
+        /* It is to be expected that not all messages have a robotID */
+        robotID = -1;
+      }
+  
+      println("Received " + commandString + " for " + (teamString.isEmpty() ? "both teams" : teamString) + " from automatic referee (" + robotID + ")");
+      
+      updateTeams();
+      CommandHandling ch = validateCommand();
+      if (ch == CommandHandling.IGNORE) {
+        println("Will not handle command " + commandString);
+        return;
+      }
+      
+      updateRefboxState();
+      if (ch == CommandHandling.UPDATE_STATE) return;
+      
+      // Implies ch == UPDATE_SEND
+      forwardToTeams();
     }
-    
-    // JSON is valid
-    try {
-      commandString = command.getString("command");
-      // Invalid commands are ignored by validateCommand()
-    } catch(JSONException e) {
-      println("Missing command in message from Automatic Referee");
-      return;
-    }
-    try {
-      teamString = command.getString("targetTeam");
-    } catch(JSONException e) {
-      println("Missing target team in message from Automatic Referee");
-      return;
-    }
-    try {
-      robotID = command.getInt("robotID");
-    } catch(JSONException e) { 
-      /* It is to be expected that not all messages have a robotID */
-      robotID = -1;
-    }
-    
-    println("Received " + commandString + " for " + (teamString.isEmpty() ? "both teams" : teamString) + " from automatic referee (" + robotID + ")");
-    
-    updateTeams();
-    CommandHandling ch = validateCommand();
-    if (ch == CommandHandling.IGNORE) {
-      println("Will not handle command " + commandString);
-      return;
-    }
-    
-    updateRefboxState();
-    if (ch == CommandHandling.UPDATE_STATE) return;
-    
-    // Implies ch == UPDATE_SEND
-    forwardToTeams();
   }
   
   public void closeServer() {
