@@ -100,11 +100,12 @@ static class StateMachine
 								if (bCommoncmds[CMDID_COMMON_HALFTIME].Label == "Game Over"){
 									send_event_v2(COMM_GAMEOVER, Description.get(COMM_GAMEOVER), null, -1);
 									gsCurrent = GameStateEnum.GS_ENDGAME;
-									break;
 								} else{
 									send_event_v2(COMM_END_GAME, Description.get(COMM_END_GAME), null, -1);
 								}
+                break;
 							case GS_PENALTIES:
+                send_event_v2(COMM_END_GAME, Description.get(COMM_END_GAME), null, -1);
 								break;
 							case GS_ENDGAME:
 								send_event_v2(COMM_GAMEOVER, Description.get(COMM_GAMEOVER), null, -1);
