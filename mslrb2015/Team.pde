@@ -114,9 +114,21 @@ class Team {
 		unicastIP = teamselect.getString("UnicastAddr");
 		multicastIP = teamselect.getString("MulticastAddr");
 
+		String teamID = isLeft ? "A" : "B";
+
+		// support same team connecting twice: newest team gets adapted ids
+		if(teamA.team == teamB.team)
+		{
+			team 	 += " " + teamID;
+			longName += " " + teamID;
+		}
+		if(teamA.multicastIP == teamB.multicastIP)
+		{
+			multicastIP += ":1";
+		}
 
 		if(connectedClient != null)
-		BaseStationServer.disconnect(connectedClient);
+			BaseStationServer.disconnect(connectedClient);
 
 		connectedClient = connectingClient;
 		send_event_v2(COMM_WELCOME,COMM_WELCOME, this ,-1);
@@ -124,7 +136,7 @@ class Team {
 
 		if(this.logFile == null || this.logFileOut == null)
 		{
-			this.logFile = new File(mainApplet.dataPath("tmp/" + Log.getTimedName() + "." + (isLeft?"A":"B") + ".msl"));
+			this.logFile = new File(mainApplet.dataPath("tmp/" + Log.getTimedName() + "." + (teamID) + ".msl"));
 			try{
 				this.logFileOut = new PrintWriter(new BufferedWriter(new FileWriter(logFile, true)));
 			}catch(IOException e){ }
