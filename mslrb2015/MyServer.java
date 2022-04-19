@@ -407,4 +407,10 @@ public class MyServer implements Runnable {
 			}
 		}
 	}
+
+  public void write(String data, Client client) {
+    if (client.active()) {
+      client.write(data);
+    }
+  }
 }

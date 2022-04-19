@@ -40,7 +40,7 @@ public static void clientValidation(MyServer whichServer, Client whichClient) {
 }
 
 
-public static void send_to_basestation(String c, String teamIP, int robotID){
+public static void send_to_basestation(String c, String teamIP, int robotID, Client client){
 
 	JSONObject jsonObject = new JSONObject();
 	jsonObject.put("command", c);
@@ -51,7 +51,11 @@ public static void send_to_basestation(String c, String teamIP, int robotID){
 	}
 	String send = jsonObject.toString() + "\0";
 	System.out.println(send);
-	BaseStationServer.write(send);
+  if (client == null) {
+	  BaseStationServer.write(send);
+  } else {
+    BaseStationServer.write(send, client);
+  }
 }
 
 public static void event_message_v2(ButtonsEnum btn, boolean on)
@@ -80,8 +84,9 @@ public static void event_message_v2(ButtonsEnum btn, boolean on)
 		msg > string with description message to send to scoreclients @mbc (check if needed)
 		t > id of the team. If null, message is to both teams
 		robotID > ID number of the target robot. (-1) means no robot
+    client > Selectively send event to one client, null is sending to all client teams
 */
-public static void send_event_v2(String cmd, String msg, Team t, int robotID)
+public static void send_event_v2(String cmd, String msg, Team t, int robotID, Client client)
 {
 	String teamIP, teamName;
 
@@ -93,7 +98,7 @@ public static void send_event_v2(String cmd, String msg, Team t, int robotID)
 		teamIP = t.multicastIP;
 		teamName = t.team;
 	}
-	send_to_basestation(cmd, teamIP, robotID);  //send to basestation
+	send_to_basestation(cmd, teamIP, robotID, client);  //send to basestation
 	scoreClients.update_tEvent(cmd, msg, teamName, robotID); //send to referee client
 	//mslRemote.update_tEvent(cmd, msg, t); //remote command
 
@@ -101,6 +106,11 @@ public static void send_event_v2(String cmd, String msg, Team t, int robotID)
 	//	mslRemote.setLastCommand(send);      // Update MSL remote module with last command sent to basestations 
 	// Look into command connection later
 
+}
+
+public static void send_event_v2(String cmd, String msg, Team t, int robotID)
+{
+   send_event_v2(cmd, msg, t, robotID, null); 
 }
 
 public static boolean setteamfromip(String s) {

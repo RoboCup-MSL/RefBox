@@ -131,7 +131,7 @@ class Team {
 			BaseStationServer.disconnect(connectedClient);
 
 		connectedClient = connectingClient;
-		send_event_v2(COMM_WELCOME,COMM_WELCOME, this ,-1);
+		send_event_v2(COMM_WELCOME, COMM_WELCOME, this , -1, connectedClient);
 		connectingClient = null;
 
 		if(this.logFile == null || this.logFileOut == null)
