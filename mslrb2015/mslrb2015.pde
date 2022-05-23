@@ -1,5 +1,3 @@
-//<>//
-//<>//
 /* ==================================
 MSL RefBox 2015 (Processing 3)
 	LMFerreira
@@ -49,9 +47,9 @@ public static final int CMDID_COMMON_CONFIG = 7;
 public static final int CMDID_COMMON_LENGHT = 8;
 
 public static ScoreClients scoreClients = null;
-//public static MSLRemote mslRemote = null;
 public static MyServer BaseStationServer;
 public static Client connectingClient = null;
+public static AutoReferee autoReferee;
 
 public static Team teamA, teamB, cTeam;
 public static Button[] bTeamAcmds = new Button[CMDID_TEAM_LENGHT];
@@ -155,7 +153,7 @@ void setup() {
 
 	scoreClients = new ScoreClients(this);        // Load score clients server
 	BaseStationServer = new MyServer(this, Config.basestationServerPort); // Load basestations server
-	//	mslRemote = new MSLRemote(this, Config.remoteServerPort);             // Load module for MSL remote control
+  autoReferee = new AutoReferee();
 
 	teamA = new Team(Config.defaultLeftTeamColor,true);                   // Initialize Left team (Team A)
 	teamB = new Team(Config.defaultRightTeamColor,false);               // Initialize Right team (Team B)
@@ -234,8 +232,7 @@ void draw() {
 	long t=System.currentTimeMillis();
 	if ( (t-updateScoreClientslasttime) >= Config.scoreClientsUpdatePeriod_ms ) scoreClients.update_tTeams(gametime,gameruntime);
 
-	//verifyremotecontrol();
-	//mslRemote.checkMessages();
+  autoReferee.checkIncomingMessages();
 	
 	checkBasestationsMessages();
 
@@ -341,7 +338,7 @@ void exit() {
 	// Stop all servers
 	scoreClients.stopServer();
 	BaseStationServer.stop();
-	//mslRemote.stopServer();
+  autoReferee.closeServer();
 
 	super.exit();
 }

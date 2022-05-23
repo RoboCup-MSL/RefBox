@@ -75,7 +75,7 @@ static class StateMachine
 						needUpdate = true;							// and enforce update of the state machine
 						done = true;
 						return;
-					} //<>// //<>//
+					}
 					Popup.close();
 					break;
 				}
@@ -252,12 +252,6 @@ static class StateMachine
 					for (int s = 0; s < bSlider.length; s++)
 					{
 						bSlider[s].disable();
-						if(StateMachine.GetCurrentGameState() != GameStateEnum.GS_PREGAME)
-						{
-							//bSlider[i].disable();
-						}else{
-							//bSlider[i].enable();
-						}
 					}
 					Popup.close();
 					break;
@@ -303,8 +297,6 @@ static class StateMachine
 				Popup.show(PopupTypeEnum.POPUP_ALIVE, MSG_ISALIVE, 8, 10, 0, 24, 380, 230);
 				tBoxIsAlive.show();
 				tBoxIsAlive.clicked();
-//				done = true;
-//				return;
 			}
 			
 			else if(btnCurrent.isRepair())
@@ -349,8 +341,8 @@ static class StateMachine
 				else
 					t.newYellowCard = btnOn;
 			}
-			else if(btnCurrent.isStop())
-			{
+			else if(btnCurrent.isStop()) //<>//
+			{ //<>//
 				setPieceDelay.resetStopWatch();
 				setPieceDelay.stopTimer();
 				forceKickoff = false; 

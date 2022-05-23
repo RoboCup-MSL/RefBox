@@ -281,15 +281,6 @@ class Team {
 			this.nOfSubstitutions++;
 			println("substituting robot " + robotID + " (on field) for robot (outside field) - " + nOfSubstitutions + " done.");
 		}
-/* @mbc Robot IDs are virtual [0 to 4] and corresponds to each of the circles in the interface
-		for (int i = 0; i < r.length; i++) {
-			if (this.r[i].state.equals("play") || this.r[i].state.equals("yellow")) {    // only robots that are in play can substitute
-				send_event_v2(""+COMM_SUBSTITUTION, "substituting", this, robotID);
-				this.substitute_timer_start(i);
-				println("substituting robot " + i + " (on field) for robot " + robotID + " (outside field)");
-				break;
-			}
-		}  */
 	}
 	
 	//*******************************************************************

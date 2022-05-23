@@ -11,6 +11,7 @@
 			}
 		],
 		"basestationServerPort": 28097,
+        "autoRefereeServerPort": 28098,
 		"enableRemote": false
 	},
 	"rules":

@@ -150,18 +150,6 @@ void RefreshButonStatus1() {
 		
 	}
 
-	// The switches are enabled only on pre-game
-	if(StateMachine.GetCurrentGameState() != GameStateEnum.GS_PREGAME)
-	{
-		for(int i = 0; i < bSlider.length; i++) {
-			//bSlider[i].disable();
-		}
-	}else{
-		for(int i = 0; i < bSlider.length; i++) {
-			//bSlider[i].enable();
-		}
-	}
-
 	// Update End Part / End Game button
 	
 	String endPartOrEndGame = "End Part";
