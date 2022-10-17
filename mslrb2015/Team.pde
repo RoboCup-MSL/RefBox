@@ -148,6 +148,7 @@ class Team {
 	//*******************************************************************
 	void repair_timer_start(int rpCount) { 
 		r[rpCount].RepairTimer.startTimer(Config.repairPenalty_ms);
+    send_event_v2(""+COMM_REPAIR, Description.get(COMM_REPAIR), this, -1);
 
 		if (isLeft)
 		println("Repair Left "+(rpCount+1)+" started!");
