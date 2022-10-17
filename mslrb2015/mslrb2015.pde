@@ -370,7 +370,7 @@ void initGui()
 	bTeamAcmds[5] = new Button(offsetLeft.x, offsetLeft.y+70*5, "Penalty" , 255, -1, 255, Config.defaultLeftTeamColor,COMM_PENALTY,Description.get(COMM_PENALTY),"","");
 	bTeamAcmds[6] = new Button(offsetLeft.x-137, offsetLeft.y+218,  "", 255, -1, 255, Config.defaultLeftTeamColor,COMM_ISALIVE,Description.get(COMM_ISALIVE),"",""); //Is alive A
 	bTeamAcmds[7] = new Button(offsetLeft.x-135, offsetLeft.y, "GOAL", Config.defaultLeftTeamColor, -1, 255, Config.defaultLeftTeamColor,COMM_GOAL, Description.get(COMM_GOAL), COMM_SUBGOAL,Description.get(COMM_SUBGOAL));   // Goal A
-	bTeamAcmds[8] = new Button(offsetLeft.x-135, offsetLeft.y+70*4,  "REPAIR", Config.defaultLeftTeamColor, -1, 255, Config.defaultLeftTeamColor,COMM_REPAIR,Description.get(COMM_REPAIR),"",""); // Repair A
+	bTeamAcmds[8] = new Button(offsetLeft.x-135, offsetLeft.y+70*4,  "REPAIR", Config.defaultLeftTeamColor, -1, 255, Config.defaultLeftTeamColor,null,"","",""); // Repair A
 	bTeamAcmds[9] = new Button(offsetLeft.x-162, offsetLeft.y+70*5, "", #FC0303, #810303, 255, #FC0303, COMM_RED_CARD, Description.get(COMM_RED_CARD), "","");  //red card A
 	bTeamAcmds[10] = new Button(offsetLeft.x-105, offsetLeft.y+70*5, "", #FEFF00, #808100, 255, #FEFF00, COMM_YELLOW_CARD, Description.get(COMM_YELLOW_CARD), "","");  //yellow card A
 
@@ -391,7 +391,7 @@ void initGui()
 	bTeamBcmds[5] = new Button(offsetRight.x, offsetRight.y+70*5, "Penalty" , 255, -1, 255, Config.defaultRightTeamColor, COMM_PENALTY,Description.get(COMM_PENALTY),"","");
 	bTeamBcmds[6] = new Button(offsetRight.x+134, offsetRight.y+218, "", 255, -1, 255, Config.defaultRightTeamColor, COMM_ISALIVE,Description.get(COMM_ISALIVE),"","");//Is alive B
 	bTeamBcmds[7] = new Button(offsetRight.x+135, offsetRight.y, "GOAL", Config.defaultRightTeamColor, -1, 255, Config.defaultRightTeamColor, COMM_GOAL, Description.get(COMM_GOAL), COMM_SUBGOAL,Description.get(COMM_SUBGOAL) );  //Goal B
-	bTeamBcmds[8] = new Button(offsetRight.x+135, offsetRight.y+70*4, "REPAIR", Config.defaultRightTeamColor, -1, 255, Config.defaultRightTeamColor,COMM_REPAIR,Description.get(COMM_REPAIR),"","");//Repair B
+	bTeamBcmds[8] = new Button(offsetRight.x+135, offsetRight.y+70*4, "REPAIR", Config.defaultRightTeamColor, -1, 255, Config.defaultRightTeamColor,null,"","","");//Repair B
 	bTeamBcmds[9] = new Button(offsetRight.x+162, offsetRight.y+70*5, "", #FC0303, #810303, 255, #FC0303, COMM_RED_CARD, Description.get(COMM_RED_CARD), "","");  //red card B
 	bTeamBcmds[10] = new Button(offsetRight.x+105, offsetRight.y+70*5, "", #FEFF00, #808100, 255, #FEFF00, COMM_YELLOW_CARD, Description.get(COMM_YELLOW_CARD), "","");  //yellow card B
 
