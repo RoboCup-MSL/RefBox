@@ -381,6 +381,7 @@ public static final String COMM_DROP_BALL = "DROP_BALL";
 
 // specific team Commands
 public static final String COMM_REPAIR = "REPAIR";
+public static final String COMM_REPAIR_END = "REPAIR_END";
 public static final String COMM_SUBSTITUTION = "SUBSTITUTION";
 public static final String COMM_ISALIVE = "IS_ALIVE";
 
@@ -417,7 +418,8 @@ void comms_initDescriptionDictionary() {
 	Description.set(COMM_PENALTY,       "Penalty");
 	Description.set(COMM_GOAL,          "Goal+");
 	Description.set(COMM_SUBGOAL,       "Goal-");
-	Description.set(COMM_REPAIR,    "Repair");
+	Description.set(COMM_REPAIR,        "Repair");
+  Description.set(COMM_REPAIR_END,    "Repair ended");
 	Description.set(COMM_RED_CARD,      "Red Card");
 	Description.set(COMM_YELLOW_CARD,   "Yellow Card");
 	Description.set(COMM_DOUBLE_YELLOW, "Double Yellow");
