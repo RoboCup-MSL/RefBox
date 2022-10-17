@@ -169,9 +169,11 @@ class Team {
 			}
 			else
 			{
+        // Repair timer has finished
 				r[rpCount].RepairTimer.resetStopWatch();
 				RepairCount--;
 				println("Repair OUT: "+shortName+":"+(rpCount+1)+" @"+(isLeft?"left":"right"));
+        send_event_v2(""+COMM_REPAIR_END, Description.get(COMM_REPAIR_END), this, -1);
 				r[rpCount].setState("play");
 			}
 		}
