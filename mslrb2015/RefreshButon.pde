@@ -202,7 +202,11 @@ void refreshbutton_game_stopped()
 		buttonCdisable();    
 		bTeamBcmds[CMDID_TEAM_KICKOFF].enable();
 		bTeamBcmds[CMDID_TEAM_GOAL].disable();  
-		bCommoncmds[CMDID_COMMON_HALFTIME].enable(); 
+		bCommoncmds[CMDID_COMMON_HALFTIME].enable();
+     if ((teamA.nOfSubstitutions + teamB.nOfSubstitutions) < 6) 
+       bCommoncmds[CMDID_COMMON_SUBS].enable();
+     else
+       bCommoncmds[CMDID_COMMON_SUBS].disable();
 	}
 	else if(bTeamBcmds[CMDID_TEAM_GOAL].isActive()) {
 		buttonAdisable();
@@ -211,6 +215,10 @@ void refreshbutton_game_stopped()
 		bTeamAcmds[CMDID_TEAM_KICKOFF].enable();    
 		bTeamAcmds[CMDID_TEAM_GOAL].disable();    
 		bCommoncmds[CMDID_COMMON_HALFTIME].enable();
+     if ((teamA.nOfSubstitutions + teamB.nOfSubstitutions) < 6) 
+       bCommoncmds[CMDID_COMMON_SUBS].enable();
+     else
+       bCommoncmds[CMDID_COMMON_SUBS].disable();
 	}
 	else {
 		if(!StateMachine.setpiece) {
