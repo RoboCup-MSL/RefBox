@@ -14,12 +14,12 @@ void RefreshButonStatus1() {
 			if(StateMachine.setpiece)
 			{
 				if(StateMachine.setpiece_left){
-					buttonFromEnum(ButtonsEnum.BTN_L_KICKOFF).activate();
+					buttonFromEnum(ButtonsEnum.BTN_L_KICKOFF).enable();
 					buttonFromEnum(ButtonsEnum.BTN_R_KICKOFF).disable();
 
 				}else{
 					buttonFromEnum(ButtonsEnum.BTN_L_KICKOFF).disable();
-					buttonFromEnum(ButtonsEnum.BTN_R_KICKOFF).activate();
+					buttonFromEnum(ButtonsEnum.BTN_R_KICKOFF).enable();
 				}
 				
 				buttonFromEnum(ButtonsEnum.BTN_RESET).disable();
@@ -57,7 +57,7 @@ void RefreshButonStatus1() {
 				buttonAdisable();  //team A commands
 				buttonBdisable();  //team B commands
 				buttonCdisable();  //common commands
-				buttonFromEnum(StateMachine.setpiece_button).activate();
+				buttonFromEnum(StateMachine.setpiece_button).enable();
 				buttonFromEnum(ButtonsEnum.BTN_START).enable();
 				buttonFromEnum(ButtonsEnum.BTN_PARK).disable();
 			}else{
