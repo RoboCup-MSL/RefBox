@@ -220,7 +220,7 @@
 		"longame24": "Tech United Eindhoven",
 		"UnicastAddr": "172.16.63.*",
 		"Team": "Tech United Eindhoven",
-		"shortname8": "Tech Uni",
+		"shortname8": "TU/e",
 		"MulticastAddr": "224.16.32.63"
 	},
 	{
@@ -343,31 +343,31 @@
 		"MulticastAddr": "224.16.32.80"
 	},
 	{
-		"longame24": "n.a.",
+		"longame24": "Barelang 63",
 		"UnicastAddr": "172.16.81.*",
-		"Team": "n.a.",
-		"shortname8": "n.a.",
+		"Team": "Barelang 64",
+		"shortname8": "Barelang",
 		"MulticastAddr": "224.16.32.81"
 	},
 	{
-		"longame24": "n.a.",
+		"longame24": "ERSOW",
 		"UnicastAddr": "172.16.82.*",
-		"Team": "n.a.",
-		"shortname8": "n.a.",
+		"Team": "ERSOW",
+		"shortname8": "ERSOW",
 		"MulticastAddr": "224.16.32.82"
 	},
 	{
-		"longame24": "n.a.",
+		"longame24": "ICRS FC",
 		"UnicastAddr": "172.16.83.*",
-		"Team": "n.a.",
-		"shortname8": "n.a.",
+		"Team": "ICRS FC",
+		"shortname8": "ICRS FC",
 		"MulticastAddr": "224.16.32.83"
 	},
 	{
-		"longame24": "n.a.",
+		"longame24": "UM Croatia",
 		"UnicastAddr": "172.16.84.*",
-		"Team": "n.a.",
-		"shortname8": "n.a.",
+		"Team": "UM Croatia",
+		"shortname8": "UMC",
 		"MulticastAddr": "224.16.32.84"
 	},
 	{

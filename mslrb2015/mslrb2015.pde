@@ -11,9 +11,9 @@ import processing.net.*;
 import krister.Ess.*;
 import org.json.*;
 
-public static final String MSG_VERSION="2.0 beta(Json)";
-public static final String MSG_VERSION_MSG="(RoboCup 2020)";
-public static final String MSG_WINDOWTITLE="RoboCup MSL RefBox 2015 - "+MSG_VERSION+" "+MSG_VERSION_MSG;
+public static final String MSG_VERSION="2.1";
+public static final String MSG_VERSION_MSG="(RoboCup 2023)";
+public static final String MSG_WINDOWTITLE="RoboCup MSL RefBox - "+MSG_VERSION+" "+MSG_VERSION_MSG;
 public static final String MSG_HALFTIME="End Current Part ?";
 public static final String MSG_RESET="Reset Game ?";
 public static final String MSG_REPAIR="How many robots for repair ?";
