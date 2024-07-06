@@ -371,17 +371,17 @@
 		"MulticastAddr": "224.16.32.84"
 	},
 	{
-		"longame24": "n.a.",
+		"longame24": "ERA",
 		"UnicastAddr": "172.16.85.*",
-		"Team": "n.a.",
-		"shortname8": "n.a.",
+		"Team": "ERA",
+		"shortname8": "ERA",
 		"MulticastAddr": "224.16.32.85"
 	},
 	{
-		"longame24": "n.a.",
+		"longame24": "BigHeroX",
 		"UnicastAddr": "172.16.86.*",
-		"Team": "n.a.",
-		"shortname8": "n.a.",
+		"Team": "BigHeroX",
+		"shortname8": "BigHeroX",
 		"MulticastAddr": "224.16.32.86"
 	},
 	{
