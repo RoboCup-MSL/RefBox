@@ -1,0 +1,11 @@
+{
+  "package_name": "musashi_msgs",
+  "non_idl_tuples": [
+    "/home/aviken/colcon_ws/src/musashi-ros2-humble/musashi_msgs:msg/MotorState.msg",
+    "/home/aviken/colcon_ws/src/musashi-ros2-humble/musashi_msgs:msg/MotorStates.msg",
+    "/home/aviken/colcon_ws/src/musashi-ros2-humble/musashi_msgs:msg/RefereeCmd.msg",
+    "/home/aviken/colcon_ws/src/musashi-ros2-humble/musashi_msgs:msg/Polar2D.msg",
+    "/home/aviken/colcon_ws/src/musashi-ros2-humble/musashi_msgs:msg/PlayerState.msg",
+    "/home/aviken/colcon_ws/src/musashi-ros2-humble/musashi_msgs:msg/PlayerStates.msg"
+  ]
+}

@@ -1,0 +1,4 @@
+source;share/musashi_msgs/local_setup.bash
+source;share/musashi_msgs/local_setup.dsv
+source;share/musashi_msgs/local_setup.sh
+source;share/musashi_msgs/local_setup.zsh

@@ -1,0 +1,12 @@
+msg/MotorState.idl
+msg/MotorState.msg
+msg/MotorStates.idl
+msg/MotorStates.msg
+msg/PlayerState.idl
+msg/PlayerState.msg
+msg/PlayerStates.idl
+msg/PlayerStates.msg
+msg/Polar2D.idl
+msg/Polar2D.msg
+msg/RefereeCmd.idl
+msg/RefereeCmd.msg

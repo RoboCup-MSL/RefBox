@@ -1,0 +1,28 @@
+[1.429s] Invoking command in '/home/aviken/colcon_ws/build/musashi_rqt_refereebox_client': PYTHONPATH=/home/aviken/colcon_ws/build/musashi_rqt_refereebox_client/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/aviken/colcon_ws/install/musashi_rqt_refereebox_client/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/aviken/colcon_ws/build/musashi_rqt_refereebox_client/build --no-deps symlink_data
+[1.666s] running develop
+[1.822s] running egg_info
+[1.822s] creating src/musashi_rqt_refereebox_client.egg-info
+[1.822s] writing src/musashi_rqt_refereebox_client.egg-info/PKG-INFO
+[1.822s] writing dependency_links to src/musashi_rqt_refereebox_client.egg-info/dependency_links.txt
+[1.822s] writing entry points to src/musashi_rqt_refereebox_client.egg-info/entry_points.txt
+[1.822s] writing requirements to src/musashi_rqt_refereebox_client.egg-info/requires.txt
+[1.822s] writing top-level names to src/musashi_rqt_refereebox_client.egg-info/top_level.txt
+[1.822s] writing manifest file 'src/musashi_rqt_refereebox_client.egg-info/SOURCES.txt'
+[1.824s] reading manifest file 'src/musashi_rqt_refereebox_client.egg-info/SOURCES.txt'
+[1.824s] writing manifest file 'src/musashi_rqt_refereebox_client.egg-info/SOURCES.txt'
+[1.826s] running build_ext
+[1.826s] Creating /home/aviken/colcon_ws/install/musashi_rqt_refereebox_client/lib/python3.10/site-packages/musashi-rqt-refereebox-client.egg-link (link to src)
+[1.826s] 
+[1.827s] Installed /home/aviken/colcon_ws/build/musashi_rqt_refereebox_client/src
+[1.827s] running symlink_data
+[1.827s] creating /home/aviken/colcon_ws/install/musashi_rqt_refereebox_client/share/ament_index
+[1.827s] creating /home/aviken/colcon_ws/install/musashi_rqt_refereebox_client/share/ament_index/resource_index
+[1.827s] creating /home/aviken/colcon_ws/install/musashi_rqt_refereebox_client/share/ament_index/resource_index/packages
+[1.827s] symbolically linking /home/aviken/colcon_ws/build/musashi_rqt_refereebox_client/resource/musashi_rqt_refereebox_client -> /home/aviken/colcon_ws/install/musashi_rqt_refereebox_client/share/ament_index/resource_index/packages
+[1.827s] creating /home/aviken/colcon_ws/install/musashi_rqt_refereebox_client/share/musashi_rqt_refereebox_client/resource
+[1.827s] symbolically linking /home/aviken/colcon_ws/build/musashi_rqt_refereebox_client/resource/refereebox_client.ui -> /home/aviken/colcon_ws/install/musashi_rqt_refereebox_client/share/musashi_rqt_refereebox_client/resource
+[1.827s] symbolically linking /home/aviken/colcon_ws/build/musashi_rqt_refereebox_client/package.xml -> /home/aviken/colcon_ws/install/musashi_rqt_refereebox_client/share/musashi_rqt_refereebox_client
+[1.827s] symbolically linking /home/aviken/colcon_ws/build/musashi_rqt_refereebox_client/plugin.xml -> /home/aviken/colcon_ws/install/musashi_rqt_refereebox_client/share/musashi_rqt_refereebox_client
+[1.827s] creating /home/aviken/colcon_ws/install/musashi_rqt_refereebox_client/lib/musashi_rqt_refereebox_client
+[1.827s] symbolically linking /home/aviken/colcon_ws/build/musashi_rqt_refereebox_client/scripts/refereebox_client -> /home/aviken/colcon_ws/install/musashi_rqt_refereebox_client/lib/musashi_rqt_refereebox_client
+[1.851s] Invoked command in '/home/aviken/colcon_ws/build/musashi_rqt_refereebox_client' returned '0': PYTHONPATH=/home/aviken/colcon_ws/build/musashi_rqt_refereebox_client/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/aviken/colcon_ws/install/musashi_rqt_refereebox_client/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/aviken/colcon_ws/build/musashi_rqt_refereebox_client/build --no-deps symlink_data

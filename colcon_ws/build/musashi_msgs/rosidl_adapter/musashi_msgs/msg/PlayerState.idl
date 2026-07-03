@@ -1,0 +1,39 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from musashi_msgs/msg/PlayerState.msg
+// generated code does not contain a copyright notice
+
+#include "geometry_msgs/msg/Pose.idl"
+#include "musashi_msgs/msg/Polar2D.idl"
+#include "std_msgs/msg/Header.idl"
+
+module musashi_msgs {
+  module msg {
+    struct PlayerState {
+      std_msgs::msg::Header header;
+
+      int32 color;
+
+      int32 id;
+
+      int32 action;
+
+      int32 state;
+
+      int32 role;
+
+      int32 haveball;
+
+      musashi_msgs::msg::Polar2D ball;
+
+      musashi_msgs::msg::Polar2D goal;
+
+      musashi_msgs::msg::Polar2D my_goal;
+
+      geometry_msgs::msg::Pose position;
+
+      geometry_msgs::msg::Pose moveto;
+
+      musashi_msgs::msg::Polar2D obstacle;
+    };
+  };
+};

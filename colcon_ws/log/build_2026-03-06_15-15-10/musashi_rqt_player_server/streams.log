@@ -1,0 +1,16 @@
+[1.471s] Invoking command in '/home/aviken/colcon_ws/build/musashi_rqt_player_server': PYTHONPATH=/home/aviken/colcon_ws/build/musashi_rqt_player_server/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/aviken/colcon_ws/install/musashi_rqt_player_server/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/aviken/colcon_ws/build/musashi_rqt_player_server/build --no-deps symlink_data
+[1.671s] running develop
+[1.797s] running egg_info
+[1.797s] writing src/musashi_rqt_player_server.egg-info/PKG-INFO
+[1.797s] writing dependency_links to src/musashi_rqt_player_server.egg-info/dependency_links.txt
+[1.797s] writing entry points to src/musashi_rqt_player_server.egg-info/entry_points.txt
+[1.798s] writing requirements to src/musashi_rqt_player_server.egg-info/requires.txt
+[1.798s] writing top-level names to src/musashi_rqt_player_server.egg-info/top_level.txt
+[1.799s] reading manifest file 'src/musashi_rqt_player_server.egg-info/SOURCES.txt'
+[1.799s] writing manifest file 'src/musashi_rqt_player_server.egg-info/SOURCES.txt'
+[1.801s] running build_ext
+[1.801s] Creating /home/aviken/colcon_ws/install/musashi_rqt_player_server/lib/python3.10/site-packages/musashi-rqt-player-server.egg-link (link to src)
+[1.802s] 
+[1.802s] Installed /home/aviken/colcon_ws/build/musashi_rqt_player_server/src
+[1.802s] running symlink_data
+[1.833s] Invoked command in '/home/aviken/colcon_ws/build/musashi_rqt_player_server' returned '0': PYTHONPATH=/home/aviken/colcon_ws/build/musashi_rqt_player_server/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/aviken/colcon_ws/install/musashi_rqt_player_server/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/aviken/colcon_ws/build/musashi_rqt_player_server/build --no-deps symlink_data

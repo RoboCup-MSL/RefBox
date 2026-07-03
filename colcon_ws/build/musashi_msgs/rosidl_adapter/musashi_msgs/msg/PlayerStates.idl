@@ -1,0 +1,18 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from musashi_msgs/msg/PlayerStates.msg
+// generated code does not contain a copyright notice
+
+#include "musashi_msgs/msg/PlayerState.idl"
+#include "std_msgs/msg/Header.idl"
+
+module musashi_msgs {
+  module msg {
+    typedef musashi_msgs::msg::PlayerState musashi_msgs__msg__PlayerState;
+    typedef musashi_msgs__msg__PlayerState musashi_msgs__msg__PlayerState__5[5];
+    struct PlayerStates {
+      std_msgs::msg::Header header;
+
+      musashi_msgs__msg__PlayerState__5 players;
+    };
+  };
+};

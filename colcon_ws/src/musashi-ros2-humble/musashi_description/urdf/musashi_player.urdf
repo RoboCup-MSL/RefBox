@@ -1,0 +1,25 @@
+<!-- urdf/musashi.urdf -->
+<robot name="musashi_player">
+
+  <link name="foot_print" />
+
+  <joint name="foot_print_to_base_link" type="fixed">
+    <parent link="foot_print"/>
+    <child link="base_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://musashi_description/meshes/musashi_player.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://musashi_description/meshes/musashi_player.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+</robot>

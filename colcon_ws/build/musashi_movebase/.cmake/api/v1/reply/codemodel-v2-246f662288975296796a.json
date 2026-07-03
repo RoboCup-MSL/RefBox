@@ -1,0 +1,79 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-bc3092153095f00c0fb9.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "musashi_movebase",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "musashi_movebase_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-musashi_movebase_uninstall-64da386b94561c1089ad.json",
+					"name" : "musashi_movebase_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "node_musashi_epos_manager::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-node_musashi_epos_manager-28b453f2dcc3e50a8e83.json",
+					"name" : "node_musashi_epos_manager",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-88e7abdc450bc090c28d.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/aviken/colcon_ws/build/musashi_movebase",
+		"source" : "/home/aviken/colcon_ws/src/musashi-ros2-humble/hardware/musashi_movebase"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

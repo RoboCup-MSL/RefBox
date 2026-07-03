@@ -1,0 +1,15 @@
+running develop
+running egg_info
+writing musashi_camera.egg-info/PKG-INFO
+writing dependency_links to musashi_camera.egg-info/dependency_links.txt
+writing entry points to musashi_camera.egg-info/entry_points.txt
+writing requirements to musashi_camera.egg-info/requires.txt
+writing top-level names to musashi_camera.egg-info/top_level.txt
+reading manifest file 'musashi_camera.egg-info/SOURCES.txt'
+writing manifest file 'musashi_camera.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/aviken/colcon_ws/install/musashi_camera/lib/python3.10/site-packages/musashi-camera.egg-link (link to .)
+Installing node_musashi_camera script to /home/aviken/colcon_ws/install/musashi_camera/lib/musashi_camera
+
+Installed /home/aviken/colcon_ws/build/musashi_camera
+running symlink_data

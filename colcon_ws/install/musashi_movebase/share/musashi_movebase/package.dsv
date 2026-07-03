@@ -1,0 +1,5 @@
+source;share/musashi_movebase/local_setup.bash
+source;share/musashi_movebase/local_setup.dsv
+source;share/musashi_movebase/local_setup.ps1
+source;share/musashi_movebase/local_setup.sh
+source;share/musashi_movebase/local_setup.zsh

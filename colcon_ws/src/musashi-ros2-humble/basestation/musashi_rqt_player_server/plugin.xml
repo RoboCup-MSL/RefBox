@@ -1,0 +1,16 @@
+<library path="src">
+  <class name="PlayerServerPlugin" type="musashi_rqt_player_server.rqt_player_server.RqtPlayerServer" base_class_type="rqt_gui_py::Plugin">
+    <description>
+      Player server
+    </description>
+    <qtgui>
+      <group>
+        <label>Hibikino-Musashi</label>
+        <icon type="theme">applications-games</icon>
+        <statustip>Plugins related to Hibikino-Musashi.</statustip>
+      </group>
+      <label>PlayerServer</label>
+      <!-- <statustip>Player server</statustip> -->
+    </qtgui>
+  </class>
+</library>

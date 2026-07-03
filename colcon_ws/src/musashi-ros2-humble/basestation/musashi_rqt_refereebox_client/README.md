@@ -1,0 +1,172 @@
+[← Back to basestation](../README.md)
+
+# musashi_rqt_refereebox_client
+
+## 概要
+**RefereeBoxとのTCP通信を管理するrqtプラグインパッケージです。**
+
+RoboCup MSL（Middle Size League）の試合管制において、RefereeBoxからのゲームコマンドを受信・解析・配信する重要な役割を担います。受信したコマンドはROS2トピック`/refcmd`を通じてbasestation内の他のコンポーネントに配信され、試合の進行を制御します。
+
+### 主な機能
+- **TCP通信**: RefereeBoxとの安定した双方向通信
+- **コマンド解析**: JSON形式のコマンドをパースし、ROS2メッセージに変換
+- **堅牢な通信**: NULL終端対応による部分受信・複数メッセージ連結への対応
+- **リアルタイム配信**: 受信したコマンドを即座にROS2トピックで配信
+
+## ノード
+
+### rqt_refereebox_client
+RefereeBoxと通信を行うrqtプラグインノードです。
+
+#### 実行方法
+
+**方法1: rqt GUI内でプラグインとして実行（推奨）**
+```bash
+rqt
+```
+rqt GUIが起動したら、Plugins → Hibikino-Musashi → RefereeBoxClient を選択してロードします。
+
+**方法2: スタンドアローン実行**
+```bash
+ros2 run musashi_rqt_refereebox_client refereebox_client
+```
+
+#### パブリッシュ
+| topic | message type | description |
+|-------|--------------|-------------|
+| `/refcmd` | `musashi_msgs.RefereeCmd` | RefereeBoxから受信したコマンド |
+
+#### サブスクライブ
+| topic | message type | description |
+|-------|--------------|-------------|
+| `/player_states` | `musashi_msgs.PlayerStates` | 全プレイヤーの状態（ログ送信用） |
+
+## RefereeBoxとの通信仕様
+
+RefereeBoxとはTCPで送受信を行います。通信プロトコルはMSL標準仕様に基づいています。
+
+### RefereeBox → basestation（受信）
+
+#### コマンドフォーマット
+RefereeBoxからはJSON形式の文字列データがバイナリデータとして送信されます：
+
+```json
+{
+  "command": "{コマンド文字列}",
+  "targetTeam": "{ターゲットチーム文字列}"
+}
+```
+
+**メッセージの特徴：**
+- 末尾にNULL終端文字（`\0`）が付与される
+- `{コマンド文字列}`: "START", "STOP", "KICKOFF" などのコマンド
+- `{ターゲットチーム文字列}`: チームIPアドレス（"224.16.32.*"）または空文字列（""）
+
+#### 受信バッファ実装
+堅牢な通信を実現するため、以下の機能を実装しています：
+- **NULL終端パース**: `\0`でメッセージを区切って正確にパース
+- **部分受信対応**: ネットワーク遅延による分割受信に対応
+- **複数メッセージ連結対応**: バッファに蓄積された複数メッセージを適切に処理
+
+#### コマンド一覧
+
+##### 全体コマンド（targetTeam = ""）
+試合全体に適用されるコマンド：
+
+| command | 説明 |
+|---------|------|
+| `"START"` | 試合開始 |
+| `"STOP"` | 試合停止 |
+| `"DROP_BALL"` | ボールドロップ |
+| `"HALF_TIME"` | ハーフタイム |
+| `"END_GAME"` | ゲーム終了 |
+| `"GAME_OVER"` | ゲームオーバー |
+| `"PARK"` | 駐車位置へ移動 |
+| `"FIRST_HALF"` | 前半開始 |
+| `"SECOND_HALF"` | 後半開始 |
+| `"FIRST_HALF_OVERTIME"` | 前半延長開始 |
+| `"SECOND_HALF_OVERTIME"` | 後半延長開始 |
+| `"RESET"` | リセット |
+
+##### チーム別コマンド（targetTeam = "224.16.32.*"）
+特定チームに適用されるコマンド：
+
+| command | 説明 |
+|---------|------|
+| `"WELCOME"` | ウェルカムメッセージ |
+| `"KICKOFF"` | キックオフ権獲得 |
+| `"FREEKICK"` | フリーキック |
+| `"GOALKICK"` | ゴールキック |
+| `"THROWIN"` | スロー・イン |
+| `"CORNER"` | コーナーキック |
+| `"PENALTY"` | ペナルティキック |
+| `"GOAL"` | ゴール |
+| `"REPAIR"` | 修復 |
+| `"YELLOW_CARD"` | イエローカード |
+| `"DOUBLE_YELLOW_CARD"` | 2枚目イエローカード |
+| `"RED_CARD"` | レッドカード |
+| `"SUBSTITUTION"` | 選手交代 |
+| `"IS_ALIVE"` | 生存確認 |
+
+### basestation → RefereeBox（送信）
+
+basestationはRefereeBoxに試合状況を周期的にログ送信する必要があります。
+
+#### 送信仕様
+- **プロトコル**: JSON形式のログデータ
+- **送信タイミング**: 定期的に送信
+- **詳細仕様**: [MSL_WMDataStruct](https://msl.robocup.org/wp-content/uploads/2018/08/MSL_WMDataStruct.pdf) を参照
+
+#### 送信データ内容
+以下の情報を含むJSONデータを送信：
+
+**ロボットデータ（全プレイヤー分）:**
+- ID（1～5）
+- 現在姿勢（x[m], y[m], theta[rad]）
+- 目標姿勢（x[m], y[m], theta[rad]）
+- バッテリー残量[%]
+- ボール保持状態（0:未保持, 1:保持）
+
+**ボールデータ:**
+- ワールド座標系での位置（x[m], y[m], z[m]）
+
+## UI機能
+
+rqtプラグインとしてロードすると、以下のGUI機能が利用可能です：
+
+- **接続状態表示**: RefereeBoxとの接続状態をリアルタイム表示
+- **受信コマンドログ**: 受信したコマンドの履歴表示
+- **接続設定**: IPアドレス・ポート番号の設定
+- **デバッグ情報**: 通信状態の詳細表示
+
+## ディレクトリ構成
+
+```
+musashi_rqt_refereebox_client/
+├── README.md
+├── package.xml
+├── plugin.xml
+├── resource/
+│   └── musashi_rqt_refereebox_client
+├── scripts/
+│   └── refereebox_client
+├── setup.cfg
+├── setup.py
+├── src/
+│   └── musashi_rqt_refereebox_client/
+│       ├── __init__.py
+│       ├── json_log.py
+│       ├── refereebox_client.py
+│       └── rqt_refereebox_client.py
+└── test/
+    ├── test_copyright.py
+    ├── test_flake8.py
+    └── test_pep257.py
+```
+
+## 依存関係
+
+- `rclpy`: ROS2 Pythonクライアント
+- `python_qt_binding`: Qtバインディング
+- `rqt_gui`: rqt GUIフレームワーク
+- `musashi_msgs`: カスタムメッセージ定義

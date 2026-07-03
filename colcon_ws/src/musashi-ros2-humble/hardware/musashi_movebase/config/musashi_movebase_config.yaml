@@ -1,0 +1,51 @@
+node_musashi_epos_manager: 
+  ros__parameters: 
+    motor_names: 
+      - wheel_l 
+      - wheel_r 
+      - wheel_c 
+
+    wheel_l: 
+      device: 'EPOS2' # 
+      protocol_stack: 'MAXON SERIAL V2' # 
+      interface: 'USB' # 
+      port: 'USB0' # 
+      node_id: 1 # 
+      baudrate: 1000000 # 
+      timeout: 500 # [ms]
+      control_mode: "profile_velocity"
+      encoder:
+        type: 1 # 1: INC 3CH, 2: INC 2CH, 4: SSI ABS BIN, 5: SSI ABS GRY
+        resolution: 1024 # encoder resolution
+        gear_ratio: 12 # gear ratio of motor
+        inverted_polarity: false
+
+    wheel_r: 
+      device: 'EPOS2' # 
+      protocol_stack: 'CANopen' # 
+      interface: '' # 
+      port: '' # 
+      node_id: 2 # 
+      baudrate: 1000000 # 
+      timeout: 500 # [ms]
+      control_mode: "profile_velocity"
+      encoder:
+        type: 1 # 1: INC 3CH, 2: INC 2CH, 4: SSI ABS BIN, 5: SSI ABS GRY
+        resolution: 1024 # encoder resolution
+        gear_ratio: 12 # gear ratio of motor
+        inverted_polarity: false
+
+    wheel_c: 
+      device: 'EPOS2' # 
+      protocol_stack: 'CANopen' # 
+      interface: '' # 
+      port: '' # 
+      node_id: 3 # 
+      baudrate: 1000000 # 
+      timeout: 500 # [ms]
+      control_mode: "profile_velocity"
+      encoder:
+        type: 1 # 1: INC 3CH, 2: INC 2CH, 4: SSI ABS BIN, 5: SSI ABS GRY
+        resolution: 1024 # encoder resolution
+        gear_ratio: 12 # gear ratio of motor
+        inverted_polarity: false

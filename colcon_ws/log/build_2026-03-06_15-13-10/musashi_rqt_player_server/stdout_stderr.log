@@ -1,0 +1,26 @@
+running develop
+running egg_info
+creating src/musashi_rqt_player_server.egg-info
+writing src/musashi_rqt_player_server.egg-info/PKG-INFO
+writing dependency_links to src/musashi_rqt_player_server.egg-info/dependency_links.txt
+writing entry points to src/musashi_rqt_player_server.egg-info/entry_points.txt
+writing requirements to src/musashi_rqt_player_server.egg-info/requires.txt
+writing top-level names to src/musashi_rqt_player_server.egg-info/top_level.txt
+writing manifest file 'src/musashi_rqt_player_server.egg-info/SOURCES.txt'
+reading manifest file 'src/musashi_rqt_player_server.egg-info/SOURCES.txt'
+writing manifest file 'src/musashi_rqt_player_server.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/aviken/colcon_ws/install/musashi_rqt_player_server/lib/python3.10/site-packages/musashi-rqt-player-server.egg-link (link to src)
+
+Installed /home/aviken/colcon_ws/build/musashi_rqt_player_server/src
+running symlink_data
+creating /home/aviken/colcon_ws/install/musashi_rqt_player_server/share/ament_index
+creating /home/aviken/colcon_ws/install/musashi_rqt_player_server/share/ament_index/resource_index
+creating /home/aviken/colcon_ws/install/musashi_rqt_player_server/share/ament_index/resource_index/packages
+symbolically linking /home/aviken/colcon_ws/build/musashi_rqt_player_server/resource/musashi_rqt_player_server -> /home/aviken/colcon_ws/install/musashi_rqt_player_server/share/ament_index/resource_index/packages
+creating /home/aviken/colcon_ws/install/musashi_rqt_player_server/share/musashi_rqt_player_server/resource
+symbolically linking /home/aviken/colcon_ws/build/musashi_rqt_player_server/resource/player_server.ui -> /home/aviken/colcon_ws/install/musashi_rqt_player_server/share/musashi_rqt_player_server/resource
+symbolically linking /home/aviken/colcon_ws/build/musashi_rqt_player_server/package.xml -> /home/aviken/colcon_ws/install/musashi_rqt_player_server/share/musashi_rqt_player_server
+symbolically linking /home/aviken/colcon_ws/build/musashi_rqt_player_server/plugin.xml -> /home/aviken/colcon_ws/install/musashi_rqt_player_server/share/musashi_rqt_player_server
+creating /home/aviken/colcon_ws/install/musashi_rqt_player_server/lib/musashi_rqt_player_server
+symbolically linking /home/aviken/colcon_ws/build/musashi_rqt_player_server/scripts/player_server -> /home/aviken/colcon_ws/install/musashi_rqt_player_server/lib/musashi_rqt_player_server

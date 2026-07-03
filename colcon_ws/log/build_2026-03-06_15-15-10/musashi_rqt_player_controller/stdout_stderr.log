@@ -1,0 +1,14 @@
+running develop
+running egg_info
+writing src/musashi_rqt_player_controller.egg-info/PKG-INFO
+writing dependency_links to src/musashi_rqt_player_controller.egg-info/dependency_links.txt
+writing entry points to src/musashi_rqt_player_controller.egg-info/entry_points.txt
+writing requirements to src/musashi_rqt_player_controller.egg-info/requires.txt
+writing top-level names to src/musashi_rqt_player_controller.egg-info/top_level.txt
+reading manifest file 'src/musashi_rqt_player_controller.egg-info/SOURCES.txt'
+writing manifest file 'src/musashi_rqt_player_controller.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/aviken/colcon_ws/install/musashi_rqt_player_controller/lib/python3.10/site-packages/musashi-rqt-player-controller.egg-link (link to src)
+
+Installed /home/aviken/colcon_ws/build/musashi_rqt_player_controller/src
+running symlink_data
