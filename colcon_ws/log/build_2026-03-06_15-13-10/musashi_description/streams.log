@@ -1,0 +1,28 @@
+[1.423s] Invoking command in '/home/aviken/colcon_ws/build/musashi_description': PYTHONPATH=/home/aviken/colcon_ws/build/musashi_description/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/aviken/colcon_ws/install/musashi_description/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/aviken/colcon_ws/build/musashi_description/build --no-deps symlink_data
+[1.713s] running develop
+[1.910s] running egg_info
+[1.910s] creating musashi_description.egg-info
+[1.910s] writing musashi_description.egg-info/PKG-INFO
+[1.910s] writing dependency_links to musashi_description.egg-info/dependency_links.txt
+[1.910s] writing entry points to musashi_description.egg-info/entry_points.txt
+[1.910s] writing requirements to musashi_description.egg-info/requires.txt
+[1.910s] writing top-level names to musashi_description.egg-info/top_level.txt
+[1.910s] writing manifest file 'musashi_description.egg-info/SOURCES.txt'
+[1.911s] reading manifest file 'musashi_description.egg-info/SOURCES.txt'
+[1.912s] writing manifest file 'musashi_description.egg-info/SOURCES.txt'
+[1.914s] running build_ext
+[1.915s] Creating /home/aviken/colcon_ws/install/musashi_description/lib/python3.10/site-packages/musashi-description.egg-link (link to .)
+[1.917s] Installing tf2_sample01 script to /home/aviken/colcon_ws/install/musashi_description/lib/musashi_description
+[1.917s] 
+[1.917s] Installed /home/aviken/colcon_ws/build/musashi_description
+[1.917s] running symlink_data
+[1.917s] creating /home/aviken/colcon_ws/install/musashi_description/share/ament_index
+[1.917s] creating /home/aviken/colcon_ws/install/musashi_description/share/ament_index/resource_index
+[1.917s] creating /home/aviken/colcon_ws/install/musashi_description/share/ament_index/resource_index/packages
+[1.917s] symbolically linking /home/aviken/colcon_ws/build/musashi_description/resource/musashi_description -> /home/aviken/colcon_ws/install/musashi_description/share/ament_index/resource_index/packages
+[1.917s] symbolically linking /home/aviken/colcon_ws/build/musashi_description/package.xml -> /home/aviken/colcon_ws/install/musashi_description/share/musashi_description
+[1.917s] creating /home/aviken/colcon_ws/install/musashi_description/share/musashi_description/urdf
+[1.917s] symbolically linking /home/aviken/colcon_ws/build/musashi_description/urdf/musashi_player.urdf -> /home/aviken/colcon_ws/install/musashi_description/share/musashi_description/urdf
+[1.917s] creating /home/aviken/colcon_ws/install/musashi_description/share/musashi_description/meshes
+[1.917s] symbolically linking /home/aviken/colcon_ws/build/musashi_description/meshes/musashi_player.stl -> /home/aviken/colcon_ws/install/musashi_description/share/musashi_description/meshes
+[1.942s] Invoked command in '/home/aviken/colcon_ws/build/musashi_description' returned '0': PYTHONPATH=/home/aviken/colcon_ws/build/musashi_description/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/aviken/colcon_ws/install/musashi_description/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/aviken/colcon_ws/build/musashi_description/build --no-deps symlink_data

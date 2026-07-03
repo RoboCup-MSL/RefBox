@@ -1,0 +1,212 @@
+[35m[1mConsolidate compiler generated dependencies of target musashi_msgs__rosidl_generator_c[0m
+[  1%] Built target musashi_msgs__cpp
+[ 12%] Built target musashi_msgs__rosidl_generator_c
+[ 12%] Built target ament_cmake_python_symlink_musashi_msgs
+[35m[1mConsolidate compiler generated dependencies of target musashi_msgs__rosidl_typesupport_fastrtps_cpp[0m
+[35m[1mConsolidate compiler generated dependencies of target musashi_msgs__rosidl_typesupport_introspection_cpp[0m
+[35m[1mConsolidate compiler generated dependencies of target musashi_msgs__rosidl_typesupport_cpp[0m
+[35m[1mConsolidate compiler generated dependencies of target musashi_msgs__rosidl_typesupport_c[0m
+[35m[1mConsolidate compiler generated dependencies of target musashi_msgs__rosidl_typesupport_introspection_c[0m
+[35m[1mConsolidate compiler generated dependencies of target musashi_msgs__rosidl_typesupport_fastrtps_c[0m
+[ 25%] Built target musashi_msgs__rosidl_typesupport_introspection_c
+[ 35%] Built target musashi_msgs__rosidl_typesupport_c
+[ 46%] Built target musashi_msgs__rosidl_typesupport_fastrtps_cpp
+[ 63%] Built target musashi_msgs__rosidl_typesupport_introspection_cpp
+[ 69%] Built target musashi_msgs__rosidl_typesupport_cpp
+[ 80%] Built target musashi_msgs__rosidl_typesupport_fastrtps_c
+[ 80%] Built target musashi_msgs
+[ 81%] Built target musashi_msgs__py
+[35m[1mConsolidate compiler generated dependencies of target musashi_msgs__rosidl_generator_py[0m
+[ 91%] Built target musashi_msgs__rosidl_generator_py
+[35m[1mConsolidate compiler generated dependencies of target musashi_msgs__rosidl_typesupport_introspection_c__pyext[0m
+[35m[1mConsolidate compiler generated dependencies of target musashi_msgs__rosidl_typesupport_fastrtps_c__pyext[0m
+[35m[1mConsolidate compiler generated dependencies of target musashi_msgs__rosidl_typesupport_c__pyext[0m
+[100%] Built target musashi_msgs__rosidl_typesupport_fastrtps_c__pyext
+[100%] Built target musashi_msgs__rosidl_typesupport_c__pyext
+[100%] Built target musashi_msgs__rosidl_typesupport_introspection_c__pyext
+running egg_info
+writing musashi_msgs.egg-info/PKG-INFO
+writing dependency_links to musashi_msgs.egg-info/dependency_links.txt
+writing top-level names to musashi_msgs.egg-info/top_level.txt
+reading manifest file 'musashi_msgs.egg-info/SOURCES.txt'
+writing manifest file 'musashi_msgs.egg-info/SOURCES.txt'
+[100%] Built target ament_cmake_python_build_musashi_msgs_egg
+-- Install configuration: ""
+-- Execute custom install script
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/share/ament_index/resource_index/rosidl_interfaces/musashi_msgs
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/motor_state__functions.h
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/motor_state__struct.h
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/motor_state__type_support.h
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/motor_states__functions.h
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/motor_states__struct.h
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/motor_states__type_support.h
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/player_state__functions.h
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/player_state__struct.h
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/player_state__type_support.h
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/player_states__functions.h
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/player_states__struct.h
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/player_states__type_support.h
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/polar2_d__functions.h
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/polar2_d__struct.h
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/polar2_d__type_support.h
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/referee_cmd__functions.h
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/referee_cmd__struct.h
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/referee_cmd__type_support.h
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/motor_state.h
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/motor_states.h
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/player_state.h
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/player_states.h
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/polar2_d.h
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/referee_cmd.h
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/rosidl_generator_c__visibility_control.h
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/environment/library_path.sh
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/environment/library_path.dsv
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/motor_state__rosidl_typesupport_fastrtps_c.h
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/motor_states__rosidl_typesupport_fastrtps_c.h
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/player_state__rosidl_typesupport_fastrtps_c.h
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/player_states__rosidl_typesupport_fastrtps_c.h
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/polar2_d__rosidl_typesupport_fastrtps_c.h
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/referee_cmd__rosidl_typesupport_fastrtps_c.h
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/motor_state__rosidl_typesupport_introspection_c.h
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/motor_states__rosidl_typesupport_introspection_c.h
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/player_state__rosidl_typesupport_introspection_c.h
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/player_states__rosidl_typesupport_introspection_c.h
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/polar2_d__rosidl_typesupport_introspection_c.h
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/referee_cmd__rosidl_typesupport_introspection_c.h
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/rosidl_typesupport_introspection_c__visibility_control.h
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/motor_state__builder.hpp
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/motor_state__struct.hpp
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/motor_state__traits.hpp
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/motor_state__type_support.hpp
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/motor_states__builder.hpp
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/motor_states__struct.hpp
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/motor_states__traits.hpp
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/motor_states__type_support.hpp
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/player_state__builder.hpp
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/player_state__struct.hpp
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/player_state__traits.hpp
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/player_state__type_support.hpp
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/player_states__builder.hpp
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/player_states__struct.hpp
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/player_states__traits.hpp
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/player_states__type_support.hpp
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/polar2_d__builder.hpp
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/polar2_d__struct.hpp
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/polar2_d__traits.hpp
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/polar2_d__type_support.hpp
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/referee_cmd__builder.hpp
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/referee_cmd__struct.hpp
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/referee_cmd__traits.hpp
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/referee_cmd__type_support.hpp
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/motor_state.hpp
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/motor_states.hpp
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/player_state.hpp
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/player_states.hpp
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/polar2_d.hpp
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/referee_cmd.hpp
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/rosidl_generator_cpp__visibility_control.hpp
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/motor_state__rosidl_typesupport_fastrtps_cpp.hpp
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/motor_states__rosidl_typesupport_fastrtps_cpp.hpp
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/player_state__rosidl_typesupport_fastrtps_cpp.hpp
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/player_states__rosidl_typesupport_fastrtps_cpp.hpp
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/polar2_d__rosidl_typesupport_fastrtps_cpp.hpp
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/referee_cmd__rosidl_typesupport_fastrtps_cpp.hpp
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/motor_state__rosidl_typesupport_introspection_cpp.hpp
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/motor_states__rosidl_typesupport_introspection_cpp.hpp
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/player_state__rosidl_typesupport_introspection_cpp.hpp
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/player_states__rosidl_typesupport_introspection_cpp.hpp
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/polar2_d__rosidl_typesupport_introspection_cpp.hpp
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/include/musashi_msgs/musashi_msgs/msg/detail/referee_cmd__rosidl_typesupport_introspection_cpp.hpp
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/environment/pythonpath.sh
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/environment/pythonpath.dsv
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/local/lib/python3.10/dist-packages/musashi_msgs-0.0.0-py3.10.egg-info/PKG-INFO
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/local/lib/python3.10/dist-packages/musashi_msgs-0.0.0-py3.10.egg-info/SOURCES.txt
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/local/lib/python3.10/dist-packages/musashi_msgs-0.0.0-py3.10.egg-info/dependency_links.txt
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/local/lib/python3.10/dist-packages/musashi_msgs-0.0.0-py3.10.egg-info/top_level.txt
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/local/lib/python3.10/dist-packages/musashi_msgs/__init__.py
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/local/lib/python3.10/dist-packages/musashi_msgs/_musashi_msgs_s.ep.rosidl_typesupport_c.c
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/local/lib/python3.10/dist-packages/musashi_msgs/_musashi_msgs_s.ep.rosidl_typesupport_fastrtps_c.c
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/local/lib/python3.10/dist-packages/musashi_msgs/_musashi_msgs_s.ep.rosidl_typesupport_introspection_c.c
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/local/lib/python3.10/dist-packages/musashi_msgs/libmusashi_msgs__rosidl_generator_py.so
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/local/lib/python3.10/dist-packages/musashi_msgs/msg/__init__.py
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/local/lib/python3.10/dist-packages/musashi_msgs/msg/_motor_state.py
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/local/lib/python3.10/dist-packages/musashi_msgs/msg/_motor_state_s.c
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/local/lib/python3.10/dist-packages/musashi_msgs/msg/_motor_states.py
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/local/lib/python3.10/dist-packages/musashi_msgs/msg/_motor_states_s.c
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/local/lib/python3.10/dist-packages/musashi_msgs/msg/_player_state.py
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/local/lib/python3.10/dist-packages/musashi_msgs/msg/_player_state_s.c
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/local/lib/python3.10/dist-packages/musashi_msgs/msg/_player_states.py
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/local/lib/python3.10/dist-packages/musashi_msgs/msg/_player_states_s.c
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/local/lib/python3.10/dist-packages/musashi_msgs/msg/_polar2_d.py
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/local/lib/python3.10/dist-packages/musashi_msgs/msg/_polar2_d_s.c
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/local/lib/python3.10/dist-packages/musashi_msgs/msg/_referee_cmd.py
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/local/lib/python3.10/dist-packages/musashi_msgs/msg/_referee_cmd_s.c
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/local/lib/python3.10/dist-packages/musashi_msgs/musashi_msgs_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/local/lib/python3.10/dist-packages/musashi_msgs/musashi_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/local/lib/python3.10/dist-packages/musashi_msgs/musashi_msgs_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/local/lib/python3.10/dist-packages/musashi_msgs/musashi_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/local/lib/python3.10/dist-packages/musashi_msgs/musashi_msgs_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/local/lib/python3.10/dist-packages/musashi_msgs/musashi_msgs_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/msg/MotorState.idl
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/msg/MotorStates.idl
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/msg/RefereeCmd.idl
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/msg/Polar2D.idl
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/msg/PlayerState.idl
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/msg/PlayerStates.idl
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/msg/MotorState.msg
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/msg/MotorStates.msg
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/msg/RefereeCmd.msg
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/msg/Polar2D.msg
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/msg/PlayerState.msg
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/msg/PlayerStates.msg
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/share/ament_index/resource_index/package_run_dependencies/musashi_msgs
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/share/ament_index/resource_index/parent_prefix_path/musashi_msgs
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/environment/ament_prefix_path.sh
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/environment/ament_prefix_path.dsv
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/environment/path.sh
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/environment/path.dsv
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/local_setup.bash
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/local_setup.sh
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/local_setup.zsh
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/local_setup.dsv
+-- Symlinking: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/package.dsv
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/share/ament_index/resource_index/packages/musashi_msgs
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/cmake/rosidl_cmake-extras.cmake
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/cmake/ament_cmake_export_dependencies-extras.cmake
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/cmake/ament_cmake_export_include_directories-extras.cmake
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/cmake/ament_cmake_export_libraries-extras.cmake
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/cmake/ament_cmake_export_targets-extras.cmake
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/cmake/musashi_msgsConfig.cmake
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/cmake/musashi_msgsConfig-version.cmake
+-- Up-to-date symlink: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/package.xml
+-- Up-to-date: /home/aviken/colcon_ws/install/musashi_msgs/lib/libmusashi_msgs__rosidl_generator_c.so
+-- Up-to-date: /home/aviken/colcon_ws/install/musashi_msgs/lib/libmusashi_msgs__rosidl_typesupport_fastrtps_c.so
+-- Up-to-date: /home/aviken/colcon_ws/install/musashi_msgs/lib/libmusashi_msgs__rosidl_typesupport_introspection_c.so
+-- Up-to-date: /home/aviken/colcon_ws/install/musashi_msgs/lib/libmusashi_msgs__rosidl_typesupport_c.so
+-- Up-to-date: /home/aviken/colcon_ws/install/musashi_msgs/lib/libmusashi_msgs__rosidl_typesupport_fastrtps_cpp.so
+-- Up-to-date: /home/aviken/colcon_ws/install/musashi_msgs/lib/libmusashi_msgs__rosidl_typesupport_introspection_cpp.so
+-- Up-to-date: /home/aviken/colcon_ws/install/musashi_msgs/lib/libmusashi_msgs__rosidl_typesupport_cpp.so
+Listing '/home/aviken/colcon_ws/install/musashi_msgs/local/lib/python3.10/dist-packages/musashi_msgs'...
+Listing '/home/aviken/colcon_ws/install/musashi_msgs/local/lib/python3.10/dist-packages/musashi_msgs/msg'...
+-- Up-to-date: /home/aviken/colcon_ws/install/musashi_msgs/lib/libmusashi_msgs__rosidl_generator_py.so
+-- Up-to-date: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/cmake/export_musashi_msgs__rosidl_generator_cExport.cmake
+-- Up-to-date: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/cmake/export_musashi_msgs__rosidl_generator_cExport-noconfig.cmake
+-- Up-to-date: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/cmake/export_musashi_msgs__rosidl_typesupport_fastrtps_cExport.cmake
+-- Up-to-date: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/cmake/export_musashi_msgs__rosidl_typesupport_fastrtps_cExport-noconfig.cmake
+-- Up-to-date: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/cmake/musashi_msgs__rosidl_typesupport_introspection_cExport.cmake
+-- Up-to-date: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/cmake/musashi_msgs__rosidl_typesupport_introspection_cExport-noconfig.cmake
+-- Up-to-date: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/cmake/musashi_msgs__rosidl_typesupport_cExport.cmake
+-- Up-to-date: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/cmake/musashi_msgs__rosidl_typesupport_cExport-noconfig.cmake
+-- Up-to-date: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/cmake/export_musashi_msgs__rosidl_generator_cppExport.cmake
+-- Up-to-date: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/cmake/export_musashi_msgs__rosidl_typesupport_fastrtps_cppExport.cmake
+-- Up-to-date: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/cmake/export_musashi_msgs__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake
+-- Up-to-date: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/cmake/musashi_msgs__rosidl_typesupport_introspection_cppExport.cmake
+-- Up-to-date: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/cmake/musashi_msgs__rosidl_typesupport_introspection_cppExport-noconfig.cmake
+-- Up-to-date: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/cmake/musashi_msgs__rosidl_typesupport_cppExport.cmake
+-- Up-to-date: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/cmake/musashi_msgs__rosidl_typesupport_cppExport-noconfig.cmake
+-- Up-to-date: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/cmake/export_musashi_msgs__rosidl_generator_pyExport.cmake
+-- Up-to-date: /home/aviken/colcon_ws/install/musashi_msgs/share/musashi_msgs/cmake/export_musashi_msgs__rosidl_generator_pyExport-noconfig.cmake

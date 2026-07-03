@@ -1,0 +1,16 @@
+<library path="src">
+  <class name="RqtPlayerController" type="musashi_rqt_player_controller.rqt_player_controller.RqtPlayerController" base_class_type="rqt_gui_py::Plugin">
+    <description>
+      Player controller
+    </description>
+    <qtgui>
+      <group>
+        <label>Hibikino-Musashi</label>
+        <icon type="theme">applications-games</icon>
+        <statustip>Plugins related to Hibikino-Musashi.</statustip>
+      </group>
+      <label>PlayerController</label>
+      <statustip>Player controller</statustip>
+    </qtgui>
+  </class>
+</library>

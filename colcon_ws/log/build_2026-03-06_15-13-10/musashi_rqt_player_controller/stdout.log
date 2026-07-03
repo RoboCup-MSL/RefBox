@@ -1,0 +1,26 @@
+running develop
+running egg_info
+creating src/musashi_rqt_player_controller.egg-info
+writing src/musashi_rqt_player_controller.egg-info/PKG-INFO
+writing dependency_links to src/musashi_rqt_player_controller.egg-info/dependency_links.txt
+writing entry points to src/musashi_rqt_player_controller.egg-info/entry_points.txt
+writing requirements to src/musashi_rqt_player_controller.egg-info/requires.txt
+writing top-level names to src/musashi_rqt_player_controller.egg-info/top_level.txt
+writing manifest file 'src/musashi_rqt_player_controller.egg-info/SOURCES.txt'
+reading manifest file 'src/musashi_rqt_player_controller.egg-info/SOURCES.txt'
+writing manifest file 'src/musashi_rqt_player_controller.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/aviken/colcon_ws/install/musashi_rqt_player_controller/lib/python3.10/site-packages/musashi-rqt-player-controller.egg-link (link to src)
+
+Installed /home/aviken/colcon_ws/build/musashi_rqt_player_controller/src
+running symlink_data
+creating /home/aviken/colcon_ws/install/musashi_rqt_player_controller/share/ament_index
+creating /home/aviken/colcon_ws/install/musashi_rqt_player_controller/share/ament_index/resource_index
+creating /home/aviken/colcon_ws/install/musashi_rqt_player_controller/share/ament_index/resource_index/packages
+symbolically linking /home/aviken/colcon_ws/build/musashi_rqt_player_controller/resource/musashi_rqt_player_controller -> /home/aviken/colcon_ws/install/musashi_rqt_player_controller/share/ament_index/resource_index/packages
+creating /home/aviken/colcon_ws/install/musashi_rqt_player_controller/share/musashi_rqt_player_controller/resource
+symbolically linking /home/aviken/colcon_ws/build/musashi_rqt_player_controller/resource/player_controller.ui -> /home/aviken/colcon_ws/install/musashi_rqt_player_controller/share/musashi_rqt_player_controller/resource
+symbolically linking /home/aviken/colcon_ws/build/musashi_rqt_player_controller/package.xml -> /home/aviken/colcon_ws/install/musashi_rqt_player_controller/share/musashi_rqt_player_controller
+symbolically linking /home/aviken/colcon_ws/build/musashi_rqt_player_controller/plugin.xml -> /home/aviken/colcon_ws/install/musashi_rqt_player_controller/share/musashi_rqt_player_controller
+creating /home/aviken/colcon_ws/install/musashi_rqt_player_controller/lib/musashi_rqt_player_controller
+symbolically linking /home/aviken/colcon_ws/build/musashi_rqt_player_controller/scripts/player_controller -> /home/aviken/colcon_ws/install/musashi_rqt_player_controller/lib/musashi_rqt_player_controller

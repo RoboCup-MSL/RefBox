@@ -1,0 +1,24 @@
+[1.425s] Invoking command in '/home/aviken/colcon_ws/build/musashi_basestation_client': PYTHONPATH=/home/aviken/colcon_ws/build/musashi_basestation_client/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/aviken/colcon_ws/install/musashi_basestation_client/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/aviken/colcon_ws/build/musashi_basestation_client/build --no-deps symlink_data
+[1.689s] running develop
+[1.822s] running egg_info
+[1.822s] creating musashi_basestation_client.egg-info
+[1.822s] writing musashi_basestation_client.egg-info/PKG-INFO
+[1.823s] writing dependency_links to musashi_basestation_client.egg-info/dependency_links.txt
+[1.823s] writing entry points to musashi_basestation_client.egg-info/entry_points.txt
+[1.823s] writing requirements to musashi_basestation_client.egg-info/requires.txt
+[1.823s] writing top-level names to musashi_basestation_client.egg-info/top_level.txt
+[1.823s] writing manifest file 'musashi_basestation_client.egg-info/SOURCES.txt'
+[1.825s] reading manifest file 'musashi_basestation_client.egg-info/SOURCES.txt'
+[1.825s] writing manifest file 'musashi_basestation_client.egg-info/SOURCES.txt'
+[1.827s] running build_ext
+[1.827s] Creating /home/aviken/colcon_ws/install/musashi_basestation_client/lib/python3.10/site-packages/musashi-basestation-client.egg-link (link to .)
+[1.828s] Installing node_basestation_client script to /home/aviken/colcon_ws/install/musashi_basestation_client/lib/musashi_basestation_client
+[1.828s] 
+[1.828s] Installed /home/aviken/colcon_ws/build/musashi_basestation_client
+[1.828s] running symlink_data
+[1.828s] creating /home/aviken/colcon_ws/install/musashi_basestation_client/share/ament_index
+[1.828s] creating /home/aviken/colcon_ws/install/musashi_basestation_client/share/ament_index/resource_index
+[1.828s] creating /home/aviken/colcon_ws/install/musashi_basestation_client/share/ament_index/resource_index/packages
+[1.828s] symbolically linking /home/aviken/colcon_ws/build/musashi_basestation_client/resource/musashi_basestation_client -> /home/aviken/colcon_ws/install/musashi_basestation_client/share/ament_index/resource_index/packages
+[1.828s] symbolically linking /home/aviken/colcon_ws/build/musashi_basestation_client/package.xml -> /home/aviken/colcon_ws/install/musashi_basestation_client/share/musashi_basestation_client
+[1.849s] Invoked command in '/home/aviken/colcon_ws/build/musashi_basestation_client' returned '0': PYTHONPATH=/home/aviken/colcon_ws/build/musashi_basestation_client/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/aviken/colcon_ws/install/musashi_basestation_client/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/aviken/colcon_ws/build/musashi_basestation_client/build --no-deps symlink_data

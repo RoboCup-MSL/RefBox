@@ -1,0 +1,28 @@
+[1.418s] Invoking command in '/home/aviken/colcon_ws/build/musashi_rqt_player_server': PYTHONPATH=/home/aviken/colcon_ws/build/musashi_rqt_player_server/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/aviken/colcon_ws/install/musashi_rqt_player_server/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/aviken/colcon_ws/build/musashi_rqt_player_server/build --no-deps symlink_data
+[1.640s] running develop
+[1.768s] running egg_info
+[1.769s] creating src/musashi_rqt_player_server.egg-info
+[1.769s] writing src/musashi_rqt_player_server.egg-info/PKG-INFO
+[1.769s] writing dependency_links to src/musashi_rqt_player_server.egg-info/dependency_links.txt
+[1.769s] writing entry points to src/musashi_rqt_player_server.egg-info/entry_points.txt
+[1.769s] writing requirements to src/musashi_rqt_player_server.egg-info/requires.txt
+[1.769s] writing top-level names to src/musashi_rqt_player_server.egg-info/top_level.txt
+[1.769s] writing manifest file 'src/musashi_rqt_player_server.egg-info/SOURCES.txt'
+[1.770s] reading manifest file 'src/musashi_rqt_player_server.egg-info/SOURCES.txt'
+[1.771s] writing manifest file 'src/musashi_rqt_player_server.egg-info/SOURCES.txt'
+[1.772s] running build_ext
+[1.772s] Creating /home/aviken/colcon_ws/install/musashi_rqt_player_server/lib/python3.10/site-packages/musashi-rqt-player-server.egg-link (link to src)
+[1.773s] 
+[1.773s] Installed /home/aviken/colcon_ws/build/musashi_rqt_player_server/src
+[1.773s] running symlink_data
+[1.773s] creating /home/aviken/colcon_ws/install/musashi_rqt_player_server/share/ament_index
+[1.774s] creating /home/aviken/colcon_ws/install/musashi_rqt_player_server/share/ament_index/resource_index
+[1.774s] creating /home/aviken/colcon_ws/install/musashi_rqt_player_server/share/ament_index/resource_index/packages
+[1.774s] symbolically linking /home/aviken/colcon_ws/build/musashi_rqt_player_server/resource/musashi_rqt_player_server -> /home/aviken/colcon_ws/install/musashi_rqt_player_server/share/ament_index/resource_index/packages
+[1.774s] creating /home/aviken/colcon_ws/install/musashi_rqt_player_server/share/musashi_rqt_player_server/resource
+[1.774s] symbolically linking /home/aviken/colcon_ws/build/musashi_rqt_player_server/resource/player_server.ui -> /home/aviken/colcon_ws/install/musashi_rqt_player_server/share/musashi_rqt_player_server/resource
+[1.774s] symbolically linking /home/aviken/colcon_ws/build/musashi_rqt_player_server/package.xml -> /home/aviken/colcon_ws/install/musashi_rqt_player_server/share/musashi_rqt_player_server
+[1.774s] symbolically linking /home/aviken/colcon_ws/build/musashi_rqt_player_server/plugin.xml -> /home/aviken/colcon_ws/install/musashi_rqt_player_server/share/musashi_rqt_player_server
+[1.774s] creating /home/aviken/colcon_ws/install/musashi_rqt_player_server/lib/musashi_rqt_player_server
+[1.774s] symbolically linking /home/aviken/colcon_ws/build/musashi_rqt_player_server/scripts/player_server -> /home/aviken/colcon_ws/install/musashi_rqt_player_server/lib/musashi_rqt_player_server
+[1.805s] Invoked command in '/home/aviken/colcon_ws/build/musashi_rqt_player_server' returned '0': PYTHONPATH=/home/aviken/colcon_ws/build/musashi_rqt_player_server/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/aviken/colcon_ws/install/musashi_rqt_player_server/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/aviken/colcon_ws/build/musashi_rqt_player_server/build --no-deps symlink_data

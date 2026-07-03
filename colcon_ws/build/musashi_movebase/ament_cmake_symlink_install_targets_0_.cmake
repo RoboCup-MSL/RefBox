@@ -1,0 +1,1 @@
+ament_cmake_symlink_install_targets("TARGET_FILES" "/home/aviken/colcon_ws/build/musashi_movebase/node_musashi_epos_manager" "TARGETS" "node_musashi_epos_manager" "DESTINATION" "lib/musashi_movebase")

@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "musashi_msgs__py",
+		"source" : "/home/aviken/colcon_ws/build/musashi_msgs/musashi_msgs__py"
+	}
+}

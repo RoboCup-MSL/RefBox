@@ -1,0 +1,12 @@
+field_publisher:
+  ros__parameters:
+    publish_rate: 1.0 # フィールドオブジェクトのパブリッシュレート [sec]
+    frame_id: "world" # フィールドオブジェクトの座標系の名前（string）    
+    field_length: 6.0 # フィールド長さ[m]
+    field_width: 3.0 # フィールド幅[m]
+    goal_area_length: 1.0 # ゴールエリア長さ[m]
+    goal_area_width: 2.0 # ゴールエリア幅[m]
+    penalty_area_length: 0.0 # ペナルティエリア長さ[m]
+    penalty_area_width: 0.0 # ペナルティエリア幅[m]
+    line_width: 0.1 # ライン幅[m]
+    center_circle_radius: 1.0 # センターサークル半径[m]

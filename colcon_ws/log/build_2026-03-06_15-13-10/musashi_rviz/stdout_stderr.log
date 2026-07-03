@@ -1,0 +1,30 @@
+running develop
+running egg_info
+creating musashi_rviz.egg-info
+writing musashi_rviz.egg-info/PKG-INFO
+writing dependency_links to musashi_rviz.egg-info/dependency_links.txt
+writing entry points to musashi_rviz.egg-info/entry_points.txt
+writing requirements to musashi_rviz.egg-info/requires.txt
+writing top-level names to musashi_rviz.egg-info/top_level.txt
+writing manifest file 'musashi_rviz.egg-info/SOURCES.txt'
+reading manifest file 'musashi_rviz.egg-info/SOURCES.txt'
+writing manifest file 'musashi_rviz.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/aviken/colcon_ws/install/musashi_rviz/lib/python3.10/site-packages/musashi-rviz.egg-link (link to .)
+Installing node_field_publisher script to /home/aviken/colcon_ws/install/musashi_rviz/lib/musashi_rviz
+Installing node_sample01_tf_publisher script to /home/aviken/colcon_ws/install/musashi_rviz/lib/musashi_rviz
+
+Installed /home/aviken/colcon_ws/build/musashi_rviz
+running symlink_data
+creating /home/aviken/colcon_ws/install/musashi_rviz/share/ament_index
+creating /home/aviken/colcon_ws/install/musashi_rviz/share/ament_index/resource_index
+creating /home/aviken/colcon_ws/install/musashi_rviz/share/ament_index/resource_index/packages
+symbolically linking /home/aviken/colcon_ws/build/musashi_rviz/resource/musashi_rviz -> /home/aviken/colcon_ws/install/musashi_rviz/share/ament_index/resource_index/packages
+symbolically linking /home/aviken/colcon_ws/build/musashi_rviz/package.xml -> /home/aviken/colcon_ws/install/musashi_rviz/share/musashi_rviz
+creating /home/aviken/colcon_ws/install/musashi_rviz/share/musashi_rviz/launch
+symbolically linking /home/aviken/colcon_ws/build/musashi_rviz/launch/bringup_launch.py -> /home/aviken/colcon_ws/install/musashi_rviz/share/musashi_rviz/launch
+symbolically linking /home/aviken/colcon_ws/build/musashi_rviz/launch/player_spawn_launch.py -> /home/aviken/colcon_ws/install/musashi_rviz/share/musashi_rviz/launch
+symbolically linking /home/aviken/colcon_ws/build/musashi_rviz/launch/team_spawn_launch.py -> /home/aviken/colcon_ws/install/musashi_rviz/share/musashi_rviz/launch
+creating /home/aviken/colcon_ws/install/musashi_rviz/share/musashi_rviz/config
+symbolically linking /home/aviken/colcon_ws/build/musashi_rviz/config/field_parameters.yaml -> /home/aviken/colcon_ws/install/musashi_rviz/share/musashi_rviz/config
+symbolically linking /home/aviken/colcon_ws/build/musashi_rviz/config/field_parameters_demo.yaml -> /home/aviken/colcon_ws/install/musashi_rviz/share/musashi_rviz/config

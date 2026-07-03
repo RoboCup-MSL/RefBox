@@ -1,0 +1,14 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from musashi_msgs/msg/Polar2D.msg
+// generated code does not contain a copyright notice
+
+
+module musashi_msgs {
+  module msg {
+    struct Polar2D {
+      float distance;
+
+      float angle;
+    };
+  };
+};

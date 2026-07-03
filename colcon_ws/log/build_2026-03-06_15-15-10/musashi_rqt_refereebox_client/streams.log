@@ -1,0 +1,16 @@
+[1.469s] Invoking command in '/home/aviken/colcon_ws/build/musashi_rqt_refereebox_client': PYTHONPATH=/home/aviken/colcon_ws/build/musashi_rqt_refereebox_client/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/aviken/colcon_ws/install/musashi_rqt_refereebox_client/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/aviken/colcon_ws/build/musashi_rqt_refereebox_client/build --no-deps symlink_data
+[1.672s] running develop
+[1.800s] running egg_info
+[1.800s] writing src/musashi_rqt_refereebox_client.egg-info/PKG-INFO
+[1.800s] writing dependency_links to src/musashi_rqt_refereebox_client.egg-info/dependency_links.txt
+[1.800s] writing entry points to src/musashi_rqt_refereebox_client.egg-info/entry_points.txt
+[1.800s] writing requirements to src/musashi_rqt_refereebox_client.egg-info/requires.txt
+[1.800s] writing top-level names to src/musashi_rqt_refereebox_client.egg-info/top_level.txt
+[1.802s] reading manifest file 'src/musashi_rqt_refereebox_client.egg-info/SOURCES.txt'
+[1.803s] writing manifest file 'src/musashi_rqt_refereebox_client.egg-info/SOURCES.txt'
+[1.804s] running build_ext
+[1.804s] Creating /home/aviken/colcon_ws/install/musashi_rqt_refereebox_client/lib/python3.10/site-packages/musashi-rqt-refereebox-client.egg-link (link to src)
+[1.805s] 
+[1.805s] Installed /home/aviken/colcon_ws/build/musashi_rqt_refereebox_client/src
+[1.805s] running symlink_data
+[1.853s] Invoked command in '/home/aviken/colcon_ws/build/musashi_rqt_refereebox_client' returned '0': PYTHONPATH=/home/aviken/colcon_ws/build/musashi_rqt_refereebox_client/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/aviken/colcon_ws/install/musashi_rqt_refereebox_client/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/aviken/colcon_ws/build/musashi_rqt_refereebox_client/build --no-deps symlink_data

@@ -1,0 +1,26 @@
+running develop
+running egg_info
+creating musashi_description.egg-info
+writing musashi_description.egg-info/PKG-INFO
+writing dependency_links to musashi_description.egg-info/dependency_links.txt
+writing entry points to musashi_description.egg-info/entry_points.txt
+writing requirements to musashi_description.egg-info/requires.txt
+writing top-level names to musashi_description.egg-info/top_level.txt
+writing manifest file 'musashi_description.egg-info/SOURCES.txt'
+reading manifest file 'musashi_description.egg-info/SOURCES.txt'
+writing manifest file 'musashi_description.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/aviken/colcon_ws/install/musashi_description/lib/python3.10/site-packages/musashi-description.egg-link (link to .)
+Installing tf2_sample01 script to /home/aviken/colcon_ws/install/musashi_description/lib/musashi_description
+
+Installed /home/aviken/colcon_ws/build/musashi_description
+running symlink_data
+creating /home/aviken/colcon_ws/install/musashi_description/share/ament_index
+creating /home/aviken/colcon_ws/install/musashi_description/share/ament_index/resource_index
+creating /home/aviken/colcon_ws/install/musashi_description/share/ament_index/resource_index/packages
+symbolically linking /home/aviken/colcon_ws/build/musashi_description/resource/musashi_description -> /home/aviken/colcon_ws/install/musashi_description/share/ament_index/resource_index/packages
+symbolically linking /home/aviken/colcon_ws/build/musashi_description/package.xml -> /home/aviken/colcon_ws/install/musashi_description/share/musashi_description
+creating /home/aviken/colcon_ws/install/musashi_description/share/musashi_description/urdf
+symbolically linking /home/aviken/colcon_ws/build/musashi_description/urdf/musashi_player.urdf -> /home/aviken/colcon_ws/install/musashi_description/share/musashi_description/urdf
+creating /home/aviken/colcon_ws/install/musashi_description/share/musashi_description/meshes
+symbolically linking /home/aviken/colcon_ws/build/musashi_description/meshes/musashi_player.stl -> /home/aviken/colcon_ws/install/musashi_description/share/musashi_description/meshes

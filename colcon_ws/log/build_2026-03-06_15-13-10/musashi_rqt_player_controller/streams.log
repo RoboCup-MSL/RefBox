@@ -1,0 +1,28 @@
+[1.411s] Invoking command in '/home/aviken/colcon_ws/build/musashi_rqt_player_controller': PYTHONPATH=/home/aviken/colcon_ws/build/musashi_rqt_player_controller/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/aviken/colcon_ws/install/musashi_rqt_player_controller/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/aviken/colcon_ws/build/musashi_rqt_player_controller/build --no-deps symlink_data
+[1.637s] running develop
+[1.777s] running egg_info
+[1.777s] creating src/musashi_rqt_player_controller.egg-info
+[1.778s] writing src/musashi_rqt_player_controller.egg-info/PKG-INFO
+[1.778s] writing dependency_links to src/musashi_rqt_player_controller.egg-info/dependency_links.txt
+[1.778s] writing entry points to src/musashi_rqt_player_controller.egg-info/entry_points.txt
+[1.778s] writing requirements to src/musashi_rqt_player_controller.egg-info/requires.txt
+[1.778s] writing top-level names to src/musashi_rqt_player_controller.egg-info/top_level.txt
+[1.779s] writing manifest file 'src/musashi_rqt_player_controller.egg-info/SOURCES.txt'
+[1.780s] reading manifest file 'src/musashi_rqt_player_controller.egg-info/SOURCES.txt'
+[1.780s] writing manifest file 'src/musashi_rqt_player_controller.egg-info/SOURCES.txt'
+[1.782s] running build_ext
+[1.782s] Creating /home/aviken/colcon_ws/install/musashi_rqt_player_controller/lib/python3.10/site-packages/musashi-rqt-player-controller.egg-link (link to src)
+[1.783s] 
+[1.783s] Installed /home/aviken/colcon_ws/build/musashi_rqt_player_controller/src
+[1.783s] running symlink_data
+[1.783s] creating /home/aviken/colcon_ws/install/musashi_rqt_player_controller/share/ament_index
+[1.783s] creating /home/aviken/colcon_ws/install/musashi_rqt_player_controller/share/ament_index/resource_index
+[1.783s] creating /home/aviken/colcon_ws/install/musashi_rqt_player_controller/share/ament_index/resource_index/packages
+[1.783s] symbolically linking /home/aviken/colcon_ws/build/musashi_rqt_player_controller/resource/musashi_rqt_player_controller -> /home/aviken/colcon_ws/install/musashi_rqt_player_controller/share/ament_index/resource_index/packages
+[1.783s] creating /home/aviken/colcon_ws/install/musashi_rqt_player_controller/share/musashi_rqt_player_controller/resource
+[1.783s] symbolically linking /home/aviken/colcon_ws/build/musashi_rqt_player_controller/resource/player_controller.ui -> /home/aviken/colcon_ws/install/musashi_rqt_player_controller/share/musashi_rqt_player_controller/resource
+[1.783s] symbolically linking /home/aviken/colcon_ws/build/musashi_rqt_player_controller/package.xml -> /home/aviken/colcon_ws/install/musashi_rqt_player_controller/share/musashi_rqt_player_controller
+[1.784s] symbolically linking /home/aviken/colcon_ws/build/musashi_rqt_player_controller/plugin.xml -> /home/aviken/colcon_ws/install/musashi_rqt_player_controller/share/musashi_rqt_player_controller
+[1.784s] creating /home/aviken/colcon_ws/install/musashi_rqt_player_controller/lib/musashi_rqt_player_controller
+[1.784s] symbolically linking /home/aviken/colcon_ws/build/musashi_rqt_player_controller/scripts/player_controller -> /home/aviken/colcon_ws/install/musashi_rqt_player_controller/lib/musashi_rqt_player_controller
+[1.819s] Invoked command in '/home/aviken/colcon_ws/build/musashi_rqt_player_controller' returned '0': PYTHONPATH=/home/aviken/colcon_ws/build/musashi_rqt_player_controller/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/aviken/colcon_ws/install/musashi_rqt_player_controller/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/aviken/colcon_ws/build/musashi_rqt_player_controller/build --no-deps symlink_data

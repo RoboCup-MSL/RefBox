@@ -1,0 +1,26 @@
+running develop
+running egg_info
+creating src/musashi_rqt_refereebox_client.egg-info
+writing src/musashi_rqt_refereebox_client.egg-info/PKG-INFO
+writing dependency_links to src/musashi_rqt_refereebox_client.egg-info/dependency_links.txt
+writing entry points to src/musashi_rqt_refereebox_client.egg-info/entry_points.txt
+writing requirements to src/musashi_rqt_refereebox_client.egg-info/requires.txt
+writing top-level names to src/musashi_rqt_refereebox_client.egg-info/top_level.txt
+writing manifest file 'src/musashi_rqt_refereebox_client.egg-info/SOURCES.txt'
+reading manifest file 'src/musashi_rqt_refereebox_client.egg-info/SOURCES.txt'
+writing manifest file 'src/musashi_rqt_refereebox_client.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/aviken/colcon_ws/install/musashi_rqt_refereebox_client/lib/python3.10/site-packages/musashi-rqt-refereebox-client.egg-link (link to src)
+
+Installed /home/aviken/colcon_ws/build/musashi_rqt_refereebox_client/src
+running symlink_data
+creating /home/aviken/colcon_ws/install/musashi_rqt_refereebox_client/share/ament_index
+creating /home/aviken/colcon_ws/install/musashi_rqt_refereebox_client/share/ament_index/resource_index
+creating /home/aviken/colcon_ws/install/musashi_rqt_refereebox_client/share/ament_index/resource_index/packages
+symbolically linking /home/aviken/colcon_ws/build/musashi_rqt_refereebox_client/resource/musashi_rqt_refereebox_client -> /home/aviken/colcon_ws/install/musashi_rqt_refereebox_client/share/ament_index/resource_index/packages
+creating /home/aviken/colcon_ws/install/musashi_rqt_refereebox_client/share/musashi_rqt_refereebox_client/resource
+symbolically linking /home/aviken/colcon_ws/build/musashi_rqt_refereebox_client/resource/refereebox_client.ui -> /home/aviken/colcon_ws/install/musashi_rqt_refereebox_client/share/musashi_rqt_refereebox_client/resource
+symbolically linking /home/aviken/colcon_ws/build/musashi_rqt_refereebox_client/package.xml -> /home/aviken/colcon_ws/install/musashi_rqt_refereebox_client/share/musashi_rqt_refereebox_client
+symbolically linking /home/aviken/colcon_ws/build/musashi_rqt_refereebox_client/plugin.xml -> /home/aviken/colcon_ws/install/musashi_rqt_refereebox_client/share/musashi_rqt_refereebox_client
+creating /home/aviken/colcon_ws/install/musashi_rqt_refereebox_client/lib/musashi_rqt_refereebox_client
+symbolically linking /home/aviken/colcon_ws/build/musashi_rqt_refereebox_client/scripts/refereebox_client -> /home/aviken/colcon_ws/install/musashi_rqt_refereebox_client/lib/musashi_rqt_refereebox_client

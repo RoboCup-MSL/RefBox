@@ -1,0 +1,16 @@
+<library path="src">
+  <class name="RqtRefereeBoxClient" type="musashi_rqt_refereebox_client.rqt_refereebox_client.RqtRefereeBoxClient" base_class_type="rqt_gui_py::Plugin">
+    <description>
+      RefereeBox client GUI for communicate with referee box
+    </description>
+    <qtgui>
+      <group>
+        <label>Hibikino-Musashi</label>
+        <icon type="theme">applications-games</icon>
+        <statustip>Plugins related to Hibikino-Musashi.</statustip>
+      </group>
+      <label>RefereeBoxClient</label>
+      <!-- <statustip>RefereeBox client</statustip> -->
+    </qtgui>
+  </class>
+</library>
